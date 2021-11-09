@@ -1,0 +1,375 @@
+{
+    "@context": "\/api\/3\/contexts\/StagingModelMetadata",
+    "@id": "\/api\/3\/staging_model_metadatas\/7a95088c-10a1-473f-88be-e811615d6aed",
+    "@type": "StagingModelMetadata",
+    "type": "events",
+    "parentType": null,
+    "tableName": "events",
+    "ownable": true,
+    "userOwnable": false,
+    "trackable": true,
+    "taggable": true,
+    "peerReplicable": false,
+    "defaultSort": [],
+    "uniqueConstraint": [],
+    "indexable": true,
+    "writable": true,
+    "attributes": [
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/83d193c7-c4aa-451a-bcc9-68ae6c90626b",
+            "@type": "AttributeMetadata",
+            "type": "string",
+            "name": "sourceId",
+            "length": 1024,
+            "orderIndex": 1,
+            "formType": "text",
+            "dataSource": [],
+            "searchable": true,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": true,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "maxlength": 1024,
+                "minlength": 0,
+                "required": true
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": null,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/7a95088c-10a1-473f-88be-e811615d6aed",
+            "uuid": "83d193c7-c4aa-451a-bcc9-68ae6c90626b",
+            "displayName": "{{ sourceId }}",
+            "descriptions": {
+                "singular": "Source ID"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/7a5fd97f-c61b-4971-af8f-8be7dba2a823",
+            "@type": "AttributeMetadata",
+            "type": "string",
+            "name": "source",
+            "length": 1024,
+            "orderIndex": 2,
+            "formType": "text",
+            "dataSource": [],
+            "searchable": true,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": true,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "maxlength": 1024,
+                "minlength": 0,
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": null,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/7a95088c-10a1-473f-88be-e811615d6aed",
+            "uuid": "7a5fd97f-c61b-4971-af8f-8be7dba2a823",
+            "displayName": "{{ source }}",
+            "descriptions": {
+                "singular": "Source"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/ab796b8b-a1a2-4fa4-8854-4c811f74eecc",
+            "@type": "AttributeMetadata",
+            "type": "string",
+            "name": "name",
+            "length": 1024,
+            "orderIndex": 3,
+            "formType": "text",
+            "dataSource": [],
+            "searchable": true,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": true,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "maxlength": 1024,
+                "minlength": 0,
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": null,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/7a95088c-10a1-473f-88be-e811615d6aed",
+            "uuid": "ab796b8b-a1a2-4fa4-8854-4c811f74eecc",
+            "displayName": "{{ name }}",
+            "descriptions": {
+                "singular": "Name"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/b056776a-1c77-4558-8c63-5b47d9bb8ab5",
+            "@type": "AttributeMetadata",
+            "type": "string",
+            "name": "description",
+            "length": null,
+            "orderIndex": 4,
+            "formType": "richtext",
+            "dataSource": [],
+            "searchable": false,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": true,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "maxlength": -1,
+                "minlength": 0,
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": null,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/7a95088c-10a1-473f-88be-e811615d6aed",
+            "uuid": "b056776a-1c77-4558-8c63-5b47d9bb8ab5",
+            "displayName": "{{ description }}",
+            "descriptions": {
+                "singular": "Description"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/f800e983-18e5-4cc9-a79a-d794516e7a70",
+            "@type": "AttributeMetadata",
+            "type": "comments",
+            "name": "comments",
+            "length": null,
+            "orderIndex": 7,
+            "formType": "manyToMany",
+            "dataSource": {
+                "model": "comments"
+            },
+            "searchable": false,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": true,
+            "inversedField": "events",
+            "ownsRelationship": true,
+            "validation": {
+                "maxlength": -1,
+                "minlength": 0,
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": null,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/7a95088c-10a1-473f-88be-e811615d6aed",
+            "uuid": "f800e983-18e5-4cc9-a79a-d794516e7a70",
+            "displayName": "{{ comments }}",
+            "descriptions": {
+                "singular": "Comments"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/6984092c-dbc5-4810-8dbb-cc38f5e4ca84",
+            "@type": "AttributeMetadata",
+            "type": "string",
+            "name": "uuid",
+            "length": 36,
+            "orderIndex": 8,
+            "formType": null,
+            "dataSource": [],
+            "searchable": false,
+            "peerReplicable": true,
+            "system": true,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "maxlength": 1024,
+                "minlength": 0,
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": false,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": true,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/7a95088c-10a1-473f-88be-e811615d6aed",
+            "uuid": "6984092c-dbc5-4810-8dbb-cc38f5e4ca84",
+            "displayName": "{{ uuid }}",
+            "descriptions": {
+                "singular": "UUID"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/e1527ce1-e31b-4219-a969-cc31114c6a63",
+            "@type": "AttributeMetadata",
+            "type": "indicators",
+            "name": "indicators",
+            "length": null,
+            "orderIndex": 9,
+            "formType": "manyToMany",
+            "dataSource": {
+                "model": "indicators"
+            },
+            "searchable": false,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": true,
+            "inversedField": "events",
+            "ownsRelationship": true,
+            "validation": {
+                "maxlength": -1,
+                "minlength": 0,
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": null,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/7a95088c-10a1-473f-88be-e811615d6aed",
+            "uuid": "e1527ce1-e31b-4219-a969-cc31114c6a63",
+            "displayName": "{{ indicators }}",
+            "descriptions": {
+                "singular": "Indicators"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/1d04b379-89f2-4262-b0a0-0e5659d1d6eb",
+            "@type": "AttributeMetadata",
+            "type": "alerts",
+            "name": "alerts",
+            "length": null,
+            "orderIndex": 10,
+            "formType": "lookup",
+            "dataSource": {
+                "model": "alerts"
+            },
+            "searchable": false,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": true,
+            "collection": false,
+            "inversedField": "events",
+            "ownsRelationship": false,
+            "validation": {
+                "maxlength": -1,
+                "minlength": 0,
+                "required": false
+            },
+            "bulkAction": [],
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": null,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/7a95088c-10a1-473f-88be-e811615d6aed",
+            "uuid": "1d04b379-89f2-4262-b0a0-0e5659d1d6eb",
+            "displayName": "{{ alerts }}",
+            "descriptions": {
+                "singular": "Alert"
+            }
+        }
+    ],
+    "system": false,
+    "module": "events",
+    "uuid": "7a95088c-10a1-473f-88be-e811615d6aed",
+    "displayName": "{{ sourceId }}",
+    "descriptions": {
+        "plural": "Events",
+        "singular": "Event"
+    }
+}

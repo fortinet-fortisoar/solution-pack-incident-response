@@ -1,0 +1,825 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Investigate Command & Control",
+    "aliasName": null,
+    "tag": "#ManualAction",
+    "description": "Enriches alerts for command-and-control behavior by identifying the reputation of related artifacts such as source IP addresses and file hashes. Also, investigates any anomalous processes running on the host on which the attack has occurred are terminate",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "record"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/59667fcc-7feb-4ba4-a5a2-e03a9287f857",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/c03b6e74-a66b-4dc1-af7f-7c4e081f48f2",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Is FIle Malicious",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Yes",
+                        "step_iri": "\/api\/3\/workflow_steps\/cd718873-7138-4854-8007-d48636a96cd1",
+                        "condition": "{{ vars.steps.Get_File_Reputation.data.aggregate > vars.fileReputationThreshold }}"
+                    },
+                    {
+                        "option": "No",
+                        "step_iri": "\/api\/3\/workflow_steps\/504496fa-065a-4199-b59e-e2c6f79d44d6",
+                        "condition": "{{ vars.steps.Get_File_Reputation.data.aggregate <= vars.fileReputationThreshold }}"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "590",
+            "left": "1750",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "f60876f8-d8f8-46f5-92bc-badb026f37c7",
+            "id": 3168
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get running process list",
+            "description": null,
+            "arguments": {
+                "name": "CarbonBlack Response",
+                "params": {
+                    "value": "{{vars.hostIPAddress}}",
+                    "input_type": "IP Address"
+                },
+                "version": "2.0.0",
+                "connector": "carbonblack-response",
+                "operation": "get_process_list",
+                "mock_result": "{\n\t\"data\": [{\n\t\t\"username\": \"NT AUTHORITY\\\\SYSTEM\",\n\t\t\"pid\": 4,\n\t\t\"create_time\": 1518732064,\n\t\t\"parent\": 0,\n\t\t\"sid\": \"s-1-5-18\",\n\t\t\"path\": \"c:\\\\windows\\\\system32\\\\ntoskrnl.exe\",\n\t\t\"parent_guid\": \"00000015-0000-0000-0000-000000000000\",\n\t\t\"proc_guid\": \"00000015-0000-0004-01d3-a6a87969b149\",\n\t\t\"command_line\": \"\"\n\t}, {\n\t\t\"username\": \"NT AUTHORITY\\\\SYSTEM\",\n\t\t\"pid\": 284,\n\t\t\"create_time\": 1518732064,\n\t\t\"parent\": 4,\n\t\t\"sid\": \"s-1-5-18\",\n\t\t\"path\": \"c:\\\\windows\\\\system32\\\\notepad.exe\",\n\t\t\"parent_guid\": \"00000015-0000-0004-01d3-a6a87969b149\",\n\t\t\"proc_guid\": \"00000015-0000-011c-01d3-a6a87977ff65\",\n\t\t\"command_line\": \"\\\\SystemRoot\\\\System32\\\\notepad.exe\"\n\t}, {\n\t\t\"username\": \"NT AUTHORITY\\\\SYSTEM\",\n\t\t\"pid\": 1556,\n\t\t\"create_time\": 1518732095,\n\t\t\"parent\": 580,\n\t\t\"sid\": \"s-1-5-18\",\n\t\t\"path\": \"c:\\\\program files\\\\splunkuniversalforwarder\\\\bin\\\\splunkd.exe\",\n\t\t\"parent_guid\": \"00000015-0000-0244-01d3-a6a87fc04f78\",\n\t\t\"proc_guid\": \"00000015-0000-0614-01d3-a6a88bfd23da\",\n\t\t\"command_line\": \"C:\\\\Program Files\\\\SplunkUniversalForwarder\\\\bin\\\\splunkd.exe\"\n\t}, {\n\t\t\"username\": \"WIN-EP2\\\\Administrator\",\n\t\t\"pid\": 3912,\n\t\t\"create_time\": 1518806642,\n\t\t\"parent\": 3812,\n\t\t\"sid\": \"s-1-5-21-2849517046-710737231-3522587464-500\",\n\t\t\"path\": \"c:\\\\windows\\\\system32\\\\tasklist.exe\",\n\t\t\"parent_guid\": \"00000015-0000-0ee4-01d3-a6a9200fdd09\",\n\t\t\"proc_guid\": \"00000015-0000-0f48-01d3-a7561d51e35f\",\n\t\t\"command_line\": \"TASKLIST  \"\n\t}],\n\t\"status\": \"Success\",\n\t\"operation\": \"get_process_list\",\n\t\"message\": \"\"\n}",
+                "operationTitle": "Get All Processes",
+                "step_variables": {
+                    "processList": "{{vars.result.data}}"
+                }
+            },
+            "status": null,
+            "top": "20",
+            "left": "1100",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "3bd20937-e18a-4dd5-b771-082ebb394af0",
+            "id": 3169
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get PID for process to be terminated",
+            "description": null,
+            "arguments": {
+                "temp": "{% if vars.alertMetaData.process %}\n{% for i in vars.processList %}{% if i.get('path').endswith(vars.alertMetaData.process) %}{% set tmp = i %}  {{vars.pid.append(i)}} {% endif %} {% endfor %}{%endif%}"
+            },
+            "status": null,
+            "top": "20",
+            "left": "1420",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "1c2877da-2565-4fa8-8a3f-753cb9b88ee0",
+            "id": 3170
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get IP Geo Location",
+            "description": null,
+            "arguments": {
+                "name": "IPStack",
+                "config": "667ee992-b5a6-4da8-838e-69593551344f",
+                "params": {
+                    "query": "{{vars.alertMetaData.target_ip}}",
+                    "fields": "",
+                    "enable_hostname": false,
+                    "enable_security": false
+                },
+                "version": "1.0.0",
+                "connector": "ipstack",
+                "operation": "ip_locate",
+                "mock_result": "{\n\"data\": {\n      \"country_name\": \"Czechia\",\n      \"country_code\": \"CZ\",\n      \"region_code\": \"\",\n      \"region_name\": \"\",\n      \"zip_code\": \"\",\n      \"metro_code\": 0,\n      \"city\": \"\",\n      \"ip\": \"185.64.219.6\",\n      \"latitude\": 50.0848,\n      \"longitude\": 14.4112,\n      \"time_zone\": \"Europe\/Prague\"\n    },\n    \"status\": \"Success\",\n    \"operation\": \"ip_locate\",\n    \"message\": \"\"\n  }",
+                "operationTitle": "Geolocate IP",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "830",
+            "left": "1750",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "f5802960-6333-43f7-8e11-5a1e99b6e59b",
+            "id": 3171
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Is IP malicious",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Yes",
+                        "step_iri": "\/api\/3\/workflow_steps\/61d94f2d-8397-44a4-9178-6a55136b2b71",
+                        "condition": "{{ vars.steps.Get_IP_Reputation.data.aggregate > vars.ipReputationThreshold }}"
+                    },
+                    {
+                        "option": "No",
+                        "step_iri": "\/api\/3\/workflow_steps\/8fea88a8-052d-4857-b681-20e7f836a5e6",
+                        "condition": "{{ vars.steps.Get_IP_Reputation.data.aggregate <= vars.ipReputationThreshold }}"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "270",
+            "left": "1750",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "a021d740-6c5a-42bc-a696-403a111bd6c3",
+            "id": 3172
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Note for IP Geo Location",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "type": {
+                        "id": 247,
+                        "@id": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "icon": null,
+                        "uuid": "ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Comment",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/0841c1eb-a0a3-4abd-b29c-9f68e4d9b14f",
+                        "itemValue": "Comment",
+                        "orderIndex": 1
+                    },
+                    "alerts": "['{{vars.input.records[0]['@id']}}']",
+                    "people": [],
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<span style=\"font-size: 15px; color: #DE7A13;\" class=\"fa fa-exclamation-triangle\"><\/span>&nbsp;<strong>IP Geo Location<\/strong>\n<table style=\"width: 100%; border: 1px solid;\">\n<tbody>\n<tr>\n<td style=\"border: 1px solid ; text-align: left;\">Country<\/td>\n<td style=\"border: 1px solid ; text-align: left;\">{{vars.steps.Get_IP_Geo_Location.data['country_name']}}<\/td>\n<\/tr>\n<tr>\n<td style=\"border: 1px solid ; text-align: left;\">City<\/td>\n<td style=\"border: 1px solid ; text-align: left;\">{{vars.steps.Get_IP_Geo_Location.data.city}}<\/td>\n<\/tr>\n<tr>\n<td style=\"border: 1px solid ; text-align: left;\">Latitude<\/td>\n<td style=\"border: 1px solid ; text-align: left;\">{{vars.steps.Get_IP_Geo_Location.data.latitude}}<\/td>\n<\/tr>\n<tr>\n<td style=\"border: 1px solid ; text-align: left;\">Longitude<\/td>\n<td style=\"border: 1px solid ; text-align: left;\">{{vars.steps.Get_IP_Geo_Location.data.longitude}}<\/td>\n<\/tr>\n<tr>\n<td style=\"border: 1px solid ; text-align: left;\">Region Name<\/td>\n<td style=\"border: 1px solid ; text-align: left;\">{{vars.steps.Get_IP_Geo_Location.data['region_name']}}<\/td>\n<\/tr>\n<\/tbody>\n<\/table>",
+                    "__replace": "",
+                    "isImportant": false,
+                    "peopleUpdated": false
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/comments",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "830",
+            "left": "2075",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "7c448c62-3c12-47c2-bdf0-483b4b0c1644",
+            "id": 3173
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "File Not Malicious",
+            "description": null,
+            "arguments": {
+                "params": [],
+                "version": "2.1.0",
+                "connector": "cyops_utilities",
+                "operation": "no_op",
+                "operationTitle": "Utils: No Operation",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "670",
+            "left": "2075",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "504496fa-065a-4199-b59e-e2c6f79d44d6",
+            "id": 3174
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start Investigation",
+            "description": null,
+            "arguments": {
+                "message": {
+                    "tags": [],
+                    "type": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "Investigating Potential {{vars.input.records[0].type.itemValue}}, with following fields of interest:\n{% if vars.input.records[0].domain %}Domain: {{vars.input.records[0].domain -}}{% endif %}\n{% if vars.input.records[0].sourceIp %}SourceIP: {{ vars.input.records[0].sourceIp -}}{% endif %}\n{% if vars.input.records[0].destinationIp %}DestinationIP: {{vars.input.records[0].destinationIp -}}{% endif %}\n{% if vars.input.records[0].fileHash %}File Hash: {{vars.input.records[0].fileHash -}}{% endif %}\n{% if vars.input.records[0].computerName %}ComputerName: {{vars.input.records[0].computerName -}}{% endif %}\n{% if vars.input.records[0].processName %}Process: {{vars.input.records[0].processName -}}{% endif %}\n{% if vars.input.records[0].sourceProcess %}SourceProcess: {{vars.input.records[0].sourceProcess -}}{% endif %}",
+                    "records": ""
+                },
+                "resource": {
+                    "status": {
+                        "id": 113,
+                        "@id": "\/api\/3\/picklists\/758925e7-629c-46d8-89db-fb36f5fbe88a",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Investigating",
+                        "listName": "\/api\/3\/picklist_names\/33e964a9-d607-49f2-813c-7ce46141815a",
+                        "itemValue": "Investigating",
+                        "orderIndex": 2
+                    }
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "__recommend": [],
+                "collectionType": "\/api\/3\/alerts",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "430",
+            "left": "775",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "335dd3c8-8596-46ea-a4a2-007f53dcec82",
+            "id": 3175
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Terminate Process",
+            "description": null,
+            "arguments": {
+                "name": "CarbonBlack Response",
+                "params": {
+                    "value": "{{vars.hostIPAddress}}",
+                    "input_type": "IP Address",
+                    "select_type": "Process ID",
+                    "process_value": "{{vars.pid}}"
+                },
+                "version": "2.0.0",
+                "connector": "carbonblack-response",
+                "operation": "terminate_process",
+                "mock_result": "True",
+                "operationTitle": "Terminate Process",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "20",
+            "left": "2080",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "ce4e4411-1d9a-4c50-b370-89fd2368488f",
+            "id": 3176
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Note for Malicious File",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "type": {
+                        "id": 247,
+                        "@id": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "icon": null,
+                        "uuid": "ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Comment",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/0841c1eb-a0a3-4abd-b29c-9f68e4d9b14f",
+                        "itemValue": "Comment",
+                        "orderIndex": 1
+                    },
+                    "alerts": "['{{vars.input.records[0]['@id']}}']",
+                    "people": [],
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<span style=\"font-size: 15px; color: #DE7A13;\" class=\"fa fa-exclamation-triangle\"><\/span>&nbsp;<strong>File Reputation<\/strong>\n<table style=\"width: 100%; border: 1px solid;\">\n<tbody>\n<tr>\n<td style=\"border: 1px solid ; text-align: left;\">File Aggregate<\/td>\n<td style=\"border: 1px solid ; text-align: left;\">&nbsp; {{vars.steps.Get_File_Reputation.data.aggregate}}<\/td>\n<\/tr>\n<tr>\n<td style=\"border: 1px solid ; text-align: left;\">File Positive<\/td>\n<td style=\"border: 1px solid ; text-align: left;\">&nbsp; {{vars.steps.Get_File_Reputation.data.positives}}<\/td>\n<\/tr>\n<tr>\n<td style=\"border: 1px solid ; text-align: left;\">sha256<\/td>\n<td style=\"border: 1px solid ; text-align: left;\">&nbsp; {{vars.steps.Get_File_Reputation.data.sha256}}<\/td>\n<\/tr>\n<tr>\n<td style=\"border: 1px solid ; text-align: left;\">sha1<\/td>\n<td style=\"border: 1px solid ; text-align: left;\">&nbsp; {{vars.steps.Get_File_Reputation.data.sha1}}<\/td>\n<\/tr>\n<\/tbody>\n<\/table>",
+                    "__replace": "",
+                    "isImportant": false,
+                    "peopleUpdated": false
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/comments",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": {
+                    "confirmedBadFile": "true"
+                }
+            },
+            "status": null,
+            "top": "510",
+            "left": "2075",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "cd718873-7138-4854-8007-d48636a96cd1",
+            "id": 3177
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Note for Process List",
+            "description": null,
+            "arguments": {
+                "when": "{{vars.temp}}",
+                "for_each": {
+                    "item": "{{vars.pid}}",
+                    "__bulk": true,
+                    "parallel": false,
+                    "condition": "",
+                    "batch_size": 100
+                },
+                "resource": {
+                    "type": {
+                        "id": 247,
+                        "@id": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "icon": null,
+                        "uuid": "ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Comment",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/0841c1eb-a0a3-4abd-b29c-9f68e4d9b14f",
+                        "itemValue": "Comment",
+                        "orderIndex": 1
+                    },
+                    "alerts": "['{{vars.input.records[0]['@id']}}']",
+                    "people": [],
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p><span class=\"fa fa-exclamation-triangle\" style=\"font-size: 15px; color: #DE7A13;\"><\/span>&nbsp;Following Process(es) were found to be potentially unwanted programs.&nbsp;<\/p>\n<table style=\"width: 100%;\" border=\"1px\">\n<tbody>\n<tr>\n<th style=\"border: 1px solid ; text-align: left;\"><strong>PID <\/strong><\/th>\n<th style=\"border: 1px solid ; text-align: left;\"><strong>Process Path<\/strong><\/th>\n<\/tr>\n<tr style=\"display: none;\">\n<td>{% for obj in vars.pid %}<\/td>\n<\/tr>\n<tr>\n<td style=\"border: 1px solid ; text-align: left;\">{{obj.pid}}<\/td>\n<td style=\"border: 1px solid ; text-align: left;\">{{obj.path}}<\/td>\n<\/tr>\n<tr style=\"display: none;\">\n<td>{% endfor %}<\/td>\n<\/tr>\n<\/tbody>\n<\/table>\n<br>\n<span class=\"badge badge-pill badge-danger\" style=\"background:#e31b1d; color: #fff;\">These process(es) will be terminated<\/span>",
+                    "__replace": "",
+                    "isImportant": false,
+                    "peopleUpdated": false
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/comments",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "20",
+            "left": "1740",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "5713626f-a221-4269-93ae-3b0c13e2c77b",
+            "id": 3178
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "IP Not Malicious",
+            "description": null,
+            "arguments": {
+                "params": [],
+                "version": "2.1.0",
+                "connector": "cyops_utilities",
+                "operation": "no_op",
+                "operationTitle": "Utils: No Operation",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "350",
+            "left": "2075",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "8fea88a8-052d-4857-b681-20e7f836a5e6",
+            "id": 3179
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Note for Malicious IP",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "type": {
+                        "id": 247,
+                        "@id": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "icon": null,
+                        "uuid": "ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Comment",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/0841c1eb-a0a3-4abd-b29c-9f68e4d9b14f",
+                        "itemValue": "Comment",
+                        "orderIndex": 1
+                    },
+                    "alerts": "['{{vars.input.records[0]['@id']}}']",
+                    "people": [],
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<span style=\"font-size: 15px; color: #DE7A13;\" class=\"fa fa-exclamation-triangle\"><\/span>&nbsp;<strong>IP Reputation<\/strong>\n<table style=\"width: 100%; border: 1px solid;\">\n<tbody>\n<tr>\n<td style=\"border: 1px solid ; text-align: left;\">Aggregate<\/td>\n<td style=\"border: 1px solid ; text-align: left;\">&nbsp; {{vars.steps.Get_IP_Reputation.data.aggregate}}<\/td>\n<\/tr>\n<tr>\n<td style=\"border: 1px solid ; text-align: left;\">Detected URL<\/td>\n<td style=\"border: 1px solid ; text-align: left;\">&nbsp; {{vars.steps.Get_IP_Reputation.data.detected_urls[0].url}}<\/td>\n<\/tr>\n<tr>\n<td style=\"border: 1px solid ; text-align: left;\">&nbsp;Country<\/td>\n<td style=\"border: 1px solid ; text-align: left;\">&nbsp; {{vars.steps.Get_IP_Reputation.data.country}}<\/td>\n<\/tr>\n<\/tbody>\n<\/table>",
+                    "__replace": "",
+                    "isImportant": false,
+                    "peopleUpdated": false
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/comments",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": {
+                    "confirmedBadIP": "true"
+                }
+            },
+            "status": null,
+            "top": "190",
+            "left": "2075",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "61d94f2d-8397-44a4-9178-6a55136b2b71",
+            "id": 3180
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "535c3ac0-b98f-49d1-b0a3-9ae9f6334bc3",
+                "title": "Investigate Command & Control",
+                "resources": [
+                    "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                    "input": {
+                        "params": {
+                            "record": "{{ vars.record }}"
+                        },
+                        "records": "{{vars.input.records}}"
+                    },
+                    "record": "{{vars.input.records[0]}}"
+                },
+                "_promptexpanded": true,
+                "displayConditions": {
+                    "alerts": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": [
+                            {
+                                "type": "object",
+                                "field": "type",
+                                "value": "\/api\/3\/picklists\/0cbc2c31-c360-4770-b1e7-3653a8c24ead",
+                                "_value": {
+                                    "itemValue": "Malware"
+                                },
+                                "operator": "eq"
+                            }
+                        ]
+                    }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": false,
+                "singleRecordExecution": true
+            },
+            "status": null,
+            "top": "430",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "uuid": "c03b6e74-a66b-4dc1-af7f-7c4e081f48f2",
+            "id": 3181
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Conclusion",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "type": {
+                        "id": 248,
+                        "@id": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Comment",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/0841c1eb-a0a3-4abd-b29c-9f68e4d9b14f",
+                        "itemValue": "Comment",
+                        "orderIndex": 1
+                    },
+                    "alerts": "['{{vars.input.records[0]['@id']}}']",
+                    "people": [],
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<h6><span style=\"font-size: 15px; color: #DE7A13;\" class=\"fa fa-exclamation-triangle\"><\/span>&nbsp;Summary<\/h6>\n<p>Based on VirusTotal Score:<\/p>\n<p>File with hash \"{{vars.input.records[0].fileHash}}\" is {% if vars.confirmedBadFile %} <span style=\"background:#e31b1d; color: #fff;\" class=\"badge badge-pill badge-danger\"> malicious<\/span>. {% else %} <strong><span style=\"background:#339966; color: #fff;\" class=\"badge badge-pill badge-danger\">fine<\/span><\/strong>. {% endif %}<\/p>\n<p>IP \"{{vars.input.records[0].sourceIp}}\" is {% if vars.confirmedBadIP %} <span style=\"background:#e31b1d; color: #fff;\" class=\"badge badge-pill badge-danger\">malicious<\/span>. {% else %} <strong><span style=\"background:#339966; color: #fff;\" class=\"badge badge-pill badge-danger\">fine<\/span><\/strong>. {% endif %}<\/p>\n<p>&nbsp;<\/p>\n<p>Following Process(es) were terminated<\/p>\n<table border=\"1px\" style=\"width: 100%;\">\n<tbody>\n<tr>\n<th style=\"border: 1px solid; text-align: left;\"><strong>PID <\/strong><\/th>\n<th style=\"border: 1px solid; text-align: left;\"><strong>Process Path<\/strong><\/th>\n<\/tr>\n<tr style=\"display: none;\">\n<td>{% for obj in vars.pid %}<\/td>\n<\/tr>\n<tr>\n<td style=\"border: 1px solid; text-align: left;\">{{obj.pid}}<\/td>\n<td style=\"border: 1px solid; text-align: left;\">{{obj.path}}<\/td>\n<\/tr>\n<tr style=\"display: none;\">\n<td>{% endfor %}<\/td>\n<\/tr>\n<\/tbody>\n<\/table>",
+                    "__replace": "",
+                    "isImportant": false,
+                    "peopleUpdated": false
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/comments",
+                "__recommend": [],
+                "tagsOperation": "OverwriteTags",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "430",
+            "left": "2400",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "88282925-d2f0-45a0-97d2-42e1e48047ea",
+            "id": 3182
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get File Reputation",
+            "description": null,
+            "arguments": {
+                "name": "VirusTotal",
+                "config": "1ba6a7ef-304a-4f78-855d-70b09bcd0b0a",
+                "params": {
+                    "file_hash": "{{vars.input.records[0].fileHash}}"
+                },
+                "version": "1.0.1",
+                "connector": "virustotal",
+                "operation": "file_reputation",
+                "mock_result": "{\n\"data\": {\n      \"sha256\": \"24d004a104d4d54034dbcffc2a4b19a11f39008a575aa614ea04703480b1022c\",\n      \"scans\": {\n        \"CMC\": {\n          \"version\": \"1.1.0.977\",\n          \"result\": null,\n          \"update\": \"20180214\",\n          \"detected\": false\n        },\n        \"Sophos\": {\n          \"version\": \"4.98.0\",\n          \"result\": \"Troj\/Ransom-EMG\",\n          \"update\": \"20180214\",\n          \"detected\": true\n        },\n        \"Jiangmin\": {\n          \"version\": \"16.0.100\",\n          \"result\": \"Trojan.WanaCry.i\",\n          \"update\": \"20180214\",\n          \"detected\": true\n        },\n        \"Cyren\": {\n          \"version\": \"5.4.30.7\",\n          \"result\": \"W32\/Trojan.ZTSA-8671\",\n          \"update\": \"20180214\",\n          \"detected\": true\n        },\n        \"McAfee-GW-Edition\": {\n          \"version\": \"v2015\",\n          \"result\": \"BehavesLike.Win32.RansomWannaCry.wc\",\n          \"update\": \"20180214\",\n          \"detected\": true\n        }\n      },\n      \"total\": 66,\n      \"scan_date\": \"2018-02-14 16:11:37\",\n      \"scan_id\": \"24d004a104d4d54034dbcffc2a4b19a11f39008a575aa614ea04703480b1022c-1518624697\",\n      \"md5\": \"db349b97c37d22f5ea1d1841e3c89eb4\",\n      \"permalink\": \"https:\/\/www.virustotal.com\/file\/24d004a104d4d54034dbcffc2a4b19a11f39008a575aa614ea04703480b1022c\/analysis\/1518624697\/\",\n      \"resource\": \"db349b97c37d22f5ea1d1841e3c89eb4\",\n      \"response_code\": 1,\n      \"positives\": 62,\n      \"aggregate\": 94,\n      \"verbose_msg\": \"Scan finished, information embedded\",\n      \"sha1\": \"e889544aff85ffaf8b0d0da705105dee7c97fe26\"\n    },\n    \"status\": \"Success\",\n    \"operation\": \"file_reputation\",\n    \"message\": \"\"\n  }",
+                "operationTitle": "Get File Reputation",
+                "step_variables": [],
+                "operationOutput": {
+                    "scans": [],
+                    "total": "",
+                    "scan_id": "",
+                    "resource": "",
+                    "aggregate": "",
+                    "permalink": "",
+                    "positives": "",
+                    "scan_date": "",
+                    "verbose_msg": ""
+                }
+            },
+            "status": null,
+            "top": "590",
+            "left": "1425",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "ea3635d9-66a1-47af-b5ef-a1ba5262bf94",
+            "id": 3183
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get IP Reputation",
+            "description": null,
+            "arguments": {
+                "name": "VirusTotal",
+                "config": "1ba6a7ef-304a-4f78-855d-70b09bcd0b0a",
+                "params": {
+                    "ip": "{{vars.input.records[0].sourceIp}}"
+                },
+                "version": "1.0.1",
+                "connector": "virustotal",
+                "operation": "query_ip",
+                "mock_result": "{\n  \"data\": {\n    \"undetected_downloaded_samples\": [\n      {\n        \"date\": \"2018-02-16 17:44:02\",\n        \"sha256\": \"96b087bd522dde9c9f4af4d65d999f3f0c581dd2fd7af1357f8512a41cea134a\",\n        \"total\": 56,\n        \"positives\": 0\n      },\n      {\n        \"date\": \"2018-02-16 17:16:29\",\n        \"sha256\": \"b8df4c1c411eaa0b24b0caddaa9957b0c586acbf3c52c588ee50d88e48e8ade9\",\n        \"total\": 60,\n        \"positives\": 0\n      },\n      {\n        \"date\": \"2018-02-16 16:45:27\",\n        \"sha256\": \"2548b6c847d19c5734b247340e240274e691eaa783da980f87a5fa7665bb4bf6\",\n        \"total\": 61,\n        \"positives\": 0\n      }\n    ],\n    \"response_code\": 1,\n    \"undetected_communicating_samples\": [\n      {\n        \"date\": \"2017-04-09 20:21:03\",\n        \"sha256\": \"be447cc507ebd88ae6b1ab86e3d6c143b6395485a3e5ba251d0cafb213740f7a\",\n        \"total\": 0,\n        \"positives\": 0\n      },\n      {\n        \"date\": \"2017-04-09 07:00:40\",\n        \"sha256\": \"cf0c4b25bae97590904ba6c19694c7824cd4d3b104d082e6d2be2a7f1bc2b39d\",\n        \"total\": 62,\n        \"positives\": 0\n      }\n    ],\n    \"resolutions\": [\n      {\n        \"last_resolved\": \"2018-01-31 00:00:00\",\n        \"hostname\": \" trajfly.wz.cz\"\n      },\n      {\n        \"last_resolved\": \"2016-11-25 00:00:00\",\n        \"hostname\": \"*zomb.webzdarma.cz\"\n      },\n      {\n        \"last_resolved\": \"2017-07-04 00:00:00\",\n        \"hostname\": \"00000002.webzdarma.cz\"\n      }\n    ],\n    \"detected_urls\": [\n      {\n        \"aggregate\": 1,\n        \"url\": \"http:\/\/rkm.mysteria.cz\/prehled\/obrazky\/text.htm\",\n        \"total\": 67,\n        \"scan_date\": \"2018-02-16 17:56:36\",\n        \"positives\": 1\n      },\n      {\n        \"aggregate\": 1,\n        \"url\": \"http:\/\/www.melibrion.mysteria.cz\/citaty.php\",\n        \"total\": 67,\n        \"scan_date\": \"2018-02-16 17:34:30\",\n        \"positives\": 1\n      }\n    ],\n    \"country\": \"ZZ\",\n    \"aggregate\": 7,\n    \"verbose_msg\": \"IP address in dataset\",\n    \"detected_downloaded_samples\": [\n      {\n        \"date\": \"2018-02-16 15:29:01\",\n        \"sha256\": \"755b748291eeb0d7ef4ff20e0eb9bc80c5834307761c1dd39653060bcd98798e\",\n        \"total\": 61,\n        \"positives\": 1\n      },\n      {\n        \"date\": \"2018-02-16 15:10:39\",\n        \"sha256\": \"d59e7584d01727ff36e103af956ae3dc048d585b31ef6172ce903236019176cd\",\n        \"total\": 57,\n        \"positives\": 1\n      }\n    ],\n    \"undetected_urls\": [\n      [\n        \"http:\/\/patriot.wz.cz\/book.php3\",\n        \"1aa8ba752c5764f87b29c553d0855abc038aa89fb68f18a001f7ca77cb8bc4cf\",\n        0,\n        67,\n        \"2018-02-14 15:20:24\"\n      ],\n      [\n        \"http:\/\/www.ins.wz.cz\/intrinact\/intrinact.php\",\n        \"da62cf4e284586923ad47980424ea774566333c18f29d39f0d4ad37d486e4658\",\n        0,\n        67,\n        \"2018-02-13 02:47:46\"\n      ]\n    ],\n    \"detected_communicating_samples\": [\n      {\n        \"date\": \"2018-02-10 15:13:52\",\n        \"sha256\": \"164feb47ee2638aa3ae002b1582b627b94763d1f4481d2ba95011f604dbdc5d7\",\n        \"total\": 68,\n        \"positives\": 1\n      },\n      {\n        \"date\": \"2018-02-08 05:29:16\",\n        \"sha256\": \"52b539f93b2048d7a62ca731b986d5df1a055f5d2206b563cc553d6c124e196f\",\n        \"total\": 68,\n        \"positives\": 1\n      },\n      {\n        \"date\": \"2018-02-06 08:12:59\",\n        \"sha256\": \"c88f2aa469672a2ddaf82c036748f4d71908a7455c0132eded843e158ebda777\",\n        \"total\": 67,\n        \"positives\": 58\n      },\n      {\n        \"date\": \"2018-02-06 07:28:32\",\n        \"sha256\": \"92ce9262e8165623f9814684acf8501dabdecc5a65de03decae4737ee9feb7a1\",\n        \"total\": 67,\n        \"positives\": 52\n      }\n    ]\n  },\n  \"status\": \"Success\",\n  \"operation\": \"query_ip\",\n  \"message\": \"\"\n}",
+                "operationTitle": "Get IP Reputation",
+                "step_variables": [],
+                "operationOutput": {
+                    "asn": "",
+                    "country": "",
+                    "as_owner": "",
+                    "aggregate": "",
+                    "detected_urls": "",
+                    "detected_referrer_samples": "",
+                    "detected_downloaded_samples": ""
+                }
+            },
+            "status": null,
+            "top": "270",
+            "left": "1425",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "dc6e43ed-7473-423d-b2dd-b874bd99ea52",
+            "id": 3184
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "pid": "[]",
+                "alert": "{{vars.input.records[0]}}",
+                "file_hash": "{{vars.input.records[0].fileHash}}",
+                "alertMetaData": "{{vars.input.records[0].sourcedata}}",
+                "hostIPAddress": "192.168.60.155",
+                "useMockOutput": "{{globalVars.Demo_mode}}",
+                "confirmedBadIP": "false",
+                "confirmedBadFile": "false",
+                "ipReputationThreshold": "1",
+                "fileReputationThreshold": "6"
+            },
+            "status": null,
+            "top": "420",
+            "left": "460",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "fe2790f6-8036-47a1-92db-e02523bdb39e",
+            "id": 3185
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start Investigation -> Get running process list",
+            "targetStep": "\/api\/3\/workflow_steps\/3bd20937-e18a-4dd5-b771-082ebb394af0",
+            "sourceStep": "\/api\/3\/workflow_steps\/335dd3c8-8596-46ea-a4a2-007f53dcec82",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "6c18a5fa-e2a6-4d74-8fd8-e0f60dc4996b"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start Investigation -> Get IP Reputation",
+            "targetStep": "\/api\/3\/workflow_steps\/dc6e43ed-7473-423d-b2dd-b874bd99ea52",
+            "sourceStep": "\/api\/3\/workflow_steps\/335dd3c8-8596-46ea-a4a2-007f53dcec82",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "bd908a8d-7707-474a-91fa-0741589b8267"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start Investigation -> Get File Reputation",
+            "targetStep": "\/api\/3\/workflow_steps\/ea3635d9-66a1-47af-b5ef-a1ba5262bf94",
+            "sourceStep": "\/api\/3\/workflow_steps\/335dd3c8-8596-46ea-a4a2-007f53dcec82",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "67f6eaf6-dda3-4a48-9b1e-a6becbc6c0fb"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start Investigation -> Get IP Geo Location",
+            "targetStep": "\/api\/3\/workflow_steps\/f5802960-6333-43f7-8e11-5a1e99b6e59b",
+            "sourceStep": "\/api\/3\/workflow_steps\/335dd3c8-8596-46ea-a4a2-007f53dcec82",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "9db32a2d-55e5-4b2c-912d-a3455b149423"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Start Investigation",
+            "targetStep": "\/api\/3\/workflow_steps\/335dd3c8-8596-46ea-a4a2-007f53dcec82",
+            "sourceStep": "\/api\/3\/workflow_steps\/fe2790f6-8036-47a1-92db-e02523bdb39e",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "617306fa-d248-4bd7-91d4-14505fe25bd7"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is IP malicious -> Malicious IP Details",
+            "targetStep": "\/api\/3\/workflow_steps\/61d94f2d-8397-44a4-9178-6a55136b2b71",
+            "sourceStep": "\/api\/3\/workflow_steps\/a021d740-6c5a-42bc-a696-403a111bd6c3",
+            "label": "Yes",
+            "isExecuted": false,
+            "uuid": "41be9831-35ff-48f5-b18c-17362ea20534"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Note for Malicious File -> w",
+            "targetStep": "\/api\/3\/workflow_steps\/88282925-d2f0-45a0-97d2-42e1e48047ea",
+            "sourceStep": "\/api\/3\/workflow_steps\/cd718873-7138-4854-8007-d48636a96cd1",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "0e259190-55df-4013-adec-985ac5083c84"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get File Reputation -> If Malicious",
+            "targetStep": "\/api\/3\/workflow_steps\/f60876f8-d8f8-46f5-92bc-badb026f37c7",
+            "sourceStep": "\/api\/3\/workflow_steps\/ea3635d9-66a1-47af-b5ef-a1ba5262bf94",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "110972b7-c433-498a-83e9-37ca3e3e967b"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Not for Malicious IP -> w",
+            "targetStep": "\/api\/3\/workflow_steps\/88282925-d2f0-45a0-97d2-42e1e48047ea",
+            "sourceStep": "\/api\/3\/workflow_steps\/61d94f2d-8397-44a4-9178-6a55136b2b71",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "572de95c-5ae1-401b-aed3-6afa67f21d62"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Note for Process List -> Terminate Process",
+            "targetStep": "\/api\/3\/workflow_steps\/ce4e4411-1d9a-4c50-b370-89fd2368488f",
+            "sourceStep": "\/api\/3\/workflow_steps\/5713626f-a221-4269-93ae-3b0c13e2c77b",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "022da0a9-0977-4b42-87d4-dd1607f69733"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is IP malicious -> IP Not Maliciouss",
+            "targetStep": "\/api\/3\/workflow_steps\/8fea88a8-052d-4857-b681-20e7f836a5e6",
+            "sourceStep": "\/api\/3\/workflow_steps\/a021d740-6c5a-42bc-a696-403a111bd6c3",
+            "label": "No",
+            "isExecuted": false,
+            "uuid": "76d7b5fc-c8e4-4e9f-9cf5-f5a42d5cea47"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "If Malicious -> File Reputation for Malicious",
+            "targetStep": "\/api\/3\/workflow_steps\/cd718873-7138-4854-8007-d48636a96cd1",
+            "sourceStep": "\/api\/3\/workflow_steps\/f60876f8-d8f8-46f5-92bc-badb026f37c7",
+            "label": "Yes",
+            "isExecuted": false,
+            "uuid": "50b35647-fe64-4b1d-adb3-7f97de239873"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Note for IP Geo Location -> Conclusion",
+            "targetStep": "\/api\/3\/workflow_steps\/88282925-d2f0-45a0-97d2-42e1e48047ea",
+            "sourceStep": "\/api\/3\/workflow_steps\/7c448c62-3c12-47c2-bdf0-483b4b0c1644",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "b04cfa5c-06d6-4253-90af-0c681788b8b0"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get running process list -> Get PID for process to be terminated",
+            "targetStep": "\/api\/3\/workflow_steps\/1c2877da-2565-4fa8-8a3f-753cb9b88ee0",
+            "sourceStep": "\/api\/3\/workflow_steps\/3bd20937-e18a-4dd5-b771-082ebb394af0",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "3b21a0fa-9ad0-43d2-835f-76ed727da505"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is FIle Malicious -> File Not Maliciouss",
+            "targetStep": "\/api\/3\/workflow_steps\/504496fa-065a-4199-b59e-e2c6f79d44d6",
+            "sourceStep": "\/api\/3\/workflow_steps\/f60876f8-d8f8-46f5-92bc-badb026f37c7",
+            "label": "No",
+            "isExecuted": false,
+            "uuid": "ef81e2cc-b63c-4e9d-bc00-cba2d39b1b92"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get IP -> Create Note for IP Geo Location",
+            "targetStep": "\/api\/3\/workflow_steps\/7c448c62-3c12-47c2-bdf0-483b4b0c1644",
+            "sourceStep": "\/api\/3\/workflow_steps\/f5802960-6333-43f7-8e11-5a1e99b6e59b",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "2bf178a2-ca88-4585-ae15-6d1cd65a6014"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/fe2790f6-8036-47a1-92db-e02523bdb39e",
+            "sourceStep": "\/api\/3\/workflow_steps\/c03b6e74-a66b-4dc1-af7f-7c4e081f48f2",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "ada8c738-6d8e-4ad5-8975-f80febd81e45"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "IP Not Maliciouss -> Conclusion",
+            "targetStep": "\/api\/3\/workflow_steps\/88282925-d2f0-45a0-97d2-42e1e48047ea",
+            "sourceStep": "\/api\/3\/workflow_steps\/8fea88a8-052d-4857-b681-20e7f836a5e6",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "9d214e6d-21c3-4243-80da-dabf08deff5a"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Terminate Process -> Conclusion",
+            "targetStep": "\/api\/3\/workflow_steps\/88282925-d2f0-45a0-97d2-42e1e48047ea",
+            "sourceStep": "\/api\/3\/workflow_steps\/ce4e4411-1d9a-4c50-b370-89fd2368488f",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "4df180b3-3993-422a-9557-7072498da5e6"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get PID for process to be terminated -> Create Note for Process List",
+            "targetStep": "\/api\/3\/workflow_steps\/5713626f-a221-4269-93ae-3b0c13e2c77b",
+            "sourceStep": "\/api\/3\/workflow_steps\/1c2877da-2565-4fa8-8a3f-753cb9b88ee0",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "b76ab24d-acd5-4dac-85c6-e0b5b3f9dd83"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get IP Reputation -> Is IP malicious",
+            "targetStep": "\/api\/3\/workflow_steps\/a021d740-6c5a-42bc-a696-403a111bd6c3",
+            "sourceStep": "\/api\/3\/workflow_steps\/dc6e43ed-7473-423d-b2dd-b874bd99ea52",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "5dd9a2a5-7c19-4eff-8fa5-66cd4a5ea342"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "File Not Maliciouss -> Conclusion",
+            "targetStep": "\/api\/3\/workflow_steps\/88282925-d2f0-45a0-97d2-42e1e48047ea",
+            "sourceStep": "\/api\/3\/workflow_steps\/504496fa-065a-4199-b59e-e2c6f79d44d6",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "875b70cb-63a1-4e54-bebe-90f1af7e5d55"
+        }
+    ],
+    "priority": null,
+    "uuid": "68a8ea00-0615-41dc-a8fb-9928e153b104",
+    "recordTags": [
+        "ManualAction"
+    ],
+    "id": 979,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433427,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433427,
+    "owners": [],
+    "isPrivate": false
+}

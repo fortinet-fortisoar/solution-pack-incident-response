@@ -1,0 +1,44 @@
+{
+    "@context": "\/api\/3\/contexts\/PicklistName",
+    "@id": "\/api\/3\/picklist_names\/0359dbfa-dee4-4ded-b91f-480d6f587e15",
+    "@type": "PicklistName",
+    "name": "EmployeeStatus",
+    "system": false,
+    "picklists": [
+        {
+            "@id": "\/api\/3\/picklists\/642ff627-bc3f-48b4-9aaa-baa46868a8aa",
+            "@type": "Picklist",
+            "itemValue": "Ex-Employee",
+            "orderIndex": 1,
+            "color": "#e31c1c",
+            "icon": null,
+            "listName": "\/api\/3\/picklist_names\/0359dbfa-dee4-4ded-b91f-480d6f587e15",
+            "uuid": "642ff627-bc3f-48b4-9aaa-baa46868a8aa",
+            "id": 297
+        },
+        {
+            "@id": "\/api\/3\/picklists\/438373e1-be6d-464e-89b0-3061697a6dff",
+            "@type": "Picklist",
+            "itemValue": "Notice Period",
+            "orderIndex": 2,
+            "color": "#d65d18",
+            "icon": null,
+            "listName": "\/api\/3\/picklist_names\/0359dbfa-dee4-4ded-b91f-480d6f587e15",
+            "uuid": "438373e1-be6d-464e-89b0-3061697a6dff",
+            "id": 298
+        },
+        {
+            "@id": "\/api\/3\/picklists\/c707b95d-50a8-4ab1-ac56-3a7630fb7dbc",
+            "@type": "Picklist",
+            "itemValue": "Current",
+            "orderIndex": 0,
+            "color": "#16d440",
+            "icon": null,
+            "listName": "\/api\/3\/picklist_names\/0359dbfa-dee4-4ded-b91f-480d6f587e15",
+            "uuid": "c707b95d-50a8-4ab1-ac56-3a7630fb7dbc",
+            "id": 299
+        }
+    ],
+    "uuid": "0359dbfa-dee4-4ded-b91f-480d6f587e15",
+    "id": 50
+}

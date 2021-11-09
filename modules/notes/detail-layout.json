@@ -1,0 +1,98 @@
+{
+    "@context": "\/api\/3\/contexts\/SystemViewTemplate",
+    "@type": "SystemViewTemplate",
+    "type": "rows",
+    "config": {
+        "actionButtons": [],
+        "rows": [
+            {
+                "columns": [
+                    {
+                        "style": "col-lg-9",
+                        "widgets": [
+                            {
+                                "config": {
+                                    "rows": [
+                                        {
+                                            "columns": [
+                                                {
+                                                    "fields": [
+                                                        {
+                                                            "highlightMode": true,
+                                                            "name": "note"
+                                                        },
+                                                        {
+                                                            "highlightMode": true,
+                                                            "name": "rawData"
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            "style": "display-inline-block"
+                                        }
+                                    ],
+                                    "wid": "dea52bfc-8818-4c02-a9a8-a44148f8b93c"
+                                },
+                                "type": "editableFormGroup"
+                            },
+                            {
+                                "config": {
+                                    "tabs": [
+                                        {
+                                            "title": "CORRELATIONS",
+                                            "widget": {
+                                                "config": {
+                                                    "excludes": [
+                                                        "notes",
+                                                        "comments",
+                                                        "attachments"
+                                                    ],
+                                                    "wid": "d1a7f875-c66c-4cc8-80c4-5a540f935c63"
+                                                },
+                                                "type": "relationship.subtab"
+                                            }
+                                        }
+                                    ],
+                                    "wid": "5142275e-ae2e-4565-bc9c-ba4c29650f5a"
+                                },
+                                "type": "tabs"
+                            }
+                        ]
+                    },
+                    {
+                        "style": "col-lg-3",
+                        "widgets": [
+                            {
+                                "config": {
+                                    "rows": [
+                                        {
+                                            "columns": [
+                                                {
+                                                    "fields": [
+                                                        {
+                                                            "highlightMode": true,
+                                                            "name": "createUser"
+                                                        },
+                                                        {
+                                                            "highlightMode": true,
+                                                            "name": "createDate"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "wid": "d7cb8b1e-6cc3-4507-8bce-4dd105984fba"
+                                },
+                                "type": "editableFormGroup"
+                            }
+                        ]
+                    }
+                ],
+                "wid": "83ec3fe6-ea9c-43d4-8a7b-9c0209af1da7"
+            }
+        ],
+        "wid": "ff0edde9-4d52-4b0b-8b0d-fd671f8a4b8a"
+    },
+    "uuid": "modules-notes-detail"
+}

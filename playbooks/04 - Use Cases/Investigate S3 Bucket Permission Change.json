@@ -1,0 +1,1066 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Investigate S3 Bucket Permission Change",
+    "aliasName": null,
+    "tag": null,
+    "description": "Investigate a change in the S3 permissions, and performs containment and remediation tasks if the change is in violation of the S3 policy.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/59667fcc-7feb-4ba4-a5a2-e03a9287f857",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/6bef0d8c-d927-4e34-b627-820db77800e4",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Close Tracking ServiceNow Ticket",
+            "description": null,
+            "arguments": {
+                "name": "ServiceNow",
+                "config": "e12eccc0-c3bd-4edd-ab9b-fdeba4667364",
+                "params": {
+                    "state": "Closed",
+                    "sys_id": "{{vars.snow_incidentSysId}}",
+                    "severity": "",
+                    "work_notes": "",
+                    "description": "",
+                    "other_fields": "{\n  \"comments\": \"Employee's Manager has been Informed via ServiceNow. Closing this Incident\"\n}"
+                },
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Closed ServiceNow ticket&nbsp;<\/p>",
+                    "records": ""
+                },
+                "version": "3.1.0",
+                "connector": "servicenow",
+                "operation": "update_servicenow_incident",
+                "mock_result": "{\n  \"data\": {\n    \"result\": {\n      \"rfc\": \"\",\n      \"order\": \"\",\n      \"state\": \"7\",\n      \"active\": \"false\",\n      \"impact\": \"3\",\n      \"notify\": \"1\",\n      \"number\": \"INC0010023\",\n      \"parent\": \"\",\n      \"sys_id\": \"1a90b3ac2f4c20103d07ae6df699b6e6\",\n      \"cmdb_ci\": \"\",\n      \"company\": \"\",\n      \"sla_due\": \"\",\n      \"urgency\": \"3\",\n      \"approval\": \"not requested\",\n      \"category\": \"inquiry\",\n      \"comments\": \"\",\n      \"contract\": \"\",\n      \"due_date\": \"\",\n      \"location\": \"\",\n      \"made_sla\": \"true\",\n      \"priority\": \"5\",\n      \"severity\": \"3\",\n      \"sys_tags\": \"\",\n      \"work_end\": \"\",\n      \"caller_id\": {\n        \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user\/6816f79cc0a8016401c5a33be04be441\",\n        \"value\": \"6816f79cc0a8016401c5a33be04be441\"\n      },\n      \"caused_by\": \"\",\n      \"closed_at\": \"2020-10-21 10:09:06\",\n      \"closed_by\": {\n        \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user\/6816f79cc0a8016401c5a33be04be441\",\n        \"value\": \"6816f79cc0a8016401c5a33be04be441\"\n      },\n      \"follow_up\": \"\",\n      \"knowledge\": \"false\",\n      \"opened_at\": \"2020-10-21 10:08:55\",\n      \"opened_by\": {\n        \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user\/6816f79cc0a8016401c5a33be04be441\",\n        \"value\": \"6816f79cc0a8016401c5a33be04be441\"\n      },\n      \"close_code\": \"Closed\/Resolved by Caller\",\n      \"escalation\": \"0\",\n      \"group_list\": \"\",\n      \"problem_id\": \"\",\n      \"sys_domain\": {\n        \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user_group\/global\",\n        \"value\": \"global\"\n      },\n      \"user_input\": \"\",\n      \"watch_list\": \"\",\n      \"work_notes\": \"\",\n      \"work_start\": \"\",\n      \"assigned_to\": \"\",\n      \"close_notes\": \"Closed by Caller\",\n      \"description\": \"Bucket is open to public access\\n\\n\",\n      \"hold_reason\": \"\",\n      \"reopened_by\": {\n        \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user\/6816f79cc0a8016401c5a33be04be441\",\n        \"value\": \"6816f79cc0a8016401c5a33be04be441\"\n      },\n      \"resolved_at\": \"2020-10-21 10:12:51\",\n      \"resolved_by\": {\n        \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user\/6816f79cc0a8016401c5a33be04be441\",\n        \"value\": \"6816f79cc0a8016401c5a33be04be441\"\n      },\n      \"subcategory\": \"\",\n      \"time_worked\": \"\",\n      \"upon_reject\": \"cancel\",\n      \"activity_due\": \"\",\n      \"approval_set\": \"\",\n      \"business_stc\": \"0\",\n      \"calendar_stc\": \"236\",\n      \"contact_type\": \"\",\n      \"reopen_count\": \"1\",\n      \"delivery_plan\": \"\",\n      \"delivery_task\": \"\",\n      \"reopened_time\": \"2020-10-21 10:10:27\",\n      \"sys_mod_count\": \"3\",\n      \"upon_approval\": \"proceed\",\n      \"correlation_id\": \"\",\n      \"expected_start\": \"\",\n      \"incident_state\": \"7\",\n      \"sys_class_name\": \"incident\",\n      \"sys_created_by\": \"admin\",\n      \"sys_created_on\": \"2020-10-21 10:08:55\",\n      \"sys_updated_by\": \"admin\",\n      \"sys_updated_on\": \"2020-10-21 10:12:51\",\n      \"child_incidents\": \"0\",\n      \"parent_incident\": \"\",\n      \"sys_domain_path\": \"\/\",\n      \"work_notes_list\": \"\",\n      \"approval_history\": \"\",\n      \"assignment_group\": {\n        \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user_group\/12a586cd0bb23200ecfd818393673a30\",\n        \"value\": \"12a586cd0bb23200ecfd818393673a30\"\n      },\n      \"business_service\": \"\",\n      \"service_offering\": \"\",\n      \"business_duration\": \"1970-01-01 00:00:00\",\n      \"calendar_duration\": \"1970-01-01 00:03:56\",\n      \"short_description\": \"Bucket is open to public access\\n\\n\",\n      \"reassignment_count\": \"0\",\n      \"correlation_display\": \"\",\n      \"comments_and_work_notes\": \"\",\n      \"additional_assignee_list\": \"\"\n    }\n  },\n  \"status\": \"Success\",\n  \"_status\": true,\n  \"message\": \"\",\n  \"operation\": null,\n  \"request_id\": null\n}",
+                "operationTitle": "Update ServiceNow Incident",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1785",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "56b97a8c-fd3b-4a3b-b9ac-2e36f971acbf",
+            "id": 3381
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Is External Access Allowed",
+            "description": null,
+            "arguments": {
+                "type": "DecisionBased",
+                "input": {
+                    "schema": {
+                        "title": "External Access Authorization Validation",
+                        "description": "<p><span class=\"fa fa-exclamation-triangle\"  style=\"font-size: 15px; color: #DE7A13;\"><\/span>&nbsp; Is following S3 bucket  authorized for external access<\/p><br>\n<p><strong>Bucket name<\/strong>:&nbsp; {{vars.artifact_bucketName}}<br \/><strong>Employee ID<\/strong>:&nbsp;{{vars.artifact_userId}}<br \/><strong>Employee Name<\/strong>:&nbsp;{{vars.artifact_employeeName}}<br \/><br \/><\/p>\n<p><strong>Current Policy Details<\/strong>:<\/p>\n<p>{{ vars.steps.Retrieve_Bucket_Policy.data.Policy.Statement | json2html( ['Action', 'Effect', 'Resource', 'Principal'] ) }}<\/p>",
+                        "inputVariables": []
+                    }
+                },
+                "record": "{{ vars.input.records[0][\"@id\"] }}",
+                "owner_detail": {
+                    "isAssigned": false
+                },
+                "step_variables": [],
+                "response_mapping": {
+                    "options": [
+                        {
+                            "option": "Yes",
+                            "primary": true,
+                            "step_iri": "\/api\/3\/workflow_steps\/c75c5c1e-38a1-4a62-add9-7bb47e11cdd4"
+                        },
+                        {
+                            "option": "No",
+                            "step_iri": "\/api\/3\/workflow_steps\/e4aed39b-7899-4295-9418-6e9048624bb0"
+                        }
+                    ],
+                    "duplicateOption": false
+                }
+            },
+            "status": null,
+            "top": "975",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/fc04082a-d7dc-4299-96fb-6837b1baa0fe",
+            "uuid": "12e04906-a641-4c52-baaa-17a1131fa57a",
+            "id": 3382
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Incident in ServiceNow for Manager",
+            "description": null,
+            "arguments": {
+                "name": "ServiceNow",
+                "config": "81188066-bb98-4750-af83-e2ae02bb507f",
+                "params": {
+                    "state": "New",
+                    "impact": "3",
+                    "urgency": "3",
+                    "category": "",
+                    "location": "",
+                    "severity": "3",
+                    "caller_id": "{{vars.snow_incidentCaller}}",
+                    "work_notes": "",
+                    "assigned_to": "",
+                    "description": "Your team member {{vars.artifact_employeeName}}'s change to S3 Bucket Policy has been accepted.(See Incident {{vars.snow_incidentNumber}} for details",
+                    "other_fields": "",
+                    "assignment_group": "",
+                    "short_description": "{{vars.snow_shortDescription}} {{ \" - Report to Manager \"}}"
+                },
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Created Information Ticket for Manager<\/p>",
+                    "records": ""
+                },
+                "version": "3.1.0",
+                "connector": "servicenow",
+                "operation": "create_incident",
+                "mock_result": "{\n  \"data\": {\n    \"result\": {\n      \"rfc\": \"\",\n      \"order\": \"\",\n      \"state\": \"1\",\n      \"active\": \"true\",\n      \"impact\": \"3\",\n      \"notify\": \"1\",\n      \"number\": \"INC0010024\",\n      \"parent\": \"\",\n      \"sys_id\": \"17717ba02f8c20103d07ae6df699b6a1\",\n      \"cmdb_ci\": \"\",\n      \"company\": \"\",\n      \"sla_due\": \"\",\n      \"urgency\": \"3\",\n      \"approval\": \"not requested\",\n      \"category\": \"inquiry\",\n      \"comments\": \"\",\n      \"contract\": \"\",\n      \"due_date\": \"\",\n      \"location\": \"\",\n      \"made_sla\": \"true\",\n      \"priority\": \"5\",\n      \"severity\": \"3\",\n      \"sys_tags\": \"\",\n      \"work_end\": \"\",\n      \"caller_id\": {\n        \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user\/6816f79cc0a8016401c5a33be04be441\",\n        \"value\": \"6816f79cc0a8016401c5a33be04be441\"\n      },\n      \"caused_by\": \"\",\n      \"closed_at\": \"\",\n      \"closed_by\": \"\",\n      \"follow_up\": \"\",\n      \"knowledge\": \"false\",\n      \"opened_at\": \"2020-10-21 10:12:48\",\n      \"opened_by\": {\n        \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user\/6816f79cc0a8016401c5a33be04be441\",\n        \"value\": \"6816f79cc0a8016401c5a33be04be441\"\n      },\n      \"close_code\": \"\",\n      \"escalation\": \"0\",\n      \"group_list\": \"\",\n      \"problem_id\": \"\",\n      \"sys_domain\": {\n        \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user_group\/global\",\n        \"value\": \"global\"\n      },\n      \"user_input\": \"\",\n      \"watch_list\": \"\",\n      \"work_notes\": \"\",\n      \"work_start\": \"\",\n      \"assigned_to\": \"\",\n      \"close_notes\": \"\",\n      \"description\": \"Your team member Tony Stark's change to S3 Bucket Policy has been accepted.(See Incident INC0010023 for details\",\n      \"hold_reason\": \"\",\n      \"reopened_by\": \"\",\n      \"resolved_at\": \"\",\n      \"resolved_by\": \"\",\n      \"subcategory\": \"\",\n      \"time_worked\": \"\",\n      \"upon_reject\": \"cancel\",\n      \"activity_due\": \"\",\n      \"approval_set\": \"\",\n      \"business_stc\": \"\",\n      \"calendar_stc\": \"\",\n      \"contact_type\": \"\",\n      \"reopen_count\": \"0\",\n      \"delivery_plan\": \"\",\n      \"delivery_task\": \"\",\n      \"reopened_time\": \"\",\n      \"sys_mod_count\": \"0\",\n      \"upon_approval\": \"proceed\",\n      \"correlation_id\": \"\",\n      \"expected_start\": \"\",\n      \"incident_state\": \"1\",\n      \"sys_class_name\": \"incident\",\n      \"sys_created_by\": \"admin\",\n      \"sys_created_on\": \"2020-10-21 10:12:48\",\n      \"sys_updated_by\": \"admin\",\n      \"sys_updated_on\": \"2020-10-21 10:12:48\",\n      \"child_incidents\": \"0\",\n      \"parent_incident\": \"\",\n      \"sys_domain_path\": \"\/\",\n      \"work_notes_list\": \"\",\n      \"approval_history\": \"\",\n      \"assignment_group\": \"\",\n      \"business_service\": \"\",\n      \"service_offering\": \"\",\n      \"business_duration\": \"\",\n      \"calendar_duration\": \"\",\n      \"short_description\": \"Bucket is open to public access\\n\\n  - Report to Manager \",\n      \"reassignment_count\": \"0\",\n      \"correlation_display\": \"\",\n      \"comments_and_work_notes\": \"\",\n      \"additional_assignee_list\": \"\"\n    }\n  },\n  \"status\": \"Success\",\n  \"_status\": true,\n  \"message\": \"\",\n  \"operation\": null,\n  \"request_id\": null\n}",
+                "operationTitle": "Create Incident",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1650",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "7ce538d3-f7ca-4800-9a1b-faf702e89e44",
+            "id": 3383
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "4b3c88bb-35a7-42e7-90f7-9ef480a106d3",
+                "resources": [
+                    "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                    "input": {
+                        "records": "{{vars.input.records}}"
+                    }
+                },
+                "displayConditions": {
+                    "alerts": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": [
+                            {
+                                "type": "object",
+                                "field": "type",
+                                "value": "\/api\/3\/picklists\/1b14cac9-5f6a-4d87-8b9b-e710b322c490",
+                                "_value": {
+                                    "@id": "\/api\/3\/picklists\/1b14cac9-5f6a-4d87-8b9b-e710b322c490",
+                                    "itemValue": "S3 Policy Change"
+                                },
+                                "operator": "eq"
+                            }
+                        ]
+                    },
+                    "violation": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    },
+                    "attachments": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": false,
+                "singleRecordExecution": false
+            },
+            "status": null,
+            "top": "30",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "uuid": "6bef0d8c-d927-4e34-b627-820db77800e4",
+            "id": 3384
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Incident in ServiceNow",
+            "description": null,
+            "arguments": {
+                "name": "ServiceNow",
+                "config": "e12eccc0-c3bd-4edd-ab9b-fdeba4667364",
+                "params": {
+                    "state": "",
+                    "impact": "",
+                    "urgency": "",
+                    "category": "{{vars.snow_category}}",
+                    "location": "",
+                    "severity": "{{vars.snow_incidentSeverityMap [ '\"+ vars.artifact_violationCriticality +\"' ] }}",
+                    "caller_id": "{{vars.snow_incidentCaller}}",
+                    "work_notes": "",
+                    "assigned_to": "",
+                    "description": "{{vars.snow_description}}",
+                    "other_fields": "",
+                    "assignment_group": "{{vars.snow_AssignmentGroupMap[\"Incident Management\"]}}",
+                    "short_description": "{{vars.snow_shortDescription}}"
+                },
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Created ServiceNow Incident&nbsp;<strong>{{vars.result.data.result.number}}<\/strong><\/p>\n<p>URL: <a href=\"{{vars.snow_incidentBaseURL + vars.result.data.result['sys_id'] }}\">{{vars.snow_incidentBaseURL + vars.result.data.result['sys_id'] }}<\/a><\/p>",
+                    "records": ""
+                },
+                "version": "3.1.0",
+                "connector": "servicenow",
+                "operation": "create_incident",
+                "mock_result": "{\n  \"data\": {\n    \"result\": {\n      \"rfc\": \"\",\n      \"order\": \"\",\n      \"state\": \"1\",\n      \"active\": \"true\",\n      \"impact\": \"3\",\n      \"notify\": \"1\",\n      \"number\": \"INC0010023\",\n      \"parent\": \"\",\n      \"sys_id\": \"1a90b3ac2f4c20103d07ae6df699b6e6\",\n      \"cmdb_ci\": \"\",\n      \"company\": \"\",\n      \"sla_due\": \"\",\n      \"urgency\": \"3\",\n      \"approval\": \"not requested\",\n      \"category\": \"inquiry\",\n      \"comments\": \"\",\n      \"contract\": \"\",\n      \"due_date\": \"\",\n      \"location\": \"\",\n      \"made_sla\": \"true\",\n      \"priority\": \"5\",\n      \"severity\": \"3\",\n      \"sys_tags\": \"\",\n      \"work_end\": \"\",\n      \"caller_id\": {\n        \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user\/6816f79cc0a8016401c5a33be04be441\",\n        \"value\": \"6816f79cc0a8016401c5a33be04be441\"\n      },\n      \"caused_by\": \"\",\n      \"closed_at\": \"\",\n      \"closed_by\": \"\",\n      \"follow_up\": \"\",\n      \"knowledge\": \"false\",\n      \"opened_at\": \"2020-10-21 10:08:55\",\n      \"opened_by\": {\n        \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user\/6816f79cc0a8016401c5a33be04be441\",\n        \"value\": \"6816f79cc0a8016401c5a33be04be441\"\n      },\n      \"close_code\": \"\",\n      \"escalation\": \"0\",\n      \"group_list\": \"\",\n      \"problem_id\": \"\",\n      \"sys_domain\": {\n        \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user_group\/global\",\n        \"value\": \"global\"\n      },\n      \"user_input\": \"\",\n      \"watch_list\": \"\",\n      \"work_notes\": \"\",\n      \"work_start\": \"\",\n      \"assigned_to\": \"\",\n      \"close_notes\": \"\",\n      \"description\": \"Bucket is open to public access\\n\\n\",\n      \"hold_reason\": \"\",\n      \"reopened_by\": \"\",\n      \"resolved_at\": \"\",\n      \"resolved_by\": \"\",\n      \"subcategory\": \"\",\n      \"time_worked\": \"\",\n      \"upon_reject\": \"cancel\",\n      \"activity_due\": \"\",\n      \"approval_set\": \"\",\n      \"business_stc\": \"\",\n      \"calendar_stc\": \"\",\n      \"contact_type\": \"\",\n      \"reopen_count\": \"0\",\n      \"delivery_plan\": \"\",\n      \"delivery_task\": \"\",\n      \"reopened_time\": \"\",\n      \"sys_mod_count\": \"0\",\n      \"upon_approval\": \"proceed\",\n      \"correlation_id\": \"\",\n      \"expected_start\": \"\",\n      \"incident_state\": \"1\",\n      \"sys_class_name\": \"incident\",\n      \"sys_created_by\": \"admin\",\n      \"sys_created_on\": \"2020-10-21 10:08:55\",\n      \"sys_updated_by\": \"admin\",\n      \"sys_updated_on\": \"2020-10-21 10:08:55\",\n      \"child_incidents\": \"0\",\n      \"parent_incident\": \"\",\n      \"sys_domain_path\": \"\/\",\n      \"work_notes_list\": \"\",\n      \"approval_history\": \"\",\n      \"assignment_group\": {\n        \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user_group\/12a586cd0bb23200ecfd818393673a30\",\n        \"value\": \"12a586cd0bb23200ecfd818393673a30\"\n      },\n      \"business_service\": \"\",\n      \"service_offering\": \"\",\n      \"business_duration\": \"\",\n      \"calendar_duration\": \"\",\n      \"short_description\": \"Bucket is open to public access\\n\\n\",\n      \"reassignment_count\": \"0\",\n      \"correlation_display\": \"\",\n      \"comments_and_work_notes\": \"\",\n      \"additional_assignee_list\": \"\"\n    }\n  },\n  \"status\": \"Success\",\n  \"_status\": true,\n  \"message\": \"\",\n  \"operation\": null,\n  \"request_id\": null\n}",
+                "operationTitle": "Create Incident",
+                "step_variables": {
+                    "snow_incidentSysId": "{{vars.result.data.result['sys_id']}}",
+                    "snow_incidentNumber": "{{vars.result.data.result.number}}"
+                }
+            },
+            "status": null,
+            "top": "705",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "23b1e1b9-3ec6-4530-8b00-72f9f5fa9b7b",
+            "id": 3385
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Investigate Non Approved Change",
+            "description": null,
+            "arguments": {
+                "type": "DecisionBased",
+                "input": {
+                    "schema": {
+                        "title": "Change Validation",
+                        "description": "<p><span class=\"fa fa-exclamation-triangle\"  style=\"font-size: 15px; color: #DE7A13;\"><\/span>&nbsp; Review the <strong>current policy<\/strong>, and confirm whether this was an acceptable change?<\/p><br>\n<p><strong>Bucket name<\/strong>:&nbsp; {{vars.artifact_bucketName}}<br><\/p>\n<p><strong>Policy Details<\/strong>:<\/p>\n<p>{{ vars.steps.Retrieve_Bucket_Policy.data.Policy.Statement | json2html( ['Action', 'Effect', 'Resource', 'Principal'] ) }}<\/p>",
+                        "inputVariables": []
+                    }
+                },
+                "record": "{{ vars.input.records[0][\"@id\"] }}",
+                "owner_detail": {
+                    "isAssigned": false
+                },
+                "step_variables": [],
+                "response_mapping": {
+                    "options": [
+                        {
+                            "option": "Acceptable",
+                            "primary": true,
+                            "step_iri": "\/api\/3\/workflow_steps\/2f54049d-3556-474c-8183-674d9f378f04"
+                        },
+                        {
+                            "option": "Not Acceptable",
+                            "step_iri": "\/api\/3\/workflow_steps\/b0b93482-1f11-4eb1-a971-7b2fbbc33920"
+                        }
+                    ],
+                    "duplicateOption": false
+                }
+            },
+            "status": null,
+            "top": "1245",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/fc04082a-d7dc-4299-96fb-6837b1baa0fe",
+            "uuid": "c2af86ea-814e-449e-8d2a-f7777fd9862e",
+            "id": 3386
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Retrieve Users Manager",
+            "description": null,
+            "arguments": {
+                "name": "Active Directory",
+                "config": "fb4aed3a-17d8-4686-aa26-efc98f3d4587",
+                "params": {
+                    "cn": "",
+                    "sn": "",
+                    "search_object": "User",
+                    "search_attr_value": "{{vars.artifact_userId}}"
+                },
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Investigating&nbsp;{{vars.input.records[0].threatName}} with following artifacts:<\/p>\n<ul style=\"list-style-type: square;\">\n<li><strong>S3 Bucketname<\/strong>:&nbsp;{{vars.artifact_bucketName}}<\/li>\n<li><strong>Employee ID:<\/strong>&nbsp;{{vars.artifact_userId}}<\/li>\n<li><strong>Employee Name<\/strong>:&nbsp;{{vars.result.attributes.name}} (Enriched from Active Directory)<\/li>\n<li><strong>Employee's Manager<\/strong>:&nbsp;{{vars.result.attributes.manager}}<\/li>\n<\/ul>",
+                    "records": ""
+                },
+                "version": "2.1.1",
+                "connector": "activedirectory",
+                "operation": "get_specific_object_details",
+                "mock_result": "{\n  \"dn\": \"CN=Tony Stark,OU=QA,DC=cyops,DC=local\",\n  \"attributes\": {\n    \"c\": \"IN\",\n    \"l\": \"Pune\",\n    \"cn\": \"Tony Stark\",\n    \"co\": \"India\",\n    \"sn\": \"Stark\",\n    \"st\": \"Maharashtra\",\n    \"mail\": \"tstark@cyops.local\",\n    \"name\": \"Tony Stark\",\n    \"pager\": \"020-1234567881\",\n    \"title\": \"Senior Manager\",\n    \"mobile\": \"020-1234567880\",\n    \"company\": \"CyberSponse\",\n    \"homeMDB\": \"CN=Mailbox Database 1757895454,CN=Databases,CN=Exchange Administrative Group (FYDIBOHF23SPDLT),CN=Administrative Groups,CN=First Organization,CN=Microsoft Exchange,CN=Services,CN=Configuration,DC=cyops,DC=local\",\n    \"manager\": \"CN=Swati,OU=QA,DC=cyops,DC=local\",\n    \"codePage\": 0,\n    \"givenName\": \"Tony\",\n    \"homePhone\": \"020-1234567889\",\n    \"lastLogon\": 1563182829,\n    \"objectSid\": \"S-1-5-21-2775588645-2726100070-1280702769-1138\",\n    \"department\": \"QA\",\n    \"lastLogoff\": null,\n    \"logonCount\": 17,\n    \"objectGUID\": \"{bea5ea76-b561-4f91-bcb7-f1d994895666}\",\n    \"pwdLastSet\": 1565334169,\n    \"uSNChanged\": 231644,\n    \"uSNCreated\": 27255,\n    \"badPwdCount\": 1,\n    \"countryCode\": 356,\n    \"description\": [\n      \"Senior Manager\"\n    ],\n    \"displayName\": \"Tony Stark\",\n    \"lockoutTime\": null,\n    \"objectClass\": [\n      \"top\",\n      \"person\",\n      \"organizationalPerson\",\n      \"user\"\n    ],\n    \"wWWHomePage\": \"www.cybersponse.com\",\n    \"whenChanged\": 1580985075,\n    \"whenCreated\": 1519935974,\n    \"instanceType\": 4,\n    \"mailNickname\": \"tstark\",\n    \"msExchVersion\": 88218628259840,\n    \"streetAddress\": \"801, Amar Neptune,\\r\\nBaner\",\n    \"accountExpires\": 253402300799,\n    \"mDBUseDefaults\": true,\n    \"managedObjects\": [\n      \"CN=WIN-EP2,CN=Computers,DC=cyops,DC=local\"\n    ],\n    \"objectCategory\": \"CN=Person,CN=Schema,CN=Configuration,DC=cyops,DC=local\",\n    \"primaryGroupID\": 513,\n    \"proxyAddresses\": [\n      \"SMTP:tstark@cyops.local\"\n    ],\n    \"sAMAccountName\": \"tstark\",\n    \"sAMAccountType\": \"SAM_NORMAL_USER_ACCOUNT\",\n    \"badPasswordTime\": 1580985350,\n    \"msExchUMDtmfMap\": [\n      \"emailAddress:878275\",\n      \"lastNameFirstName:782758669\",\n      \"firstNameLastName:866978275\"\n    ],\n    \"telephoneNumber\": \"020-12345678\",\n    \"legacyExchangeDN\": \"\/o=First Organization\/ou=Exchange Administrative Group (FYDIBOHF23SPDLT)\/cn=Recipients\/cn=0350540ee0564372bc6abb6ba1088d57-Tony\",\n    \"distinguishedName\": \"CN=Tony Stark,OU=QA,DC=cyops,DC=local\",\n    \"msExchMailboxGuid\": {\n      \"encoded\": \"foL3Xs2Uk0ytfaZD2u6Uqg==\",\n      \"encoding\": \"base64\"\n    },\n    \"msExchUserCulture\": \"en-US\",\n    \"showInAddressBook\": [\n      \"CN=Mailboxes(VLV),CN=All System Address Lists,CN=Address Lists Container,CN=First Organization,CN=Microsoft Exchange,CN=Services,CN=Configuration,DC=cyops,DC=local\",\n      \"CN=All Mailboxes(VLV),CN=All System Address Lists,CN=Address Lists Container,CN=First Organization,CN=Microsoft Exchange,CN=Services,CN=Configuration,DC=cyops,DC=local\",\n      \"CN=All Recipients(VLV),CN=All System Address Lists,CN=Address Lists Container,CN=First Organization,CN=Microsoft Exchange,CN=Services,CN=Configuration,DC=cyops,DC=local\",\n      \"CN=Default Global Address List,CN=All Global Address Lists,CN=Address Lists Container,CN=First Organization,CN=Microsoft Exchange,CN=Services,CN=Configuration,DC=cyops,DC=local\",\n      \"CN=All Users,CN=All Address Lists,CN=Address Lists Container,CN=First Organization,CN=Microsoft Exchange,CN=Services,CN=Configuration,DC=cyops,DC=local\"\n    ],\n    \"userPrincipalName\": \"tstark@cyops.local\",\n    \"lastLogonTimestamp\": 1580985074,\n    \"msExchArchiveQuota\": 104857600,\n    \"userAccountControl\": \"NORMAL_ACCOUNT\",\n    \"msExchDumpsterQuota\": 31457280,\n    \"msExchHomeServerName\": \"\/o=First Organization\/ou=Exchange Administrative Group (FYDIBOHF23SPDLT)\/cn=Configuration\/cn=Servers\/cn=WIN-EXCH\",\n    \"msExchRBACPolicyLink\": \"CN=Default Role Assignment Policy,CN=Policies,CN=RBAC,CN=First Organization,CN=Microsoft Exchange,CN=Services,CN=Configuration,DC=cyops,DC=local\",\n    \"dSCorePropagationData\": [\n      1537770653,\n      1519935974,\n      null\n    ],\n    \"msExchArchiveWarnQuota\": 94371840,\n    \"msExchPoliciesIncluded\": [\n      \"7fdf2fd3-d242-4f70-9ef7-60e190bf625b\",\n      \"{26491cfc-9e50-4857-861b-0cb8df22b5d7}\"\n    ],\n    \"facsimileTelephoneNumber\": \"020-1234567890\",\n    \"msExchTextMessagingState\": [\n      302120705,\n      16842751\n    ],\n    \"msExchUserAccountControl\": 0,\n    \"msExchWhenMailboxCreated\": 1519938109,\n    \"msExchCalendarLoggingQuota\": 6291456,\n    \"msExchDumpsterWarningQuota\": 20971520,\n    \"msExchRecipientDisplayType\": 1073741824,\n    \"msExchRecipientTypeDetails\": 1,\n    \"physicalDeliveryOfficeName\": \"CyOps Pune\",\n    \"msExchMailboxSecurityDescriptor\": {\n      \"encoded\": \"AQAEgBQAAAAgAAAAAAAAACwAAAABAQAAAAAABQoAAAABAQAAAAAABQoAAAAEABwAAQAAAAACFAABAAIAAQEAAAAAAAUKAAAA\",\n      \"encoding\": \"base64\"\n    }\n  },\n  \"resource_info\": {\n    \"data\": {\n      \"cookie\": null,\n      \"entries\": [\n        {\n          \"dn\": \"CN=Tony Stark,OU=QA,DC=cyops,DC=local\",\n          \"attributes\": {\n            \"c\": \"IN\",\n            \"l\": \"Pune\",\n            \"cn\": \"Tony Stark\",\n            \"co\": \"India\",\n            \"sn\": \"Stark\",\n            \"st\": \"Maharashtra\",\n            \"mail\": \"tstark@cyops.local\",\n            \"name\": \"Tony Stark\",\n            \"pager\": \"020-1234567881\",\n            \"title\": \"Senior Manager\",\n            \"mobile\": \"020-1234567880\",\n            \"company\": \"CyberSponse\",\n            \"homeMDB\": \"CN=Mailbox Database 1757895454,CN=Databases,CN=Exchange Administrative Group (FYDIBOHF23SPDLT),CN=Administrative Groups,CN=First Organization,CN=Microsoft Exchange,CN=Services,CN=Configuration,DC=cyops,DC=local\",\n            \"manager\": \"CN=Swati,OU=QA,DC=cyops,DC=local\",\n            \"codePage\": 0,\n            \"givenName\": \"Tony\",\n            \"homePhone\": \"020-1234567889\",\n            \"lastLogon\": 1563182829,\n            \"objectSid\": \"S-1-5-21-2775588645-2726100070-1280702769-1138\",\n            \"department\": \"QA\",\n            \"lastLogoff\": null,\n            \"logonCount\": 17,\n            \"objectGUID\": \"{bea5ea76-b561-4f91-bcb7-f1d994895666}\",\n            \"pwdLastSet\": 1565334169,\n            \"uSNChanged\": 231644,\n            \"uSNCreated\": 27255,\n            \"badPwdCount\": 1,\n            \"countryCode\": 356,\n            \"description\": [\n              \"Senior Manager\"\n            ],\n            \"displayName\": \"Tony Stark\",\n            \"lockoutTime\": null,\n            \"objectClass\": [\n              \"top\",\n              \"person\",\n              \"organizationalPerson\",\n              \"user\"\n            ],\n            \"wWWHomePage\": \"www.cybersponse.com\",\n            \"whenChanged\": 1580985075,\n            \"whenCreated\": 1519935974,\n            \"instanceType\": 4,\n            \"mailNickname\": \"tstark\",\n            \"msExchVersion\": 88218628259840,\n            \"streetAddress\": \"801, Amar Neptune,\\r\\nBaner\",\n            \"accountExpires\": 253402300799,\n            \"mDBUseDefaults\": true,\n            \"managedObjects\": [\n              \"CN=WIN-EP2,CN=Computers,DC=cyops,DC=local\"\n            ],\n            \"objectCategory\": \"CN=Person,CN=Schema,CN=Configuration,DC=cyops,DC=local\",\n            \"primaryGroupID\": 513,\n            \"proxyAddresses\": [\n              \"SMTP:tstark@cyops.local\"\n            ],\n            \"sAMAccountName\": \"tstark\",\n            \"sAMAccountType\": \"SAM_NORMAL_USER_ACCOUNT\",\n            \"badPasswordTime\": 1580985350,\n            \"msExchUMDtmfMap\": [\n              \"emailAddress:878275\",\n              \"lastNameFirstName:782758669\",\n              \"firstNameLastName:866978275\"\n            ],\n            \"telephoneNumber\": \"020-12345678\",\n            \"legacyExchangeDN\": \"\/o=First Organization\/ou=Exchange Administrative Group (FYDIBOHF23SPDLT)\/cn=Recipients\/cn=0350540ee0564372bc6abb6ba1088d57-Tony\",\n            \"distinguishedName\": \"CN=Tony Stark,OU=QA,DC=cyops,DC=local\",\n            \"msExchMailboxGuid\": {\n              \"encoded\": \"foL3Xs2Uk0ytfaZD2u6Uqg==\",\n              \"encoding\": \"base64\"\n            },\n            \"msExchUserCulture\": \"en-US\",\n            \"showInAddressBook\": [\n              \"CN=Mailboxes(VLV),CN=All System Address Lists,CN=Address Lists Container,CN=First Organization,CN=Microsoft Exchange,CN=Services,CN=Configuration,DC=cyops,DC=local\",\n              \"CN=All Mailboxes(VLV),CN=All System Address Lists,CN=Address Lists Container,CN=First Organization,CN=Microsoft Exchange,CN=Services,CN=Configuration,DC=cyops,DC=local\",\n              \"CN=All Recipients(VLV),CN=All System Address Lists,CN=Address Lists Container,CN=First Organization,CN=Microsoft Exchange,CN=Services,CN=Configuration,DC=cyops,DC=local\",\n              \"CN=Default Global Address List,CN=All Global Address Lists,CN=Address Lists Container,CN=First Organization,CN=Microsoft Exchange,CN=Services,CN=Configuration,DC=cyops,DC=local\",\n              \"CN=All Users,CN=All Address Lists,CN=Address Lists Container,CN=First Organization,CN=Microsoft Exchange,CN=Services,CN=Configuration,DC=cyops,DC=local\"\n            ],\n            \"userPrincipalName\": \"tstark@cyops.local\",\n            \"lastLogonTimestamp\": 1580985074,\n            \"msExchArchiveQuota\": 104857600,\n            \"userAccountControl\": \"NORMAL_ACCOUNT\",\n            \"msExchDumpsterQuota\": 31457280,\n            \"msExchHomeServerName\": \"\/o=First Organization\/ou=Exchange Administrative Group (FYDIBOHF23SPDLT)\/cn=Configuration\/cn=Servers\/cn=WIN-EXCH\",\n            \"msExchRBACPolicyLink\": \"CN=Default Role Assignment Policy,CN=Policies,CN=RBAC,CN=First Organization,CN=Microsoft Exchange,CN=Services,CN=Configuration,DC=cyops,DC=local\",\n            \"dSCorePropagationData\": [\n              1537770653,\n              1519935974,\n              null\n            ],\n            \"msExchArchiveWarnQuota\": 94371840,\n            \"msExchPoliciesIncluded\": [\n              \"7fdf2fd3-d242-4f70-9ef7-60e190bf625b\",\n              \"{26491cfc-9e50-4857-861b-0cb8df22b5d7}\"\n            ],\n            \"facsimileTelephoneNumber\": \"020-1234567890\",\n            \"msExchTextMessagingState\": [\n              302120705,\n              16842751\n            ],\n            \"msExchUserAccountControl\": 0,\n            \"msExchWhenMailboxCreated\": 1519938109,\n            \"msExchCalendarLoggingQuota\": 6291456,\n            \"msExchDumpsterWarningQuota\": 20971520,\n            \"msExchRecipientDisplayType\": 1073741824,\n            \"msExchRecipientTypeDetails\": 1,\n            \"physicalDeliveryOfficeName\": \"CyOps Pune\",\n            \"msExchMailboxSecurityDescriptor\": {\n              \"encoded\": \"AQAEgBQAAAAgAAAAAAAAACwAAAABAQAAAAAABQoAAAABAQAAAAAABQoAAAAEABwAAQAAAAACFAABAAIAAQEAAAAAAAUKAAAA\",\n              \"encoding\": \"base64\"\n            }\n          }\n        }\n      ]\n    },\n    \"status\": \"Success\",\n    \"message\": \"\",\n    \"operation\": null\n  }\n}",
+                "operationTitle": "Get Specific Object Details",
+                "step_variables": {
+                    "artifact_employeeName": "{{vars.result.attributes.name}}",
+                    "artifact_employeeManager": "{{vars.result.attributes.manager}}"
+                }
+            },
+            "status": null,
+            "top": "570",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "a13f8696-3b1b-4aa6-bfaa-88c7afcf3074",
+            "id": 3387
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Close ServiceNow Ticket",
+            "description": null,
+            "arguments": {
+                "name": "ServiceNow",
+                "config": "7d0dc902-41f4-4599-8449-5479bb65aa3d",
+                "params": {
+                    "state": "Closed",
+                    "sys_id": "{{vars.snow_incidentSysId}}",
+                    "severity": "",
+                    "work_notes": "",
+                    "description": "",
+                    "other_fields": "{\n  \"comments\": \"Confirmed that this was an approved change, and hence closing the ticket\"\n}"
+                },
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Closed ServiceNow ticket<\/p>",
+                    "records": ""
+                },
+                "version": "3.1.0",
+                "connector": "servicenow",
+                "operation": "update_servicenow_incident",
+                "mock_result": "{\n  \"data\": {\n    \"result\": {\n      \"rfc\": \"\",\n      \"order\": \"\",\n      \"state\": \"7\",\n      \"active\": \"false\",\n      \"impact\": \"3\",\n      \"notify\": \"1\",\n      \"number\": \"INC0010023\",\n      \"parent\": \"\",\n      \"sys_id\": \"1a90b3ac2f4c20103d07ae6df699b6e6\",\n      \"cmdb_ci\": \"\",\n      \"company\": \"\",\n      \"sla_due\": \"\",\n      \"urgency\": \"3\",\n      \"approval\": \"not requested\",\n      \"category\": \"inquiry\",\n      \"comments\": \"\",\n      \"contract\": \"\",\n      \"due_date\": \"\",\n      \"location\": \"\",\n      \"made_sla\": \"true\",\n      \"priority\": \"5\",\n      \"severity\": \"3\",\n      \"sys_tags\": \"\",\n      \"work_end\": \"\",\n      \"caller_id\": {\n        \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user\/6816f79cc0a8016401c5a33be04be441\",\n        \"value\": \"6816f79cc0a8016401c5a33be04be441\"\n      },\n      \"caused_by\": \"\",\n      \"closed_at\": \"2020-10-21 10:09:06\",\n      \"closed_by\": {\n        \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user\/6816f79cc0a8016401c5a33be04be441\",\n        \"value\": \"6816f79cc0a8016401c5a33be04be441\"\n      },\n      \"follow_up\": \"\",\n      \"knowledge\": \"false\",\n      \"opened_at\": \"2020-10-21 10:08:55\",\n      \"opened_by\": {\n        \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user\/6816f79cc0a8016401c5a33be04be441\",\n        \"value\": \"6816f79cc0a8016401c5a33be04be441\"\n      },\n      \"close_code\": \"Closed\/Resolved by Caller\",\n      \"escalation\": \"0\",\n      \"group_list\": \"\",\n      \"problem_id\": \"\",\n      \"sys_domain\": {\n        \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user_group\/global\",\n        \"value\": \"global\"\n      },\n      \"user_input\": \"\",\n      \"watch_list\": \"\",\n      \"work_notes\": \"\",\n      \"work_start\": \"\",\n      \"assigned_to\": \"\",\n      \"close_notes\": \"Closed by Caller\",\n      \"description\": \"Bucket is open to public access\\n\\n\",\n      \"hold_reason\": \"\",\n      \"reopened_by\": \"\",\n      \"resolved_at\": \"2020-10-21 10:09:06\",\n      \"resolved_by\": {\n        \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user\/6816f79cc0a8016401c5a33be04be441\",\n        \"value\": \"6816f79cc0a8016401c5a33be04be441\"\n      },\n      \"subcategory\": \"\",\n      \"time_worked\": \"\",\n      \"upon_reject\": \"cancel\",\n      \"activity_due\": \"\",\n      \"approval_set\": \"\",\n      \"business_stc\": \"0\",\n      \"calendar_stc\": \"11\",\n      \"contact_type\": \"\",\n      \"reopen_count\": \"0\",\n      \"delivery_plan\": \"\",\n      \"delivery_task\": \"\",\n      \"reopened_time\": \"\",\n      \"sys_mod_count\": \"1\",\n      \"upon_approval\": \"proceed\",\n      \"correlation_id\": \"\",\n      \"expected_start\": \"\",\n      \"incident_state\": \"7\",\n      \"sys_class_name\": \"incident\",\n      \"sys_created_by\": \"admin\",\n      \"sys_created_on\": \"2020-10-21 10:08:55\",\n      \"sys_updated_by\": \"admin\",\n      \"sys_updated_on\": \"2020-10-21 10:09:06\",\n      \"child_incidents\": \"0\",\n      \"parent_incident\": \"\",\n      \"sys_domain_path\": \"\/\",\n      \"work_notes_list\": \"\",\n      \"approval_history\": \"\",\n      \"assignment_group\": {\n        \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user_group\/12a586cd0bb23200ecfd818393673a30\",\n        \"value\": \"12a586cd0bb23200ecfd818393673a30\"\n      },\n      \"business_service\": \"\",\n      \"service_offering\": \"\",\n      \"business_duration\": \"1970-01-01 00:00:00\",\n      \"calendar_duration\": \"1970-01-01 00:00:11\",\n      \"short_description\": \"Bucket is open to public access\\n\\n\",\n      \"reassignment_count\": \"0\",\n      \"correlation_display\": \"\",\n      \"comments_and_work_notes\": \"\",\n      \"additional_assignee_list\": \"\"\n    }\n  },\n  \"status\": \"Success\",\n  \"_status\": true,\n  \"message\": \"\",\n  \"operation\": null,\n  \"request_id\": null\n}",
+                "operationTitle": "Update ServiceNow Incident",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1245",
+            "left": "650",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "fbf671ec-047c-40bd-ac90-b9ced155c59f",
+            "id": 3388
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Notify IT Admin",
+            "description": null,
+            "arguments": {
+                "config": "88c3d39c-2fa9-4731-b00d-29815008f17c",
+                "params": {
+                    "cc": "",
+                    "to": "{{vars.config_itAdminEmailAddress}}",
+                    "bcc": "",
+                    "from": "",
+                    "type": "Manual Input",
+                    "content": "<p>Please note, S3 Bucket \"<strong>{{vars.artifact_bucketName}}<\/strong>\" has been granted external access.<\/p>",
+                    "subject": "Access Granted - S3 Bucket - {{vars.artifact_bucketName}}",
+                    "iri_list": "",
+                    "body_type": "Rich Text",
+                    "file_name": "",
+                    "file_path": ""
+                },
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Notified IT Admin {{vars.config_itAdminEmailAddress}} about S3 bucket policy change<\/p>",
+                    "records": ""
+                },
+                "version": "2.4.2",
+                "from_str": "soc@cybersponse.com",
+                "connector": "smtp",
+                "operation": "send_email_new",
+                "operationTitle": "Send Email",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1110",
+            "left": "650",
+            "stepType": "\/api\/3\/workflow_step_types\/4c0019b2-055c-44d0-968c-678a0c2d762e",
+            "uuid": "c75c5c1e-38a1-4a62-add9-7bb47e11cdd4",
+            "id": 3389
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Ask new Bucket Policy",
+            "description": null,
+            "arguments": {
+                "type": "InputBased",
+                "input": {
+                    "schema": {
+                        "title": "Change Validation",
+                        "description": "<p><span class=\"fa fa-exclamation-triangle\"  style=\"font-size: 15px; color: #DE7A13;\"><\/span>&nbsp; Review the following information, and <strong>provide the new policy details<\/strong>:<\/p><br>\n<p><strong>Bucket name<\/strong>:&nbsp; {{vars.artifact_bucketName}}<br \/><strong>Current Policy Details<\/strong>:<\/p>\n<p>{{ vars.steps.Retrieve_Bucket_Policy.data.Policy.Statement | json2html( ['Action', 'Effect', 'Resource', 'Principal'] ) }}<\/p>",
+                        "inputVariables": [
+                            {
+                                "name": "userinput_NewBucketPolicy",
+                                "type": "string",
+                                "label": "New Bucket Policy",
+                                "title": "Rich Text (HTML)",
+                                "usable": true,
+                                "tooltip": "",
+                                "dataType": "text",
+                                "formType": "html",
+                                "required": false,
+                                "_expanded": true,
+                                "mmdUpdate": true,
+                                "collection": false,
+                                "searchable": true,
+                                "templateUrl": "app\/components\/form\/fields\/htmlEditor.html",
+                                "_nameTouched": true,
+                                "defaultValue": "<p>{<br>&nbsp; &nbsp; \"Version\": \"2012-10-17\",<br>&nbsp; &nbsp; \"Statement\": [<br>&nbsp; &nbsp; &nbsp;{<br>&nbsp; &nbsp; &nbsp; &nbsp; \"Sid\": \"Stmt1587972287815\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"Action\": \"s3:*\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"Effect\": \"Deny\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"Resource\": \"arn:aws:s3:::{{vars.artifact_bucketName}}\", <br>&nbsp; &nbsp; &nbsp; &nbsp; \"Principal\": \"*\"<br>&nbsp; &nbsp; &nbsp; }<br>&nbsp; &nbsp; &nbsp;]<br>}<\/p>",
+                                "lengthConstraint": false,
+                                "allowedEncryption": true,
+                                "allowedGridColumn": true,
+                                "useRecordFieldDefault": false
+                            }
+                        ]
+                    }
+                },
+                "record": "{{ vars.input.records[0][\"@id\"] }}",
+                "message": {
+                    "tags": [],
+                    "type": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Following is the New Bucket Policy Details <b>{{vars.artifact_bucketName}}<\/b><\/p>\n<ul style=\"list-style-type: square;\">\n<li><strong>Sid:<\/strong>Stmt1587972287815&nbsp;<\/li>\n<li><strong>Action<\/strong>:s3:*&nbsp;<\/li>\n<li><strong>Effect<\/strong>:Deny&nbsp;<\/li>\n<li><strong>Resource<\/strong>:&nbsp;arn:aws:s3:::{{vars.artifact_bucketName}}<\/li>\n<li><strong>Principal<\/strong>:\"*\"&nbsp;<\/li>\n<\/ul>",
+                    "records": ""
+                },
+                "owner_detail": {
+                    "isAssigned": false
+                },
+                "step_variables": [],
+                "response_mapping": {
+                    "options": [
+                        {
+                            "option": "Replace Policy",
+                            "primary": true,
+                            "step_iri": "\/api\/3\/workflow_steps\/dbc8f605-ddfb-4517-af90-8a697dbb3200"
+                        }
+                    ],
+                    "duplicateOption": false
+                },
+                "email_notification": {
+                    "enabled": false,
+                    "smtpParameters": []
+                }
+            },
+            "status": null,
+            "top": "1380",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/fc04082a-d7dc-4299-96fb-6837b1baa0fe",
+            "uuid": "b0b93482-1f11-4eb1-a971-7b2fbbc33920",
+            "id": 3390
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Notify IT Manager",
+            "description": null,
+            "arguments": {
+                "config": "88c3d39c-2fa9-4731-b00d-29815008f17c",
+                "params": {
+                    "cc": "",
+                    "to": "{{vars.config_itAdminEmailAddress}}",
+                    "bcc": "",
+                    "from": "",
+                    "type": "Manual Input",
+                    "content": "<p>Please note, S3 Bucket \"<strong>{{vars.artifact_bucketName}}<\/strong>\" is detected to have external access. As a security Measure, a new policy has been applied. Please verify the account access are per your expectations.<\/p>",
+                    "subject": "Policy Violation Detected - S3 Bucket - {{vars.artifact_bucketName}} has External Access",
+                    "iri_list": "",
+                    "body_type": "Rich Text",
+                    "file_name": "",
+                    "file_path": ""
+                },
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Notified IT Admin {{vars.config_itAdminEmailAddress}} about Policy Violation<\/p>",
+                    "records": ""
+                },
+                "version": "2.4.2",
+                "from_str": "soc@cybersponse.com",
+                "connector": "smtp",
+                "operation": "send_email_new",
+                "operationTitle": "Send Email",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1785",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/4c0019b2-055c-44d0-968c-678a0c2d762e",
+            "uuid": "d8d0ce46-a9af-43fd-8626-4c9dcf7a70c5",
+            "id": 3391
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Close Tracking ServiceNow Ticket 2",
+            "description": null,
+            "arguments": {
+                "name": "ServiceNow",
+                "config": "e12eccc0-c3bd-4edd-ab9b-fdeba4667364",
+                "params": {
+                    "state": "Closed",
+                    "sys_id": "{{vars.snow_incidentSysId}}",
+                    "severity": "",
+                    "work_notes": "",
+                    "description": "",
+                    "other_fields": "{\n  \"comments\": \"New Policy has been applied, and hence closing the ticket\"\n}"
+                },
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Closed ServiceNow ticket<\/p>",
+                    "records": ""
+                },
+                "version": "3.1.0",
+                "connector": "servicenow",
+                "operation": "update_servicenow_incident",
+                "mock_result": "{\n  \"data\": {\n    \"result\": {\n      \"rfc\": \"\",\n      \"order\": \"\",\n      \"state\": \"7\",\n      \"active\": \"false\",\n      \"impact\": \"3\",\n      \"notify\": \"1\",\n      \"number\": \"INC0010023\",\n      \"parent\": \"\",\n      \"sys_id\": \"1a90b3ac2f4c20103d07ae6df699b6e6\",\n      \"cmdb_ci\": \"\",\n      \"company\": \"\",\n      \"sla_due\": \"\",\n      \"urgency\": \"3\",\n      \"approval\": \"not requested\",\n      \"category\": \"inquiry\",\n      \"comments\": \"\",\n      \"contract\": \"\",\n      \"due_date\": \"\",\n      \"location\": \"\",\n      \"made_sla\": \"true\",\n      \"priority\": \"5\",\n      \"severity\": \"3\",\n      \"sys_tags\": \"\",\n      \"work_end\": \"\",\n      \"caller_id\": {\n        \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user\/6816f79cc0a8016401c5a33be04be441\",\n        \"value\": \"6816f79cc0a8016401c5a33be04be441\"\n      },\n      \"caused_by\": \"\",\n      \"closed_at\": \"2020-10-21 10:09:06\",\n      \"closed_by\": {\n        \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user\/6816f79cc0a8016401c5a33be04be441\",\n        \"value\": \"6816f79cc0a8016401c5a33be04be441\"\n      },\n      \"follow_up\": \"\",\n      \"knowledge\": \"false\",\n      \"opened_at\": \"2020-10-21 10:08:55\",\n      \"opened_by\": {\n        \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user\/6816f79cc0a8016401c5a33be04be441\",\n        \"value\": \"6816f79cc0a8016401c5a33be04be441\"\n      },\n      \"close_code\": \"Closed\/Resolved by Caller\",\n      \"escalation\": \"0\",\n      \"group_list\": \"\",\n      \"problem_id\": \"\",\n      \"sys_domain\": {\n        \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user_group\/global\",\n        \"value\": \"global\"\n      },\n      \"user_input\": \"\",\n      \"watch_list\": \"\",\n      \"work_notes\": \"\",\n      \"work_start\": \"\",\n      \"assigned_to\": \"\",\n      \"close_notes\": \"Closed by Caller\",\n      \"description\": \"Bucket is open to public access\\n\\n\",\n      \"hold_reason\": \"\",\n      \"reopened_by\": {\n        \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user\/6816f79cc0a8016401c5a33be04be441\",\n        \"value\": \"6816f79cc0a8016401c5a33be04be441\"\n      },\n      \"resolved_at\": \"2020-10-21 10:14:50\",\n      \"resolved_by\": {\n        \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user\/6816f79cc0a8016401c5a33be04be441\",\n        \"value\": \"6816f79cc0a8016401c5a33be04be441\"\n      },\n      \"subcategory\": \"\",\n      \"time_worked\": \"\",\n      \"upon_reject\": \"cancel\",\n      \"activity_due\": \"\",\n      \"approval_set\": \"\",\n      \"business_stc\": \"0\",\n      \"calendar_stc\": \"355\",\n      \"contact_type\": \"\",\n      \"reopen_count\": \"2\",\n      \"delivery_plan\": \"\",\n      \"delivery_task\": \"\",\n      \"reopened_time\": \"2020-10-21 10:14:33\",\n      \"sys_mod_count\": \"5\",\n      \"upon_approval\": \"proceed\",\n      \"correlation_id\": \"\",\n      \"expected_start\": \"\",\n      \"incident_state\": \"7\",\n      \"sys_class_name\": \"incident\",\n      \"sys_created_by\": \"admin\",\n      \"sys_created_on\": \"2020-10-21 10:08:55\",\n      \"sys_updated_by\": \"admin\",\n      \"sys_updated_on\": \"2020-10-21 10:14:50\",\n      \"child_incidents\": \"0\",\n      \"parent_incident\": \"\",\n      \"sys_domain_path\": \"\/\",\n      \"work_notes_list\": \"\",\n      \"approval_history\": \"\",\n      \"assignment_group\": {\n        \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user_group\/12a586cd0bb23200ecfd818393673a30\",\n        \"value\": \"12a586cd0bb23200ecfd818393673a30\"\n      },\n      \"business_service\": \"\",\n      \"service_offering\": \"\",\n      \"business_duration\": \"1970-01-01 00:00:00\",\n      \"calendar_duration\": \"1970-01-01 00:05:55\",\n      \"short_description\": \"Bucket is open to public access\\n\\n\",\n      \"reassignment_count\": \"0\",\n      \"correlation_display\": \"\",\n      \"comments_and_work_notes\": \"\",\n      \"additional_assignee_list\": \"\"\n    }\n  },\n  \"status\": \"Success\",\n  \"_status\": true,\n  \"message\": \"\",\n  \"operation\": null,\n  \"request_id\": null\n}",
+                "operationTitle": "Update ServiceNow Incident",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1920",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "550d49c8-41b4-4de6-a924-d3639a58ff57",
+            "id": 3392
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Add Notes to ServiceNow Ticket",
+            "description": null,
+            "arguments": {
+                "name": "ServiceNow",
+                "config": "e12eccc0-c3bd-4edd-ab9b-fdeba4667364",
+                "params": {
+                    "state": "In Progress",
+                    "sys_id": "{{vars.snow_incidentSysId}}",
+                    "severity": "",
+                    "work_notes": "",
+                    "description": "",
+                    "other_fields": "{\r\n\"comments\": \"This Bucket is not in whitelisted category for external access\"\r\n}"
+                },
+                "message": {
+                    "tags": [],
+                    "type": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "As the External Access is Not Allowed, below Notes added to Service Now Ticket : {{vars.snow_incidentNumber}}<br>\n*comments: Bucket {{vars.artifact_bucketName}} is not in allowedlist  for external access*",
+                    "records": ""
+                },
+                "version": "3.1.0",
+                "connector": "servicenow",
+                "operation": "update_servicenow_incident",
+                "mock_result": "{\n  \"data\": {\n    \"result\": {\n      \"comments\": \"This Bucket is not in whitelisted category for external access\"\n    }\n  },\n  \"status\": \"Success\",\n  \"_status\": true,\n  \"message\": \"\",\n  \"operation\": null,\n  \"request_id\": null\n}",
+                "operationTitle": "Update ServiceNow Incident",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1110",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "e4aed39b-7899-4295-9418-6e9048624bb0",
+            "id": 3393
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Compute New Policy",
+            "description": null,
+            "arguments": {
+                "newPolicy": "{{vars.steps.Ask_new_Bucket_Policy.input['userinput_NewBucketPolicy'] | htmltotext}}"
+            },
+            "status": null,
+            "top": "1515",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "dbc8f605-ddfb-4517-af90-8a697dbb3200",
+            "id": 3394
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Identify User and Manager",
+            "description": null,
+            "arguments": {
+                "type": "InputBased",
+                "input": {
+                    "schema": {
+                        "title": "Identify User and Manager",
+                        "description": "<ol>\n<li>Correlate AWS account to AD account<\/li>\n<li>Identify account manager from AD<\/li>\n<\/ol>",
+                        "inputVariables": [
+                            {
+                                "name": "aWSAccountID",
+                                "type": "string",
+                                "label": "AWS Account ID",
+                                "tooltip": "Specify AWS Account ID",
+                                "dataType": "text",
+                                "formType": "text",
+                                "required": true,
+                                "_expanded": true,
+                                "useRecordFieldDefault": false
+                            },
+                            {
+                                "name": "managersID",
+                                "type": "string",
+                                "label": "Manager's ID",
+                                "tooltip": "Specify Manager's eMail",
+                                "dataType": "text",
+                                "formType": "text",
+                                "required": true,
+                                "_expanded": true,
+                                "_nameTouched": true,
+                                "useRecordFieldDefault": false
+                            }
+                        ]
+                    }
+                },
+                "record": "{{ vars.input.records[0][\"@id\"] }}",
+                "owner_detail": {
+                    "isAssigned": false
+                },
+                "step_variables": [],
+                "response_mapping": {
+                    "options": [
+                        {
+                            "option": "Proceed",
+                            "primary": true,
+                            "step_iri": "\/api\/3\/workflow_steps\/7ce538d3-f7ca-4800-9a1b-faf702e89e44"
+                        }
+                    ],
+                    "duplicateOption": false
+                }
+            },
+            "status": null,
+            "top": "1515",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/fc04082a-d7dc-4299-96fb-6837b1baa0fe",
+            "uuid": "057be79c-69c9-4120-ae84-9eca9a001028",
+            "id": 3395
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Retrieve Bucket Policy",
+            "description": null,
+            "arguments": {
+                "name": "AWS S3",
+                "config": "7f1bdbdb-8e14-43bc-bb51-a2f959bdb7e8",
+                "params": {
+                    "bucketName": "{{vars.artifact_bucketName}}"
+                },
+                "message": {
+                    "tags": [],
+                    "type": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Following is the Policy details of Bucket <b>{{vars.artifact_bucketName}}<\/b><\/p>\n<ul style=\"list-style-type: square;\">\n<li><strong>Sid:<\/strong>&nbsp;{{vars.result.data.Policy.Statement[0].Sid}}<\/li>\n<li><strong>Action<\/strong>:&nbsp;{{vars.result.data.Policy.Statement[0].Action}}<\/li>\n<li><strong>Effect<\/strong>:&nbsp;{{vars.result.data.Policy.Statement[0].Effect}}<\/li>\n<li><strong>Resource<\/strong>:&nbsp;{{vars.result.data.Policy.Statement[0].Resource}}<\/li>\n<li><strong>Principal<\/strong>:&nbsp;{{vars.result.data.Policy.Statement[0].Principal}}<\/li>\n<\/ul>",
+                    "records": ""
+                },
+                "version": "3.0.1",
+                "connector": "awss3",
+                "operation": "get_bucket_policy",
+                "mock_result": "{\n  \"data\": {\n    \"Policy\": {\n      \"Id\": \"Policy1602751541326\",\n      \"Version\": \"2012-10-17\",\n      \"Statement\": [\n        {\n          \"Sid\": \"Stmt1587972287815\",\n          \"Action\": \"s3:*\",\n          \"Effect\": \"Allow\",\n          \"Resource\": \"arn:aws:s3:::{{vars.artifact_bucketName}}\",\n          \"Principal\": \"*\"\n        }\n      ]\n    },\n    \"ResponseMetadata\": {\n      \"HostId\": \"hnVOsQh9O99hrMnQLp3b+5Hn0NtoacieLy+aH0aNz9rryiNOQ4UXrQbWMbWx38N3w0v5kn+ONDw=\",\n      \"RequestId\": \"049D62CD274F4E60\",\n      \"HTTPHeaders\": {\n        \"date\": \"Thu, 15 Oct 2020 08:48:55 GMT\",\n        \"server\": \"AmazonS3\",\n        \"x-amz-id-2\": \"hnVOsQh9O99hrMnQLp3b+5Hn0NtoacieLy+aH0aNz9rryiNOQ4UXrQbWMbWx38N3w0v5kn+ONDw=\",\n        \"content-type\": \"application\/json\",\n        \"content-length\": \"231\",\n        \"x-amz-request-id\": \"049D62CD274F4E60\"\n      },\n      \"RetryAttempts\": 0,\n      \"HTTPStatusCode\": 200\n    }\n  },\n  \"status\": \"Success\",\n  \"_status\": true,\n  \"message\": \"\",\n  \"operation\": null,\n  \"request_id\": null\n}",
+                "operationTitle": "Get Bucket Policy",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "840",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "8558b13f-6f7c-4ebe-9879-dab7c45dd508",
+            "id": 3396
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Update CCM Allowlist",
+            "description": null,
+            "arguments": {
+                "type": "DecisionBased",
+                "input": {
+                    "schema": {
+                        "title": "Update CCM Whitelist",
+                        "description": "<p><span class=\"fa fa-exclamation-triangle\"  style=\"font-size: 15px; color: #DE7A13;\"><\/span>&nbsp; Please update CCM allowlist<\/p>\n",
+                        "inputVariables": []
+                    }
+                },
+                "record": "{{ vars.input.records[0][\"@id\"] }}",
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Manual updates to CCM allowlist marked as completed<\/p>",
+                    "records": ""
+                },
+                "owner_detail": {
+                    "isAssigned": false
+                },
+                "step_variables": [],
+                "response_mapping": {
+                    "options": [
+                        {
+                            "option": "Completed",
+                            "primary": true,
+                            "step_iri": "\/api\/3\/workflow_steps\/057be79c-69c9-4120-ae84-9eca9a001028"
+                        }
+                    ],
+                    "duplicateOption": false
+                },
+                "email_notification": {
+                    "enabled": false,
+                    "smtpParameters": []
+                }
+            },
+            "status": null,
+            "top": "1380",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/fc04082a-d7dc-4299-96fb-6837b1baa0fe",
+            "uuid": "2f54049d-3556-474c-8183-674d9f378f04",
+            "id": 3397
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Replace Bucket Policy",
+            "description": null,
+            "arguments": {
+                "name": "AWS S3",
+                "config": "e7b8d134-1444-4470-99d9-84a895c4db92",
+                "params": {
+                    "bucketName": "fortisoar",
+                    "policy_args": "{\n  \"Id\": \"Policy1587973025262\",\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"Stmt1587972287815\",\n      \"Action\": \"s3:*\",\n      \"Effect\": \"Deny\",\n      \"Resource\": \"arn:aws:s3:::fortisoar\",\n      \"Principal\": \"*\"\n    }\n  ]\n}"
+                },
+                "message": {
+                    "tags": [],
+                    "type": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "Following New Policy is Replaced for Bucket {{vars.artifact_bucketName}}\n<br>\n\n    Sid: Stmt1587972287815\n    Action: s3:*\n    Effect: Deny\n    Resource:arn: aws:s3:::{{vars.artifact_bucketName}}\n    Principal: *\n",
+                    "records": ""
+                },
+                "version": "3.0.1",
+                "connector": "awss3",
+                "operation": "replace_bucket_policy",
+                "mock_result": "{\n  \"Id\": \"Policy1587973025262\",\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"Stmt1587972287815\",\n      \"Action\": \"s3:*\",\n      \"Effect\": \"Deny\",\n      \"Resource\": \"arn:aws:s3:::{{vars.artifact_bucketName}}\",\n      \"Principal\": \"*\"\n    }\n  ]\n}",
+                "operationTitle": "Replace Bucket Policy",
+                "pickFromTenant": false,
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1650",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "bf0090d1-803c-472d-b5b8-c519c6ec4337",
+            "id": 3398
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "snow_category": "Policy Violation",
+                "snow_description": "{{vars.input.records[0].description | htmltotext}}",
+                "artifact_sourceData": "{{vars.input.records[0].sourcedata | toDict}}",
+                "snow_incidentCaller": "6816f79cc0a8016401c5a33be04be441",
+                "snow_incidentBaseURL": "https:\/\/dev90072.service-now.com\/nav_to.do?uri=%2Fincident.do%3Fsys_id%3D",
+                "snow_shortDescription": "{{vars.input.records[0].description | htmltotext}}",
+                "snow_AssignmentGroupMap": "{\n  \"Application Development\": \"0a52d3dcd7011200f2d224837e6103f2\",\n  \"Incident Management\" : \"12a586cd0bb23200ecfd818393673a30\",\n  \"Network\" : \"287ebd7da9fe198100f92cc8d1d2154e\",\n  \"IT Securities\" : \"5f6441efc0a8010e0177fcb589156352\"\n}",
+                "snow_incidentSeverityMap": "{\n\"High\" : \"1\",\n\"Medium\" : \"2\",\n\"Low\" : \"3\",\n\"Critical\" : \"4\",\n\"Minimal\" : \"5\"\n}",
+                "config_itAdminEmailAddress": "user@example.com"
+            },
+            "status": null,
+            "top": "165",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "fc452052-9d1a-4aaf-875a-75b0aec3c260",
+            "id": 3399
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Artifacts",
+            "description": null,
+            "arguments": {
+                "useMockOutput": "{{globalVars.Demo_mode}}",
+                "artifact_userId": "{{vars.artifact_sourceData.employeeid}}",
+                "artifact_bucketName": "{{vars.input.records[0].bucketName}}",
+                "artifact_violationCriticality": "{{vars.input.records[0].severity.itemValue}}"
+            },
+            "status": null,
+            "top": "435",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "63aee5e7-d17a-43a9-8418-83f287e9069c",
+            "id": 3400
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Close Alert",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "status": {
+                        "id": 246,
+                        "@id": "\/api\/3\/picklists\/fac53e73-8d16-4189-98d5-95fbd1555232",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Closed",
+                        "listName": "\/api\/3\/picklist_names\/33e964a9-d607-49f2-813c-7ce46141815a",
+                        "itemValue": "Closed",
+                        "orderIndex": 4
+                    },
+                    "closureNotes": "All tasks completed",
+                    "closureReason": {
+                        "id": 251,
+                        "@id": "\/api\/3\/picklists\/8590c81e-3307-4645-97f5-c3e1bec4e05a",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Tasks Completed",
+                        "listName": "\/api\/3\/picklist_names\/4ebacea1-88cd-4ea8-9dcc-385bea42cc59",
+                        "itemValue": "Tasks Completed",
+                        "orderIndex": 0
+                    }
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "collectionType": "\/api\/3\/alerts",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "2055",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "c103cbd1-086a-4536-9cc4-d2d4953524d0",
+            "id": 3401
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start Investigation",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "status": {
+                        "id": 113,
+                        "@id": "\/api\/3\/picklists\/758925e7-629c-46d8-89db-fb36f5fbe88a",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Investigating",
+                        "listName": "\/api\/3\/picklist_names\/33e964a9-d607-49f2-813c-7ce46141815a",
+                        "itemValue": "Investigating",
+                        "orderIndex": 2
+                    }
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "collectionType": "\/api\/3\/alerts",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "300",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "5091ba54-478e-487b-bea0-e0c120c93176",
+            "id": 3402
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Investigate Non Approved Change -> Update CCM Whitelist",
+            "targetStep": "\/api\/3\/workflow_steps\/2f54049d-3556-474c-8183-674d9f378f04",
+            "sourceStep": "\/api\/3\/workflow_steps\/c2af86ea-814e-449e-8d2a-f7777fd9862e",
+            "label": "Acceptable",
+            "isExecuted": false,
+            "uuid": "0bd6c7ea-2875-458f-a5f3-bea78e0daf03"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Update CCM Whitelist -> Identify User and Manager",
+            "targetStep": "\/api\/3\/workflow_steps\/057be79c-69c9-4120-ae84-9eca9a001028",
+            "sourceStep": "\/api\/3\/workflow_steps\/2f54049d-3556-474c-8183-674d9f378f04",
+            "label": "Completed",
+            "isExecuted": false,
+            "uuid": "a5369378-9290-455e-a4d1-7b0a4a7f09f7"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Retrieve Bucket Policy -> Is External Access Allowed",
+            "targetStep": "\/api\/3\/workflow_steps\/12e04906-a641-4c52-baaa-17a1131fa57a",
+            "sourceStep": "\/api\/3\/workflow_steps\/8558b13f-6f7c-4ebe-9879-dab7c45dd508",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "fdd27bb7-dc7a-4e60-8daf-a232820a3ec0"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Copy  of Notify IT Admin -> Copy 1 of Close ServiceNow Ticket",
+            "targetStep": "\/api\/3\/workflow_steps\/550d49c8-41b4-4de6-a924-d3639a58ff57",
+            "sourceStep": "\/api\/3\/workflow_steps\/d8d0ce46-a9af-43fd-8626-4c9dcf7a70c5",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "b64a116b-bfe3-406f-9b00-a3a3b97de898"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Retrieve Users Manager -> Create Incident in ServiceNow",
+            "targetStep": "\/api\/3\/workflow_steps\/23b1e1b9-3ec6-4530-8b00-72f9f5fa9b7b",
+            "sourceStep": "\/api\/3\/workflow_steps\/a13f8696-3b1b-4aa6-bfaa-88c7afcf3074",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "9dc1f0ab-ab06-4b56-aeb1-373b0cb00c11"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Update ServiceNow Ticket -> Copy  of Is External Access Allowed",
+            "targetStep": "\/api\/3\/workflow_steps\/c2af86ea-814e-449e-8d2a-f7777fd9862e",
+            "sourceStep": "\/api\/3\/workflow_steps\/e4aed39b-7899-4295-9418-6e9048624bb0",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "c976d457-5b7c-4571-920b-ccb5df753ba6"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Incident in ServiceNow for Manager -> Copy  of Close ServiceNow Ticket",
+            "targetStep": "\/api\/3\/workflow_steps\/56b97a8c-fd3b-4a3b-b9ac-2e36f971acbf",
+            "sourceStep": "\/api\/3\/workflow_steps\/7ce538d3-f7ca-4800-9a1b-faf702e89e44",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "86be3fd2-97ae-4e0e-9785-8986208cc076"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Notify IT Admin -> Close ServiceNow Ticket",
+            "targetStep": "\/api\/3\/workflow_steps\/fbf671ec-047c-40bd-ac90-b9ced155c59f",
+            "sourceStep": "\/api\/3\/workflow_steps\/c75c5c1e-38a1-4a62-add9-7bb47e11cdd4",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "91b736fd-42d7-4cdb-98b8-bfddffa9eda2"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Incident in ServiceNow -> Retrieve Bucket Policy",
+            "targetStep": "\/api\/3\/workflow_steps\/8558b13f-6f7c-4ebe-9879-dab7c45dd508",
+            "sourceStep": "\/api\/3\/workflow_steps\/23b1e1b9-3ec6-4530-8b00-72f9f5fa9b7b",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "3b092217-2ce6-4fd2-b776-72b9f8be5f52"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Investigate Non Approved Change -> Ask new Bucket Policy",
+            "targetStep": "\/api\/3\/workflow_steps\/b0b93482-1f11-4eb1-a971-7b2fbbc33920",
+            "sourceStep": "\/api\/3\/workflow_steps\/c2af86ea-814e-449e-8d2a-f7777fd9862e",
+            "label": "Not Acceptable",
+            "isExecuted": false,
+            "uuid": "6a673eba-c8b3-4b88-a332-fd2d4b82ffab"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Ask new Bucket Policy -> Compute New Policy",
+            "targetStep": "\/api\/3\/workflow_steps\/dbc8f605-ddfb-4517-af90-8a697dbb3200",
+            "sourceStep": "\/api\/3\/workflow_steps\/b0b93482-1f11-4eb1-a971-7b2fbbc33920",
+            "label": "Replace Policy",
+            "isExecuted": false,
+            "uuid": "a0205858-16db-48af-a79d-c4601b900046"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Identify User and Manager -> Create Incident in ServiceNow for Manager",
+            "targetStep": "\/api\/3\/workflow_steps\/7ce538d3-f7ca-4800-9a1b-faf702e89e44",
+            "sourceStep": "\/api\/3\/workflow_steps\/057be79c-69c9-4120-ae84-9eca9a001028",
+            "label": "Proceed",
+            "isExecuted": false,
+            "uuid": "c3731618-e629-488a-ac96-f29c8523ac2a"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is External Access Allowed -> Copy  of Close ServiceNow Ticket",
+            "targetStep": "\/api\/3\/workflow_steps\/e4aed39b-7899-4295-9418-6e9048624bb0",
+            "sourceStep": "\/api\/3\/workflow_steps\/12e04906-a641-4c52-baaa-17a1131fa57a",
+            "label": "No",
+            "isExecuted": false,
+            "uuid": "503db07a-7974-4a34-b300-f19db32b6b17"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is External Access Allowed -> Notify IT Admin",
+            "targetStep": "\/api\/3\/workflow_steps\/c75c5c1e-38a1-4a62-add9-7bb47e11cdd4",
+            "sourceStep": "\/api\/3\/workflow_steps\/12e04906-a641-4c52-baaa-17a1131fa57a",
+            "label": "Yes",
+            "isExecuted": false,
+            "uuid": "6fa7e6ee-044a-4940-96c1-17bd706eb004"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Compute New Policy -> Replace Bucket Policy",
+            "targetStep": "\/api\/3\/workflow_steps\/bf0090d1-803c-472d-b5b8-c519c6ec4337",
+            "sourceStep": "\/api\/3\/workflow_steps\/dbc8f605-ddfb-4517-af90-8a697dbb3200",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "12caab9c-e42f-4452-b885-7ea5c0f12532"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Replace Bucket Policy -> Notify IT Manager",
+            "targetStep": "\/api\/3\/workflow_steps\/d8d0ce46-a9af-43fd-8626-4c9dcf7a70c5",
+            "sourceStep": "\/api\/3\/workflow_steps\/bf0090d1-803c-472d-b5b8-c519c6ec4337",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "08ebe493-7832-4456-89ff-12dec68e3f1f"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/fc452052-9d1a-4aaf-875a-75b0aec3c260",
+            "sourceStep": "\/api\/3\/workflow_steps\/6bef0d8c-d927-4e34-b627-820db77800e4",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "13c9be48-ff9d-4db3-84c0-6f4177541a60"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Artifacts -> Retrieve Users Manager",
+            "targetStep": "\/api\/3\/workflow_steps\/a13f8696-3b1b-4aa6-bfaa-88c7afcf3074",
+            "sourceStep": "\/api\/3\/workflow_steps\/63aee5e7-d17a-43a9-8418-83f287e9069c",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "c421ef7a-444b-4a32-ac2f-ff3ee3241142"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Close Tracking ServiceNow Ticket 2 -> Close Alert",
+            "targetStep": "\/api\/3\/workflow_steps\/c103cbd1-086a-4536-9cc4-d2d4953524d0",
+            "sourceStep": "\/api\/3\/workflow_steps\/550d49c8-41b4-4de6-a924-d3639a58ff57",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "b86ea473-d21f-4d3b-bde9-917c9b53adb8"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Start Investigation",
+            "targetStep": "\/api\/3\/workflow_steps\/5091ba54-478e-487b-bea0-e0c120c93176",
+            "sourceStep": "\/api\/3\/workflow_steps\/fc452052-9d1a-4aaf-875a-75b0aec3c260",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "a28c298b-36cd-46e3-ae0a-931c21d8cda8"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start Investigation -> Artifacts",
+            "targetStep": "\/api\/3\/workflow_steps\/63aee5e7-d17a-43a9-8418-83f287e9069c",
+            "sourceStep": "\/api\/3\/workflow_steps\/5091ba54-478e-487b-bea0-e0c120c93176",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "cbc3761e-f411-4846-9d29-0a34785726d8"
+        }
+    ],
+    "priority": null,
+    "uuid": "d0acf7b8-c6d7-4fb9-a2d4-b250176cd4e5",
+    "recordTags": [
+        "ManualTrigger"
+    ],
+    "id": 991,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433427,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433427,
+    "owners": [],
+    "isPrivate": false
+}

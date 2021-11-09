@@ -1,0 +1,566 @@
+{
+    "@context": "\/api\/3\/contexts\/SystemViewTemplate",
+    "@type": "SystemViewTemplate",
+    "type": "app",
+    "config": {
+        "navigation": [
+            {
+                "require": {
+                    "module": "dashboard",
+                    "action": "read"
+                },
+                "title": "Dashboard",
+                "state": {
+                    "parameters": [],
+                    "name": "main.dashboard"
+                },
+                "editMode": false,
+                "icon": "icon icon-dashboard",
+                "open": false,
+                "isEnabled": false,
+                "openStatus": false
+            },
+            {
+                "state": {
+                    "name": "main.pages",
+                    "parameters": {
+                        "module": "user-community"
+                    }
+                },
+                "title": "User Community",
+                "openInNewTab": true,
+                "url": "https:\/\/fusecommunity.fortinet.com\/groups\/community-home?CommunityKey=9f1420e8-e3c6-4535-8cae-3fa714da66d8",
+                "icon": "icon icon-users",
+                "editMode": false,
+                "open": false,
+                "isEnabled": false,
+                "openStatus": false
+            },
+            {
+                "require": {
+                    "module": "system_assigned_queues",
+                    "action": "read"
+                },
+                "title": "Queue Management",
+                "state": {
+                    "name": "main.queues"
+                },
+                "editMode": false,
+                "icon": "icon icon-queue-management",
+                "open": false,
+                "isEnabled": false,
+                "openStatus": false
+            },
+            {
+                "items": [
+                    {
+                        "require": {
+                            "module": "alerts",
+                            "action": "read"
+                        },
+                        "title": "Alerts",
+                        "state": {
+                            "parameters": {
+                                "module": "alerts"
+                            },
+                            "name": "main.modules.list"
+                        },
+                        "editMode": false,
+                        "icon": "icon icon-alert",
+                        "open": false,
+                        "isEnabled": false,
+                        "openStatus": false
+                    },
+                    {
+                        "require": {
+                            "module": "incidents",
+                            "action": "read"
+                        },
+                        "title": "Incidents",
+                        "state": {
+                            "parameters": {
+                                "module": "incidents"
+                            },
+                            "name": "main.modules.list"
+                        },
+                        "editMode": false,
+                        "icon": "icon icon-incidents",
+                        "open": false,
+                        "isEnabled": false,
+                        "openStatus": false
+                    },
+                    {
+                        "require": {
+                            "module": "hunt",
+                            "action": "read"
+                        },
+                        "title": "Hunts",
+                        "icon": "fa fa-space-shuttle",
+                        "editMode": false,
+                        "state": {
+                            "parameters": {
+                                "module": "hunt"
+                            },
+                            "name": "main.modules.list"
+                        },
+                        "open": false,
+                        "isEnabled": false,
+                        "openStatus": false
+                    },
+                    {
+                        "require": {
+                            "module": "tasks",
+                            "action": "read"
+                        },
+                        "title": "Tasks",
+                        "state": {
+                            "parameters": {
+                                "module": "tasks"
+                            },
+                            "name": "main.modules.list"
+                        },
+                        "editMode": false,
+                        "icon": "icon icon-tasks",
+                        "open": false,
+                        "isEnabled": false,
+                        "openStatus": false
+                    },
+                    {
+                        "title": "Communications",
+                        "require": {
+                            "module": "communication",
+                            "action": "read"
+                        },
+                        "state": {
+                            "name": "main.modules.list",
+                            "parameters": {
+                                "module": "communication"
+                            }
+                        },
+                        "icon": "icon icon-email-templates",
+                        "editMode": false
+                    },
+                    {
+                        "title": "War Rooms",
+                        "require": {
+                            "module": "warrooms",
+                            "action": "read"
+                        },
+                        "state": {
+                            "name": "main.modules.list",
+                            "parameters": {
+                                "module": "warrooms"
+                            }
+                        },
+                        "icon": "icon icon-war-room",
+                        "editMode": false
+                    }
+                ],
+                "title": "Incident Response",
+                "icon": "icon icon-incident-response",
+                "editMode": false,
+                "open": false,
+                "isEnabled": false,
+                "openStatus": false
+            },
+            {
+                "title": "Threat Intelligence",
+                "icon": "fa fa-crosshairs",
+                "items": [
+                    {
+                        "require": {
+                            "module": "indicators",
+                            "action": "read"
+                        },
+                        "title": "Indicators",
+                        "state": {
+                            "parameters": {
+                                "module": "indicators"
+                            },
+                            "name": "main.modules.list"
+                        },
+                        "editMode": false,
+                        "icon": "icon icon-indicators",
+                        "open": false,
+                        "isEnabled": false,
+                        "openStatus": false
+                    },
+                    {
+                        "require": {
+                            "module": "campaigns",
+                            "action": "read"
+                        },
+                        "title": "Campaigns",
+                        "state": {
+                            "parameters": {
+                                "module": "campaigns"
+                            },
+                            "name": "main.modules.list"
+                        },
+                        "editMode": false,
+                        "icon": "fa fa-money",
+                        "open": false,
+                        "isEnabled": false,
+                        "openStatus": false
+                    }
+                ],
+                "editMode": false,
+                "open": false,
+                "isEnabled": false,
+                "openStatus": false
+            },
+            {
+                "items": [
+                    {
+                        "require": {
+                            "module": "assets",
+                            "action": "read"
+                        },
+                        "title": "Assets",
+                        "state": {
+                            "parameters": {
+                                "module": "assets"
+                            },
+                            "name": "main.modules.list"
+                        },
+                        "editMode": false,
+                        "icon": "icon icon-assets",
+                        "open": false,
+                        "isEnabled": false,
+                        "openStatus": false
+                    },
+                    {
+                        "require": {
+                            "module": "scans",
+                            "action": "read"
+                        },
+                        "title": "Scans",
+                        "state": {
+                            "parameters": {
+                                "module": "scans"
+                            },
+                            "name": "main.modules.list"
+                        },
+                        "editMode": false,
+                        "icon": "icon icon-scans",
+                        "open": false,
+                        "isEnabled": false,
+                        "openStatus": false
+                    },
+                    {
+                        "require": {
+                            "module": "vulnerabilities",
+                            "action": "read"
+                        },
+                        "title": "Vulnerabilities",
+                        "state": {
+                            "parameters": {
+                                "module": "vulnerabilities"
+                            },
+                            "name": "main.modules.list"
+                        },
+                        "editMode": false,
+                        "icon": "icon icon-vulnerability",
+                        "open": false,
+                        "isEnabled": false,
+                        "openStatus": false
+                    },
+                    {
+                        "title": "Users",
+                        "require": {
+                            "module": "users",
+                            "action": "read"
+                        },
+                        "state": {
+                            "name": "main.modules.list",
+                            "parameters": {
+                                "module": "users"
+                            }
+                        },
+                        "icon": "fa fa-users",
+                        "editMode": false,
+                        "open": false,
+                        "isEnabled": false,
+                        "openStatus": false
+                    }
+                ],
+                "title": "Vulnerability Management",
+                "icon": "icon icon-vulnerability-management",
+                "editMode": false,
+                "open": false,
+                "isEnabled": false,
+                "openStatus": false
+            },
+            {
+                "items": [
+                    {
+                        "require": {
+                            "module": "connectors",
+                            "action": "read"
+                        },
+                        "title": "Connectors",
+                        "state": {
+                            "name": "main.connectors"
+                        },
+                        "editMode": false,
+                        "icon": "icon icon-connectors",
+                        "open": false,
+                        "isEnabled": false,
+                        "openStatus": false
+                    },
+                    {
+                        "require": {
+                            "module": "workflows",
+                            "action": "read"
+                        },
+                        "title": "Playbooks",
+                        "state": {
+                            "name": "main.workflow"
+                        },
+                        "editMode": false,
+                        "icon": "icon icon-playbooks",
+                        "open": false,
+                        "isEnabled": false,
+                        "openStatus": false
+                    },
+                    {
+                        "title": "Rule Engine",
+                        "require": {
+                            "module": "rules",
+                            "action": "read"
+                        },
+                        "state": {
+                            "name": "main.rules.collections",
+                            "parameters": {
+                                "module": "rules"
+                            }
+                        },
+                        "icon": "fa fa-magic",
+                        "editMode": false,
+                        "open": false,
+                        "isEnabled": false,
+                        "openStatus": false
+                    },
+                    {
+                        "title": "Schedules",
+                        "icon": "icon icon-schedules",
+                        "require": {
+                            "module": "schedules",
+                            "action": "read"
+                        },
+                        "state": {
+                            "name": "main.schedules"
+                        },
+                        "editMode": false,
+                        "open": false,
+                        "isEnabled": false,
+                        "openStatus": false
+                    },
+                    {
+                        "title": "SLAs",
+                        "require": {
+                            "module": "sla_template",
+                            "action": "read"
+                        },
+                        "state": {
+                            "name": "main.modules.list",
+                            "parameters": {
+                                "module": "sla_template"
+                            }
+                        },
+                        "icon": "fa fa-clock-o",
+                        "editMode": false,
+                        "open": false,
+                        "isEnabled": false,
+                        "openStatus": false
+                    }
+                ],
+                "title": "Automation",
+                "icon": "icon icon-automation",
+                "editMode": false,
+                "open": false,
+                "isEnabled": false,
+                "openStatus": false
+            },
+            {
+                "items": [
+                    {
+                        "require": {
+                            "module": "attachments",
+                            "action": "read"
+                        },
+                        "title": "Attachments",
+                        "state": {
+                            "parameters": {
+                                "module": "attachments"
+                            },
+                            "name": "main.modules.list"
+                        },
+                        "editMode": false,
+                        "icon": "icon icon-attachments",
+                        "open": false,
+                        "isEnabled": false,
+                        "openStatus": false
+                    },
+                    {
+                        "require": {
+                            "module": "email_templates",
+                            "action": "read"
+                        },
+                        "title": "Email Templates",
+                        "state": {
+                            "parameters": {
+                                "module": "email_templates"
+                            },
+                            "name": "main.modules.list"
+                        },
+                        "editMode": false,
+                        "icon": "icon icon-email-templates",
+                        "open": false,
+                        "isEnabled": false,
+                        "openStatus": false
+                    },
+                    {
+                        "require": {
+                            "module": "employeewatchlist",
+                            "action": "read"
+                        },
+                        "title": "Employee Watchlist",
+                        "state": {
+                            "parameters": {
+                                "module": "employeewatchlist"
+                            },
+                            "name": "main.modules.list"
+                        },
+                        "editMode": false,
+                        "icon": "fa fa-users",
+                        "open": false,
+                        "isEnabled": false,
+                        "openStatus": false
+                    },
+                    {
+                        "require": {
+                            "module": "sensitivefile",
+                            "action": "read"
+                        },
+                        "title": "Sensitive Files",
+                        "state": {
+                            "parameters": {
+                                "module": "sensitivefile"
+                            },
+                            "name": "main.modules.list"
+                        },
+                        "editMode": false,
+                        "icon": "fa fa-files-o",
+                        "open": false,
+                        "isEnabled": false,
+                        "openStatus": false
+                    }
+                ],
+                "title": "Resources",
+                "icon": "icon icon-resources",
+                "editMode": false,
+                "open": false,
+                "isEnabled": false,
+                "openStatus": false
+            },
+            {
+                "require": {
+                    "module": "reporting",
+                    "action": "read"
+                },
+                "title": "Reports",
+                "state": {
+                    "parameters": [],
+                    "name": "main.reporting"
+                },
+                "editMode": false,
+                "icon": "icon icon-reports",
+                "open": false,
+                "isEnabled": false,
+                "openStatus": false
+            },
+            {
+                "title": "Widget Library",
+                "icon": "icon icon-widget",
+                "require": {
+                    "module": "widgets",
+                    "action": "read"
+                },
+                "state": {
+                    "name": "main.widgets"
+                },
+                "editMode": false,
+                "open": false,
+                "isEnabled": false,
+                "openStatus": false
+            },
+            {
+                "title": "Simulations",
+                "require": {
+                    "module": "scenario",
+                    "action": "read"
+                },
+                "state": {
+                    "name": "main.modules.list",
+                    "parameters": {
+                        "module": "scenario"
+                    }
+                },
+                "icon": "fa fa-play",
+                "editMode": false,
+                "open": false,
+                "isEnabled": false,
+                "openStatus": false
+            },
+            {
+                "title": "Knowledge Base",
+                "require": {
+                    "module": "knowledge_base",
+                    "action": "read"
+                },
+                "state": {
+                    "name": "main.modules.list",
+                    "parameters": {
+                        "module": "knowledge_base"
+                    }
+                },
+                "icon": "fa fa-question-circle",
+                "editMode": false
+            },
+            {
+                "title": "Help",
+                "state": {
+                    "name": "main.pages",
+                    "parameters": {
+                        "module": "help"
+                    }
+                },
+                "icon": "fa fa-book",
+                "editMode": false,
+                "openInNewTab": true,
+                "url": "https:\/\/docs.fortinet.com\/product\/fortisoar"
+            }
+        ],
+        "header": {
+            "quickAdd": {
+                "modules": [
+                    "alerts",
+                    "incidents",
+                    "tasks",
+                    "indicators",
+                    "vulnerabilities",
+                    "assets",
+                    "scans",
+                    "attachments",
+                    "emails"
+                ],
+                "adminModules": [
+                    "people",
+                    "workflows"
+                ]
+            }
+        }
+    },
+    "uuid": "navigation"
+}

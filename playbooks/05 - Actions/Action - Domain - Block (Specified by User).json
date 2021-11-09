@@ -1,0 +1,218 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Action - Domain - Block (Specified by User)",
+    "aliasName": null,
+    "tag": null,
+    "description": "Creates an indicator for the domain name specified by the user, blocks the domain on the firewall, and also marks the status of the indicator 'Blocked\u2019. The indicator is also linked to the record on which the playbook is triggered.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/2d150b7b-ee6b-4686-a249-3c2cfa99f657",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/a4c84cd5-482f-4f8b-affb-fd552e2bc360",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Block Domain",
+            "description": null,
+            "arguments": {
+                "arguments": {
+                    "inputActionReasons": "{{vars.input.params.reasonsToBlock}}",
+                    "inputIndicatorValue": "{{vars.input.params.domain}}",
+                    "inputIndicatorRecordIRI": "{{vars.steps.Create_Domain_Indicator___Deduplicated['@id']}}"
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "workflowReference": "\/api\/3\/workflows\/7c5946d2-be83-4991-8b67-fdc568166260"
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "46ed9854-de96-4641-9e6b-25809093d0cc",
+            "id": 3534
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "690fe11d-bb22-4d60-9d35-1392885cbbb6",
+                "title": "Block Specified Domain",
+                "resources": [
+                    "incidents"
+                ],
+                "inputVariables": [
+                    {
+                        "name": "domain",
+                        "type": "string",
+                        "label": "Domain",
+                        "tooltip": "Given Domain will also be created as indicator, and linked to this record",
+                        "dataType": "text",
+                        "formType": "text",
+                        "required": true,
+                        "_expanded": true,
+                        "_nameTouched": true,
+                        "useRecordFieldDefault": false
+                    },
+                    {
+                        "name": "reasonsToBlock",
+                        "type": "string",
+                        "label": "Reasons to block",
+                        "tooltip": "Specify reasons for blocking the domain . The reason would be added in Indicator Record for future reference",
+                        "dataType": "text",
+                        "formType": "text",
+                        "required": false,
+                        "_expanded": true,
+                        "_nameTouched": true,
+                        "defaultValue": "Asked by User:",
+                        "useRecordFieldDefault": false
+                    }
+                ],
+                "step_variables": {
+                    "input": {
+                        "params": {
+                            "domain": "{{vars.request.data[\"domain\"]}}",
+                            "reasonsToBlock": "{{vars.request.data[\"reasonsToBlock\"]}}"
+                        },
+                        "records": "{{vars.input.records}}"
+                    }
+                },
+                "_promptexpanded": true,
+                "displayConditions": {
+                    "alerts": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    },
+                    "assets": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    },
+                    "incidents": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    }
+                },
+                "executeButtonText": "Block",
+                "noRecordExecution": false,
+                "singleRecordExecution": false
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "uuid": "a4c84cd5-482f-4f8b-affb-fd552e2bc360",
+            "id": 3535
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Domain Indicator _ Deduplicated",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "value": "{{vars.input.params.domain}}",
+                    "__replace": "true",
+                    "typeofindicator": {
+                        "id": 70,
+                        "@id": "\/api\/3\/picklists\/5a5a7d42-be27-4903-858a-19909ebfa1eb",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Domain",
+                        "listName": "\/api\/3\/picklist_names\/50ee5bfa-e18f-49ba-8af9-dcca25b0f9c0",
+                        "itemValue": "Domain",
+                        "orderIndex": 0
+                    }
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/upsert\/indicators",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "c8cb3c53-1afc-4cfa-a791-b19e4c90f5da",
+            "id": 3536
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Link Indicator On Triggered Record",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "{{vars.input.records[0]['@id']}}",
+                    "body": "{\"__link\":{\"indicators\":[\"{{vars.result['@id']}}\"]}}"
+                },
+                "version": "3.0.4",
+                "connector": "cyops_utilities",
+                "operation": "update_cyops_resource",
+                "operationTitle": "CyOPs: Update Record",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "8ec7d3e0-94df-47f0-b34d-13649a7d3d15",
+            "id": 3537
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Create IP Indicator _ Deduplicated",
+            "targetStep": "\/api\/3\/workflow_steps\/c8cb3c53-1afc-4cfa-a791-b19e4c90f5da",
+            "sourceStep": "\/api\/3\/workflow_steps\/a4c84cd5-482f-4f8b-affb-fd552e2bc360",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "ee329a47-65ae-4b53-bfe1-8dc2885cf518"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Block IP Address -> Link Indicator On Triggered Record",
+            "targetStep": "\/api\/3\/workflow_steps\/8ec7d3e0-94df-47f0-b34d-13649a7d3d15",
+            "sourceStep": "\/api\/3\/workflow_steps\/46ed9854-de96-4641-9e6b-25809093d0cc",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "58b4c6e6-ced3-4b67-95b8-a367df1b2ea4"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create IP Indicator _ Deduplicated -> Unblock IP Address",
+            "targetStep": "\/api\/3\/workflow_steps\/46ed9854-de96-4641-9e6b-25809093d0cc",
+            "sourceStep": "\/api\/3\/workflow_steps\/c8cb3c53-1afc-4cfa-a791-b19e4c90f5da",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "06017217-333f-4df3-8c21-f578124d174d"
+        }
+    ],
+    "priority": null,
+    "uuid": "24fe650e-de16-4d0f-a673-5ab2c5033d5f",
+    "recordTags": [
+        "ManualAction",
+        "Mitigation"
+    ],
+    "id": 1004,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433431,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433431,
+    "owners": [],
+    "isPrivate": false
+}

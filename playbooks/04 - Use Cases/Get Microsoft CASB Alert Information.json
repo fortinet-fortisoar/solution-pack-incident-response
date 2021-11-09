@@ -1,0 +1,375 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Get Microsoft CASB Alert Information",
+    "aliasName": null,
+    "tag": null,
+    "description": "Fetches details related to Microsoft cloud access security broker(CASB) alert and extracts indicators from alert activity(s). This is reference playbook to Pickup and Enrich Microsoft CASB Alert",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "mcasAlertID",
+        "fsrAlertID",
+        "fsrAlertIRI"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/59667fcc-7feb-4ba4-a5a2-e03a9287f857",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/db900725-6e02-4624-9b9e-eb010f123cfe",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": []
+                    }
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "db900725-6e02-4624-9b9e-eb010f123cfe",
+            "id": 3102
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "alertID": "{{vars.input.params.fsrAlertID}}",
+                "alertIRI": "{{vars.input.params.fsrAlertIRI}}",
+                "mcasAlertID": "{{vars.input.params.mcasAlertID}}",
+                "useMockOutput": "true"
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "16419168-c45a-46c9-9308-d296264c0648",
+            "id": 3103
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Fetch Activities Related to Alert",
+            "description": null,
+            "arguments": {
+                "name": "Microsoft CASB",
+                "config": "f3dd2976-27eb-4617-ba32-813c577f2487",
+                "params": {
+                    "skip": 0,
+                    "limit": 20,
+                    "alertId": "{{vars.mcasAlertID}}",
+                    "sortField": "Date",
+                    "custom_filter": "",
+                    "sortDirection": "Descending",
+                    "malware_activity": false,
+                    "impersonated_activity": false,
+                    "administrative_activity": false
+                },
+                "version": "1.0.0",
+                "connector": "microsoft-casb",
+                "operation": "list_activities",
+                "mock_result": "{\n  \"data\": {\n    \"data\": [\n      {\"device\": {\n        \"id\": \"81.252.40.3\",\n        \"type\": \"ip\",\n        \"label\": \"81.252.40.3\"\n      },\n        \"_id\": \"f0edcb4661-0955_caf838674698_10103043d83e-0181--5d56\",\n        \"rawDataJson\": {\n          \"ObjectId\": \"https:\/\/example-my.sharepoint.com\/persona_example_com\/Documents\/Files\/SterTrek.exe\",\n          \"Operation\": \"FileUploaded\"\n        }\n      }\n    ],\n    \"total\": 1,\n    \"hasNext\": false\n  },\n  \"status\": \"Success\",\n  \"_status\": true,\n  \"message\": \"\",\n  \"operation\": null,\n  \"request_id\": null\n}",
+                "operationTitle": "List Activities",
+                "pickFromTenant": false,
+                "step_variables": []
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "b9b702e7-9b78-42a2-bd72-aec27038df90",
+            "id": 3104
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Fetch Alert Details",
+            "description": null,
+            "arguments": {
+                "name": "Microsoft CASB",
+                "config": "64502807-2a8d-45a1-ba39-817b63f95c6b",
+                "params": {
+                    "alertId": "{{vars.mcasAlertID}}"
+                },
+                "version": "1.0.0",
+                "connector": "microsoft-casb",
+                "operation": "fetch_alert",
+                "mock_result": "{\n  \"data\": {\n    \"URL\": \"https:\/\/fortisoar-fortinet.cloudappsecurity.com\/#\/alerts\/6b775121af58110453103be3\",\n    \"_id\": \"6b775121af58110453103be3\",\n    \"title\": \"Suspected malware attack\",\n    \"intent\": [\n      6\n    ],\n    \"idValue\": 15795462,\n    \"stories\": [\n      0\n    ],\n    \"entities\": [\n      {\n        \"id\": \"b775121af581160453103be3\",\n        \"type\": \"policyRule\",\n        \"label\": \"Suspected malware attack\",\n        \"policyType\": \"MALWARE\"\n      },\n      {\n        \"id\": \"a035b6-411e7-25-157f131b308\",\n        \"type\": \"device\",\n        \"label\": \"fortisoar.localhost\",\n        \"entityRole\": \"SOURCE\"\n      },\n      {\n        \"em\": \"johndoe@fortinet.com\",\n        \"id\": \"581e-6114b2753f5b01-33710-a\",\n        \"pa\": \"johndoe@fortinet.com\",\n        \"inst\": 0,\n        \"saas\": 11161,\n        \"type\": \"account\",\n        \"label\": \"John Doe\",\n        \"entityType\": 2\n      },\n      {\n        \"id\": \"b435-77103-e2-f1161-3b08a515\",\n        \"type\": \"file\",\n        \"label\": \"SterTrek.exe\"\n      },\n      {\n        \"id\": \"81.252.40.3\",\n        \"type\": \"ip\",\n        \"label\": \"81.252.40.3\"\n      },\n      {\n        \"id\": \"GB\",\n        \"type\": \"country\",\n        \"label\": \"GB\"\n      }\n    ],\n    \"evidence\": [\n      {\n        \"title\": {\n          \"template\": \"MALWARE_ATTACK\",\n          \"fallbackMessage\": \"Suspected malware attack\"\n        },\n        \"innerElements\": [\n          {\n            \"title\": {\n              \"template\": \"MALWARE_ATTACK\",\n              \"parameters\": {\n                \"Date\": 1629417600000,\n                \"SourceUserIds\": [\n                  {\n                    \"em\": \"johndoe@fortinet.com\",\n                    \"id\": \"581e-6114b2753f5b01-33710-a\",\n                    \"pa\": \"johndoe@fortinet.com\",\n                    \"inst\": 0,\n                    \"saas\": 11161,\n                    \"type\": \"account\",\n                    \"label\": \"John Doe\",\n                    \"entityType\": 2\n                  }\n                ],\n                \"SourceComputerId\": {\n                  \"id\": \"a035b6-411e7-25-157f131b308\",\n                  \"type\": \"device\",\n                  \"label\": \"fortisoar.localhost\",\n                  \"entityRole\": \"SOURCE\"\n                },\n                \"GuessAttemptCount\": 36\n              },\n              \"fallbackMessage\": \"On 08\/20\/2021\"\n            }\n          }\n        ]\n      }\n    ],\n    \"contextId\": \"071-3b32f-763-10e55151a4b18\",\n    \"timestamp\": 1629446716566,\n    \"description\": \"Suspected maleware attack on device 'fortisoar.localhost'\",\n    \"statusValue\": 0,\n    \"threatScore\": 0,\n    \"isSystemAlert\": false,\n    \"severityValue\": 1,\n    \"resolutionStatusValue\": 0\n  },\n  \"status\": \"Success\",\n  \"_status\": true,\n  \"message\": \"\",\n  \"operation\": null,\n  \"request_id\": null\n}",
+                "operationTitle": "Fetch Alert",
+                "pickFromTenant": false,
+                "step_variables": {
+                    "fileEntityObject": "{{(vars.result.data.entities | json_query(\"[? type == 'file']\") | join('')) or 'NA'}}",
+                    "mcasAlertCountry": "{{(vars.result.data.entities | json_query(\"[? type == 'country'].label\") | join('')) or 'NA'}}",
+                    "userEntityObject": "{{(vars.result.data.entities | json_query(\"[? type == 'account']\") | join('')) or 'NA'}}"
+                }
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "46b8e87c-0e8e-4fcf-b06c-5d8b912c7e08",
+            "id": 3105
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Fetch Alert User Details",
+            "description": null,
+            "arguments": {
+                "name": "Microsoft CASB",
+                "config": "64502807-2a8d-45a1-ba39-817b63f95c6b",
+                "params": {
+                    "id": "{{vars.userEntityObject.id}}",
+                    "inst": "{{vars.userEntityObject.inst}}",
+                    "saas": "{{vars.userEntityObject.saas}}"
+                },
+                "version": "1.0.0",
+                "connector": "microsoft-casb",
+                "operation": "fetch_entity",
+                "mock_result": "{\n    \"data\": {\n      \"id\": \"581e-6114b2753f5b01-33710-a\",\n      \"ii\": \"4b1--b31200386fa173115575e-4\",\n      \"_id\": \"531a70138e57124-035f--bb161\",\n      \"sid\": \"11e68023051a-57-f35-4711b3b\",\n      \"role\": \"User\",\n      \"type\": 2,\n      \"email\": \"johndoe@fortinet.com\",\n      \"domain\": \"fortinet.com\",\n      \"idType\": 1,\n      \"isFake\": false,\n      \"sctime\": 1629267443626,\n      \"status\": 2,\n      \"actions\": [\n        {\n          \"type\": \"user\",\n          \"has_icon\": true,\n          \"task_name\": \"UserAADSettings\",\n          \"is_blocking\": null,\n          \"bulk_support\": null,\n          \"preview_only\": false,\n          \"display_title\": \"UserAADSettings\",\n          \"governance_type\": \"link\",\n          \"optional_notify\": null,\n          \"confirmation_link\": null,\n          \"display_alert_text\": null,\n          \"alert_display_title\": null,\n          \"display_description\": \"https:\/\/activedirectory.com\/#\/581e-6114b2753f5b01-33710-a\",\n          \"confirm_button_style\": \"red\",\n          \"uiGovernanceCategory\": null,\n          \"bulk_display_description\": null,\n          \"confirmation_button_text\": null,\n          \"display_alert_success_text\": null\n        }\n      ],\n      \"appData\": {\n        \"name\": \"Office 365\",\n        \"saas\": 11161,\n        \"appId\": 11161,\n        \"instance\": 0\n      },\n      \"isAdmin\": false,\n      \"subApps\": [],\n      \"accounts\": [\n        {\n          \"i\": \"38b75121a413bfe-6--11057350\",\n          \"p\": \"4b1--b31200386fa173115575e-4\",\n          \"s\": 2,\n          \"t\": 1,\n          \"dn\": \"John Doe\",\n          \"ii\": \"805711ba53-31-6f0e23-1b4715\",\n          \"ls\": \"2021-02-21T03:46:59.907Z\",\n          \"_id\": \"551a40810-3317-f5be6-b73112\",\n          \"als\": \"2021-02-21T03:46:59.907Z\",\n          \"ext\": false,\n          \"gov\": false,\n          \"idt\": 19,\n          \"lgn\": \"2021-02-19T10:38:03.113Z\",\n          \"src\": {\n            \"ep\": \"2020-02-19T06:05:36.266Z\"\n          },\n          \"_tid\": 116085743,\n          \"auth\": true,\n          \"dnlc\": \"John Doe\",\n          \"inst\": 0,\n          \"saas\": 20940,\n          \"actions\": [],\n          \"aliases\": [\n            \"John Doe\",\n            \"11e68023051a-57-f35-4711b3b\",\n            \"38b75121a413bfe-6--11057350\"\n          ],\n          \"appData\": {\n            \"name\": \"Active Directory\",\n            \"appId\": 20940\n          }\n        }\n      ]\n    },\n    \"status\": \"Success\",\n    \"_status\": true,\n    \"message\": \"\",\n    \"operation\": null,\n    \"request_id\": null\n  }",
+                "operationTitle": "Fetch Entity",
+                "pickFromTenant": false,
+                "step_variables": {
+                    "userDomain": "{{vars.result.data.domain}}",
+                    "userEmailID": "{{vars.result.data.email}}",
+                    "userDisplayName": "{{vars.result.data.displayName}}"
+                }
+            },
+            "status": null,
+            "top": "570",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "4e4b660d-5504-419a-95ea-982e759359ad",
+            "id": 3106
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Fetch File Details",
+            "description": null,
+            "arguments": {
+                "name": "Microsoft CASB",
+                "config": "64502807-2a8d-45a1-ba39-817b63f95c6b",
+                "params": {
+                    "file_id": "{{vars.fileEntityObject.id}}"
+                },
+                "version": "1.0.0",
+                "connector": "microsoft-casb",
+                "operation": "fetch_file",
+                "mock_result": "{\n    \"data\": {\n        \"dd\": \"2021-07-19T03:23:21.040Z\",\n        \"id\": \"21022eec9db1-e-1-7f55603efb\",\n        \"_id\": \"723e01-e91fbf126db5eec502--\",\n        \"_tid\": 116085743,\n        \"facl\": 1,\n        \"name\": \"SterTrek.exe\",\n        \"appId\": 15600,\n        \"fTags\": [],\n        \"fstat\": 2,\n        \"ftype\": 0,\n        \"emails\": [\n            \"johndoe@fortinet.com\"\n        ],\n        \"groups\": [],\n        \"instId\": 0,\n        \"name_l\": \"SterTrek.exe\",\n        \"saasId\": 15600,\n        \"actions\": [],\n        \"appName\": \"Microsoft OneDrive for Business\",\n        \"domains\": [\n            \"fortinet.com\"\n        ],\n        \"driveId\": \"efed2-12e3570f0b2c651-e1b-9\",\n        \"detector\": 1,\n        \"enriched\": true,\n        \"filePath\": \"\/personal\/johndoe_fortinet_com\/Documents\/Files\/SterTrek.exe\",\n        \"fileSize\": 3749908,\n        \"fileType\": [\n            0,\n            \"OTHER\"\n        ],\n        \"groupIds\": [],\n        \"isFolder\": false,\n        \"mimeType\": \"application\/exe\",\n        \"parentId\": \"025-1e292e5fed-376b1fc0b1-e\",\n        \"sitePath\": \"\/personal\/johndoe_fortinet_com\",\n        \"spDomain\": \"https:\/\/fortinet-my.sharepoint.com\",\n        \"isForeign\": false,\n        \"parentIds\": [\n            \"025-1e292e5fed-376b1fc0b1-e\"\n        ],\n        \"fileStatus\": [\n            2,\n            \"UPLOADED\"\n        ],\n        \"originalId\": \"723e01-e91fbf126db5eec502--\",\n        \"scannedDlp\": [],\n        \"createdDate\": 1626434358000,\n        \"dlpScanTime\": \"2021-07-17T17:28:53.626Z\",\n        \"scanVersion\": 4,\n        \"unseenScans\": 0,\n        \"cabinetState\": [],\n        \"modifiedDate\": 1626434367000,\n        \"noGovernance\": false,\n        \"ownerAddress\": \"johndoe@fortinet.com\",\n        \"alternateLink\": \"https:\/\/fortinet-my.sharepoint.com\/personal\/johndoe_fortinet_com\/Documents\/Files\/SterTrek.exe\",\n        \"fileExtension\": \"exe\",\n        \"ownerExternal\": false,\n        \"shouldScanDlp\": [],\n        \"externalShares\": [],\n        \"sharepointItem\": {\n            \"Name\": \"SterTrek.exe\",\n            \"Author\": {\n                \"LoginName\": \"i:0#.f|membership|johndoe@fortinet.com\",\n                \"trueEmail\": \"johndoe@fortinet.com\",\n                \"externalUser\": false,\n                \"oneDriveEmail\": \"johndoe@fortinet.com\",\n                \"sourceBitmask\": 0\n            },\n            \"Length\": 3749908,\n            \"UniqueId\": \"1f2e2b0ce153b-f5d6197-ee2-0\",\n            \"isFolder\": false,\n            \"spMalware\": {\n                \"virusInfo\": \"A:W32\/Trojan.WZLF-3781#\",\n                \"virusStatus\": \"1\",\n                \"virusVendorID\": \"-1\"\n            },\n            \"LinkingUrl\": \"\",\n            \"ModifiedBy\": {\n                \"LoginName\": \"i:0#.f|membership|johndoe@fortinet.com\"\n            },\n            \"TimeCreated\": \"2021-07-16T11:19:18Z\",\n            \"parentUniqueId\": \"ee0--cf23b921bf1e60-525d17e\"\n        }\n    },\n    \"status\": \"Success\",\n    \"_status\": true,\n    \"message\": \"\",\n    \"operation\": null,\n    \"request_id\": null\n}",
+                "operationTitle": "Fetch File",
+                "pickFromTenant": false,
+                "step_variables": {
+                    "fileURL": "{% if vars.result.data.alternateLink | length > 0%}{{vars.result.data.alternateLink}}{% else %}{{vars.steps.Fetch_Activities_Related_to_Alert.data.data | json_query(\"[? rawDataJson.Operation == 'FileUploaded' ].rawDataJson.ObjectId\") | join('')}}{% endif %}",
+                    "fileName": "{{vars.result.data.name}}",
+                    "filePath": "{{vars.result.data.filePath}}"
+                }
+            },
+            "status": null,
+            "top": "705",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "5b3f0eb7-eda9-4496-8a41-5cec936c9611",
+            "id": 3107
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Update Alert Details",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "url": "{{vars.fileURL}}",
+                    "domain": "{{vars.userDomain}}",
+                    "fileName": "{{vars.fileName}}",
+                    "filePath": "{{vars.filePath}}",
+                    "sourcedata": "{{vars.steps.Fetch_Alert_Details.data | toJSON}}"
+                },
+                "_showJson": true,
+                "operation": "Append",
+                "collection": "{{vars.alertIRI}}",
+                "__recommend": [],
+                "collectionType": "\/api\/3\/alerts",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1110",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "31195cf2-7349-4873-9c5b-d52242f8c4a1",
+            "id": 3108
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Extract Indicators from Alert Activity",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "data": "{{vars.steps.Fetch_Activities_Related_to_Alert.data}}",
+                    "whitelist": "",
+                    "case_sensitive": false,
+                    "override_regex": false,
+                    "private_whitelist": true
+                },
+                "version": "3.1.2",
+                "connector": "cyops_utilities",
+                "operation": "extract_artifacts",
+                "operationTitle": "FSR: Extract Artifacts from String",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "840",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "91d4ade2-d011-4507-a8d9-c8e14ba1e93b",
+            "id": 3109
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create and link indicator",
+            "description": null,
+            "arguments": {
+                "for_each": {
+                    "item": "{{vars.steps.Extract_Indicators_from_Alert_Activity.data.results}}",
+                    "parallel": false,
+                    "condition": ""
+                },
+                "arguments": {
+                    "assetIRI": "",
+                    "description": "",
+                    "indicatorType": "{{vars.item['picklist_iri']}}",
+                    "alertRecordIRI": "{{vars.alertIRI}}",
+                    "emailRecordIRI": "",
+                    "indicatorValue": "{{vars.item.value}}",
+                    "indicatorFileIri": "",
+                    "incidentRecordIRI": ""
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "workflowReference": "\/api\/3\/workflows\/69af07bb-0ce0-4c27-add3-a30a1818d421"
+            },
+            "status": null,
+            "top": "975",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "cd906b6a-62bd-49d3-85db-6f9efd68dafc",
+            "id": 3110
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Step Output",
+            "description": null,
+            "arguments": {
+                "mcasAlertDetails": "Alert ID: {{vars.mcasAlertID}}<br \/>Alert Country:{{vars.mcasAlertCountry}}<br \/><br \/><b>User Details: <\/b><br \/>User Display Name: {{vars.userDisplayName or 'NA'}}<br \/>User Domain: {{vars.userDomain or 'NA'}}<br \/>User Email ID: {{vars.userEmailID or 'NA'}}<br \/><br \/><b>File Details: <\/b><br \/>File Name: {{vars.fileName or 'NA'}}<br \/>File Path: {{vars.filePath or 'NA'}}<br \/>File URL: {{vars.fileURL or 'NA'}}"
+            },
+            "status": null,
+            "top": "1245",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "78942a8e-fced-45a3-9f61-d52d238eca22",
+            "id": 3111
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/16419168-c45a-46c9-9308-d296264c0648",
+            "sourceStep": "\/api\/3\/workflow_steps\/db900725-6e02-4624-9b9e-eb010f123cfe",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "1bea80e8-c5ed-48ba-b6b9-0ebeb4777dcf"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Fetch Alert Details",
+            "targetStep": "\/api\/3\/workflow_steps\/46b8e87c-0e8e-4fcf-b06c-5d8b912c7e08",
+            "sourceStep": "\/api\/3\/workflow_steps\/16419168-c45a-46c9-9308-d296264c0648",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "a9237f2f-4c1a-4e8f-97f3-08c917df9918"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Fetch Alert Details -> Get Alert Activity Details",
+            "targetStep": "\/api\/3\/workflow_steps\/b9b702e7-9b78-42a2-bd72-aec27038df90",
+            "sourceStep": "\/api\/3\/workflow_steps\/46b8e87c-0e8e-4fcf-b06c-5d8b912c7e08",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "0bf756f2-39c5-490f-8170-d54dfae0477a"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Fetch Activities Related to Alert -> Get User Details",
+            "targetStep": "\/api\/3\/workflow_steps\/4e4b660d-5504-419a-95ea-982e759359ad",
+            "sourceStep": "\/api\/3\/workflow_steps\/b9b702e7-9b78-42a2-bd72-aec27038df90",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "56a4a4b9-d730-43cc-a032-d6d9588c5caf"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Fetch Alert User Details -> Fetch File Details",
+            "targetStep": "\/api\/3\/workflow_steps\/5b3f0eb7-eda9-4496-8a41-5cec936c9611",
+            "sourceStep": "\/api\/3\/workflow_steps\/4e4b660d-5504-419a-95ea-982e759359ad",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "b6a4cc63-d205-4f75-9b6f-7f20fce39ff5"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Fetch File Details -> Extract Indicators from Alert Activity",
+            "targetStep": "\/api\/3\/workflow_steps\/91d4ade2-d011-4507-a8d9-c8e14ba1e93b",
+            "sourceStep": "\/api\/3\/workflow_steps\/5b3f0eb7-eda9-4496-8a41-5cec936c9611",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "db4b7cc8-e74a-4517-83c4-c8279a33afc1"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Update Alert Details -> Step Output",
+            "targetStep": "\/api\/3\/workflow_steps\/78942a8e-fced-45a3-9f61-d52d238eca22",
+            "sourceStep": "\/api\/3\/workflow_steps\/31195cf2-7349-4873-9c5b-d52242f8c4a1",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "b0076e2b-f772-4895-b270-c48353f24f9e"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Extract Indicators from Alert Activity -> Create and link indicator",
+            "targetStep": "\/api\/3\/workflow_steps\/cd906b6a-62bd-49d3-85db-6f9efd68dafc",
+            "sourceStep": "\/api\/3\/workflow_steps\/91d4ade2-d011-4507-a8d9-c8e14ba1e93b",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "500251bb-5983-41db-aa53-9a5f586feef2"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create and link indicator -> Update Alert Details",
+            "targetStep": "\/api\/3\/workflow_steps\/31195cf2-7349-4873-9c5b-d52242f8c4a1",
+            "sourceStep": "\/api\/3\/workflow_steps\/cd906b6a-62bd-49d3-85db-6f9efd68dafc",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "08b01e1c-ef00-44fa-9260-a3529a0378e7"
+        }
+    ],
+    "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+    "uuid": "e0484c71-b482-494d-8322-f300154ed294",
+    "recordTags": [
+        "Referenced"
+    ],
+    "id": 975,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433427,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433427,
+    "owners": [],
+    "isPrivate": false
+}

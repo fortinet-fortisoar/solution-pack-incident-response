@@ -1,0 +1,168 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Code Snippet",
+    "aliasName": null,
+    "tag": null,
+    "description": "Executes the provided Python code.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/73f87b6d-26fe-4c47-80cb-bc671717c5eb",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/f3570575-52fd-4631-99c2-14ea293360bc",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Update Alerts",
+            "description": null,
+            "arguments": {
+                "config": "7d28c52b-6212-4979-a707-5fc6aa4343bc",
+                "params": {
+                    "python_function": "import psycopg2\n\nhostname = '127.0.0.1'\nusername = 'cyberpgsql'\npassword = ''\ndatabase = 'venom'\n\n\ndef doQuery( conn ) :\n    cur = conn.cursor()\n    try:\n       cur.execute( \"select name,description from alerts where uuid='{{vars.alertUUID}}'\" )\n       ans=cur.fetchall()\n       for i in ans:\n            print(i)\n       conn.commit() \n    except (Exception, psycopg2.DatabaseError) as error:\n       print(error)\n\n\n \nmyConnection = psycopg2.connect( host=hostname, user=username, password=password, dbname=database )\ndoQuery( myConnection )\nmyConnection.close()"
+                },
+                "version": "1.2.4",
+                "connector": "code-snippet",
+                "operation": "python_inline",
+                "operationTitle": "Execute Python Code",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/1fdd14cc-d6b4-4335-a3af-ab49c8ed2fd8",
+            "uuid": "6b4d35df-2de4-49f4-a283-8053f6df32ba",
+            "id": 3766
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "resource": "comments",
+                "resources": [
+                    "comments"
+                ],
+                "step_variables": {
+                    "input": {
+                        "records": [
+                            "{{vars.input.records[0]}}"
+                        ]
+                    }
+                },
+                "fieldbasedtrigger": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "type": "primitive",
+                            "field": "content",
+                            "value": "%$get alerts%",
+                            "operator": "like"
+                        }
+                    ]
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/ea155646-3821-4542-9702-b246da430a8d",
+            "uuid": "f3570575-52fd-4631-99c2-14ea293360bc",
+            "id": 3767
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "alertID": "\/api\/3\/alerts\/{{vars.request.headers.referer|urlsplit('path')|basename}}",
+                "content": "{{vars.input.records[0].content}}",
+                "alertUUID": "{{vars.request.headers.referer|urlsplit('path')|basename}}"
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "143dcbc3-83b2-4288-95ee-fbaf0d3f2c02",
+            "id": 3768
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "ALerts Details",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "scans": null,
+                    "tasks": null,
+                    "alerts": "['{{vars.alertID}}']",
+                    "assets": null,
+                    "emails": null,
+                    "events": null,
+                    "owners": null,
+                    "people": null,
+                    "content": "<p>{{vars.steps.Update_Alerts.data['code_output'] | toJSON}}<\/p>",
+                    "approvals": null,
+                    "companies": null,
+                    "incidents": null,
+                    "isDeleted": null,
+                    "indicators": null,
+                    "attachments": null,
+                    "vulnerabilities": null
+                },
+                "_showJson": false,
+                "collection": "\/api\/3\/comments",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "b74be385-7bd9-4915-9618-3896927d15c5",
+            "id": 3769
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "update alerts -> ALerts Details",
+            "targetStep": "\/api\/3\/workflow_steps\/b74be385-7bd9-4915-9618-3896927d15c5",
+            "sourceStep": "\/api\/3\/workflow_steps\/6b4d35df-2de4-49f4-a283-8053f6df32ba",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "53f25d13-5f6f-473f-9f52-1bd72ce1e543"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Config -> update alerts",
+            "targetStep": "\/api\/3\/workflow_steps\/6b4d35df-2de4-49f4-a283-8053f6df32ba",
+            "sourceStep": "\/api\/3\/workflow_steps\/143dcbc3-83b2-4288-95ee-fbaf0d3f2c02",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "d54fd07f-7d5e-42f4-948c-4edb034acfc4"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Config",
+            "targetStep": "\/api\/3\/workflow_steps\/143dcbc3-83b2-4288-95ee-fbaf0d3f2c02",
+            "sourceStep": "\/api\/3\/workflow_steps\/f3570575-52fd-4631-99c2-14ea293360bc",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "691ee29b-14fe-41a2-abf8-6a92891c408d"
+        }
+    ],
+    "priority": null,
+    "uuid": "61de3adb-6934-4a77-b175-95d8fe69f869",
+    "recordTags": [],
+    "id": 1046,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433432,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433432,
+    "owners": [],
+    "isPrivate": false
+}

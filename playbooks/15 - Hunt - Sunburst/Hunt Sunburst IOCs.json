@@ -1,0 +1,467 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Hunt Sunburst IOCs",
+    "aliasName": null,
+    "tag": null,
+    "description": "Download IOCs from the threat intelligence feeds and hunt them.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/e2c1a8f3-00dc-4e82-a9f0-5e9957529407",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/d608a523-dcc9-440d-89ee-088e99a788d8",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "64c9d294-b616-479c-aaf3-a27b8be16822",
+                "title": "Sunburst IOC Hunt",
+                "resources": [
+                    "hunt"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                    "input": {
+                        "records": "{{vars.input.records}}"
+                    }
+                },
+                "displayConditions": {
+                    "hunt": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    },
+                    "alerts": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": false,
+                "singleRecordExecution": true
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "uuid": "d608a523-dcc9-440d-89ee-088e99a788d8",
+            "id": 4437
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "to_email": "suyogjinturkar@gmail.com",
+                "demo_iocs": "['d0d626deb3f9484e649294a8dfa814c5568f846d5aa02d4cdad5d041a29d5600','13.59.205.66','avsvmcloud.com']",
+                "useMockOutput": "{{globalVars.Demo_mode}}",
+                "sunburst_ioc_urls": "['https:\/\/raw.githubusercontent.com\/sophos-cybersecurity\/solarwinds-threathunt\/master\/iocs.csv']"
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "24e355db-d508-4e86-8bcc-896187bfc04c",
+            "id": 4438
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Hunt Sunburst IOCs",
+            "description": null,
+            "arguments": {
+                "message": {
+                    "tags": [],
+                    "type": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                    "tenant": "",
+                    "content": "Sunburst IOCs hunt completed",
+                    "records": "{{vars.input.records[0]['@id']}}"
+                },
+                "for_each": {
+                    "item": "{{vars.steps.Create_Indicators}}",
+                    "__bulk": false,
+                    "parallel": false,
+                    "condition": ""
+                },
+                "arguments": {
+                    "indicator_iri": "{{vars.item['@id']}}",
+                    "indicator_type": "{{vars.item.typeofindicator.itemValue}}",
+                    "indicator_value": "{{vars.item.value}}"
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "workflowReference": "\/api\/3\/workflows\/e8cfec1f-845e-4f90-ac51-6439b30495f3"
+            },
+            "status": null,
+            "top": "705",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "a3685517-7707-459e-b862-05f563dce80e",
+            "id": 4439
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Download IOCs CSV File",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "url": "{{vars.item}}",
+                    "password": "",
+                    "username": "",
+                    "request_headers": ""
+                },
+                "message": {
+                    "tags": [],
+                    "type": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                    "tenant": "",
+                    "content": "Downloading Sunburst IOCs",
+                    "records": "{{vars.input.records[0]['@id']}}"
+                },
+                "version": "3.0.5",
+                "for_each": {
+                    "item": "{{vars.sunburst_ioc_urls}}",
+                    "condition": ""
+                },
+                "connector": "cyops_utilities",
+                "operation": "download_file_from_url",
+                "operationTitle": "File: Download File from URL",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "56fa5ae9-2134-40ef-8102-031882881d52",
+            "id": 4440
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Convert IOC CSV to JSON",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "type": "filepath",
+                    "file_name": "{{vars.steps.Download_IOCs_CSV_File[0].data['cyops_file_path']}}",
+                    "file_type": "CSV"
+                },
+                "version": "3.0.5",
+                "connector": "cyops_utilities",
+                "operation": "convert_to_json",
+                "operationTitle": "Utils: Convert XML, CSV, XLS or XLSX Files to Dictionary",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "4cc77f2b-6693-4798-ac24-ff09b8540eba",
+            "id": 4441
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Indicators",
+            "description": null,
+            "arguments": {
+                "message": {
+                    "tags": [],
+                    "type": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                    "tenant": "",
+                    "content": "Hunting Sunburst IOCs",
+                    "records": "{{vars.input.records[0]['@id']}}"
+                },
+                "for_each": {
+                    "item": "{{vars.steps.Convert_IOC_CSV_to_JSON.data}}",
+                    "__bulk": true,
+                    "condition": "{{vars.item.Note != \"\"}}",
+                    "batch_size": 100
+                },
+                "resource": {
+                    "tlp": {
+                        "id": 314,
+                        "@id": "\/api\/3\/picklists\/7bff95b7-6438-4b01-b23a-0fe8cb5b33d3",
+                        "icon": null,
+                        "uuid": "7bff95b7-6438-4b01-b23a-0fe8cb5b33d3",
+                        "@type": "Picklist",
+                        "color": "#FFBF00",
+                        "display": "Amber",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/40f1345f-f679-43c0-9237-5b06edd8385f",
+                        "itemValue": "Amber",
+                        "orderIndex": 1
+                    },
+                    "value": "{{vars.item.Data}}",
+                    "__replace": "true",
+                    "description": "{{vars.item.Note}}",
+                    "indicatorStatus": {
+                        "id": 369,
+                        "@id": "\/api\/3\/picklists\/2f5cff61-fbff-4bb3-96be-302b78a9fb47",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "TBD",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/e6639d57-94a9-432f-a46f-b2b530402077",
+                        "itemValue": "TBD",
+                        "orderIndex": 3
+                    },
+                    "typeofindicator": "{%if vars.item.Indicator_type == \"domain\"%}{{\"IndicatorType\" | picklist(\"Domain\", \"@id\")}}{%elif vars.item.Indicator_type == \"ip\"%}{{\"IndicatorType\" | picklist(\"IP Address\", \"@id\")}}{%elif vars.item.Indicator_type == \"sha256\"%}{{\"IndicatorType\" | picklist(\"FileHash-SHA256\", \"@id\")}}{%else%}None{%endif%}"
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/upsert\/indicators",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "560",
+            "left": "120",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "47c53dc0-47b1-40eb-a3d7-112c2589ca56",
+            "id": 4442
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Alert",
+            "description": null,
+            "arguments": {
+                "for_each": {
+                    "item": "{{vars.steps.Hunt_Sunburst_IOCs}}",
+                    "__bulk": true,
+                    "condition": "{{((vars.item.ioc_found) and (vars.item.indicator_value in vars.demo_iocs)) if (vars.useMockOutput) else true}}"
+                },
+                "resource": {
+                    "name": "Sunburst IOC Found - {{vars.item.indicator_type}} - {{vars.item.indicator_value}}",
+                    "type": {
+                        "id": 323,
+                        "@id": "\/api\/3\/picklists\/58a405d1-542e-418d-80fa-3c5d2e12484f",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Sunbrust",
+                        "listName": "\/api\/3\/picklist_names\/a7087b9c-5660-495f-a8ac-c3b198ddb8c2",
+                        "itemValue": "Sunbrust",
+                        "orderIndex": 24
+                    },
+                    "domain": "{%if vars.item.indicator_type == \"Domain\"%}{{vars.item.indicator_value}}{%endif%}",
+                    "status": {
+                        "id": 318,
+                        "@id": "\/api\/3\/picklists\/7de816ff-7140-4ee5-bd05-93ce22002146",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Open",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/33e964a9-d607-49f2-813c-7ce46141815a",
+                        "itemValue": "Open",
+                        "orderIndex": 1
+                    },
+                    "fileHash": "{%if vars.item.indicator_type == \"FileHash-SHA256\"%}{{vars.item.indicator_value}}{%endif%}",
+                    "sourceIp": "{%if vars.item.indicator_type == \"IP Address\"%}{{vars.item.indicator_value}}{%endif%}",
+                    "__replace": "true",
+                    "ackSlaStatus": {
+                        "id": 306,
+                        "@id": "\/api\/3\/picklists\/72979f64-e8b9-4888-a965-957e0ec24818",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#808080",
+                        "display": "Awaiting Action",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/fe36a8f2-fcba-4221-b4ab-1081f596b153",
+                        "itemValue": "Awaiting Action",
+                        "orderIndex": 2
+                    },
+                    "closureReason": {
+                        "id": 251,
+                        "@id": "\/api\/3\/picklists\/8590c81e-3307-4645-97f5-c3e1bec4e05a",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Tasks Completed",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/4ebacea1-88cd-4ea8-9dcc-385bea42cc59",
+                        "itemValue": "Tasks Completed",
+                        "orderIndex": 0
+                    },
+                    "respSlaStatus": {
+                        "id": 306,
+                        "@id": "\/api\/3\/picklists\/72979f64-e8b9-4888-a965-957e0ec24818",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#808080",
+                        "display": "Awaiting Action",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/fe36a8f2-fcba-4221-b4ab-1081f596b153",
+                        "itemValue": "Awaiting Action",
+                        "orderIndex": 2
+                    },
+                    "priorityWeight": 1,
+                    "escalatedtoincident": {
+                        "id": 31,
+                        "@id": "\/api\/3\/picklists\/2128a09c-153d-4db3-985d-de6be33deae5",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#808080",
+                        "display": "No",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/e131cc54-9ae4-43c9-b830-af6e331fe024",
+                        "itemValue": "No",
+                        "orderIndex": 1
+                    }
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/upsert\/alerts",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "840",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "838e1951-9354-4e18-b374-090da031b6e8",
+            "id": 4443
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Communication Record",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "to": "{{vars.to_email}}",
+                    "type": {
+                        "id": 279,
+                        "@id": "\/api\/3\/picklists\/b8e7c917-5299-4a43-9c1a-fac1d9a5438f",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Email",
+                        "listName": "\/api\/3\/picklist_names\/57d30379-dbba-4684-b126-ec3ad8766f06",
+                        "itemValue": "Email",
+                        "orderIndex": 0
+                    },
+                    "hunts": "{{vars.input.records[0]['@id']}}",
+                    "subject": "Sunburst IOCs Found",
+                    "__replace": "",
+                    "recordTags": [
+                        "\/api\/3\/tags\/sunburst"
+                    ],
+                    "msgDirection": {
+                        "id": 275,
+                        "@id": "\/api\/3\/picklists\/9f0a2594-2390-4086-9b6f-c7165c70ce27",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Sending",
+                        "listName": "\/api\/3\/picklist_names\/09b97c81-669a-4ac8-8668-920913f3329b",
+                        "itemValue": "Sending",
+                        "orderIndex": 3
+                    }
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/communication",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "975",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "bdad0feb-a92e-4f1d-ba13-bdf96ad1a0d8",
+            "id": 4444
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Download IOCs File -> Parse IOC CSV File",
+            "targetStep": "\/api\/3\/workflow_steps\/4cc77f2b-6693-4798-ac24-ff09b8540eba",
+            "sourceStep": "\/api\/3\/workflow_steps\/56fa5ae9-2134-40ef-8102-031882881d52",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "c41e6d0d-aefa-4f0d-8548-3fd5d60835fd"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Indicators -> Hunt Sunburst IOCs",
+            "targetStep": "\/api\/3\/workflow_steps\/a3685517-7707-459e-b862-05f563dce80e",
+            "sourceStep": "\/api\/3\/workflow_steps\/47c53dc0-47b1-40eb-a3d7-112c2589ca56",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "d402c186-f5c2-4cb5-b099-23b8db3cf1c9"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Parse IOC CSV File -> Create Indicators",
+            "targetStep": "\/api\/3\/workflow_steps\/47c53dc0-47b1-40eb-a3d7-112c2589ca56",
+            "sourceStep": "\/api\/3\/workflow_steps\/4cc77f2b-6693-4798-ac24-ff09b8540eba",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "28f029d6-dcbb-45ba-ac22-f22abdf4cbe6"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/24e355db-d508-4e86-8bcc-896187bfc04c",
+            "sourceStep": "\/api\/3\/workflow_steps\/d608a523-dcc9-440d-89ee-088e99a788d8",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "224dd38a-f808-4365-b233-d0356419b843"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Download IOCs File",
+            "targetStep": "\/api\/3\/workflow_steps\/56fa5ae9-2134-40ef-8102-031882881d52",
+            "sourceStep": "\/api\/3\/workflow_steps\/24e355db-d508-4e86-8bcc-896187bfc04c",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "59dc32a2-f156-4d5f-ae58-7d01cf031e4d"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Hunt Sunburst IOCs -> Create Alert",
+            "targetStep": "\/api\/3\/workflow_steps\/838e1951-9354-4e18-b374-090da031b6e8",
+            "sourceStep": "\/api\/3\/workflow_steps\/a3685517-7707-459e-b862-05f563dce80e",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "5f2e8fde-1ab4-4a0f-9837-174f6d8c0950"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Alert -> Create Communication Record",
+            "targetStep": "\/api\/3\/workflow_steps\/bdad0feb-a92e-4f1d-ba13-bdf96ad1a0d8",
+            "sourceStep": "\/api\/3\/workflow_steps\/838e1951-9354-4e18-b374-090da031b6e8",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "e6c69c84-b357-4b21-baee-62e355199707"
+        }
+    ],
+    "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+    "uuid": "367e46bc-6d9a-43ae-8ed4-d955f19c8483",
+    "recordTags": [
+        "sunburst"
+    ],
+    "id": 1145,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433438,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433438,
+    "owners": [],
+    "isPrivate": false
+}

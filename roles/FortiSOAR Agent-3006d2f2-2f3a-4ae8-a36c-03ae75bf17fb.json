@@ -1,0 +1,70 @@
+{
+    "@context": "\/api\/3\/contexts\/Role",
+    "@id": "\/api\/3\/roles\/3006d2f2-2f3a-4ae8-a36c-03ae75bf17fb",
+    "@type": "Role",
+    "description": "Agent appliances will be auto-assigned this role. Defaults to access to files and attachments",
+    "name": "FortiSOAR Agent",
+    "modulePermissions": [
+        {
+            "@id": "\/api\/3\/module_permissions\/57e12d11-36aa-4606-a435-529c06851464",
+            "@type": "ModulePermission",
+            "canCreate": null,
+            "canExecute": null,
+            "canRead": true,
+            "canUpdate": null,
+            "canDelete": null,
+            "fieldPermissions": [],
+            "module": "application",
+            "uuid": "57e12d11-36aa-4606-a435-529c06851464"
+        },
+        {
+            "@id": "\/api\/3\/module_permissions\/23d9ab15-08c1-48d6-bea5-e6f3673d6f9d",
+            "@type": "ModulePermission",
+            "canCreate": true,
+            "canExecute": null,
+            "canRead": true,
+            "canUpdate": true,
+            "canDelete": null,
+            "fieldPermissions": [],
+            "module": "files",
+            "uuid": "23d9ab15-08c1-48d6-bea5-e6f3673d6f9d"
+        },
+        {
+            "@id": "\/api\/3\/module_permissions\/3e556c44-7335-4de9-9879-0fb4825dfdcb",
+            "@type": "ModulePermission",
+            "canCreate": true,
+            "canExecute": null,
+            "canRead": true,
+            "canUpdate": true,
+            "canDelete": null,
+            "fieldPermissions": [],
+            "module": "attachments",
+            "uuid": "3e556c44-7335-4de9-9879-0fb4825dfdcb"
+        },
+        {
+            "@id": "\/api\/3\/module_permissions\/6e89b83d-722a-4bc8-972d-e1aa12d5bd03",
+            "@type": "ModulePermission",
+            "canCreate": null,
+            "canExecute": null,
+            "canRead": true,
+            "canUpdate": null,
+            "canDelete": null,
+            "fieldPermissions": [],
+            "module": "agents",
+            "uuid": "6e89b83d-722a-4bc8-972d-e1aa12d5bd03"
+        },
+        {
+            "@id": "\/api\/3\/module_permissions\/352ff3e0-d995-4d92-b19b-6adcbdbe3d0e",
+            "@type": "ModulePermission",
+            "canCreate": null,
+            "canExecute": true,
+            "canRead": null,
+            "canUpdate": null,
+            "canDelete": null,
+            "fieldPermissions": [],
+            "module": "workflows",
+            "uuid": "352ff3e0-d995-4d92-b19b-6adcbdbe3d0e"
+        }
+    ],
+    "uuid": "3006d2f2-2f3a-4ae8-a36c-03ae75bf17fb"
+}

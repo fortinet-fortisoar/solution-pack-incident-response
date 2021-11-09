@@ -1,0 +1,252 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "03 - Investigate Filehash (Fully Automated)",
+    "aliasName": null,
+    "tag": null,
+    "description": "This playbook is triggered automatically following the creation of an alert; it investigates filehash reputation using VirusTotal.",
+    "isActive": false,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/d8ad6155-7798-4991-bfb4-7584a86c2241",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/20a16aae-2080-4acb-8c6b-6d322dcc4370",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Update Severity to Critical",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "severity": {
+                        "id": 81,
+                        "@id": "\/api\/3\/picklists\/7efa2220-39bb-44e4-961f-ac368776e3b0",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#A51516",
+                        "display": "Critical",
+                        "listName": "\/api\/3\/picklist_names\/4e80cba3-032f-48b4-ac03-17e3ec247aac",
+                        "itemValue": "Critical",
+                        "orderIndex": 4
+                    }
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "collectionType": "\/api\/3\/alerts",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "30",
+            "left": "1425",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "c1abb298-a21e-4317-98f9-0c0c93e0560f",
+            "id": 4380
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Is File Malicious",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Yes",
+                        "step_iri": "\/api\/3\/workflow_steps\/c1abb298-a21e-4317-98f9-0c0c93e0560f",
+                        "condition": "{{ vars.steps.Get_File_Reputation.data.aggregate > 5 }}"
+                    },
+                    {
+                        "option": "No",
+                        "default": true,
+                        "step_iri": "\/api\/3\/workflow_steps\/a1fa0af4-49c4-48e1-ba1d-3d4687b8c89a"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "110",
+            "left": "1100",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "acf1429f-260a-48eb-8663-3a20b8b02edc",
+            "id": 4381
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "resource": "alerts",
+                "step_variables": {
+                    "input": {
+                        "records": [
+                            "{{vars.request.data}}"
+                        ]
+                    }
+                },
+                "fieldbasedtrigger": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "type": "object",
+                            "field": "type",
+                            "value": "\/api\/3\/picklists\/0cbc2c31-c360-4770-b1e7-3653a8c24ead",
+                            "_value": {
+                                "itemValue": "Malware"
+                            },
+                            "operator": "eq"
+                        }
+                    ]
+                }
+            },
+            "status": null,
+            "top": "110",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/ea155646-3821-4542-9702-b246da430a8d",
+            "uuid": "20a16aae-2080-4acb-8c6b-6d322dcc4370",
+            "id": 4382
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "filehash": "{{vars.input.records[0].fileHash}}"
+            },
+            "status": null,
+            "top": "109",
+            "left": "449",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "4126d0c9-4275-483f-8dd8-1c618d062bb0",
+            "id": 4383
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get File Reputation",
+            "description": null,
+            "arguments": {
+                "name": "VirusTotal",
+                "config": "b87c0e09-a465-4a17-97eb-bd755c1dad0e",
+                "params": {
+                    "file_hash": "{{vars.filehash}}"
+                },
+                "version": "1.0.1",
+                "connector": "virustotal",
+                "operation": "file_reputation",
+                "operationTitle": "Get File Reputation",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "110",
+            "left": "780",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "39a9c7df-ab14-4bdf-b66c-35e5f61346a2",
+            "id": 4384
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Close as Benign",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "status": {
+                        "id": 6802,
+                        "@id": "\/api\/3\/picklists\/fac53e73-8d16-4189-98d5-95fbd1555232",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Closed",
+                        "listName": "\/api\/3\/picklist_names\/33e964a9-d607-49f2-813c-7ce46141815a",
+                        "itemValue": "Closed",
+                        "orderIndex": 1
+                    },
+                    "severity": {
+                        "id": 80,
+                        "@id": "\/api\/3\/picklists\/58d0753f-f7e4-403b-953c-b0f521eab759",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#28B35C",
+                        "display": "Low",
+                        "listName": "\/api\/3\/picklist_names\/4e80cba3-032f-48b4-ac03-17e3ec247aac",
+                        "itemValue": "Low",
+                        "orderIndex": 1
+                    }
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "collectionType": "\/api\/3\/alerts",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "190",
+            "left": "1425",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "a1fa0af4-49c4-48e1-ba1d-3d4687b8c89a",
+            "id": 4385
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is File Malicious -> Close as Benign",
+            "targetStep": "\/api\/3\/workflow_steps\/a1fa0af4-49c4-48e1-ba1d-3d4687b8c89a",
+            "sourceStep": "\/api\/3\/workflow_steps\/acf1429f-260a-48eb-8663-3a20b8b02edc",
+            "label": "No",
+            "isExecuted": false,
+            "uuid": "8e7f4657-0bf1-42b8-b768-e4f04582fdc8"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/4126d0c9-4275-483f-8dd8-1c618d062bb0",
+            "sourceStep": "\/api\/3\/workflow_steps\/20a16aae-2080-4acb-8c6b-6d322dcc4370",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "508cd1ad-5b3f-4361-b67c-756d5b5844c4"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Get File Reputation",
+            "targetStep": "\/api\/3\/workflow_steps\/39a9c7df-ab14-4bdf-b66c-35e5f61346a2",
+            "sourceStep": "\/api\/3\/workflow_steps\/4126d0c9-4275-483f-8dd8-1c618d062bb0",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "9c3de56a-95c9-4278-82ad-8fda27469b1a"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get File Reputation -> Is File Malicious",
+            "targetStep": "\/api\/3\/workflow_steps\/acf1429f-260a-48eb-8663-3a20b8b02edc",
+            "sourceStep": "\/api\/3\/workflow_steps\/39a9c7df-ab14-4bdf-b66c-35e5f61346a2",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "576fdaf0-df2e-4798-ae48-8fdabd8619a0"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is File Malicious -> Update Severity to Critical",
+            "targetStep": "\/api\/3\/workflow_steps\/c1abb298-a21e-4317-98f9-0c0c93e0560f",
+            "sourceStep": "\/api\/3\/workflow_steps\/acf1429f-260a-48eb-8663-3a20b8b02edc",
+            "label": "Yes",
+            "isExecuted": false,
+            "uuid": "b2899391-5bfd-40e5-be76-fb1e7867b469"
+        }
+    ],
+    "priority": null,
+    "uuid": "3df2f3d4-fdf6-40a9-b19a-d2052fcd963b",
+    "recordTags": [
+        "PostCreate",
+        "Alerts"
+    ],
+    "id": 1135,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433437,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433437,
+    "owners": [],
+    "isPrivate": false
+}

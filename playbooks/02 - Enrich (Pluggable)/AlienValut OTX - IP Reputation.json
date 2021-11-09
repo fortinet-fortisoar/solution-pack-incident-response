@@ -1,0 +1,169 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "AlienValut OTX - IP Reputation",
+    "aliasName": null,
+    "tag": null,
+    "description": "Retrieves the reputation of indicators of type 'IP Address' using AlienValut OTX.",
+    "isActive": false,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "indicator_value"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/b135c052-e170-4cff-8cc7-9a4bfe607ccb",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/8c9c4d26-f759-4edd-ae29-9bb4206f0843",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": []
+                    }
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "8c9c4d26-f759-4edd-ae29-9bb4206f0843",
+            "id": 2751
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Reputation from AlienVault OTX",
+            "description": null,
+            "arguments": {
+                "name": "AlienVault-OTX",
+                "config": "3d96900a-f870-4ac6-94d0-00865dbaf86f",
+                "params": {
+                    "page": 1,
+                    "limit": 5,
+                    "user_text": "{{vars.indicator_value}}"
+                },
+                "version": "1.0.0",
+                "connector": "alienvault-otx",
+                "operation": "search_pulses",
+                "ignore_errors": true,
+                "operationTitle": "Search Pulses",
+                "step_variables": {
+                    "foundAVReputation": "{{ ( vars.result.data.results and vars.result.data.results | length > 0 ) | ternary(true,false) }}"
+                }
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "5d52e4e4-7add-4cc9-844f-33db5f4d7446",
+            "id": 2752
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "enrichment_summary",
+            "description": null,
+            "arguments": {
+                "tags": "{% if vars.foundAVReputation %}\n{{(vars.steps.Get_Reputation_from_AlienVault_OTX.data.results | json_query(\"[*].tags[]\") | unique | string).replace(\"[\",\"\").replace(\"]\",\"\")}}{%else%}None{%endif%}",
+                "source": "AlienValut OTX",
+                "enrichmentSummary": "{{vars.steps.Compute_AV_OTX_Summary.data['formatted_string']}}"
+            },
+            "status": null,
+            "top": "567",
+            "left": "126",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "4584a88b-d306-4a90-a224-808249ca2c00",
+            "id": 2753
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "indicator_value": "{{vars.input.params['indicator_value']}}"
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "6a806ad4-0b11-4ae5-b5f9-5e63c3ba3f5d",
+            "id": 2754
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Compute AV OTX Summary",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "value": "{% if vars.foundAVReputation %}\n<p><span style=\"font-size: 11pt;\"><strong>AlienVault OTX Summary<\/strong><\/span><\/p>\n<table style=\"width: 720px; border-color: #ffffff;\" border=\"1\">\n<tbody>\n<tr>\n<td style=\"width: 45px;\"><strong>Tags<\/strong><\/td>\n<td style=\"width: 489px;\">{{(vars.steps.Get_Reputation_from_AlienVault_OTX.data.results | json_query(\"[*].tags[]\") | unique | string).replace(\"[\",\"\").replace(\"]\",\"\")}}<\/td>\n<\/tr>\n<\/tbody>\n<\/table>\n<p>{% endif %}<\/p>"
+                },
+                "version": "3.0.3",
+                "connector": "cyops_utilities",
+                "operation": "format_richtext",
+                "operationTitle": "Utils: Format as RichText",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "be132667-f40f-4e19-9a14-ebc95efd9f46",
+            "id": 2755
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Get Reputation from AlienVault OTX",
+            "targetStep": "\/api\/3\/workflow_steps\/5d52e4e4-7add-4cc9-844f-33db5f4d7446",
+            "sourceStep": "\/api\/3\/workflow_steps\/6a806ad4-0b11-4ae5-b5f9-5e63c3ba3f5d",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "7ebf2d33-b53a-4f6d-b428-48f342c14513"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Reputation from AlienVault OTX -> Compute AV OTX Summary",
+            "targetStep": "\/api\/3\/workflow_steps\/be132667-f40f-4e19-9a14-ebc95efd9f46",
+            "sourceStep": "\/api\/3\/workflow_steps\/5d52e4e4-7add-4cc9-844f-33db5f4d7446",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "d0ca1a35-7ef8-4f10-aaa1-79d2f6a56db2"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> cOnfiguration",
+            "targetStep": "\/api\/3\/workflow_steps\/6a806ad4-0b11-4ae5-b5f9-5e63c3ba3f5d",
+            "sourceStep": "\/api\/3\/workflow_steps\/8c9c4d26-f759-4edd-ae29-9bb4206f0843",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "067c1a40-a022-4829-8231-23762d2cb9a2"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Compute AV OTX Summary -> enrichment_summary",
+            "targetStep": "\/api\/3\/workflow_steps\/4584a88b-d306-4a90-a224-808249ca2c00",
+            "sourceStep": "\/api\/3\/workflow_steps\/be132667-f40f-4e19-9a14-ebc95efd9f46",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "0b334e70-31bf-43a2-8422-833d0319daa2"
+        }
+    ],
+    "priority": null,
+    "uuid": "e3d030a3-778b-45d2-963a-fb15071a65e3",
+    "recordTags": [
+        "Subroutine"
+    ],
+    "id": 927,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433424,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433424,
+    "owners": [],
+    "isPrivate": false
+}

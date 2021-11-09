@@ -1,0 +1,111 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Incident (Post Update) Phase Change",
+    "aliasName": null,
+    "tag": "#PostCreate#Incident  #system",
+    "description": "Updates an incident's phase dates when incident phase is changed.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/3c3b049e-5ecb-464a-83f6-5af6a230c0ed",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/5b060ded-c2da-4420-bd31-f6033d37eb48",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Set Phase Dates",
+            "description": null,
+            "arguments": {
+                "arguments": {
+                    "recoverydt": "{{vars.input.records[0].recoveryDate}}",
+                    "aftermathdt": "{{vars.input.records[0].aftermathDate}}",
+                    "incident_iri": "{{vars.input.records[0]['@id']}}",
+                    "eradicationdt": "{{vars.input.records[0].eradicationDate}}",
+                    "confirmationdt": "{{vars.input.records[0].confirmationDate}}",
+                    "containtmentdt": "{{vars.input.records[0].containmentDate}}",
+                    "currPhaseValue": "{{vars.input.records[0].phase.itemValue | ternary(vars.input.records[0].phase.itemValue,\"Detection\")}}",
+                    "indenticationdt": "{{vars.input.records[0].identificationDate}}"
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "workflowReference": "\/api\/3\/workflows\/f9a7d4b4-b16b-4b1b-b63a-8dd65b4437d0"
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "3bf7b088-19ca-493f-a103-d0ba92b499c7",
+            "id": 3935
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "resource": "incidents",
+                "resources": [
+                    "incidents"
+                ],
+                "step_variables": {
+                    "input": {
+                        "records": [
+                            "{{vars.input.records[0]}}"
+                        ]
+                    }
+                },
+                "fieldbasedtrigger": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "type": "object",
+                            "field": "phase",
+                            "value": null,
+                            "_value": {
+                                "display": "",
+                                "itemValue": ""
+                            },
+                            "operator": "changed"
+                        }
+                    ]
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/9300bf69-5063-486d-b3a6-47eb9da24872",
+            "uuid": "5b060ded-c2da-4420-bd31-f6033d37eb48",
+            "id": 3936
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Set Phase Dates",
+            "targetStep": "\/api\/3\/workflow_steps\/3bf7b088-19ca-493f-a103-d0ba92b499c7",
+            "sourceStep": "\/api\/3\/workflow_steps\/5b060ded-c2da-4420-bd31-f6033d37eb48",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "74b7d41b-e75e-4032-9273-37821a99e3d3"
+        }
+    ],
+    "priority": null,
+    "uuid": "4357e1a8-3978-4d3a-a730-6fd6f7d68c27",
+    "recordTags": [
+        "system",
+        "PostUpdate"
+    ],
+    "id": 1075,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433433,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433433,
+    "owners": [],
+    "isPrivate": false
+}

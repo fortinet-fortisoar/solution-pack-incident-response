@@ -1,0 +1,250 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Update Alert Severity for Malicious Indicators",
+    "aliasName": null,
+    "tag": "#system #postupdate #autopriortization",
+    "description": "Sets the severity of the alert to \u2018Critical\u2019 if its associated indicators are found to be \u2018malicious\u2019.",
+    "isActive": false,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/4a9adb3a-1a68-4b28-8096-ea12210dfeab",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/fd2f5e8d-7e57-4d59-9aef-711c7a463f00",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "resource": "indicators",
+                "resources": [
+                    "indicators"
+                ],
+                "step_variables": {
+                    "input": {
+                        "records": [
+                            "{{vars.input.records[0]}}"
+                        ]
+                    }
+                },
+                "fieldbasedtrigger": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "type": "object",
+                            "field": "reputation",
+                            "value": null,
+                            "_value": {
+                                "display": "",
+                                "itemValue": ""
+                            },
+                            "operator": "changed"
+                        },
+                        {
+                            "type": "object",
+                            "field": "reputation",
+                            "value": "\/api\/3\/picklists\/7074e547-7785-4979-be32-c6d0c863e4bd",
+                            "_value": {
+                                "display": "Malicious",
+                                "itemValue": "Malicious"
+                            },
+                            "operator": "eq"
+                        }
+                    ]
+                }
+            },
+            "status": null,
+            "top": "73",
+            "left": "753",
+            "stepType": "\/api\/3\/workflow_step_types\/9300bf69-5063-486d-b3a6-47eb9da24872",
+            "uuid": "fd2f5e8d-7e57-4d59-9aef-711c7a463f00",
+            "id": 3047
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Set Severity",
+            "description": null,
+            "arguments": {
+                "when": "{{vars.steps.Find_Related_Alerts | length > 0}}",
+                "for_each": {
+                    "item": "{{vars.steps.Find_Related_Alerts}}",
+                    "__bulk": true,
+                    "condition": "{{vars.item.severity.itemValue != \"Critical\"}}"
+                },
+                "resource": {
+                    "severity": {
+                        "id": 69,
+                        "@id": "\/api\/3\/picklists\/7efa2220-39bb-44e4-961f-ac368776e3b0",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#e31b1d",
+                        "display": "Critical",
+                        "listName": "\/api\/3\/picklist_names\/4e80cba3-032f-48b4-ac03-17e3ec247aac",
+                        "itemValue": "Critical",
+                        "orderIndex": 4
+                    }
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "{{vars.item['@id']}}",
+                "tagsOperation": "OverwriteTags",
+                "collectionType": "\/api\/3\/alerts",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "340",
+            "left": "753",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "adf57507-1c96-43e0-96d3-214331ff2871",
+            "id": 3048
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Find Related Alerts",
+            "description": null,
+            "arguments": {
+                "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "type": "primitive",
+                            "field": "indicators.id",
+                            "value": "{{vars.input.records[0].id}}",
+                            "operator": "eq",
+                            "_operator": "eq"
+                        },
+                        {
+                            "type": "object",
+                            "field": "severity",
+                            "value": "\/api\/3\/picklists\/7efa2220-39bb-44e4-961f-ac368776e3b0",
+                            "_value": {
+                                "@id": "\/api\/3\/picklists\/7efa2220-39bb-44e4-961f-ac368776e3b0",
+                                "itemValue": "Critical"
+                            },
+                            "operator": "neq"
+                        },
+                        {
+                            "logic": "OR",
+                            "filters": [
+                                {
+                                    "type": "object",
+                                    "field": "status",
+                                    "value": "\/api\/3\/picklists\/fac53e73-8d16-4189-98d5-95fbd1555232",
+                                    "_value": {
+                                        "@id": "\/api\/3\/picklists\/fac53e73-8d16-4189-98d5-95fbd1555232",
+                                        "display": "Closed",
+                                        "itemValue": "Closed"
+                                    },
+                                    "operator": "neq"
+                                },
+                                {
+                                    "type": "object",
+                                    "field": "status",
+                                    "value": "true",
+                                    "_value": {
+                                        "@id": "true",
+                                        "display": "",
+                                        "itemValue": ""
+                                    },
+                                    "operator": "isnull"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "module": "alerts?$limit=30&$relationships=true",
+                "checkboxFields": true,
+                "step_variables": []
+            },
+            "status": null,
+            "top": "208",
+            "left": "753",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
+            "uuid": "be56992f-38ce-4251-a9a4-7765ff98231a",
+            "id": 3049
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Add note",
+            "description": null,
+            "arguments": {
+                "for_each": {
+                    "item": "{{vars.steps.Find_Related_Alerts}}",
+                    "__bulk": true,
+                    "condition": ""
+                },
+                "resource": {
+                    "alerts": "{{vars.item['@id']}}",
+                    "content": "<span class=\"fa fa-exclamation-triangle\"  style=\"font-size: 15px; color: #DE7A13;\"><\/span>&nbsp; Alert severity updated to  <\/strong><span class=\"badge badge-pill badge-danger\"  style=\"background:#e31b1d; color: #fff;\">Critical<\/span> due to malicious indicator",
+                    "__replace": ""
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/comments",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "480",
+            "left": "753",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "2b750084-b40b-4b20-a7d8-9e9fe5edf459",
+            "id": 3050
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Find Related Malicious Indicators",
+            "targetStep": "\/api\/3\/workflow_steps\/be56992f-38ce-4251-a9a4-7765ff98231a",
+            "sourceStep": "\/api\/3\/workflow_steps\/fd2f5e8d-7e57-4d59-9aef-711c7a463f00",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "411e5356-6477-4e21-906c-60779d2d6134"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Check Indicator -> Set Severity",
+            "targetStep": "\/api\/3\/workflow_steps\/adf57507-1c96-43e0-96d3-214331ff2871",
+            "sourceStep": "\/api\/3\/workflow_steps\/be56992f-38ce-4251-a9a4-7765ff98231a",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "c8eb2416-f52b-4ecf-8c51-4483d292e8a9"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Set Severity -> Add note",
+            "targetStep": "\/api\/3\/workflow_steps\/2b750084-b40b-4b20-a7d8-9e9fe5edf459",
+            "sourceStep": "\/api\/3\/workflow_steps\/adf57507-1c96-43e0-96d3-214331ff2871",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "d40385fd-1f53-4d63-ad1b-bd8c28e443ef"
+        }
+    ],
+    "priority": null,
+    "uuid": "742db9bd-cc75-44ef-a128-6022325aefd4",
+    "recordTags": [
+        "system"
+    ],
+    "id": 970,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433425,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433425,
+    "owners": [],
+    "isPrivate": false
+}

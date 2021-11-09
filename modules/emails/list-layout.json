@@ -1,0 +1,43 @@
+{
+    "@context": "\/api\/3\/contexts\/SystemViewTemplate",
+    "@type": "SystemViewTemplate",
+    "type": "rows",
+    "config": {
+        "rows": [
+            {
+                "columns": [
+                    {
+                        "style": "col-lg-12",
+                        "widgets": [
+                            {
+                                "config": {
+                                    "actionButtons": [],
+                                    "checkboxStatus": true,
+                                    "columns": [
+                                        "emailFrom",
+                                        "emailTo",
+                                        "emailCc",
+                                        "emailSubject"
+                                    ],
+                                    "expandableCol": [],
+                                    "module": "emails",
+                                    "query": {
+                                        "filters": [],
+                                        "limit": 30,
+                                        "logic": "AND"
+                                    },
+                                    "relationshipField": [],
+                                    "wid": "d5c005d3-fb2b-47fb-ba07-4d410d435fbe"
+                                },
+                                "type": "grid"
+                            }
+                        ]
+                    }
+                ],
+                "wid": "458287a1-1010-4060-8539-255d3073dc50"
+            }
+        ],
+        "wid": "291420f9-01c4-4277-8b89-ddbef2e53a4c"
+    },
+    "uuid": "modules-emails-list"
+}

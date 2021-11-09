@@ -1,0 +1,186 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Demo Incident Response Records",
+    "aliasName": null,
+    "tag": "#Demo",
+    "description": "Creates sample records for Alerts, Incidents, Indicators, Campaigns, Vulnerabilities, Assets, and Scans in order to carry out mock incident response.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/a41c4bc4-5b29-4701-96e7-e62e21e8763e",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/13bd1a08-c8fb-4f37-a446-94ac5eebef1e",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "ab60d2fe-e1f9-4556-b4e4-c4d295c99f4e",
+                "title": "Demo IR Records",
+                "resources": [
+                    "alerts"
+                ],
+                "inputVariables": [
+                    {
+                        "name": "doYouWantToProceed?",
+                        "type": "string",
+                        "label": "Do you want to Proceed?",
+                        "title": "Text Field",
+                        "usable": true,
+                        "tooltip": "Type 'Y' or 'YES' to create demo data else 'N' or 'NO' to abort",
+                        "dataType": "text",
+                        "formType": "text",
+                        "required": true,
+                        "_expanded": true,
+                        "mmdUpdate": true,
+                        "collection": false,
+                        "searchable": true,
+                        "templateUrl": "app\/components\/form\/fields\/input.html",
+                        "defaultValue": "N",
+                        "lengthConstraint": true,
+                        "allowedEncryption": true,
+                        "allowedGridColumn": true,
+                        "useRecordFieldDefault": false
+                    }
+                ],
+                "step_variables": {
+                    "input": {
+                        "params": {
+                            "doYouWantToProceed?": "{{vars.request.data[\"doYouWantToProceed?\"]}}"
+                        },
+                        "records": "{{vars.input.records}}"
+                    }
+                },
+                "_promptexpanded": true,
+                "displayConditions": {
+                    "alerts": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    }
+                },
+                "executeButtonText": "OK",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+            },
+            "status": null,
+            "top": "30",
+            "left": "120",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "uuid": "13bd1a08-c8fb-4f37-a446-94ac5eebef1e",
+            "id": 4265
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Do Nothing",
+            "description": null,
+            "arguments": {
+                "params": [],
+                "version": "3.0.2",
+                "connector": "cyops_utilities",
+                "operation": "no_op",
+                "operationTitle": "Utils: No Operation",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "275",
+            "left": "613",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "8ce68d82-ee83-476f-bc23-3ee753723842",
+            "id": 4266
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Records",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Yes",
+                        "step_iri": "\/api\/3\/workflow_steps\/766d5bfd-3d7f-4987-9e25-7ca2291f3a50",
+                        "condition": "{{ vars.input.params['doYouWantToProceed?'] | upper == \"Y\" or vars.input.params['doYouWantToProceed?'] | upper == \"YES\" }}"
+                    },
+                    {
+                        "option": "No",
+                        "default": true,
+                        "step_iri": "\/api\/3\/workflow_steps\/8ce68d82-ee83-476f-bc23-3ee753723842"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "200",
+            "left": "280",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "e45b4a8e-09fb-4472-a9ad-6f2672b40da7",
+            "id": 4267
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Sample Records",
+            "description": null,
+            "arguments": {
+                "arguments": {
+                    "authorization": "{{vars.request.headers.authorization}}"
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "workflowReference": "\/api\/3\/workflows\/d29a2c63-4d59-4dfc-85fc-cd9c2ceee776"
+            },
+            "status": null,
+            "top": "120",
+            "left": "620",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "766d5bfd-3d7f-4987-9e25-7ca2291f3a50",
+            "id": 4268
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Records -> Do Nothing",
+            "targetStep": "\/api\/3\/workflow_steps\/8ce68d82-ee83-476f-bc23-3ee753723842",
+            "sourceStep": "\/api\/3\/workflow_steps\/e45b4a8e-09fb-4472-a9ad-6f2672b40da7",
+            "label": "No",
+            "isExecuted": false,
+            "uuid": "cf0e78e6-77ec-4216-9c81-69d05ce08676"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Create Records",
+            "targetStep": "\/api\/3\/workflow_steps\/e45b4a8e-09fb-4472-a9ad-6f2672b40da7",
+            "sourceStep": "\/api\/3\/workflow_steps\/13bd1a08-c8fb-4f37-a446-94ac5eebef1e",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "6b296f8c-e84a-49ee-8f3f-583c65eb4c9e"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Records -> Create Sample Records",
+            "targetStep": "\/api\/3\/workflow_steps\/766d5bfd-3d7f-4987-9e25-7ca2291f3a50",
+            "sourceStep": "\/api\/3\/workflow_steps\/e45b4a8e-09fb-4472-a9ad-6f2672b40da7",
+            "label": "Yes",
+            "isExecuted": false,
+            "uuid": "0315f97d-fed1-4e56-bd3b-e9e977760d08"
+        }
+    ],
+    "priority": null,
+    "uuid": "a9db22f1-ceb8-4b2f-81bf-573ee59b0ee3",
+    "recordTags": [
+        "ManualAction",
+        "Demo"
+    ],
+    "id": 1117,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433436,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433436,
+    "owners": [],
+    "isPrivate": false
+}

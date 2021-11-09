@@ -1,0 +1,172 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Fortinet Web Filter Lookup - URL Reputation",
+    "aliasName": null,
+    "tag": null,
+    "description": "Retrieves the reputation of indicators of type 'URL' using Fortinet Web Filter Lookup.",
+    "isActive": false,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "indicator_value"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/b135c052-e170-4cff-8cc7-9a4bfe607ccb",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/95cfa982-84b8-4642-ac53-f65d5a59a460",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "enrichment_summary",
+            "description": null,
+            "arguments": {
+                "tags": "None",
+                "source": "Fortinet Web Filter Lookup",
+                "enrichmentSummary": "{{vars.steps.Compute_Fortinet_Web_Filter_Summary.data['formatted_string']}}"
+            },
+            "status": null,
+            "top": "570",
+            "left": "120",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "2eb2865f-477e-4fe2-9803-99a5543736d4",
+            "id": 2804
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": {
+                            "Indicator_value": "{{ vars.Indicator_value }}",
+                            "indicator_value": "{{ vars.indicator_value }}"
+                        }
+                    }
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "95cfa982-84b8-4642-ac53-f65d5a59a460",
+            "id": 2805
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Compute Fortinet Web Filter Summary",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "value": "<p>{% if  vars.foundFortinetWebFilterReputation %}<\/p>\n<p>&nbsp;<\/p> \n<p><span style=\"font-size: 14pt;\"><strong>Fortinet Web Filter Lookup<\/strong><\/span><\/p>\n<table style=\"width: 500px; border-color: #ffffff;\" border=\"1\">\n<tbody>\n<tr>\n<td style=\"width: 45px;\">Category<\/td>\n<td style=\"width: 300px;\">{{vars.steps.Get_URL_Reputation_from_Fortinet_Web_Filter.data.category}}<\/td>\n<\/tr>\n<\/tbody>\n<\/table>\n<p>{% endif %}<\/p>"
+                },
+                "version": "3.0.3",
+                "connector": "cyops_utilities",
+                "operation": "format_richtext",
+                "ignore_errors": true,
+                "operationTitle": "Utils: Format as RichText",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "161f0516-1472-49f6-a75f-f50f9f51376b",
+            "id": 2806
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get URL Reputation from Fortinet Web Filter",
+            "description": null,
+            "arguments": {
+                "name": "Fortinet Web Filter Lookup",
+                "config": "30ec97b3-5d84-4372-9f13-f085f0208444",
+                "params": {
+                    "sample_url": "{{vars.indicator_value}}"
+                },
+                "version": "1.0.0",
+                "connector": "fortinet-web-filter-lookup",
+                "operation": "url_review",
+                "ignore_errors": true,
+                "operationTitle": "Check Category of Domain or URL",
+                "step_variables": {
+                    "foundFortinetWebFilterReputation": "{{ ( vars.result.data and (vars.result.data | length > 0) ) | ternary(true,false) }}"
+                }
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "f4eedf88-2ab4-4ca6-8e5c-0eb24bff2098",
+            "id": 2807
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configurations",
+            "description": null,
+            "arguments": {
+                "threshold": "5",
+                "indicator_value": "{{vars.input.params['indicator_value']}}"
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "d2a3f7a2-a098-48b7-8101-b9e02c507419",
+            "id": 2808
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configurations -> Get Domain Reputation from Fortinet Web Filter",
+            "targetStep": "\/api\/3\/workflow_steps\/f4eedf88-2ab4-4ca6-8e5c-0eb24bff2098",
+            "sourceStep": "\/api\/3\/workflow_steps\/d2a3f7a2-a098-48b7-8101-b9e02c507419",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "33ece1ef-0aee-4703-8ab4-1322594c3807"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Configurations",
+            "targetStep": "\/api\/3\/workflow_steps\/d2a3f7a2-a098-48b7-8101-b9e02c507419",
+            "sourceStep": "\/api\/3\/workflow_steps\/95cfa982-84b8-4642-ac53-f65d5a59a460",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "ed9a79cc-37dd-489c-83ff-f064e8f7f11a"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Compute Fortinet Web Filter Summary -> enrichment_summary",
+            "targetStep": "\/api\/3\/workflow_steps\/2eb2865f-477e-4fe2-9803-99a5543736d4",
+            "sourceStep": "\/api\/3\/workflow_steps\/161f0516-1472-49f6-a75f-f50f9f51376b",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "bb90fda1-f4a8-4ea0-bf16-0fc13d406199"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Domain Reputation from Fortinet Web Filter -> Compute Fortinet Web Filter Summary",
+            "targetStep": "\/api\/3\/workflow_steps\/161f0516-1472-49f6-a75f-f50f9f51376b",
+            "sourceStep": "\/api\/3\/workflow_steps\/f4eedf88-2ab4-4ca6-8e5c-0eb24bff2098",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "458eae9c-2196-49f0-a117-03ee58256a25"
+        }
+    ],
+    "priority": null,
+    "uuid": "49e6618c-60f5-4622-8da8-4888f9fb4e56",
+    "recordTags": [
+        "Subroutine"
+    ],
+    "id": 937,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433424,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433424,
+    "owners": [],
+    "isPrivate": false
+}

@@ -1,0 +1,104 @@
+{
+    "@context": "\/api\/3\/contexts\/SystemViewTemplate",
+    "@type": "SystemViewTemplate",
+    "type": "form",
+    "config": {
+        "rows": [
+            {
+                "columns": [
+                    {
+                        "widgets": [
+                            {
+                                "type": "formGroup",
+                                "config": {
+                                    "rows": [
+                                        {
+                                            "columns": [
+                                                {
+                                                    "fields": [
+                                                        "name"
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "wid": "4a7aafd8-57d4-4b41-86db-153ace396e9c"
+                                }
+                            },
+                            {
+                                "type": "formGroup",
+                                "config": {
+                                    "title": "Summary",
+                                    "rows": [
+                                        {
+                                            "columns": [
+                                                {
+                                                    "fields": [
+                                                        "scanId",
+                                                        "state"
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "wid": "bca0c8f8-cea2-4503-a96a-33ee740250d7"
+                                }
+                            },
+                            {
+                                "type": "formGroup",
+                                "config": {
+                                    "title": "Details",
+                                    "rows": [
+                                        {
+                                            "columns": [
+                                                {
+                                                    "fields": [
+                                                        {
+                                                            "name": "userId",
+                                                            "highlightMode": true,
+                                                            "linky": true,
+                                                            "readOnly": false
+                                                        },
+                                                        {
+                                                            "name": "duration",
+                                                            "highlightMode": true,
+                                                            "linky": true,
+                                                            "readOnly": false
+                                                        },
+                                                        {
+                                                            "name": "launchDateTime",
+                                                            "highlightMode": true,
+                                                            "linky": true,
+                                                            "readOnly": false
+                                                        },
+                                                        {
+                                                            "name": "processed",
+                                                            "highlightMode": true,
+                                                            "linky": true,
+                                                            "readOnly": false
+                                                        },
+                                                        {
+                                                            "name": "recordTags",
+                                                            "highlightMode": true,
+                                                            "linky": true,
+                                                            "readOnly": false
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "wid": "cbeb04df-967a-4d43-abe7-9f49e99e367e"
+                                }
+                            }
+                        ],
+                        "style": "col-lg-12"
+                    }
+                ],
+                "wid": "bd5d736b-36e2-44a5-8cf1-6e48afec6fb5"
+            }
+        ],
+        "wid": "ce3cb84b-136b-42f1-8ed3-343d9a222681"
+    },
+    "uuid": "modules-scans-form"
+}

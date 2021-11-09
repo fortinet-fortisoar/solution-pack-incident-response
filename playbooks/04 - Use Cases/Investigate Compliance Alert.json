@@ -1,0 +1,336 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Investigate Compliance Alert",
+    "aliasName": null,
+    "tag": "#ManualAction",
+    "description": "The security analyst manually investigates compliance alerts and provides their findings.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/59667fcc-7feb-4ba4-a5a2-e03a9287f857",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/bd046327-fac8-41bd-b67a-84a3349b6eb0",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Resolve as False Positive",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "status": {
+                        "id": 246,
+                        "@id": "\/api\/3\/picklists\/fac53e73-8d16-4189-98d5-95fbd1555232",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Closed",
+                        "listName": "\/api\/3\/picklist_names\/33e964a9-d607-49f2-813c-7ce46141815a",
+                        "itemValue": "Closed",
+                        "orderIndex": 4
+                    },
+                    "closureNotes": "{{vars.steps.Manually_Investigate.input.findings}}",
+                    "closureReason": {
+                        "id": 250,
+                        "@id": "\/api\/3\/picklists\/2b0112f6-4746-4dab-ada6-a8cd1e675572",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "False Positive",
+                        "listName": "\/api\/3\/picklist_names\/4ebacea1-88cd-4ea8-9dcc-385bea42cc59",
+                        "itemValue": "False Positive",
+                        "orderIndex": 2
+                    }
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "collectionType": "\/api\/3\/alerts",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "560",
+            "left": "120",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "f4fc10c5-bcf5-4b95-b588-422bb28bba28",
+            "id": 3186
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Resolve as Action Completed",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "status": {
+                        "id": 24,
+                        "@id": "\/api\/3\/picklists\/fac53e73-8d16-4189-98d5-95fbd1555232",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Closed",
+                        "listName": "\/api\/3\/picklist_names\/33e964a9-d607-49f2-813c-7ce46141815a",
+                        "itemValue": "Closed",
+                        "orderIndex": 4
+                    },
+                    "closureNotes": "{{vars.steps.Manually_Investigate.input.findings}}",
+                    "closureReason": {
+                        "id": 250,
+                        "@id": "\/api\/3\/picklists\/8590c81e-3307-4645-97f5-c3e1bec4e05a",
+                        "icon": null,
+                        "uuid": "8590c81e-3307-4645-97f5-c3e1bec4e05a",
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Tasks Completed",
+                        "listName": "\/api\/3\/picklist_names\/4ebacea1-88cd-4ea8-9dcc-385bea42cc59",
+                        "itemValue": "Tasks Completed",
+                        "orderIndex": 0
+                    }
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "__recommend": [],
+                "collectionType": "\/api\/3\/alerts",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "560",
+            "left": "480",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "8c1f53aa-f882-450e-8a88-839ee987a8ba",
+            "id": 3187
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "alert_id": "{{vars.input.records[0]['@id']}}",
+                "host_list": "[]",
+                "host_name": "{{vars.alert_metadata.impactedAsset}}",
+                "source_ip": "{{vars.alert_metadata.rhost | ternary(vars.alert_metadata.rhost,vars.alert_metadata.Source_Network_Address)}}",
+                "splunk_source": "{{vars.alert_metadata.sourcetype}}",
+                "useMockOutput": "{{globalVars.Demo_mode}}",
+                "destination_ip": "{{vars.alert_metadata.host | ternary(vars.alert_metadata.host,vars.alert_metadata.ComputerName)}}",
+                "internal_cidr_ranges": "193.200.225.0\/24",
+                "reputation_threshold": "5"
+            },
+            "status": null,
+            "top": "160",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "aacd539a-d5ae-44c3-adcc-27a23523ce2e",
+            "id": 3188
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "92807c08-39aa-46cc-8108-7de55ed35d86",
+                "title": "Investigate Compliance Alert",
+                "resources": [
+                    "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                    "input": {
+                        "records": "{{vars.input.records}}"
+                    },
+                    "alert_metadata": "{{vars.input.records[0].sourcedata | toDict}}"
+                },
+                "_promptexpanded": true,
+                "displayConditions": {
+                    "alerts": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": [
+                            {
+                                "type": "object",
+                                "field": "type",
+                                "value": "\/api\/3\/picklists\/459be3a6-db44-4794-9545-f6bd7f1c068f",
+                                "_value": {
+                                    "@id": "\/api\/3\/picklists\/459be3a6-db44-4794-9545-f6bd7f1c068f",
+                                    "itemValue": "Compliance"
+                                },
+                                "operator": "eq"
+                            }
+                        ]
+                    }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": false,
+                "singleRecordExecution": false
+            },
+            "status": null,
+            "top": "30",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "uuid": "bd046327-fac8-41bd-b67a-84a3349b6eb0",
+            "id": 3189
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Manually Investigate",
+            "description": null,
+            "arguments": {
+                "type": "InputBased",
+                "input": {
+                    "schema": {
+                        "title": "Review Compliance Violation",
+                        "description": "Review the compliance violation in SAFE, and provide your findings\n\n1. Asset: {{vars.input.records[0].computerName}}\n2. User: {{vars.input.records[0].userName}}\n3. Additional Information: {{vars.input.records[0].userDetails}}",
+                        "inputVariables": [
+                            {
+                                "name": "findings",
+                                "type": "string",
+                                "label": "findings",
+                                "tooltip": "",
+                                "dataType": "text",
+                                "formType": "text",
+                                "required": true,
+                                "_expanded": true,
+                                "useRecordFieldDefault": false
+                            }
+                        ]
+                    }
+                },
+                "record": "{{ vars.input.records[0][\"@id\"] }}",
+                "owner_detail": {
+                    "isAssigned": false
+                },
+                "step_variables": [],
+                "response_mapping": {
+                    "options": [
+                        {
+                            "option": "False Positive",
+                            "step_iri": "\/api\/3\/workflow_steps\/f4fc10c5-bcf5-4b95-b588-422bb28bba28"
+                        },
+                        {
+                            "option": "Case Resolved",
+                            "step_iri": "\/api\/3\/workflow_steps\/8c1f53aa-f882-450e-8a88-839ee987a8ba"
+                        }
+                    ],
+                    "duplicateOption": false
+                }
+            },
+            "status": null,
+            "top": "435",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/fc04082a-d7dc-4299-96fb-6837b1baa0fe",
+            "uuid": "052496b0-6d43-4d91-af26-4acaa621218d",
+            "id": 3190
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start Investigation",
+            "description": null,
+            "arguments": {
+                "message": {
+                    "tags": [],
+                    "type": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "Investigating Potential Non {{vars.input.records[0].type.itemValue}}, with following fields of interest:\nAsset: {{vars.input.records[0].computerName}}\nUser: {{vars.input.records[0].userName}}\nAdditional Information: {{vars.input.records[0].userDetails}}\n{% if vars.input.records[0].domain %}Domain: {{vars.input.records[0].domain -}}{% endif %}\n{% if vars.input.records[0].sourceIp %}SourceIP: {{ vars.input.records[0].sourceIp -}}{% endif %}\n{% if vars.input.records[0].destinationIp %}DestinationIP: {{vars.input.records[0].destinationIp -}}{% endif %}\n{% if vars.input.records[0].fileHash %}File Hash: {{vars.input.records[0].fileHash -}}{% endif %}\n{% if vars.input.records[0].computerName %}ComputerName: {{vars.input.records[0].computerName -}}{% endif %}\n{% if vars.input.records[0].processName %}Process: {{vars.input.records[0].processName -}}{% endif %}\n{% if vars.input.records[0].sourceProcess %}SourceProcess: {{vars.input.records[0].sourceProcess -}}{% endif %}",
+                    "records": ""
+                },
+                "resource": {
+                    "status": {
+                        "id": 113,
+                        "@id": "\/api\/3\/picklists\/758925e7-629c-46d8-89db-fb36f5fbe88a",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Investigating",
+                        "listName": "\/api\/3\/picklist_names\/33e964a9-d607-49f2-813c-7ce46141815a",
+                        "itemValue": "Investigating",
+                        "orderIndex": 2
+                    }
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "__recommend": [],
+                "collectionType": "\/api\/3\/alerts",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "300",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "4c185894-c5f2-400b-8727-f1d10a314ef5",
+            "id": 3191
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Attacker Metadata",
+            "targetStep": "\/api\/3\/workflow_steps\/aacd539a-d5ae-44c3-adcc-27a23523ce2e",
+            "sourceStep": "\/api\/3\/workflow_steps\/bd046327-fac8-41bd-b67a-84a3349b6eb0",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "60dee7ba-9f3e-48a2-9a54-13c3066f7716"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Manually Investigate -> Resolve as Action Completed",
+            "targetStep": "\/api\/3\/workflow_steps\/8c1f53aa-f882-450e-8a88-839ee987a8ba",
+            "sourceStep": "\/api\/3\/workflow_steps\/052496b0-6d43-4d91-af26-4acaa621218d",
+            "label": "Case Resolved",
+            "isExecuted": false,
+            "uuid": "bd555c83-3727-4297-9a54-d389f7c8b476"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Manually Investigate -> Resolve as False Positive",
+            "targetStep": "\/api\/3\/workflow_steps\/f4fc10c5-bcf5-4b95-b588-422bb28bba28",
+            "sourceStep": "\/api\/3\/workflow_steps\/052496b0-6d43-4d91-af26-4acaa621218d",
+            "label": "False Positive",
+            "isExecuted": false,
+            "uuid": "617cd624-f7ce-47a0-91e7-9c0e25bc24dc"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Start Investigation",
+            "targetStep": "\/api\/3\/workflow_steps\/4c185894-c5f2-400b-8727-f1d10a314ef5",
+            "sourceStep": "\/api\/3\/workflow_steps\/aacd539a-d5ae-44c3-adcc-27a23523ce2e",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "80f5e410-53a7-4555-a876-35d0101bf37d"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start Investigation -> Manually Investigate",
+            "targetStep": "\/api\/3\/workflow_steps\/052496b0-6d43-4d91-af26-4acaa621218d",
+            "sourceStep": "\/api\/3\/workflow_steps\/4c185894-c5f2-400b-8727-f1d10a314ef5",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "2ec42545-995f-4402-b7e4-fcd7ed8f8418"
+        }
+    ],
+    "priority": null,
+    "uuid": "ae9e9707-e3ef-44c2-8d23-d342187a068c",
+    "recordTags": [
+        "ManualAction"
+    ],
+    "id": 980,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433427,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433427,
+    "owners": [],
+    "isPrivate": false
+}

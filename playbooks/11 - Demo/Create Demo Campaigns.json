@@ -1,0 +1,508 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Create Demo Campaigns",
+    "aliasName": null,
+    "tag": null,
+    "description": "Creates demo campaigns and correlates different observables against the campaign record.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/a41c4bc4-5b29-4701-96e7-e62e21e8763e",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/6af8cc0c-9d7c-4f2b-a384-9c2013fe1a98",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "7dd2670e-1e6e-458d-b193-f75ac814c9b3",
+                "resources": [
+                    "campaigns"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                    "input": {
+                        "records": "{{vars.input.records}}"
+                    }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+            },
+            "status": null,
+            "top": "430",
+            "left": "120",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "uuid": "6af8cc0c-9d7c-4f2b-a384-9c2013fe1a98",
+            "id": 4186
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create red4 campaign",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "name": "gtag: red4",
+                    "status": {
+                        "id": 243,
+                        "@id": "\/api\/3\/picklists\/f14919b8-57d8-4041-9d60-d788eb7a2e10",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Historical",
+                        "listName": "\/api\/3\/picklist_names\/95749529-b229-4fbd-ba14-01c51a4f21b5",
+                        "itemValue": "Historical",
+                        "orderIndex": 1
+                    },
+                    "lastSeen": 1583470800,
+                    "__replace": "",
+                    "description": "https:\/\/www.fortinet.com\/blog\/threat-research\/new-variant-of-trickbot-being-spread-by-word-document.html",
+                    "threatActor": "Unknown",
+                    "attackVector": {
+                        "id": 547,
+                        "@id": "\/api\/3\/picklists\/3651f7f7-022d-4411-bd75-e634a6005fd6",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Phishing",
+                        "listName": "\/api\/3\/picklist_names\/5fa2741e-120d-430e-b796-e690901d8249",
+                        "itemValue": "Phishing",
+                        "orderIndex": 0
+                    },
+                    "phishingLure": "Password-protected document",
+                    "campaignStart": 1583384400,
+                    "intendedEffect": "Deploy banking trojan",
+                    "malwareEmployed": "Maldoc, Trickbot, Generic Banking Trojan"
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "\/api\/3\/campaigns",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "190",
+            "left": "450",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "7b4f837c-b736-4b92-a2b5-f11568577f9f",
+            "id": 4187
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Indicator2",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "value": "https:\/\/45.138.72.155\/1\/1.php",
+                    "__replace": "true",
+                    "campaigns": "['{{vars.steps.Create_red4_campaign['@id']}}']",
+                    "typeofindicator": {
+                        "id": 80,
+                        "@id": "\/api\/3\/picklists\/353a37b4-3eeb-43ee-aac6-64806422cfec",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "URL",
+                        "listName": "\/api\/3\/picklist_names\/50ee5bfa-e18f-49ba-8af9-dcca25b0f9c0",
+                        "itemValue": "URL",
+                        "orderIndex": 10
+                    }
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/upsert\/indicators",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "180",
+            "left": "780",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "fbff9c0c-a63d-4e2b-b37b-c5de50e9c440",
+            "id": 4188
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Indicaator5",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "tlp": {
+                        "id": 316,
+                        "@id": "\/api\/3\/picklists\/7bff95b7-6438-4b01-b23a-0fe8cb5b33d3",
+                        "icon": null,
+                        "uuid": "7bff95b7-6438-4b01-b23a-0fe8cb5b33d3",
+                        "@type": "Picklist",
+                        "color": "#FFBF00",
+                        "display": "Amber",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/40f1345f-f679-43c0-9237-5b06edd8385f",
+                        "itemValue": "Amber",
+                        "orderIndex": 1
+                    },
+                    "value": "8ccffb829a80064c5f84c108b36a902b",
+                    "__replace": "true",
+                    "campaigns": "['{{vars.steps.Create_Citrix_Campaign['@id']}}']",
+                    "indicatorStatus": {
+                        "id": 39,
+                        "@id": "\/api\/3\/picklists\/2f5cff61-fbff-4bb3-96be-302b78a9fb47",
+                        "icon": null,
+                        "uuid": "2f5cff61-fbff-4bb3-96be-302b78a9fb47",
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "TBD",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/e6639d57-94a9-432f-a46f-b2b530402077",
+                        "itemValue": "TBD",
+                        "orderIndex": 3
+                    },
+                    "typeofindicator": {
+                        "id": 74,
+                        "@id": "\/api\/3\/picklists\/0ca054f2-d923-4992-a4a7-c516e6df281e",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "FileHash-MD5",
+                        "listName": "\/api\/3\/picklist_names\/50ee5bfa-e18f-49ba-8af9-dcca25b0f9c0",
+                        "itemValue": "FileHash-MD5",
+                        "orderIndex": 4
+                    }
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/upsert\/indicators",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "660",
+            "left": "780",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "0fbeb435-cf2b-41be-8bad-721ce83e9294",
+            "id": 4189
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Indicator4",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "tlp": {
+                        "id": 316,
+                        "@id": "\/api\/3\/picklists\/7bff95b7-6438-4b01-b23a-0fe8cb5b33d3",
+                        "icon": null,
+                        "uuid": "7bff95b7-6438-4b01-b23a-0fe8cb5b33d3",
+                        "@type": "Picklist",
+                        "color": "#FFBF00",
+                        "display": "Amber",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/40f1345f-f679-43c0-9237-5b06edd8385f",
+                        "itemValue": "Amber",
+                        "orderIndex": 1
+                    },
+                    "value": "020596308073f8562619d7083b33d5fe",
+                    "__replace": "true",
+                    "campaigns": "['{{vars.steps.Create_Citrix_Campaign['@id']}}']",
+                    "indicatorStatus": {
+                        "id": 39,
+                        "@id": "\/api\/3\/picklists\/2f5cff61-fbff-4bb3-96be-302b78a9fb47",
+                        "icon": null,
+                        "uuid": "2f5cff61-fbff-4bb3-96be-302b78a9fb47",
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "TBD",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/e6639d57-94a9-432f-a46f-b2b530402077",
+                        "itemValue": "TBD",
+                        "orderIndex": 3
+                    },
+                    "typeofindicator": {
+                        "id": 74,
+                        "@id": "\/api\/3\/picklists\/0ca054f2-d923-4992-a4a7-c516e6df281e",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "FileHash-MD5",
+                        "listName": "\/api\/3\/picklist_names\/50ee5bfa-e18f-49ba-8af9-dcca25b0f9c0",
+                        "itemValue": "FileHash-MD5",
+                        "orderIndex": 4
+                    }
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/upsert\/indicators",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "500",
+            "left": "780",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "67dae363-e5bd-4c17-88ea-54cd9ae3db53",
+            "id": 4190
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Indicator6",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "value": "45.120.53.214",
+                    "__replace": "true",
+                    "campaigns": "['{{vars.steps.Create_Citrix_Campaign['@id']}}']",
+                    "typeofindicator": {
+                        "id": 77,
+                        "@id": "\/api\/3\/picklists\/c0beeda4-2c7a-4214-b7e5-53ba1649539c",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "IP Address",
+                        "listName": "\/api\/3\/picklist_names\/50ee5bfa-e18f-49ba-8af9-dcca25b0f9c0",
+                        "itemValue": "IP Address",
+                        "orderIndex": 7
+                    }
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/upsert\/indicators",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "820",
+            "left": "780",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "1e95a4d2-7583-40f4-907d-4c93972ab846",
+            "id": 4191
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Indicator1",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "value": "70B3DA66AD99BCA8703EF61D3F8406B3D0B05AD60D10318270F41A064D065791",
+                    "__replace": "true",
+                    "campaigns": "['{{vars.steps.Create_red4_campaign['@id']}}']",
+                    "typeofindicator": {
+                        "id": 76,
+                        "@id": "\/api\/3\/picklists\/4ea7b083-a0af-41ea-8d7c-7ace16021722",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "FileHash-SHA256",
+                        "listName": "\/api\/3\/picklist_names\/50ee5bfa-e18f-49ba-8af9-dcca25b0f9c0",
+                        "itemValue": "FileHash-SHA256",
+                        "orderIndex": 6
+                    }
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/upsert\/indicators",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "20",
+            "left": "780",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "62a20638-6d97-499a-86c2-66a32e9db5a2",
+            "id": 4192
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Citrix Campaign",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "name": "Unpatched Citrix ADC and Gateway Exploitation",
+                    "status": {
+                        "id": 242,
+                        "@id": "\/api\/3\/picklists\/b6e5a1a2-e7d0-49aa-ab3e-200fdf851ce4",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Ongoing",
+                        "listName": "\/api\/3\/picklist_names\/95749529-b229-4fbd-ba14-01c51a4f21b5",
+                        "itemValue": "Ongoing",
+                        "orderIndex": 0
+                    },
+                    "lastSeen": 1585000595,
+                    "__replace": "",
+                    "description": "https:\/\/www.fireeye.com\/blog\/threat-research\/2020\/01\/nice-try-501-ransomware-not-implemented.html",
+                    "threatActor": "Unknown",
+                    "attackVector": {
+                        "id": 548,
+                        "@id": "\/api\/3\/picklists\/35201777-969a-4343-8a1f-a373fa39744f",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Targeted Exploitation",
+                        "listName": "\/api\/3\/picklist_names\/5fa2741e-120d-430e-b796-e690901d8249",
+                        "itemValue": "Targeted Exploitation",
+                        "orderIndex": 1
+                    },
+                    "targetedCves": "CVE-2019-19781",
+                    "campaignStart": 1578632400,
+                    "intendedEffect": "Ransowmare",
+                    "malwareEmployed": "Ragnarok"
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "\/api\/3\/campaigns",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "670",
+            "left": "450",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "ac7a558d-5f43-4659-907e-f00e01a45278",
+            "id": 4193
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Indicator3",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "value": "45.138.72.155",
+                    "__replace": "true",
+                    "campaigns": "['{{vars.steps.Create_red4_campaign['@id']}}']",
+                    "typeofindicator": {
+                        "id": 77,
+                        "@id": "\/api\/3\/picklists\/c0beeda4-2c7a-4214-b7e5-53ba1649539c",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "IP Address",
+                        "listName": "\/api\/3\/picklist_names\/50ee5bfa-e18f-49ba-8af9-dcca25b0f9c0",
+                        "itemValue": "IP Address",
+                        "orderIndex": 7
+                    }
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/upsert\/indicators",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "340",
+            "left": "780",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "a226904f-9444-4dec-832e-44040d20dc3c",
+            "id": 4194
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Citrix Campaign -> Create Indicator4",
+            "targetStep": "\/api\/3\/workflow_steps\/67dae363-e5bd-4c17-88ea-54cd9ae3db53",
+            "sourceStep": "\/api\/3\/workflow_steps\/ac7a558d-5f43-4659-907e-f00e01a45278",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "8ddafedf-fbf9-43db-a06e-0f4b8dc5a5d3"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create red4 campaign -> Create Indicator1",
+            "targetStep": "\/api\/3\/workflow_steps\/62a20638-6d97-499a-86c2-66a32e9db5a2",
+            "sourceStep": "\/api\/3\/workflow_steps\/7b4f837c-b736-4b92-a2b5-f11568577f9f",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "2644f7dc-b072-4d46-a68a-7a732a6da8b9"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create red4 campaign -> Create Indicator2",
+            "targetStep": "\/api\/3\/workflow_steps\/fbff9c0c-a63d-4e2b-b37b-c5de50e9c440",
+            "sourceStep": "\/api\/3\/workflow_steps\/7b4f837c-b736-4b92-a2b5-f11568577f9f",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "1301ab47-4f58-4445-abf8-5619e52f7c75"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Create red4 campaign",
+            "targetStep": "\/api\/3\/workflow_steps\/7b4f837c-b736-4b92-a2b5-f11568577f9f",
+            "sourceStep": "\/api\/3\/workflow_steps\/6af8cc0c-9d7c-4f2b-a384-9c2013fe1a98",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "de95dffb-62bc-42a3-8bcb-b492b1691275"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create red4 campaign -> Create Indicator3",
+            "targetStep": "\/api\/3\/workflow_steps\/a226904f-9444-4dec-832e-44040d20dc3c",
+            "sourceStep": "\/api\/3\/workflow_steps\/7b4f837c-b736-4b92-a2b5-f11568577f9f",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "5dc66475-fb7c-4996-bdbd-3111a9decdbc"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Create Citrix Campaign",
+            "targetStep": "\/api\/3\/workflow_steps\/ac7a558d-5f43-4659-907e-f00e01a45278",
+            "sourceStep": "\/api\/3\/workflow_steps\/6af8cc0c-9d7c-4f2b-a384-9c2013fe1a98",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "d4619dbd-1bca-43cc-b3d5-570bd7d80618"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Citrix Campaign -> Create Indicator6",
+            "targetStep": "\/api\/3\/workflow_steps\/1e95a4d2-7583-40f4-907d-4c93972ab846",
+            "sourceStep": "\/api\/3\/workflow_steps\/ac7a558d-5f43-4659-907e-f00e01a45278",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "64389283-fd0d-4b69-9167-6f2aea3f05f2"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Citrix Campaign -> Create Indicaator5",
+            "targetStep": "\/api\/3\/workflow_steps\/0fbeb435-cf2b-41be-8bad-721ce83e9294",
+            "sourceStep": "\/api\/3\/workflow_steps\/ac7a558d-5f43-4659-907e-f00e01a45278",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "4f7625f8-2ca2-4cd9-8387-f2038de90713"
+        }
+    ],
+    "priority": null,
+    "uuid": "3cef23cf-66b2-4bd0-88f9-1a1302a22424",
+    "recordTags": [
+        "Demo"
+    ],
+    "id": 1114,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433436,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433436,
+    "owners": [],
+    "isPrivate": false
+}

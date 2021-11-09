@@ -1,0 +1,47 @@
+{
+    "@context": "\/api\/3\/contexts\/SystemViewTemplate",
+    "@type": "SystemViewTemplate",
+    "type": "rows",
+    "config": {
+        "rows": [
+            {
+                "columns": [
+                    {
+                        "widgets": [
+                            {
+                                "type": "grid",
+                                "config": {
+                                    "wid": "52c24ea1-db3e-4789-b2c7-50d1ae5f998f",
+                                    "module": "scans",
+                                    "columns": [
+                                        "scanId",
+                                        "name",
+                                        "duration",
+                                        "processed",
+                                        "state",
+                                        "launchDateTime",
+                                        "recordTags"
+                                    ],
+                                    "expandableCol": [],
+                                    "relationshipField": [],
+                                    "checkboxStatus": false,
+                                    "actionButtons": [],
+                                    "query": {
+                                        "sort": [],
+                                        "limit": 30,
+                                        "logic": "AND",
+                                        "filters": []
+                                    }
+                                }
+                            }
+                        ],
+                        "style": "col-lg-12"
+                    }
+                ],
+                "wid": "77ad917d-458a-4a38-89ea-226152add3f0"
+            }
+        ],
+        "wid": "a9779a8d-1e03-4161-97ea-86a04ed5e366"
+    },
+    "uuid": "modules-scans-list"
+}

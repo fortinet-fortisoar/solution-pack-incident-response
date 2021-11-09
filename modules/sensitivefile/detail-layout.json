@@ -1,0 +1,107 @@
+{
+    "@context": "\/api\/3\/contexts\/SystemViewTemplate",
+    "@type": "SystemViewTemplate",
+    "type": "rows",
+    "config": {
+        "rows": [
+            {
+                "columns": [
+                    {
+                        "widgets": [
+                            {
+                                "type": "editableFormGroup",
+                                "config": {
+                                    "wid": "761a7f35-9bc9-453b-985e-8fa344f1af3a",
+                                    "rows": [
+                                        {
+                                            "columns": [
+                                                {
+                                                    "fields": [
+                                                        {
+                                                            "name": "fileName",
+                                                            "highlightMode": true,
+                                                            "linky": true,
+                                                            "readOnly": false
+                                                        },
+                                                        {
+                                                            "name": "typeOfFile",
+                                                            "highlightMode": true,
+                                                            "linky": true,
+                                                            "readOnly": false
+                                                        }
+                                                    ],
+                                                    "style": "col-lg-4"
+                                                },
+                                                {
+                                                    "fields": [
+                                                        {
+                                                            "name": "owner",
+                                                            "highlightMode": true,
+                                                            "linky": true,
+                                                            "readOnly": false
+                                                        }
+                                                    ],
+                                                    "style": "col-lg-4"
+                                                },
+                                                {
+                                                    "fields": [
+                                                        {
+                                                            "name": "location",
+                                                            "highlightMode": true,
+                                                            "linky": true,
+                                                            "readOnly": false
+                                                        }
+                                                    ],
+                                                    "style": "col-lg-4"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "style": "col-lg-12"
+                    }
+                ],
+                "wid": "38d2d095-3748-4f73-9689-eb2dfc673da0"
+            },
+            {
+                "columns": [
+                    {
+                        "widgets": [
+                            {
+                                "type": "tabs",
+                                "config": {
+                                    "tabs": [
+                                        {
+                                            "title": "Related Records",
+                                            "widget": {
+                                                "type": "relationship.subtab",
+                                                "config": {
+                                                    "excludes": [
+                                                        "notes",
+                                                        "comments",
+                                                        "attachments"
+                                                    ],
+                                                    "wid": "483ae8db-beca-4c9a-85a9-f9c2270bdccc"
+                                                }
+                                            },
+                                            "show": true,
+                                            "icon": "fa fa-none"
+                                        }
+                                    ],
+                                    "wid": "121c4ea4-9d78-49a5-9002-3769d4f34f26"
+                                }
+                            }
+                        ],
+                        "style": "col-lg-12"
+                    }
+                ],
+                "wid": "b847a251-fad1-4e0c-af71-2ce50d42e2ee"
+            }
+        ],
+        "actionButtons": [],
+        "wid": "45c5c98d-f385-4bcd-a878-c274875692fd"
+    },
+    "uuid": "modules-sensitivefile-detail"
+}

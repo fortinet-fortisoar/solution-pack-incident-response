@@ -1,0 +1,44 @@
+{
+    "@context": "\/api\/3\/contexts\/SystemViewTemplate",
+    "@type": "SystemViewTemplate",
+    "type": "rows",
+    "config": {
+        "rows": [
+            {
+                "columns": [
+                    {
+                        "widgets": [
+                            {
+                                "type": "grid",
+                                "config": {
+                                    "wid": "d8720b40-918c-44ea-b95c-85f7b07159c5",
+                                    "module": "sensitivefile",
+                                    "columns": [
+                                        "owner",
+                                        "location",
+                                        "typeOfFile",
+                                        "id"
+                                    ],
+                                    "expandableCol": [],
+                                    "relationshipField": [],
+                                    "checkboxStatus": false,
+                                    "actionButtons": [],
+                                    "query": {
+                                        "sort": [],
+                                        "limit": 30,
+                                        "logic": "AND",
+                                        "filters": []
+                                    }
+                                }
+                            }
+                        ],
+                        "style": "col-lg-12"
+                    }
+                ],
+                "wid": "1b924ebb-9769-4567-a038-6aacd322dba1"
+            }
+        ],
+        "wid": "f1f9d7de-7fff-4a00-afd8-47a66c3bed10"
+    },
+    "uuid": "modules-sensitivefile-list"
+}

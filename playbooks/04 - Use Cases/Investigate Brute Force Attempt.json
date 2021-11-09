@@ -1,0 +1,992 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Investigate Brute Force Attempt",
+    "aliasName": null,
+    "tag": "#ManualAction",
+    "description": "Investigates login failures and also identifies other impacted assets that have been victims of the brute force attempts from a particular source of attack",
+    "isActive": true,
+    "debug": true,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/59667fcc-7feb-4ba4-a5a2-e03a9287f857",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/e9c09ef9-2c03-4818-8a88-e7d7d8fd2838",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Note for Safe IP",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "type": {
+                        "id": 247,
+                        "@id": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "icon": null,
+                        "uuid": "ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Comment",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/0841c1eb-a0a3-4abd-b29c-9f68e4d9b14f",
+                        "itemValue": "Comment",
+                        "orderIndex": 1
+                    },
+                    "alerts": "[\"{{vars.input.records[0]['@id']}}\"]",
+                    "people": [],
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Source IP:  <span style=\"background:#28B35C; color: #fff;\" class=\"badge badge-success\"> {{vars.source_ip}}  <\/span> is found to be safe.<\/p>",
+                    "__replace": "",
+                    "isImportant": false,
+                    "peopleUpdated": false
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/comments",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "460",
+            "left": "1020",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "89090adb-80c1-4b37-b283-113f4a768f27",
+            "id": 3128
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start Investigation",
+            "description": null,
+            "arguments": {
+                "message": {
+                    "tags": [],
+                    "type": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "Investigating Potential {{vars.input.records[0].type.itemValue}}, with following fields of interest:\n{% if vars.input.records[0].domain %}Domain: {{vars.input.records[0].domain -}}{% endif %}\n{% if vars.input.records[0].sourceIp %}SourceIP: {{ vars.input.records[0].sourceIp -}}{% endif %}\n{% if vars.input.records[0].destinationIp %}DestinationIP: {{vars.input.records[0].destinationIp -}}{% endif %}\n{% if vars.input.records[0].fileHash %}File Hash: {{vars.input.records[0].fileHash -}}{% endif %}\n{% if vars.input.records[0].computerName %}ComputerName: {{vars.input.records[0].computerName -}}{% endif %}\n{% if vars.input.records[0].processName %}Process: {{vars.input.records[0].processName -}}{% endif %}\n{% if vars.input.records[0].sourceProcess %}SourceProcess: {{vars.input.records[0].sourceProcess -}}{% endif %}",
+                    "records": ""
+                },
+                "resource": {
+                    "status": {
+                        "id": 113,
+                        "@id": "\/api\/3\/picklists\/758925e7-629c-46d8-89db-fb36f5fbe88a",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Investigating",
+                        "listName": "\/api\/3\/picklist_names\/33e964a9-d607-49f2-813c-7ce46141815a",
+                        "itemValue": "Investigating",
+                        "orderIndex": 2
+                    }
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "__recommend": [],
+                "collectionType": "\/api\/3\/alerts",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "260",
+            "left": "20",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "30241bf8-030c-4d32-b6fb-2d71b7090cab",
+            "id": 3129
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Note for Internal IP",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "type": {
+                        "id": 247,
+                        "@id": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "icon": null,
+                        "uuid": "ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Comment",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/0841c1eb-a0a3-4abd-b29c-9f68e4d9b14f",
+                        "itemValue": "Comment",
+                        "orderIndex": 1
+                    },
+                    "alerts": "[\"{{vars.input.records[0]['@id']}}\"]",
+                    "people": [],
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p> Source IP: <strong>{{vars.source_ip}}<\/strong> is&nbsp;<span style=\"color: #00ff00;\"><strong>Internal and therfore benign<\/strong><\/span><\/p>\n",
+                    "__replace": "",
+                    "isImportant": false,
+                    "peopleUpdated": false
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/comments",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "180",
+            "left": "640",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "26b0c3fa-993d-4d34-8204-e0a2c5e6c305",
+            "id": 3130
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "alert_id": "{{vars.input.records[0]['@id']}}",
+                "host_list": "[]",
+                "host_name": "{{vars.input.records[0].computerName}}",
+                "source_ip": "{{vars.input.records[0].sourceIp}}",
+                "splunk_source": "{{vars.alert_metadata.sourcetype}}",
+                "useMockOutput": "{{globalVars.Demo_mode}}",
+                "destination_ip": "{{vars.input.records[0].destinationIp}}",
+                "internal_cidr_ranges": "193.200.225.0\/24",
+                "reputation_threshold": "4"
+            },
+            "status": null,
+            "top": "140",
+            "left": "20",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "b42eade2-ba2f-4e56-b89c-baf04929e02f",
+            "id": 3131
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Retrieve Splunk query results",
+            "description": null,
+            "arguments": {
+                "name": "Splunk",
+                "config": "297ea74f-c96c-4b50-b462-329e9340507d",
+                "params": {
+                    "sid": "{'value': '{{vars.steps.Query_Splunk_for_related_events_for_source_IP_address.data.sid}}'}",
+                    "additional_args": ""
+                },
+                "version": "1.4.0",
+                "connector": "splunk",
+                "operation": "get_results",
+                "mock_result": "{\n  \"message\": \"\",\n  \"status\": \"Success\",\n  \"operation\": \"get_results\",\n  \"data\": {\n    \"messages\": [],\n    \"results\": [\n        {\n        \"host\": \"LinEp31\",\n        \"count\": \"30\"\n      },\n      {\n        \"host\": \"LinEp41\",\n        \"count\": \"10\"\n      },\n      {\n        \"host\": \"LinEp51\",\n        \"count\": \"10\"\n      },\n      {\n        \"host\": \"LinEp61\",\n        \"count\": \"10\"\n      },\n      {\n        \"host\": \"LinEp71\",\n        \"count\": \"10\"\n      }\n    ],\n    \"highlighted\": {},\n    \"fields\": [\n      {\n        \"name\": \"host\",\n        \"groupby_rank\": \"0\"\n      },\n      {\n        \"name\": \"count\"\n      }\n    ],\n    \"init_offset\": 0,\n    \"preview\": false\n  }\n}",
+                "operationTitle": "Get Results for a Search",
+                "step_variables": {
+                    "h_affected_host": "{% for i in vars.result.data.results %}      {% set alert_id = vars.request.data.records[0]['@id'] %}  {{ vars.host_list.append([alert_id,i['host']]) }}     {% endfor %}"
+                },
+                "operationOutput": {
+                    "fields": [],
+                    "preview": false,
+                    "results": [],
+                    "messages": [],
+                    "highlighted": [],
+                    "init_offset": 0
+                }
+            },
+            "status": null,
+            "top": "540",
+            "left": "1820",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "93f131c4-133c-4a0c-b37a-d09b6dca73b5",
+            "id": 3132
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Note for Malicious IP",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "type": {
+                        "id": 247,
+                        "@id": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "icon": null,
+                        "uuid": "ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Comment",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/0841c1eb-a0a3-4abd-b29c-9f68e4d9b14f",
+                        "itemValue": "Comment",
+                        "orderIndex": 1
+                    },
+                    "alerts": "[\"{{vars.input.records[0]['@id']}}\"]",
+                    "people": [],
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p><span style=\"font-size: 15px; color: #DE7A13;\" class=\"fa fa-exclamation-triangle\"><\/span>&nbsp; VirusTotal Reports <strong>{{vars.source_ip}}&nbsp;<\/strong> to be  <span style=\"background:#e31b1d; color: #fff;\" class=\"badge badge-pill badge-danger\">  Malicious  <\/span>with an aggregated score of <strong> <span style=\"background:#e31b1d; color: #fff;\" class=\"badge badge-pill badge-danger\">{{vars.steps.Get_Source_IP_Reputation.data.aggregate}}<\/span><\/strong><br><br><\/p>",
+                    "__replace": "",
+                    "isImportant": false,
+                    "peopleUpdated": false
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/comments",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "620",
+            "left": "1020",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "ee2138f1-7b6c-4237-ad63-d9114cd7af04",
+            "id": 3133
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Update Severity to Critical",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "severity": {
+                        "id": 82,
+                        "@id": "\/api\/3\/picklists\/7efa2220-39bb-44e4-961f-ac368776e3b0",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#e31b1d",
+                        "display": "Critical",
+                        "listName": "\/api\/3\/picklist_names\/4e80cba3-032f-48b4-ac03-17e3ec247aac",
+                        "itemValue": "Critical",
+                        "orderIndex": 4
+                    }
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "tagsOperation": "OverwriteTags",
+                "collectionType": "\/api\/3\/alerts",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "720",
+            "left": "1180",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "73e4473b-1e01-401d-8c13-359bf833f69c",
+            "id": 3134
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Is Malicious IP",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Malicious",
+                        "step_iri": "\/api\/3\/workflow_steps\/ee2138f1-7b6c-4237-ad63-d9114cd7af04",
+                        "condition": "{{ vars.steps.Get_Source_IP_Reputation.data.aggregate >= vars.reputation_threshold }}"
+                    },
+                    {
+                        "option": "Safe",
+                        "default": true,
+                        "step_iri": "\/api\/3\/workflow_steps\/89090adb-80c1-4b37-b283-113f4a768f27"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "560",
+            "left": "640",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "1bcf741c-5bb9-4bc8-a887-4a9505671c74",
+            "id": 3135
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "44ec50ec-0013-403a-acc4-f8c03aae38e7",
+                "title": "Investigate Brute Force",
+                "resources": [
+                    "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                    "input": {
+                        "params": [],
+                        "records": "{{vars.input.records}}"
+                    },
+                    "alert_metadata": "{{vars.input.records[0].sourcedata | toDict}}"
+                },
+                "_promptexpanded": true,
+                "displayConditions": {
+                    "alerts": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": [
+                            {
+                                "type": "object",
+                                "field": "type",
+                                "value": "\/api\/3\/picklists\/382183df-212d-4ce1-adae-088647cc72c3",
+                                "_value": {
+                                    "@id": "\/api\/3\/picklists\/382183df-212d-4ce1-adae-088647cc72c3",
+                                    "itemValue": "Brute Force Attempts"
+                                },
+                                "operator": "eq"
+                            },
+                            {
+                                "type": "primitive",
+                                "field": "source",
+                                "value": "%FortiSIEM%",
+                                "operator": "notlike",
+                                "_operator": "notlike"
+                            }
+                        ]
+                    }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": false,
+                "singleRecordExecution": false
+            },
+            "status": null,
+            "top": "13",
+            "left": "20",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "uuid": "e9c09ef9-2c03-4818-8a88-e7d7d8fd2838",
+            "id": 3136
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Source IP Reputation",
+            "description": null,
+            "arguments": {
+                "name": "VirusTotal",
+                "config": "1ba6a7ef-304a-4f78-855d-70b09bcd0b0a",
+                "params": {
+                    "ip": "{{vars.source_ip}}"
+                },
+                "version": "1.0.1",
+                "connector": "virustotal",
+                "operation": "query_ip",
+                "mock_result": "{\n  \"data\": {\n    \"undetected_urls\": [],\n    \"verbose_msg\": \"IP address in dataset\",\n    \"aggregate\": 6,\n    \"response_code\": 1,\n    \"detected_urls\": [\n      {\n        \"total\": 64,\n        \"positives\": 6,\n        \"url\": \"http:\/\/www.benflow.com\/wp-content\/themes\/kojocn\/images\/bootstrap.min.css\",\n        \"aggregate\": 9,\n        \"scan_date\": \"2017-10-24 12:44:26\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 6,\n        \"url\": \"http:\/\/www.benflow.com\/wp-content\/themes\/kojocn\/images\/style.min.css\",\n        \"aggregate\": 9,\n        \"scan_date\": \"2017-10-24 12:44:25\"\n      },\n      {\n        \"total\": 63,\n        \"positives\": 6,\n        \"url\": \"http:\/\/www.benflow.com\/mod_product-view-p_id-492.html\",\n        \"aggregate\": 10,\n        \"scan_date\": \"2017-10-24 04:27:59\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 7,\n        \"url\": \"http:\/\/www.benflow.com\/category\/news\/company-news\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-10-24 05:18:18\"\n      },\n      {\n        \"total\": 63,\n        \"positives\": 7,\n        \"url\": \"http:\/\/www.benflow.com\/mod_product-view-p_id-450.html\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-10-24 03:48:32\"\n      },\n      {\n        \"total\": 63,\n        \"positives\": 7,\n        \"url\": \"http:\/\/www.benflow.com\/p-125.html\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-10-24 03:48:31\"\n      },\n      {\n        \"total\": 63,\n        \"positives\": 7,\n        \"url\": \"http:\/\/www.benflow.com\/p-462.html\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-10-24 03:48:18\"\n      },\n      {\n        \"total\": 63,\n        \"positives\": 6,\n        \"url\": \"http:\/\/www.benflow.com\/p-83.html\",\n        \"aggregate\": 10,\n        \"scan_date\": \"2017-10-24 04:27:08\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 9,\n        \"url\": \"http:\/\/benflow.com\/rubber-disc-check-valve.html\",\n        \"aggregate\": 14,\n        \"scan_date\": \"2017-10-24 03:47:50\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 8,\n        \"url\": \"http:\/\/benflow.com\/mod_product-view-p_id-492.html\",\n        \"aggregate\": 12,\n        \"scan_date\": \"2017-10-24 03:47:42\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 8,\n        \"url\": \"http:\/\/benflow.com\/p-83.html\",\n        \"aggregate\": 12,\n        \"scan_date\": \"2017-10-24 03:47:31\"\n      },\n      {\n        \"total\": 63,\n        \"positives\": 8,\n        \"url\": \"http:\/\/www.benflow.com\/category\/news\/company-news\/\",\n        \"aggregate\": 13,\n        \"scan_date\": \"2017-10-24 03:46:35\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 7,\n        \"url\": \"http:\/\/www.benflow.com\/products\/water-control-valve\/piston-hydraulic-control-valve\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-10-22 18:31:52\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 8,\n        \"url\": \"http:\/\/benflow.com\/products\/water-control-valve\/piston-hydraulic-control-valve\",\n        \"aggregate\": 12,\n        \"scan_date\": \"2017-10-22 18:31:50\"\n      },\n      {\n        \"total\": 63,\n        \"positives\": 7,\n        \"url\": \"http:\/\/www.benflow.com\/a-143.html\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-10-19 06:46:33\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 6,\n        \"url\": \"http:\/\/www.benflow.com\/category\/products\/resilient-seated-gate-valve\",\n        \"aggregate\": 9,\n        \"scan_date\": \"2017-10-17 23:41:11\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 6,\n        \"url\": \"http:\/\/www.benflow.com\/wp-json\/oembed\/1.0\",\n        \"aggregate\": 9,\n        \"scan_date\": \"2017-10-15 19:01:15\"\n      },\n      {\n        \"total\": 63,\n        \"positives\": 6,\n        \"url\": \"http:\/\/www.benflow.com\/wp-content\/uploads\/2014\/08\/worm-fully-welded-ball-valve-100x100.jpg\",\n        \"aggregate\": 10,\n        \"scan_date\": \"2017-10-15 18:21:15\"\n      },\n      {\n        \"total\": 63,\n        \"positives\": 7,\n        \"url\": \"http:\/\/www.benflow.com\/wp-json\/oembed\/1.0\/\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-10-15 18:21:15\"\n      },\n      {\n        \"total\": 63,\n        \"positives\": 6,\n        \"url\": \"http:\/\/www.benflow.com\/wp-content\/uploads\/2014\/08\/worm-fully-welded-ball-valve-150x150.jpg\",\n        \"aggregate\": 10,\n        \"scan_date\": \"2017-10-15 18:21:11\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 7,\n        \"url\": \"http:\/\/www.benflow.com\/electric-remote-control-valve.html\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-10-15 04:10:43\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 7,\n        \"url\": \"http:\/\/benflow.com\/electric-remote-control-valve.html\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-10-15 04:10:39\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 9,\n        \"url\": \"http:\/\/www.benflow.com\/?redacted\",\n        \"aggregate\": 14,\n        \"scan_date\": \"2017-10-14 19:07:30\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 7,\n        \"url\": \"http:\/\/benflow.com\/?redacted\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-10-14 08:05:17\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 6,\n        \"url\": \"http:\/\/www.benflow.com\/?_m=mod_product&_a=prdlist&cap_id=124\",\n        \"aggregate\": 9,\n        \"scan_date\": \"2017-10-13 07:38:07\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 6,\n        \"url\": \"http:\/\/benflow.com\/index.php?_m=mod_product&_a=prdlist&cap_id=124\",\n        \"aggregate\": 9,\n        \"scan_date\": \"2017-10-13 07:38:03\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 8,\n        \"url\": \"http:\/\/www.benflow.com\/?REDACTED\",\n        \"aggregate\": 12,\n        \"scan_date\": \"2017-10-13 07:14:53\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 7,\n        \"url\": \"http:\/\/benflow.com\/?REDACTED\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-10-13 07:14:50\"\n      },\n      {\n        \"total\": 63,\n        \"positives\": 6,\n        \"url\": \"http:\/\/www.benflow.com\/mod_product-view-p_id-471.html\",\n        \"aggregate\": 10,\n        \"scan_date\": \"2017-10-12 20:27:00\"\n      },\n      {\n        \"total\": 63,\n        \"positives\": 6,\n        \"url\": \"http:\/\/www.benflow.com\/p-492.html\",\n        \"aggregate\": 10,\n        \"scan_date\": \"2017-10-12 19:58:18\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 7,\n        \"url\": \"http:\/\/benflow.com\/mod_product-view-p_id-471.html\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-10-12 19:07:10\"\n      },\n      {\n        \"total\": 63,\n        \"positives\": 7,\n        \"url\": \"http:\/\/www.benflow.com\/wafer-silence-check-valve.html\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-10-12 19:07:08\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 7,\n        \"url\": \"http:\/\/benflow.com\/mod_product-view-p_id-506.html\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-10-12 19:06:42\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 7,\n        \"url\": \"http:\/\/benflow.com\/pl-123.html\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-10-12 19:06:57\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 8,\n        \"url\": \"http:\/\/benflow.com\/mod_product-prdlist-cap_id-202.html\",\n        \"aggregate\": 12,\n        \"scan_date\": \"2017-10-12 19:06:33\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 7,\n        \"url\": \"http:\/\/benflow.com\/p-492.html\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-10-12 19:06:31\"\n      },\n      {\n        \"total\": 63,\n        \"positives\": 6,\n        \"url\": \"http:\/\/www.benflow.com\/mod_product-prdlist-cap_id-183.html\",\n        \"aggregate\": 10,\n        \"scan_date\": \"2017-10-12 19:06:20\"\n      },\n      {\n        \"total\": 63,\n        \"positives\": 7,\n        \"url\": \"http:\/\/www.benflow.com\/pl2-113.html\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-10-12 19:06:08\"\n      },\n      {\n        \"total\": 63,\n        \"positives\": 7,\n        \"url\": \"http:\/\/www.benflow.com\/pl-123.html\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-10-12 19:06:03\"\n      },\n      {\n        \"total\": 63,\n        \"positives\": 7,\n        \"url\": \"http:\/\/www.benflow.com\/mod_product-view-p_id-476.html\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-10-12 19:05:54\"\n      },\n      {\n        \"total\": 63,\n        \"positives\": 6,\n        \"url\": \"http:\/\/www.benflow.com\/mod_product-view-p_id-445.html\",\n        \"aggregate\": 10,\n        \"scan_date\": \"2017-10-12 19:05:56\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 5,\n        \"url\": \"http:\/\/www.benflow.com\/products\/page\/7\",\n        \"aggregate\": 8,\n        \"scan_date\": \"2017-10-12 14:51:02\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 5,\n        \"url\": \"http:\/\/benflow.com\/products\/page\/7\",\n        \"aggregate\": 8,\n        \"scan_date\": \"2017-10-12 14:50:59\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 6,\n        \"url\": \"http:\/\/www.benflow.com\/rising-resilient-seated-gate-valve.html\",\n        \"aggregate\": 9,\n        \"scan_date\": \"2017-10-11 22:03:31\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 7,\n        \"url\": \"http:\/\/www.benflow.com\/products\/water-control-valve\/diaphragm-hydraulic-control-valve\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-10-11 15:53:03\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 7,\n        \"url\": \"http:\/\/benflow.com\/products\/water-control-valve\/diaphragm-hydraulic-control-valve\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-10-11 15:53:00\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 6,\n        \"url\": \"http:\/\/www.benflow.com\/a-96.html\",\n        \"aggregate\": 9,\n        \"scan_date\": \"2017-10-07 20:13:28\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 6,\n        \"url\": \"http:\/\/benflow.com\/a-96.html\",\n        \"aggregate\": 9,\n        \"scan_date\": \"2017-10-07 20:13:24\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 7,\n        \"url\": \"http:\/\/www.benflow.com\/404.html\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-09-26 16:07:40\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 6,\n        \"url\": \"http:\/\/benflow.com\/404.html\",\n        \"aggregate\": 9,\n        \"scan_date\": \"2017-09-26 16:07:36\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 7,\n        \"url\": \"http:\/\/www.benflow.com\/mod_product-view-p_id-444.html\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-09-20 15:38:31\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 6,\n        \"url\": \"http:\/\/benflow.com\/mod_product-view-p_id-444.html\",\n        \"aggregate\": 9,\n        \"scan_date\": \"2017-09-20 15:38:27\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 7,\n        \"url\": \"http:\/\/www.benflow.com\/p-526.html\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-09-10 16:09:54\"\n      },\n      {\n        \"total\": 64,\n        \"positives\": 7,\n        \"url\": \"http:\/\/benflow.com\/p-526.html\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-09-10 16:09:52\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 8,\n        \"url\": \"http:\/\/www.benflow.com\/products\/resilient-seated-gate-valve\",\n        \"aggregate\": 12,\n        \"scan_date\": \"2017-09-06 09:48:54\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 7,\n        \"url\": \"http:\/\/benflow.com\/products\/resilient-seated-gate-valve\/\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-09-06 09:48:49\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 6,\n        \"url\": \"http:\/\/www.benflow.com\/products\/water-control-valve\/irrigation-hydraulic-control-valve\",\n        \"aggregate\": 9,\n        \"scan_date\": \"2017-09-06 09:28:41\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 6,\n        \"url\": \"http:\/\/benflow.com\/products\/water-control-valve\/irrigation-hydraulic-control-valve\/\",\n        \"aggregate\": 9,\n        \"scan_date\": \"2017-09-06 09:28:31\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 5,\n        \"url\": \"http:\/\/www.benflow.com\/mod_product-prdlist-cap_id-118.html\",\n        \"aggregate\": 8,\n        \"scan_date\": \"2017-09-05 17:24:23\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 5,\n        \"url\": \"http:\/\/benflow.com\/mod_product-prdlist-cap_id-118.html\",\n        \"aggregate\": 8,\n        \"scan_date\": \"2017-09-05 17:23:13\"\n      },\n      {\n        \"total\": 66,\n        \"positives\": 8,\n        \"url\": \"http:\/\/www.benflow.com\/worm-fully-welded-ball-valve.html\",\n        \"aggregate\": 12,\n        \"scan_date\": \"2017-09-03 15:57:36\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 6,\n        \"url\": \"http:\/\/benflow.com\/worm-fully-welded-ball-valve.html\",\n        \"aggregate\": 9,\n        \"scan_date\": \"2017-09-03 15:57:03\"\n      },\n      {\n        \"total\": 66,\n        \"positives\": 9,\n        \"url\": \"http:\/\/benflow.com\/category\/products\/water-control-valve\/irrigation-hydraulic-control-valve\",\n        \"aggregate\": 14,\n        \"scan_date\": \"2017-09-03 15:56:47\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 7,\n        \"url\": \"http:\/\/benflow.com\/products\/resilient-seated-gate-valve\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-09-03 15:52:17\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 8,\n        \"url\": \"http:\/\/benflow.com\/wafer-silence-check-valve.html\",\n        \"aggregate\": 12,\n        \"scan_date\": \"2017-09-03 15:51:18\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 7,\n        \"url\": \"http:\/\/www.benflow.com\/products\/water-pump-check-valve\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-09-01 17:02:57\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 7,\n        \"url\": \"http:\/\/benflow.com\/products\/water-pump-check-valve\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-09-01 16:56:55\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 8,\n        \"url\": \"http:\/\/benflow.com\/products\/water-pump-check-valve\/\",\n        \"aggregate\": 12,\n        \"scan_date\": \"2017-08-31 08:53:12\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 5,\n        \"url\": \"http:\/\/www.benflow.com\/p-500.html\",\n        \"aggregate\": 8,\n        \"scan_date\": \"2017-08-30 15:57:54\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 6,\n        \"url\": \"http:\/\/benflow.com\/p-500.html\",\n        \"aggregate\": 9,\n        \"scan_date\": \"2017-08-30 15:54:34\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 7,\n        \"url\": \"http:\/\/www.benflow.com\/flange-fully-welded-ball-valve.html\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-08-20 08:43:31\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 8,\n        \"url\": \"http:\/\/www.benflow.com\/multi-functional-water-pump-control-valve.html\",\n        \"aggregate\": 12,\n        \"scan_date\": \"2017-08-20 08:43:27\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 7,\n        \"url\": \"http:\/\/benflow.com\/multi-functional-water-pump-control-valve.html\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-08-20 08:43:25\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 5,\n        \"url\": \"http:\/\/benflow.com\/wp-login.php\",\n        \"aggregate\": 8,\n        \"scan_date\": \"2017-08-20 07:53:01\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 5,\n        \"url\": \"http:\/\/www.benflow.com\/wp-login.php\",\n        \"aggregate\": 8,\n        \"scan_date\": \"2017-08-17 10:01:02\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 6,\n        \"url\": \"http:\/\/www.benflow.com\/products\/water-control-valve\",\n        \"aggregate\": 9,\n        \"scan_date\": \"2017-08-17 10:00:52\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 7,\n        \"url\": \"http:\/\/www.benflow.com\/double-eccentric-butterfly-valve.html\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-08-17 10:00:12\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 6,\n        \"url\": \"http:\/\/benflow.com\/rising-resilient-seated-gate-valve.html\",\n        \"aggregate\": 9,\n        \"scan_date\": \"2017-08-13 08:19:20\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 6,\n        \"url\": \"http:\/\/www.benflow.com\/products\/butterfly-valve\",\n        \"aggregate\": 9,\n        \"scan_date\": \"2017-08-10 14:45:32\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 8,\n        \"url\": \"http:\/\/benflow.com\/products\/butterfly-valve\/\",\n        \"aggregate\": 12,\n        \"scan_date\": \"2017-08-10 14:45:16\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 7,\n        \"url\": \"http:\/\/benflow.com\/products\/water-control-valve\/piston-hydraulic-control-valve\/\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-07-31 10:06:36\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 7,\n        \"url\": \"http:\/\/www.benflow.com\/products\/pressure-reducing-valve\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-07-30 13:32:53\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 7,\n        \"url\": \"http:\/\/benflow.com\/products\/pressure-reducing-valve\/\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-07-30 13:32:44\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 7,\n        \"url\": \"http:\/\/benflow.com\/products\/pressure-reducing-valve\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-07-27 18:43:55\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 5,\n        \"url\": \"http:\/\/benflow.com\/p-506.html\",\n        \"aggregate\": 8,\n        \"scan_date\": \"2017-07-27 09:28:46\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 7,\n        \"url\": \"http:\/\/benflow.com\/products\/water-control-valve\/irrigation-hydraulic-control-valve\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-07-22 18:38:49\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 8,\n        \"url\": \"http:\/\/www.benflow.com\/products\/special-valve\",\n        \"aggregate\": 12,\n        \"scan_date\": \"2017-07-19 14:34:38\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 8,\n        \"url\": \"http:\/\/benflow.com\/products\/special-valve\/\",\n        \"aggregate\": 12,\n        \"scan_date\": \"2017-07-19 14:34:32\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 7,\n        \"url\": \"http:\/\/www.benflow.com\/mod_product-prdlist-p-7.html\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-06-23 09:38:09\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 7,\n        \"url\": \"http:\/\/benflow.com\/mod_product-prdlist-p-7.html\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-06-23 09:38:03\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 8,\n        \"url\": \"http:\/\/www.benflow.com\/slience-check-valve.html\",\n        \"aggregate\": 12,\n        \"scan_date\": \"2017-06-19 10:20:09\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 8,\n        \"url\": \"http:\/\/benflow.com\/slience-check-valve.html\",\n        \"aggregate\": 12,\n        \"scan_date\": \"2017-06-19 10:20:02\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 7,\n        \"url\": \"http:\/\/benflow.com\/category\/products\/water-control-valve\/irrigation-hydraulic-control-valve\/\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-06-16 20:50:20\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 7,\n        \"url\": \"http:\/\/benflow.com\/category\/products\/pressure-reducing-valve\/\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-06-16 20:50:20\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 7,\n        \"url\": \"http:\/\/benflow.com\/slience-check-valve.html\/\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-06-16 20:50:21\"\n      },\n      {\n        \"total\": 66,\n        \"positives\": 8,\n        \"url\": \"http:\/\/www.benflow.com\/manifold-pressure-reducing-valve.html\",\n        \"aggregate\": 12,\n        \"scan_date\": \"2017-06-16 09:42:41\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 9,\n        \"url\": \"http:\/\/www.benflow.com\/products\/air-release-valve\",\n        \"aggregate\": 14,\n        \"scan_date\": \"2017-06-16 09:42:32\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 7,\n        \"url\": \"http:\/\/benflow.com\/products\/air-release-valve\/\",\n        \"aggregate\": 11,\n        \"scan_date\": \"2017-06-16 09:42:23\"\n      },\n      {\n        \"total\": 66,\n        \"positives\": 9,\n        \"url\": \"http:\/\/benflow.com\/category\/products\/butterfly-valve\/\",\n        \"aggregate\": 14,\n        \"scan_date\": \"2017-06-16 08:15:55\"\n      },\n      {\n        \"total\": 65,\n        \"positives\": 1,\n        \"url\": \"http:\/\/43.225.46.25\/\",\n        \"aggregate\": 2,\n        \"scan_date\": \"2017-06-15 13:56:30\"\n      }\n    ],\n    \"detected_downloaded_samples\": [\n      {\n        \"total\": 56,\n        \"positives\": 1,\n        \"date\": \"2017-07-29 10:27:05\",\n        \"sha256\": \"7921a6035cc8a0981a5dee737dd3d29b150ddd48407717d3fca4b6376f2b0e70\"\n      }\n    ],\n    \"country\": \"JP\",\n    \"undetected_downloaded_samples\": [\n      {\n        \"total\": 55,\n        \"positives\": 0,\n        \"date\": \"2017-10-24 12:44:30\",\n        \"sha256\": \"0b30ada9676233bfe329cf7ce658d7bb6011f3949fc21e20c91072333ccc8297\"\n      },\n      {\n        \"total\": 55,\n        \"positives\": 0,\n        \"date\": \"2017-10-24 12:44:27\",\n        \"sha256\": \"382c1eeead33f7db4d86ee06801aed0c133fdd76b2def83056997dc57347e1be\"\n      },\n      {\n        \"total\": 58,\n        \"positives\": 0,\n        \"date\": \"2017-08-20 07:53:05\",\n        \"sha256\": \"b5150a34f46b414dbfa54a6b65adfd250fc287994c505e1bcdb87a3b301b26cc\"\n      },\n      {\n        \"total\": 57,\n        \"positives\": 0,\n        \"date\": \"2017-05-01 09:44:04\",\n        \"sha256\": \"b5318ac100f7dc6756f712e319e37178338d0a63a4c1eff3ed41ef5c3c599138\"\n      },\n      {\n        \"total\": 55,\n        \"positives\": 0,\n        \"date\": \"2017-05-01 09:43:58\",\n        \"sha256\": \"361a1975882f394d1f38035e65a35a192162868199bed1d94c7668412c2a2206\"\n      },\n      {\n        \"total\": 55,\n        \"positives\": 0,\n        \"date\": \"2016-12-17 12:49:52\",\n        \"sha256\": \"2251d47113cc221f907cb6c141dc4ecb3ee6ee747b90eb8f58f0f77b13ddb4e7\"\n      },\n      {\n        \"total\": 54,\n        \"positives\": 0,\n        \"date\": \"2016-11-07 04:28:16\",\n        \"sha256\": \"781463b9a7597028b463ccb684f7150f68446c0662794e0a420f8d7fdea3a614\"\n      },\n      {\n        \"total\": 55,\n        \"positives\": 0,\n        \"date\": \"2016-11-07 04:21:38\",\n        \"sha256\": \"2ecd295d295bec062cedebe177e54b9d6b19fc0a841dc5c178c654c9ccff09c0\"\n      }\n    ],\n    \"resolutions\": [\n      {\n        \"hostname\": \"benflow.com\",\n        \"last_resolved\": \"2016-06-18 00:00:00\"\n      },\n      {\n        \"hostname\": \"www.benflow.com\",\n        \"last_resolved\": \"2016-07-01 00:00:00\"\n      }\n    ]\n  },\n  \"operation\": \"query_ip\",\n  \"status\": \"Success\",\n  \"message\": \"\"\n}",
+                "operationTitle": "Get IP Reputation",
+                "step_variables": [],
+                "operationOutput": {
+                    "asn": "",
+                    "country": "",
+                    "as_owner": "",
+                    "aggregate": "",
+                    "detected_urls": "",
+                    "detected_referrer_samples": "",
+                    "detected_downloaded_samples": ""
+                }
+            },
+            "status": null,
+            "top": "440",
+            "left": "640",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "11dadf61-5aba-4e48-b226-8da36b704443",
+            "id": 3137
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Add details of Splunk query to record",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "type": {
+                        "id": 247,
+                        "@id": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "icon": null,
+                        "uuid": "ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Comment",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/0841c1eb-a0a3-4abd-b29c-9f68e4d9b14f",
+                        "itemValue": "Comment",
+                        "orderIndex": 1
+                    },
+                    "alerts": "['{{vars.input.records[0]['@id']}}']",
+                    "people": [],
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Queried Splunk, and found same SourceIP:&nbsp;{{vars.source_ip}} attempted to log in on following<span style=\"color: #ff0000;\">&nbsp;<\/span><strong>{{ vars.steps.Retrieve_Splunk_query_results.data.results | length }} <\/strong>systems<\/p>\n<ul style=\"list-style-type: square;\">{% for i in vars.steps.Retrieve_Splunk_query_results.data.results %} {% set system = i['host'] %}\n<li>{{ system }}<\/li>\n{% endfor %}<\/ul>",
+                    "__replace": "",
+                    "isImportant": false,
+                    "peopleUpdated": false
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/comments",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "660",
+            "left": "1820",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "956f6e11-fe94-44a4-bf01-f12fc738644b",
+            "id": 3138
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Update Assets records for affected hosts",
+            "description": null,
+            "arguments": {
+                "for_each": {
+                    "item": "{{vars.steps.Retrieve_Splunk_query_results.data.results}}",
+                    "condition": ""
+                },
+                "arguments": {
+                    "host": "",
+                    "assetIP": "",
+                    "indicatorIRI": "",
+                    "assetHostname": "{{vars.item.host}}",
+                    "alertRecordIRI": "{{vars.input.records[0]['@id']}}",
+                    "incidentRecordIRI": ""
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "workflowReference": "\/api\/3\/workflows\/24f12289-5860-4857-ac0e-354e65f46e18"
+            },
+            "status": null,
+            "top": "760",
+            "left": "2440",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "607ba804-b2b3-4d5f-a6a8-9e7e0eafdb5c",
+            "id": 3139
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Note for External IP",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "type": {
+                        "id": 247,
+                        "@id": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "icon": null,
+                        "uuid": "ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Comment",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/0841c1eb-a0a3-4abd-b29c-9f68e4d9b14f",
+                        "itemValue": "Comment",
+                        "orderIndex": 1
+                    },
+                    "alerts": "[\"{{vars.input.records[0]['@id']}}\"]",
+                    "people": [],
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p> <span style=\"font-size: 15px; color: #DE7A13;\" class=\"fa fa-exclamation-triangle\"><\/span>&nbsp;Source IP<strong> {{vars.source_ip}} is <\/strong><span style=\"background:#e31b1d; color: #fff;\" class=\"badge badge-pill badge-danger\">External<\/span><\/p>",
+                    "__replace": "",
+                    "isImportant": false,
+                    "peopleUpdated": false
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/comments",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "340",
+            "left": "640",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "d53afc89-38fd-4969-acd1-869306862658",
+            "id": 3140
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Query result for successful intrusion",
+            "description": null,
+            "arguments": {
+                "name": "Splunk",
+                "config": "297ea74f-c96c-4b50-b462-329e9340507d",
+                "params": {
+                    "sid": "{'value' : '{{vars.steps.Query_Splunk_of_successful_intrusion.data.sid}}' }",
+                    "additional_args": ""
+                },
+                "version": "1.4.0",
+                "connector": "splunk",
+                "operation": "get_results",
+                "mock_result": "{\n  \"message\": \"\",\n  \"status\": \"Success\",\n  \"operation\": \"get_results\",\n  \"data\": {\n    \"messages\": [],\n    \"results\": [\n      {\n        \"host\": \"LinEp71\",\n        \"count\": \"1\"\n      }\n    ],\n    \"highlighted\": {},\n    \"fields\": [\n      {\n        \"name\": \"host\",\n        \"groupby_rank\": \"0\"\n      },\n      {\n        \"name\": \"count\"\n      }\n    ],\n    \"init_offset\": 0,\n    \"preview\": false\n  }\n}",
+                "operationTitle": "Get Results for a Search",
+                "step_variables": [],
+                "operationOutput": {
+                    "fields": [],
+                    "preview": false,
+                    "results": [],
+                    "messages": [],
+                    "highlighted": [],
+                    "init_offset": 0
+                }
+            },
+            "status": null,
+            "top": "540",
+            "left": "2140",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "49bdd0a6-5872-46a4-aa9e-8f9c3da22686",
+            "id": 3141
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Is Target System Window OS",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Linux",
+                        "step_iri": "\/api\/3\/workflow_steps\/6a8eb09f-7d8a-4a74-bb54-8da620d5fd8b",
+                        "condition": "{{ vars.splunk_source == \"linux_secure\" }}"
+                    },
+                    {
+                        "option": "Windows",
+                        "step_iri": "\/api\/3\/workflow_steps\/69e154c1-ff88-4775-9fc7-071eb0c0352d",
+                        "condition": "{{ vars.splunk_source == \"WinEventLog:Security\" }}"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "720",
+            "left": "1468",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "a51da4d3-bc98-4bd1-9172-1f3e0578f3a4",
+            "id": 3142
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Match Source IP in Internal CIDR",
+            "description": null,
+            "arguments": {
+                "name": "CyOps Utilities",
+                "params": {
+                    "cidr": "{{vars.internal_cidr_ranges}}",
+                    "ip_address": "{{vars.source_ip}}"
+                },
+                "version": "2.1.0",
+                "connector": "cyops_utilities",
+                "operation": "ip_cidr_check",
+                "operationTitle": "Utils: Is IP in CIDR",
+                "step_variables": [],
+                "operationOutput": {
+                    "matched_ips": [],
+                    "unmatched_ips": []
+                }
+            },
+            "status": null,
+            "top": "140",
+            "left": "320",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "62416172-2163-43ce-a386-b1ad1668bfc7",
+            "id": 3143
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Win Domain User Details",
+            "description": null,
+            "arguments": {
+                "name": "Active Directory",
+                "config": "a5a06e4a-2523-49ef-8afc-b05ba05bf65f",
+                "params": {
+                    "cn": "",
+                    "sn": "",
+                    "search_object": "User",
+                    "search_attr_value": "{{vars.alert_metadata.Account_Name.split('\\n')[-1]}}"
+                },
+                "version": "2.0.0",
+                "connector": "activedirectory",
+                "operation": "get_specific_object_details",
+                "mock_result": "{\n\"data\": {\n      \"entries\": [\n        {\n          \"attributes\": {\n            \"accountExpires\": 253402300799,\n            \"name\": \"James Bond\",\n            \"whenCreated\": 1518710700,\n            \"distinguishedName\": \"CN=James Bond,OU=QA,DC=cyops,DC=local\",\n            \"uSNCreated\": 13434,\n            \"objectCategory\": \"CN=Person,CN=Schema,CN=Configuration,DC=cyops,DC=local\",\n            \"lastLogon\": null,\n            \"whenChanged\": 1518710700,\n            \"givenName\": \"James\",\n            \"sAMAccountType\": \"SAM_NORMAL_USER_ACCOUNT\",\n            \"sAMAccountName\": \"jbond\",\n            \"badPwdCount\": 0,\n            \"instanceType\": 4,\n            \"dSCorePropagationData\": [\n              1518710700,\n              null\n            ],\n            \"lastLogoff\": null,\n            \"countryCode\": 0,\n            \"badPasswordTime\": null,\n            \"displayName\": \"James Bond\",\n            \"primaryGroupID\": 513,\n            \"objectClass\": [\n              \"top\",\n              \"person\",\n              \"organizationalPerson\",\n              \"user\"\n            ],\n            \"objectSid\": \"S-1-5-21-2775588645-2726100070-1280702769-1107\",\n            \"userAccountControl\": \"DONT_EXPIRE_PASSWORD | NORMAL_ACCOUNT\",\n            \"sn\": \"Bond\",\n            \"objectGUID\": \"f487e6e4-cab9-4033-ade9-e643f4dbca9e\",\n            \"logonCount\": 0,\n            \"userPrincipalName\": \"jbond@cyops.local\",\n            \"codePage\": 0,\n            \"uSNChanged\": 13441,\n            \"pwdLastSet\": 1518710700,\n            \"cn\": \"James Bond\"\n          },\n          \"dn\": \"CN=James Bond,OU=QA,DC=cyops,DC=local\"\n        }\n      ]\n    },\n    \"status\": \"Success\",\n    \"operation\": \"get_specific_object_details\",\n    \"message\": \"\"\n  }",
+                "operationTitle": "Get Specific Object Details",
+                "step_variables": {
+                    "ad_user": "{{vars.alert_metadata.Account_Name.split('\\n')[-1]}}"
+                }
+            },
+            "status": null,
+            "top": "940",
+            "left": "1820",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "69e154c1-ff88-4775-9fc7-071eb0c0352d",
+            "id": 3144
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Add successful intrusion details",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "type": {
+                        "id": 247,
+                        "@id": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "icon": null,
+                        "uuid": "ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Comment",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/0841c1eb-a0a3-4abd-b29c-9f68e4d9b14f",
+                        "itemValue": "Comment",
+                        "orderIndex": 1
+                    },
+                    "alerts": "['{{vars.input.records[0]['@id']}}']",
+                    "people": [],
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<span class=\"fa fa-exclamation-triangle\" style=\"font-size: 15px; color: #DE7A13;\"><\/span>&nbsp; In addition, login to following systems were successful:\n<p>{% for i in vars.steps.Query_result_for_successful_intrusion.data.results %}<\/p>\n<ul style=\"list-style-type: square;\">{% set system = i['host'] %}\n<li>{{ system }}<\/li>\n<\/ul>\n<p>{% endfor %}<\/p>\n<p><strong><span class=\"badge\" style=\"background:#e31b1d; color: #fff;\">This is an Indication of Breach<\/span><\/strong>\n<\/p>",
+                    "__replace": "",
+                    "isImportant": false,
+                    "peopleUpdated": false
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/comments",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "660",
+            "left": "2140",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "4d2e299b-5f31-498c-b8d3-dd2475e58d82",
+            "id": 3145
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Query Splunk for related events for source IP address",
+            "description": null,
+            "arguments": {
+                "name": "Splunk",
+                "config": "297ea74f-c96c-4b50-b462-329e9340507d",
+                "params": {
+                    "query": "index=\"securitylogs\" sourcetype=\"linuxlogs\" rhost=\"{{vars.source_ip}}\" authentication failure | stats count by host",
+                    "additional_search_args": "{\"exec_mode\": \"blocking\"}"
+                },
+                "version": "1.4.0",
+                "connector": "splunk",
+                "operation": "invoke_search",
+                "mock_result": "{\n  \"message\": \"\",\n  \"status\": \"Success\",\n  \"operation\": \"invoke_search\",\n  \"data\": {\n    \"sid\": \"1517475217.90862\"\n  }\n}",
+                "operationTitle": "Invoke Search",
+                "step_variables": [],
+                "operationOutput": {
+                    "sid": ""
+                }
+            },
+            "status": null,
+            "top": "440",
+            "left": "1820",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "6a8eb09f-7d8a-4a74-bb54-8da620d5fd8b",
+            "id": 3146
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Query Splunk of successful intrusion",
+            "description": null,
+            "arguments": {
+                "name": "Splunk",
+                "config": "297ea74f-c96c-4b50-b462-329e9340507d",
+                "params": {
+                    "query": "index=\"securitylogs\" sourcetype=\"linuxlogs\" accepted password {{vars.source_ip}} | stats count by host",
+                    "additional_search_args": "{\"exec_mode\": \"blocking\"}"
+                },
+                "version": "1.4.0",
+                "connector": "splunk",
+                "operation": "invoke_search",
+                "mock_result": "{\n  \"message\": \"\",\n  \"status\": \"Success\",\n  \"operation\": \"invoke_search\",\n  \"data\": {\n    \"sid\": \"1517475236.90864\"\n  }\n}",
+                "operationTitle": "Invoke Search",
+                "step_variables": [],
+                "operationOutput": {
+                    "sid": ""
+                }
+            },
+            "status": null,
+            "top": "440",
+            "left": "2140",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "b7d9d2c7-3f45-4315-b1ff-54df1990d971",
+            "id": 3147
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Is Source IP internal",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Internal",
+                        "step_iri": "\/api\/3\/workflow_steps\/26b0c3fa-993d-4d34-8204-e0a2c5e6c305",
+                        "condition": "{{ vars.steps.Match_Source_IP_in_Internal_CIDR.data['matched_cidr_ip']  |  length > 0 }}"
+                    },
+                    {
+                        "option": "External",
+                        "default": true,
+                        "step_iri": "\/api\/3\/workflow_steps\/d53afc89-38fd-4969-acd1-869306862658"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "260",
+            "left": "320",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "9fe90ba8-d4a3-4548-8b13-579e8d52008b",
+            "id": 3148
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Add notes about user",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "type": {
+                        "id": 247,
+                        "@id": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "icon": null,
+                        "uuid": "ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Comment",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/0841c1eb-a0a3-4abd-b29c-9f68e4d9b14f",
+                        "itemValue": "Comment",
+                        "orderIndex": 1
+                    },
+                    "alerts": "['{{vars.input.records[0]['@id']}}']",
+                    "people": [],
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p><span style=\"font-size: 15px; color: #DE7A13;\" class=\"fa fa-exclamation-triangle\"><\/span>&nbsp; Following are details for user <span style=\"background:#e31b1d; color: #fff;\" class=\"badge badge-pill badge-danger\">{{vars.ad_user}}<\/span> who attempted to log on  <span style=\"background:#e31b1d; color: #fff;\" class=\"badge badge-pill badge-danger\">{{vars.alert_metadata.ComputerName}}<\/span><\/p>\n&nbsp;\n<table border=\"2\" style=\"width: 408px; border-color: white;\">\n<tbody>\n<tr>\n<td style=\"width: 138px; text-align: center;\">&nbsp;LDAP Attributes<\/td>\n<td style=\"width: 269px; text-align: center;\">&nbsp;Value<\/td>\n<\/tr>\n<tr>\n<td style=\"width: 138px;\">distinguishedName<\/td>\n<td style=\"width: 269px;\">{{vars.steps.Get_Win_Domain_User_Details.data.entries[0].dn}}<\/td>\n<\/tr>\n<tr>\n<td style=\"width: 138px;\">userPrincipalName<\/td>\n<td style=\"width: 269px;\">{{vars.steps.Get_Win_Domain_User_Details.data.entries[0].attributes.userPrincipalName}}<\/td>\n<\/tr>\n<tr>\n<td style=\"width: 138px;\">displayName<\/td>\n<td style=\"width: 269px;\">{{vars.steps.Get_Win_Domain_User_Details.data.entries[0].attributes.displayName}}<\/td>\n<\/tr>\n<tr>\n<td style=\"width: 138px;\">sAMAccountName<\/td>\n<td style=\"width: 269px;\">{{vars.steps.Get_Win_Domain_User_Details.data.entries[0].attributes.sAMAccountName}}<\/td>\n<\/tr>\n<tr>\n<td style=\"width: 138px;\">lastLogon<\/td>\n<td style=\"width: 269px;\">{{vars.steps.Get_Win_Domain_User_Details.data.entries[0].attributes.lastLogon}}<\/td>\n<\/tr>\n<\/tbody>\n<\/table>\n",
+                    "__replace": "",
+                    "isImportant": false,
+                    "peopleUpdated": false
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/comments",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "940",
+            "left": "2120",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "c011c4c1-ec37-4d1c-8835-b2dce2017f90",
+            "id": 3149
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is Malicious IP -> Create Note for Malicious IP",
+            "targetStep": "\/api\/3\/workflow_steps\/ee2138f1-7b6c-4237-ad63-d9114cd7af04",
+            "sourceStep": "\/api\/3\/workflow_steps\/1bcf741c-5bb9-4bc8-a887-4a9505671c74",
+            "label": "Malicious",
+            "isExecuted": false,
+            "uuid": "fcf0b368-3594-4838-ac4f-793fb9e3112e"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is Source IP internal -> Copy  of Create Note for Internal IP",
+            "targetStep": "\/api\/3\/workflow_steps\/d53afc89-38fd-4969-acd1-869306862658",
+            "sourceStep": "\/api\/3\/workflow_steps\/9fe90ba8-d4a3-4548-8b13-579e8d52008b",
+            "label": "External",
+            "isExecuted": false,
+            "uuid": "10be22a3-2136-4395-8b9c-cac808c49bad"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Win Domain User Details -> Add notes about user",
+            "targetStep": "\/api\/3\/workflow_steps\/c011c4c1-ec37-4d1c-8835-b2dce2017f90",
+            "sourceStep": "\/api\/3\/workflow_steps\/69e154c1-ff88-4775-9fc7-071eb0c0352d",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "9cda0062-6adc-4fb6-8e55-f6b951079088"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Add successful intrusion details -> Update Assets records for affected hosts1",
+            "targetStep": "\/api\/3\/workflow_steps\/607ba804-b2b3-4d5f-a6a8-9e7e0eafdb5c",
+            "sourceStep": "\/api\/3\/workflow_steps\/4d2e299b-5f31-498c-b8d3-dd2475e58d82",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "f5ed060c-e275-45c3-9551-0f9068d3ba9d"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Update Severity to Critical -> Take action per system operating system",
+            "targetStep": "\/api\/3\/workflow_steps\/a51da4d3-bc98-4bd1-9172-1f3e0578f3a4",
+            "sourceStep": "\/api\/3\/workflow_steps\/73e4473b-1e01-401d-8c13-359bf833f69c",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "5579d911-665f-46dd-9d2c-fa110abecde6"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Add details of Splunk query to record -> Query Splunk of successful intrusion",
+            "targetStep": "\/api\/3\/workflow_steps\/b7d9d2c7-3f45-4315-b1ff-54df1990d971",
+            "sourceStep": "\/api\/3\/workflow_steps\/956f6e11-fe94-44a4-bf01-f12fc738644b",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "04a9f132-794f-4bc5-b29e-2a11402d1b45"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start Investigation -> Match Source IP in Internal CIDR",
+            "targetStep": "\/api\/3\/workflow_steps\/62416172-2163-43ce-a386-b1ad1668bfc7",
+            "sourceStep": "\/api\/3\/workflow_steps\/30241bf8-030c-4d32-b6fb-2d71b7090cab",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "7cab27ef-6625-43fb-90a1-32e7d052e284"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Start Investigation",
+            "targetStep": "\/api\/3\/workflow_steps\/30241bf8-030c-4d32-b6fb-2d71b7090cab",
+            "sourceStep": "\/api\/3\/workflow_steps\/b42eade2-ba2f-4e56-b89c-baf04929e02f",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "6c16cf80-8255-496c-9377-6bd327ffdbaa"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is Source IP internal -> Copy 1 of Create Note for Safe IP",
+            "targetStep": "\/api\/3\/workflow_steps\/26b0c3fa-993d-4d34-8204-e0a2c5e6c305",
+            "sourceStep": "\/api\/3\/workflow_steps\/9fe90ba8-d4a3-4548-8b13-579e8d52008b",
+            "label": "Internal",
+            "isExecuted": false,
+            "uuid": "7356378f-55d1-48ca-9621-085023f0c2d8"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Take action per system operating system -> Get Win Domain User Details",
+            "targetStep": "\/api\/3\/workflow_steps\/69e154c1-ff88-4775-9fc7-071eb0c0352d",
+            "sourceStep": "\/api\/3\/workflow_steps\/a51da4d3-bc98-4bd1-9172-1f3e0578f3a4",
+            "label": "Windows",
+            "isExecuted": false,
+            "uuid": "1bca1276-d257-41e0-9f67-6753e260c811"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Source IP Reputation -> Is Malicious IP",
+            "targetStep": "\/api\/3\/workflow_steps\/1bcf741c-5bb9-4bc8-a887-4a9505671c74",
+            "sourceStep": "\/api\/3\/workflow_steps\/11dadf61-5aba-4e48-b226-8da36b704443",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "3684a174-096e-49d2-ae22-6fe497262cbf"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Query result for successful intrusion -> Add successful intrusion details",
+            "targetStep": "\/api\/3\/workflow_steps\/4d2e299b-5f31-498c-b8d3-dd2475e58d82",
+            "sourceStep": "\/api\/3\/workflow_steps\/49bdd0a6-5872-46a4-aa9e-8f9c3da22686",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "0e612243-b086-48ac-925f-a8be59547d15"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Attacker Metadata",
+            "targetStep": "\/api\/3\/workflow_steps\/b42eade2-ba2f-4e56-b89c-baf04929e02f",
+            "sourceStep": "\/api\/3\/workflow_steps\/e9c09ef9-2c03-4818-8a88-e7d7d8fd2838",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "f7bde6bb-db90-4107-a6b0-8b4adfc390d2"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Take action per system operating system -> Query Splunk for related events for source IP address",
+            "targetStep": "\/api\/3\/workflow_steps\/6a8eb09f-7d8a-4a74-bb54-8da620d5fd8b",
+            "sourceStep": "\/api\/3\/workflow_steps\/a51da4d3-bc98-4bd1-9172-1f3e0578f3a4",
+            "label": "Linux",
+            "isExecuted": false,
+            "uuid": "dbccaf13-3ab1-4d28-9fa6-9ef9c8f2290d"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is Malicious IP -> Create Note for Safe IP",
+            "targetStep": "\/api\/3\/workflow_steps\/89090adb-80c1-4b37-b283-113f4a768f27",
+            "sourceStep": "\/api\/3\/workflow_steps\/1bcf741c-5bb9-4bc8-a887-4a9505671c74",
+            "label": "Safe",
+            "isExecuted": false,
+            "uuid": "78f9fa91-4df5-4931-9bb4-ed32fcd4f788"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Note for Malicious IP -> Update Severity to High",
+            "targetStep": "\/api\/3\/workflow_steps\/73e4473b-1e01-401d-8c13-359bf833f69c",
+            "sourceStep": "\/api\/3\/workflow_steps\/ee2138f1-7b6c-4237-ad63-d9114cd7af04",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "5d77fd5b-9f00-42f5-87ac-ec6fec6f6941"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Match Source IP in Internal CIDR -> Is Source IP internal",
+            "targetStep": "\/api\/3\/workflow_steps\/9fe90ba8-d4a3-4548-8b13-579e8d52008b",
+            "sourceStep": "\/api\/3\/workflow_steps\/62416172-2163-43ce-a386-b1ad1668bfc7",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "d43f9dbe-8f3e-47a5-be31-e926c82994c0"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Query Splunk of successful intrusion -> Query result for successful intrusion",
+            "targetStep": "\/api\/3\/workflow_steps\/49bdd0a6-5872-46a4-aa9e-8f9c3da22686",
+            "sourceStep": "\/api\/3\/workflow_steps\/b7d9d2c7-3f45-4315-b1ff-54df1990d971",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "6a57f5f8-ddc5-4242-8f75-de998dfc41b8"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Retrieve Splunk query results -> Add details of Splunk query to record",
+            "targetStep": "\/api\/3\/workflow_steps\/956f6e11-fe94-44a4-bf01-f12fc738644b",
+            "sourceStep": "\/api\/3\/workflow_steps\/93f131c4-133c-4a0c-b37a-d09b6dca73b5",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "734b8ffd-b82c-4d42-a195-4d7c3ead75ce"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Note for External IP -> Get Source IP Reputation",
+            "targetStep": "\/api\/3\/workflow_steps\/11dadf61-5aba-4e48-b226-8da36b704443",
+            "sourceStep": "\/api\/3\/workflow_steps\/d53afc89-38fd-4969-acd1-869306862658",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "e31d52d0-4613-4ac6-bf65-7b0e5520aef0"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Query Splunk for related events for source IP address -> Retrieve Splunk query results",
+            "targetStep": "\/api\/3\/workflow_steps\/93f131c4-133c-4a0c-b37a-d09b6dca73b5",
+            "sourceStep": "\/api\/3\/workflow_steps\/6a8eb09f-7d8a-4a74-bb54-8da620d5fd8b",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "86ce3b0f-9285-4099-bf10-4d0efd56917b"
+        }
+    ],
+    "priority": null,
+    "uuid": "2b2e71fb-813b-4871-ba06-f7b7f4ca9dbc",
+    "recordTags": [
+        "ManualAction"
+    ],
+    "id": 977,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433427,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433427,
+    "owners": [],
+    "isPrivate": false
+}

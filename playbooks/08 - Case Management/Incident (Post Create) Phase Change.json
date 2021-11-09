@@ -1,0 +1,100 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Incident (Post Create) Phase Change",
+    "aliasName": null,
+    "tag": "#PostCreate#Incident  #system",
+    "description": "Sets an incident's phase dates upon incident creation.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/3c3b049e-5ecb-464a-83f6-5af6a230c0ed",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/dcbfa8b1-91dd-435e-955e-1632b24f51e0",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "resource": "incidents",
+                "resources": [
+                    "incidents"
+                ],
+                "step_variables": {
+                    "input": {
+                        "records": [
+                            "{{vars.input.records[0]}}"
+                        ]
+                    }
+                },
+                "fieldbasedtrigger": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/ea155646-3821-4542-9702-b246da430a8d",
+            "uuid": "dcbfa8b1-91dd-435e-955e-1632b24f51e0",
+            "id": 3933
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Set Phase Dates",
+            "description": null,
+            "arguments": {
+                "arguments": {
+                    "recoverydt": "{{vars.input.records[0].recoveryDate}}",
+                    "aftermathdt": "{{vars.input.records[0].aftermathDate}}",
+                    "incident_iri": "{{vars.input.records[0]['@id']}}",
+                    "eradicationdt": "{{vars.input.records[0].eradicationDate}}",
+                    "confirmationdt": "{{vars.input.records[0].confirmationDate}}",
+                    "containtmentdt": "{{vars.input.records[0].containmentDate}}",
+                    "currPhaseValue": "{{vars.input.records[0].phase.itemValue | ternary(vars.input.records[0].phase.itemValue,\"Detection\")}}",
+                    "indenticationdt": "{{vars.input.records[0].identificationDate}}"
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "workflowReference": "\/api\/3\/workflows\/f9a7d4b4-b16b-4b1b-b63a-8dd65b4437d0"
+            },
+            "status": null,
+            "top": "160",
+            "left": "120",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "5f8863b0-b47c-460f-b586-2d7d6dc492a4",
+            "id": 3934
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Set Phase Dates",
+            "targetStep": "\/api\/3\/workflow_steps\/5f8863b0-b47c-460f-b586-2d7d6dc492a4",
+            "sourceStep": "\/api\/3\/workflow_steps\/dcbfa8b1-91dd-435e-955e-1632b24f51e0",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "2d386fb0-41ea-48c2-ac76-f9506e3e6ec5"
+        }
+    ],
+    "priority": null,
+    "uuid": "cc74f6b7-2b53-4d22-823a-f569e68cfc83",
+    "recordTags": [
+        "system",
+        "PostCreate"
+    ],
+    "id": 1074,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433433,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433433,
+    "owners": [],
+    "isPrivate": false
+}

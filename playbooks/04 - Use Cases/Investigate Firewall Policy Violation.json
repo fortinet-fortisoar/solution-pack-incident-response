@@ -1,0 +1,510 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Investigate Firewall Policy Violation",
+    "aliasName": null,
+    "tag": "#ManualAction",
+    "description": "Investigates policy violations and retrieves information of the destination and source IP addresses along with the protocols and ports used, and then disables the system from the domain.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/59667fcc-7feb-4ba4-a5a2-e03a9287f857",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/0deba5b0-6bd2-41a3-a1a2-43f829ed43a5",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Notes about system account disabled",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "type": {
+                        "id": 248,
+                        "@id": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Comment",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/0841c1eb-a0a3-4abd-b29c-9f68e4d9b14f",
+                        "itemValue": "Comment",
+                        "orderIndex": 1
+                    },
+                    "alerts": "['{{vars.alert_id}}']",
+                    "people": [],
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p><span style=\"font-size: 15px; color: #DE7A13;\" class=\"fa fa-exclamation-triangle\"><\/span>&nbsp;The task to disable system&nbsp;{{vars.steps.Get_system_details.data.entries[0].dn}}&nbsp; is complete.<\/p>",
+                    "__replace": "",
+                    "isImportant": false,
+                    "peopleUpdated": false
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/comments",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1110",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "e106475a-f56d-4a62-a12a-78e9eb86bbac",
+            "id": 3264
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Query Assets  with source IP address",
+            "description": null,
+            "arguments": {
+                "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "type": "primitive",
+                            "field": "ip",
+                            "value": "{{vars.source_ip_address}}",
+                            "operator": "eq",
+                            "_operator": "eq"
+                        }
+                    ]
+                },
+                "module": "assets?$limit=30&$relationships=true",
+                "mock_result": "{ \"result\": [\n    {\n      \"companies\": [],\n      \"scans\": [],\n      \"location\": null,\n      \"macAddress\": \"a1:b2:c1:d1:ef\",\n      \"vulnerabilities\": [],\n      \"createDate\": 1520290438,\n      \"category\": {\n        \"id\": 59,\n        \"icon\": null,\n        \"color\": null,\n        \"orderIndex\": 3,\n        \"listName\": \"\/api\/3\/picklist_names\/0042bf40-d0e6-4324-ab84-0c7b0703f681\",\n        \"@type\": \"Picklist\",\n        \"itemValue\": \"Server\",\n        \"@id\": \"\/api\/3\/picklists\/1bfa4142-b3f2-4945-8393-66228f9260d3\"\n      },\n      \"@id\": \"\/api\/3\/assets\/1ec21393-214e-4db3-9f95-a0ba33871967\",\n      \"indicators\": [],\n      \"attachments\": [],\n      \"createUser\": {\n        \"name\": \"Playbook\",\n        \"userType\": null,\n        \"@type\": \"Appliance\",\n        \"modifyUser\": \"\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce\",\n        \"createDate\": null,\n        \"modifyDate\": 1518203084,\n        \"@id\": \"\/api\/3\/appliances\/6e08ebaf-5a28-4bf1-8261-ce7ebea5016a\",\n        \"id\": 188,\n        \"createUser\": null,\n        \"userId\": \"6f3626c1-0da7-4b44-8d5e-43750f780a47\",\n        \"avatar\": null,\n        \"@settings\": \"\/api\/3\/user_settings\/6e08ebaf-5a28-4bf1-8261-ce7ebea5016a\"\n      },\n      \"criticality\": {\n        \"id\": 249,\n        \"icon\": null,\n        \"color\": \"#D2AC1A\",\n        \"orderIndex\": 2,\n        \"listName\": \"\/api\/3\/picklist_names\/f8d09b4a-9e91-4096-bbdd-06a9f96ef57e\",\n        \"@type\": \"Picklist\",\n        \"itemValue\": \"Medium\",\n        \"@id\": \"\/api\/3\/picklists\/eb7b0557-971d-4d5c-abd2-23d0d8834a29\"\n      },\n      \"serialNumber\": \"121212_DEMO\",\n      \"dateScanned\": null,\n      \"tag\": \"XYZ_DEMO\",\n      \"name\": null,\n      \"state\": {\n        \"id\": 197,\n        \"icon\": null,\n        \"color\": null,\n        \"orderIndex\": 1,\n        \"listName\": \"\/api\/3\/picklist_names\/45de7d2e-8ef0-495e-a6e5-07fddfbd4749\",\n        \"@type\": \"Picklist\",\n        \"itemValue\": \"Active\",\n        \"@id\": \"\/api\/3\/picklists\/b31da3b9-6f87-469e-a1bf-2517c48a7001\"\n      },\n      \"incidents\": [],\n      \"managedBy\": null,\n      \"hostname\": \"WIN-EP2\",\n      \"@type\": \"Asset\",\n      \"ip\": \"192.168.60.132\",\n      \"modifyUser\": {\n        \"userType\": null,\n        \"phoneWork\": \"-9320\",\n        \"title\": \"Admin\",\n        \"createDate\": 1504687393,\n        \"modifyUser\": \"\/api\/3\/appliances\/6e08ebaf-5a28-4bf1-8261-ce7ebea5016a\",\n        \"@id\": \"\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce\",\n        \"createUser\": \"\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce\",\n        \"companyId\": null,\n        \"userId\": \"ce5a842b-fbbc-4c6e-8d35-a0438fcdf80c\",\n        \"firstname\": \"CS\",\n        \"phoneMobile\": null,\n        \"phoneHome\": null,\n        \"lastname\": \"Admin\",\n        \"@type\": \"Person\",\n        \"description\": null,\n        \"modifyDate\": 1520290436,\n        \"department\": null,\n        \"id\": 187,\n        \"email\": \"soc@cybersponse.com\",\n        \"rawData\": null,\n        \"phoneFax\": null,\n        \"type\": null,\n        \"avatar\": null,\n        \"@settings\": \"\/api\/3\/user_settings\/3451141c-bac6-467c-8d72-85e0fab569ce\"\n      },\n      \"description\": \"<p>Webserver<\/p>\",\n      \"modifyDate\": 1520291038,\n      \"comments\": [],\n      \"status\": {\n        \"id\": 86,\n        \"icon\": null,\n        \"color\": null,\n        \"orderIndex\": 0,\n        \"listName\": \"\/api\/3\/picklist_names\/3c57ea34-4866-4c8f-ba74-dc51806727a9\",\n        \"@type\": \"Picklist\",\n        \"itemValue\": \"Active\",\n        \"@id\": \"\/api\/3\/picklists\/421c20cd-e63d-4e32-9a25-774b2155cd24\"\n      },\n      \"id\": 8008,\n      \"notes\": [],\n      \"alerts\": [],\n      \"propertyOf\": null,\n      \"tasks\": [],\n      \"owners\": [\n        {\n          \"name\": \"SOC Managers\",\n          \"@type\": \"Team\",\n          \"description\": \"Management team\",\n          \"@id\": \"\/api\/3\/teams\/6e569c09-3bd4-40f1-98b0-cc994464c3c5\"\n        },\n        {\n          \"name\": \"Automation (CS Internal)\",\n          \"@type\": \"Team\",\n          \"description\": null,\n          \"@id\": \"\/api\/3\/teams\/e92f409d-ca3a-4fee-8561-c4cd323f9a2c\"\n        }\n      ],\n      \"registrationDate\": null,\n      \"assetClass\": {\n        \"id\": 38,\n        \"icon\": null,\n        \"color\": null,\n        \"orderIndex\": 0,\n        \"listName\": \"\/api\/3\/picklist_names\/54642443-1ab4-4f2b-968e-a0c43907fad0\",\n        \"@type\": \"Picklist\",\n        \"itemValue\": \"Hardware\",\n        \"@id\": \"\/api\/3\/picklists\/00cb224e-4198-4547-bbcb-a90bb9a60806\"\n      },\n      \"operatingSystem\": {\n        \"id\": 252,\n        \"icon\": null,\n        \"color\": null,\n        \"orderIndex\": 4,\n        \"listName\": \"\/api\/3\/picklist_names\/6671f4f2-2fd5-4d00-ba2d-f9fade310689\",\n        \"@type\": \"Picklist\",\n        \"itemValue\": \"Windows 10\",\n        \"@id\": \"\/api\/3\/picklists\/f0fc6b95-965f-4b65-9b3c-bb3c7f790c1d\"\n      }\n    }\n  ]\n}",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "570",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
+            "uuid": "b7d125b9-1ece-430f-a8a3-bad57999bc9a",
+            "id": 3265
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get  Reputation for Destination IP Address",
+            "description": null,
+            "arguments": {
+                "name": "VirusTotal",
+                "config": "1ba6a7ef-304a-4f78-855d-70b09bcd0b0a",
+                "params": {
+                    "ip": "{{vars.destination_ip_address}}"
+                },
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>VirusTotal results for desitnation IP address ( {{vars.destination_ip_address}})&nbsp;<\/p>\n<ul style=\"list-style-type: square;\">\n<li>Aggregate Score:&nbsp; {{vars.result.data.aggregate}}<\/li>\n<li>Country of Origin: {{vars.result.data.country}}<\/li>\n<\/ul>",
+                    "records": ""
+                },
+                "version": "2.0.0",
+                "connector": "virustotal",
+                "operation": "query_ip",
+                "mock_result": "{\n\"data\": {\n      \"aggregate\": 4,\n      \"undetected_urls\": [\n        [\n          \"http:\/\/www.kleinanzeigen-ebay.com\/\",\n          \"1fe014e5784d86f6bac6482aa500db1b5aa2bab3d216bee485b7761ff85983f6\",\n          0,\n          67,\n          \"2018-03-07 14:17:24\"\n        ],\n        [\n          \"http:\/\/www.coin-update.biz\/\",\n          \"3cabf0769f290aba6f8ec8f797d76e1d52aad8f7e1303ccf8161b7fca2772d2a\",\n          0,\n          67,\n          \"2018-03-07 13:03:27\"\n        ],\n        [\n          \"http:\/\/www.cinarkonagi.com\/\",\n          \"ef65fa70a3f88dd7d5f13c445aa7ad4e1ddeb1cc87044105145159de09a6a391\",\n          0,\n          67,\n          \"2018-03-07 12:40:50\"\n        ],\n        [\n          \"https:\/\/frwd.info\/\",\n          \"d30b6b00cd7d0c24d0537f806da973d60636c524e3feef11572bd6e537226620\",\n          0,\n          67,\n          \"2018-03-07 12:23:01\"\n        ]\n      ],\n      \"detected_urls\": [\n        {\n          \"aggregate\": 3,\n          \"scan_date\": \"2018-03-07 15:04:18\",\n          \"url\": \"http:\/\/ownloads.mediaplayer4free.com\/files\/dm-ddd-playitall.exe\",\n          \"positives\": 2,\n          \"total\": 67\n        },\n        {\n          \"aggregate\": 1,\n          \"scan_date\": \"2018-03-07 15:04:17\",\n          \"url\": \"http:\/\/ffiliate.hcatracker.com\/rd\/r.php\",\n          \"positives\": 1,\n          \"total\": 67\n        },\n        {\n          \"aggregate\": 7,\n          \"scan_date\": \"2018-03-07 15:57:50\",\n          \"url\": \"http:\/\/www.netflixaccountsfree.info\/\",\n          \"positives\": 5,\n          \"total\": 67\n        },\n        {\n          \"aggregate\": 6,\n          \"scan_date\": \"2018-03-07 15:04:17\",\n          \"url\": \"http:\/\/ww.belloto.voudeargohost.net\/Aprovacao_Comprovante.zip\",\n          \"positives\": 4,\n          \"total\": 67\n        },\n        {\n          \"aggregate\": 7,\n          \"scan_date\": \"2018-03-07 15:38:56\",\n          \"url\": \"http:\/\/eylenirik.biz\/logo.gif?56f56=3205638\",\n          \"positives\": 5,\n          \"total\": 67\n        },\n        {\n          \"aggregate\": 7,\n          \"scan_date\": \"2018-03-07 15:34:42\",\n          \"url\": \"http:\/\/eylenirik.biz\/logo.gif?542b3=2413285\",\n          \"positives\": 5,\n          \"total\": 67\n        },\n        {\n          \"aggregate\": 4,\n          \"scan_date\": \"2018-03-07 15:53:31\",\n          \"url\": \"http:\/\/steampromotion.com\/\",\n          \"positives\": 3,\n          \"total\": 67\n        },\n        {\n          \"aggregate\": 9,\n          \"scan_date\": \"2018-03-07 15:04:25\",\n          \"url\": \"http:\/\/dqn.mexicanvoter.info\/carolinamovie.swf\",\n          \"positives\": 6,\n          \"total\": 67\n        },\n        {\n          \"aggregate\": 1,\n          \"scan_date\": \"2018-03-07 15:53:02\",\n          \"url\": \"http:\/\/chmgk.associationspore.com\/modules\/newbb\/viewtopic.php?post_id=78867\",\n          \"positives\": 1,\n          \"total\": 67\n        },\n        {\n          \"aggregate\": 10,\n          \"scan_date\": \"2018-03-07 15:51:34\",\n          \"url\": \"http:\/\/cashmagnat.com\/api\/open.php?aid=1287165&v=3\",\n          \"positives\": 7,\n          \"total\": 67\n        },\n        {\n          \"aggregate\": 3,\n          \"scan_date\": \"2018-03-07 15:48:25\",\n          \"url\": \"http:\/\/rumahminimalis.us\/\",\n          \"positives\": 2,\n          \"total\": 67\n        }\n      ],\n      \"verbose_msg\": \"IP address in dataset\",\n      \"undetected_communicating_samples\": [\n        {\n          \"positives\": 0,\n          \"total\": 68,\n          \"date\": \"2018-03-02 13:29:04\",\n          \"sha256\": \"27480866aa82cf05577453faa454a6b6cf8d79639fcd28ee0e7754d41e089023\"\n        },\n        {\n          \"positives\": 0,\n          \"total\": 68,\n          \"date\": \"2018-02-08 02:30:41\",\n          \"sha256\": \"f1e6f6d2d884b6d4fb359bc6b9df6bed97fa91b3e74a84302f137f1ab9e6a999\"\n        },\n        {\n          \"positives\": 0,\n          \"total\": 66,\n          \"date\": \"2018-01-31 09:27:22\",\n          \"sha256\": \"22b2658bf2f7eebb2c2b4555195a71b1ad15415f6406aea490d7aab8fee599d0\"\n        },\n        {\n          \"positives\": 0,\n          \"total\": 65,\n          \"date\": \"2018-01-23 08:27:42\",\n          \"sha256\": \"81a32953df185d17cfba97680e95993437db88e7b6de2c08bcc645799efd340e\"\n        }\n      ],\n      \"response_code\": 1,\n      \"resolutions\": [\n        {\n          \"last_resolved\": \"2017-02-20 00:00:00\",\n          \"hostname\": \" dev-xendesk-1.dcloud-cisco.com\"\n        },\n        {\n          \"last_resolved\": \"2017-04-04 00:00:00\",\n          \"hostname\": \"--www.mineshafter2.com\"\n        },\n        {\n          \"last_resolved\": \"2017-02-13 00:00:00\",\n          \"hostname\": \"-6cgq7u.firoli-sys.com\"\n        },\n        {\n          \"last_resolved\": \"2017-02-23 00:00:00\",\n          \"hostname\": \"-7o.fastdataupload.com\"\n        },\n        {\n          \"last_resolved\": \"2017-09-13 00:00:00\",\n          \"hostname\": \"-89a5.fastdataupload.com\"\n        },\n        {\n          \"last_resolved\": \"2017-02-02 00:00:00\",\n          \"hostname\": \"-mp3.kbps320.com\"\n        },\n        {\n          \"last_resolved\": \"2016-11-12 00:00:00\",\n          \"hostname\": \"-rb2s3m116.firoli-sys.com\"\n        }\n      ],\n      \"detected_communicating_samples\": [\n        {\n          \"positives\": 56,\n          \"total\": 67,\n          \"date\": \"2018-03-07 15:38:55\",\n          \"sha256\": \"258f91c9969de149a8ae095ff86366f77cd2a80e7884922d915cba7bfdd4eb6b\"\n        },\n        {\n          \"positives\": 57,\n          \"total\": 68,\n          \"date\": \"2018-03-07 15:34:39\",\n          \"sha256\": \"b2f713f888ff684f972b6151d5b317d722f579a5a4e9ef0a043a446e29341ca9\"\n        },\n        {\n          \"positives\": 56,\n          \"total\": 68,\n          \"date\": \"2018-03-07 11:45:28\",\n          \"sha256\": \"9a45a360848962f4ada6ae761696749430433ae45fcae0f69fe90d3b450b1676\"\n        },\n        {\n          \"positives\": 37,\n          \"total\": 68,\n          \"date\": \"2018-03-07 09:24:29\",\n          \"sha256\": \"cb4b53d67068edd8bf5bf0471bd4d1b50d2d293dd979e46f2df0cc4d9e52e854\"\n        }\n      ],\n      \"country\": \"AU\"\n    }\n  }",
+                "operationTitle": "Get IP Reputation",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "13e89fd4-c7d2-4366-87bf-577410d8e2d7",
+            "id": 3266
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start Investigation",
+            "description": null,
+            "arguments": {
+                "message": {
+                    "tags": [],
+                    "type": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<span style=\"font-size: 15px; color: #DE7A13;\" class=\"fa fa-exclamation-triangle\"><\/span>&nbsp;Investigating Potential {{vars.input.records[0].type.itemValue}}, with following fields of interest:\n{% if vars.input.records[0].domain %}Domain: {{vars.input.records[0].domain -}}{% endif %}\n{% if vars.input.records[0].sourceIp %}SourceIP: {{ vars.input.records[0].sourceIp -}}{% endif %}\n{% if vars.input.records[0].destinationIp %}DestinationIP: {{vars.input.records[0].destinationIp -}}{% endif %}\n{% if vars.input.records[0].fileHash %}File Hash: {{vars.input.records[0].fileHash -}}{% endif %}\n{% if vars.input.records[0].computerName %}ComputerName: {{vars.input.records[0].computerName -}}{% endif %}\n{% if vars.input.records[0].processName %}Process: {{vars.input.records[0].processName -}}{% endif %}\n{% if vars.input.records[0].sourceProcess %}SourceProcess: {{vars.input.records[0].sourceProcess -}}{% endif %}\nFirewal Rule : {{vars.firewall_rule}}",
+                    "records": ""
+                },
+                "resource": {
+                    "status": {
+                        "id": 113,
+                        "@id": "\/api\/3\/picklists\/758925e7-629c-46d8-89db-fb36f5fbe88a",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Investigating",
+                        "listName": "\/api\/3\/picklist_names\/33e964a9-d607-49f2-813c-7ce46141815a",
+                        "itemValue": "Investigating",
+                        "orderIndex": 2
+                    }
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "__recommend": [],
+                "collectionType": "\/api\/3\/alerts",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "7fd26f83-4e3f-4011-a9be-59ff8a7ef9d9",
+            "id": 3267
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "f13a3104-da5d-4114-9cf3-99bedea21ac5",
+                "title": "Investigate Firewall Policy Violation",
+                "resources": [
+                    "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                    "input": {
+                        "records": "{{vars.input.records}}"
+                    },
+                    "alert_metadata": "{{vars.input.records[0].sourcedata}}"
+                },
+                "_promptexpanded": true,
+                "displayConditions": {
+                    "alerts": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": [
+                            {
+                                "type": "object",
+                                "field": "type",
+                                "value": "\/api\/3\/picklists\/3be51b8d-a02e-43a8-b6d3-07926771ac47",
+                                "_value": {
+                                    "@id": "\/api\/3\/picklists\/3be51b8d-a02e-43a8-b6d3-07926771ac47",
+                                    "itemValue": "Policy Violation"
+                                },
+                                "operator": "eq"
+                            }
+                        ]
+                    }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": false,
+                "singleRecordExecution": false
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "uuid": "0deba5b0-6bd2-41a3-a1a2-43f829ed43a5",
+            "id": 3268
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "alert_id": "{{vars.input.records[0]['@id']}}",
+                "firewall_rule": "{{vars.alert_metadata.Rule}}",
+                "useMockOutput": "{{globalVars.Demo_mode}}",
+                "destination_port": "{{vars.input.records[0].destinationPort}}",
+                "source_ip_address": "{{vars.input.records[0].sourceIp}}",
+                "destination_ip_address": "{{vars.input.records[0].destinationIp}}"
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "0f738bcf-0782-4984-b9c6-72859a783791",
+            "id": 3269
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get system details",
+            "description": null,
+            "arguments": {
+                "name": "Active Directory",
+                "config": "a5a06e4a-2523-49ef-8afc-b05ba05bf65f",
+                "params": {
+                    "cookie": "",
+                    "page_size": "",
+                    "size_limit": "",
+                    "search_object": "Computer",
+                    "search_attr_name": "Common Name",
+                    "search_attr_value": "{{vars.steps.Query_Assets__with_source_IP_address[0].hostname}}"
+                },
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Details from Active Directory for system&nbsp;{{vars.steps.Query_Assets__with_source_IP_address[0].hostname}}<\/p>\n<ul>\n<li>DN :&nbsp;{{vars.result.data.entries[0].attributes.distinguishedName}}<\/li>\n<li>sAMAccountName :&nbsp;{{vars.result.data.entries[0].attributes.sAMAccountName}}<\/li>\n<li>DNSHostName :&nbsp;{{vars.result.data.entries[0].attributes.dNSHostName}}<\/li>\n<\/ul>",
+                    "records": ""
+                },
+                "version": "2.1.1",
+                "connector": "activedirectory",
+                "operation": "global_search",
+                "mock_result": "{\n\"data\": {\n      \"entries\": [\n        {\n          \"dn\": \"CN=WIN-EP2,CN=Computers,DC=cyops,DC=local\",\n          \"attributes\": {\n            \"cn\": \"WIN-EP2\",\n            \"uSNChanged\": 27472,\n            \"accountExpires\": 253402300799,\n            \"whenChanged\": 1519943693,\n            \"objectClass\": [\n              \"top\",\n              \"person\",\n              \"organizationalPerson\",\n              \"user\",\n              \"computer\"\n            ],\n            \"msDS-SupportedEncryptionTypes\": 28,\n            \"operatingSystemVersion\": \"6.3 (9600)\",\n            \"codePage\": 0,\n            \"lastLogon\": 1520435835,\n            \"userAccountControl\": \"WORKSTATION_TRUST_ACCOUNT\",\n            \"logonCount\": 87,\n            \"localPolicyFlags\": 0,\n            \"objectGUID\": \"5b0561ea-a40f-481e-afec-fe29955a2217\",\n            \"dSCorePropagationData\": [\n              1519927223,\n              1519927222,\n              null\n            ],\n            \"whenCreated\": 1518198708,\n            \"instanceType\": 4,\n            \"sAMAccountType\": \"SAM_MACHINE_ACCOUNT\",\n            \"isCriticalSystemObject\": false,\n            \"lastLogonTimestamp\": 1519943693,\n            \"name\": \"WIN-EP2\",\n            \"lastLogoff\": null,\n            \"distinguishedName\": \"CN=WIN-EP2,CN=Computers,DC=cyops,DC=local\",\n            \"objectSid\": \"S-1-5-21-2775588645-2726100070-1280702769-1104\",\n            \"sAMAccountName\": \"WIN-EP2$\",\n            \"servicePrincipalName\": [\n              \"TERMSRV\/WIN-EP2\",\n              \"TERMSRV\/WIN-EP2.cyops.local\",\n              \"WSMAN\/WIN-EP2\",\n              \"WSMAN\/WIN-EP2.cyops.local\",\n              \"RestrictedKrbHost\/WIN-EP2\",\n              \"HOST\/WIN-EP2\",\n              \"RestrictedKrbHost\/WIN-EP2.cyops.local\",\n              \"HOST\/WIN-EP2.cyops.local\"\n            ],\n            \"countryCode\": 0,\n            \"pwdLastSet\": 1518198708,\n            \"badPwdCount\": 0,\n            \"dNSHostName\": \"WIN-EP2.cyops.local\",\n            \"badPasswordTime\": null,\n            \"objectCategory\": \"CN=Computer,CN=Schema,CN=Configuration,DC=cyops,DC=local\",\n            \"operatingSystem\": \"Windows Server 2012 R2 Standard\",\n            \"primaryGroupID\": 515,\n            \"uSNCreated\": 12751\n          }\n        }\n      ]\n    }\n  }",
+                "operationTitle": "Global Search",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "840",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "b20fa14e-7f00-40cc-bd03-74a593d6bd9b",
+            "id": 3270
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Note for Asset",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "type": {
+                        "id": 247,
+                        "@id": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "icon": null,
+                        "uuid": "ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Comment",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/0841c1eb-a0a3-4abd-b29c-9f68e4d9b14f",
+                        "itemValue": "Comment",
+                        "orderIndex": 1
+                    },
+                    "alerts": "{{vars.input.records[0]['@id']}}",
+                    "people": [],
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>The Following system matches with source IP address&nbsp;{{vars.source_ip_address}}&nbsp; :<\/p>\n<ul>\n<li>{{ vars.steps.Query_Assets__with_source_IP_address.result | json_query(\"[*].hostname[]\")  }}<\/li>\n<\/ul>\n\n",
+                    "__replace": "",
+                    "isImportant": false,
+                    "peopleUpdated": false
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/comments",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "705",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "f3dc8bd9-8693-42d0-adf5-f19648689e02",
+            "id": 3271
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Disable system from domain",
+            "description": null,
+            "arguments": {
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Manual task added to disable host domain account.<\/p>",
+                    "records": ""
+                },
+                "resource": {
+                    "id": null,
+                    "name": "Deactivate System account for host  {{vars.steps.Get_system_details.data.entries[0].attributes.cn}}",
+                    "type": {
+                        "id": 70,
+                        "@id": "\/api\/3\/picklists\/30300411-a2e0-42dc-9180-513904f73ab9",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "To Do",
+                        "listName": "\/api\/3\/picklist_names\/b837e375-76af-4ba5-b6a1-bd1c3cd27292",
+                        "itemValue": "To Do",
+                        "orderIndex": 14
+                    },
+                    "dueBy": null,
+                    "notes": null,
+                    "alerts": "['{{vars.alert_id}}']",
+                    "assets": null,
+                    "owners": null,
+                    "status": {
+                        "id": 117,
+                        "@id": "\/api\/3\/picklists\/959021fc-c19d-4aee-8e51-5395c5029719",
+                        "icon": null,
+                        "uuid": "959021fc-c19d-4aee-8e51-5395c5029719",
+                        "@type": "Picklist",
+                        "color": "#ffce1f",
+                        "display": "In progress",
+                        "listName": "\/api\/3\/picklist_names\/21ddbcfd-b4a3-4273-adea-c674fe47d643",
+                        "itemValue": "In progress",
+                        "orderIndex": 0
+                    },
+                    "stepid": null,
+                    "tenant": null,
+                    "persons": null,
+                    "comments": null,
+                    "conflict": null,
+                    "priority": {
+                        "id": 118,
+                        "@id": "\/api\/3\/picklists\/612befbc-4255-403a-958b-11efce3e1d8c",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#ab0e0e",
+                        "display": "Urgent",
+                        "listName": "\/api\/3\/picklist_names\/bea9a490-50d1-4597-8ad9-24422e10676e",
+                        "itemValue": "Urgent",
+                        "orderIndex": 1
+                    },
+                    "taskdata": null,
+                    "tasktype": null,
+                    "warrooms": null,
+                    "companies": null,
+                    "incidents": null,
+                    "startDate": null,
+                    "taskTeams": null,
+                    "createDate": null,
+                    "createUser": null,
+                    "modifyDate": null,
+                    "modifyUser": null,
+                    "recordTags": null,
+                    "userOwners": null,
+                    "workflowid": null,
+                    "attachments": null,
+                    "description": "<p>Please deactivate system account from host -&nbsp;{{vars.steps.Get_system_details.data.entries[0].dn}}&nbsp;<\/p>\n<p>&nbsp;<\/p>",
+                    "approvalhost": null,
+                    "actualMinutes": null,
+                    "assignedOnDate": "{{@Tomorrow_date}}",
+                    "tenantRecordId": null,
+                    "completedOnDate": null,
+                    "vulnerabilities": null,
+                    "assignedToPerson": {
+                        "id": 178,
+                        "@id": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+                        "type": null,
+                        "@type": "Person",
+                        "email": "soc@cybersponse.com",
+                        "title": "Admin",
+                        "avatar": null,
+                        "userId": "ce5a842b-fbbc-4c6e-8d35-a0438fcdf80c",
+                        "display": "CS Admin",
+                        "lastname": "Admin",
+                        "phoneFax": null,
+                        "userType": null,
+                        "@settings": "\/api\/3\/user_settings\/3451141c-bac6-467c-8d72-85e0fab569ce",
+                        "companyId": null,
+                        "firstname": "CS",
+                        "phoneHome": null,
+                        "phoneWork": "+16024106996",
+                        "createDate": 1526748546,
+                        "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+                        "department": null,
+                        "modifyDate": 1528392909,
+                        "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+                        "description": null,
+                        "phoneMobile": null
+                    },
+                    "systemAssignedQueue": null
+                },
+                "collection": "tasks",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "975",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/dc6ac63d-c5a5-472f-9eb4-6b18473a98b8",
+            "uuid": "f85b65de-dff9-4531-bdfc-896a2de81302",
+            "id": 3272
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Start Investigation",
+            "targetStep": "\/api\/3\/workflow_steps\/7fd26f83-4e3f-4011-a9be-59ff8a7ef9d9",
+            "sourceStep": "\/api\/3\/workflow_steps\/0f738bcf-0782-4984-b9c6-72859a783791",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "033e0579-005a-4844-8dcf-c8535e3959ed"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get IP Reputation for Destination IP Address -> Query Assets to check system assigned with source IP address",
+            "targetStep": "\/api\/3\/workflow_steps\/b7d125b9-1ece-430f-a8a3-bad57999bc9a",
+            "sourceStep": "\/api\/3\/workflow_steps\/13e89fd4-c7d2-4366-87bf-577410d8e2d7",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "dae5fb91-a558-44eb-9575-f0e30721ec53"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Add task to disable system from domain -> Add notes about system account disabled",
+            "targetStep": "\/api\/3\/workflow_steps\/e106475a-f56d-4a62-a12a-78e9eb86bbac",
+            "sourceStep": "\/api\/3\/workflow_steps\/f85b65de-dff9-4531-bdfc-896a2de81302",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "8f788028-c0b3-4fe1-8907-67918a6e42cc"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Query Active Directory to get system details -> Add task to disable system from domain",
+            "targetStep": "\/api\/3\/workflow_steps\/f85b65de-dff9-4531-bdfc-896a2de81302",
+            "sourceStep": "\/api\/3\/workflow_steps\/b20fa14e-7f00-40cc-bd03-74a593d6bd9b",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "79aaf73e-57eb-4c9b-9053-cbcd8592cc4a"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Query Assets  with source IP address -> Create Note for Asset",
+            "targetStep": "\/api\/3\/workflow_steps\/f3dc8bd9-8693-42d0-adf5-f19648689e02",
+            "sourceStep": "\/api\/3\/workflow_steps\/b7d125b9-1ece-430f-a8a3-bad57999bc9a",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "0b0ec863-30bc-4904-a502-92bb81631176"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start Investigation -> Get  Reputation for Destination IP Address",
+            "targetStep": "\/api\/3\/workflow_steps\/13e89fd4-c7d2-4366-87bf-577410d8e2d7",
+            "sourceStep": "\/api\/3\/workflow_steps\/7fd26f83-4e3f-4011-a9be-59ff8a7ef9d9",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "438c7fdd-15ce-40c3-9ab5-f8350a102975"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/0f738bcf-0782-4984-b9c6-72859a783791",
+            "sourceStep": "\/api\/3\/workflow_steps\/0deba5b0-6bd2-41a3-a1a2-43f829ed43a5",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "8f4e8a78-a16f-4f37-8191-afc6d48b5c32"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Note for Asset -> Get system details",
+            "targetStep": "\/api\/3\/workflow_steps\/b20fa14e-7f00-40cc-bd03-74a593d6bd9b",
+            "sourceStep": "\/api\/3\/workflow_steps\/f3dc8bd9-8693-42d0-adf5-f19648689e02",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "b5fc4358-e793-4c24-8dd4-a07d4f373a17"
+        }
+    ],
+    "priority": null,
+    "uuid": "d223685d-50e7-452f-94d5-7ed8f16ee28e",
+    "recordTags": [
+        "ManualAction"
+    ],
+    "id": 984,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433427,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433427,
+    "owners": [],
+    "isPrivate": false
+}

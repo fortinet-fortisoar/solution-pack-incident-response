@@ -1,0 +1,168 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Add Note for Communication Linked (Received)",
+    "aliasName": null,
+    "tag": null,
+    "description": "Adds a note stating a new communication that was received has been linked to alert.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/d98add27-83c9-4f73-a370-16454398e317",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/1e0eac4a-53bd-4cfa-8c04-b58aa9da4364",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Related Records",
+            "description": null,
+            "arguments": {
+                "alert_data": "{{ (vars.input.records[0]['@id'] + \"?$relationships=true\") | fromIRI }}"
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "a975f782-516b-4f66-aa68-a490f011c5a9",
+            "id": 4386
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "alertIRI": "{{vars.alert_data.alerts[0]['@id']}}"
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "4476cf45-0c09-456e-bf5e-e6b2c209baf3",
+            "id": 4387
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Add Note",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "type": {
+                        "id": 248,
+                        "@id": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Comment",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/0841c1eb-a0a3-4abd-b29c-9f68e4d9b14f",
+                        "itemValue": "Comment",
+                        "orderIndex": 1
+                    },
+                    "alerts": "{{vars.alertIRI}}",
+                    "content": "A new communication has been linked",
+                    "__replace": ""
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/comments",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "1cc8f706-75aa-4cc8-9c82-3617a71fc240",
+            "id": 4388
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "resource": "communication",
+                "resources": [
+                    "communication"
+                ],
+                "step_variables": {
+                    "input": {
+                        "records": [
+                            "{{vars.input.records[0]}}"
+                        ]
+                    }
+                },
+                "fieldbasedtrigger": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "type": "object",
+                            "field": "msgDirection",
+                            "value": "\/api\/3\/picklists\/c89f8eb7-0669-4535-9935-888ff46f544f",
+                            "_value": {
+                                "@id": "\/api\/3\/picklists\/c89f8eb7-0669-4535-9935-888ff46f544f",
+                                "itemValue": "Received"
+                            },
+                            "operator": "eq"
+                        }
+                    ]
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/ea155646-3821-4542-9702-b246da430a8d",
+            "uuid": "1e0eac4a-53bd-4cfa-8c04-b58aa9da4364",
+            "id": 4389
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Get_Related_Records",
+            "targetStep": "\/api\/3\/workflow_steps\/a975f782-516b-4f66-aa68-a490f011c5a9",
+            "sourceStep": "\/api\/3\/workflow_steps\/1e0eac4a-53bd-4cfa-8c04-b58aa9da4364",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "3071db4a-2d3c-405a-938c-1b3f2703591d"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Related Records -> alertData",
+            "targetStep": "\/api\/3\/workflow_steps\/4476cf45-0c09-456e-bf5e-e6b2c209baf3",
+            "sourceStep": "\/api\/3\/workflow_steps\/a975f782-516b-4f66-aa68-a490f011c5a9",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "cbd2601d-0b9c-4fbe-9979-3549e9a05805"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "alertData -> Add Note",
+            "targetStep": "\/api\/3\/workflow_steps\/1cc8f706-75aa-4cc8-9c82-3617a71fc240",
+            "sourceStep": "\/api\/3\/workflow_steps\/4476cf45-0c09-456e-bf5e-e6b2c209baf3",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "bb302eed-6491-4d82-a8dc-9c0ff879448e"
+        }
+    ],
+    "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+    "uuid": "c3819b1b-72a7-400d-9b7d-ccf50d18c3a8",
+    "recordTags": [
+        "system",
+        "create"
+    ],
+    "id": 1136,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433438,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433438,
+    "owners": [],
+    "isPrivate": false
+}

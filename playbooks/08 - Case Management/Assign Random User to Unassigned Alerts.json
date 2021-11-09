@@ -1,0 +1,172 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Assign Random User to Unassigned Alerts",
+    "aliasName": null,
+    "tag": null,
+    "description": "Auto assigns alerts if their assignments were missed during alert creation.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/3c3b049e-5ecb-464a-83f6-5af6a230c0ed",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/bd832abd-2ef7-4ca6-8736-464d561be85c",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "assignee": "{{(vars.steps.Get_available_assignees.data['hydra:member'] | json_query('[?csActive==`true`].[\"@id\"][]') | shuffle)[0]}}"
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "32c4aa73-8303-440e-b590-e95bfcc80f56",
+            "id": 3905
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Assign User",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "assignedTo": "{%if vars.input.records[0].assignedTo is none%}{{vars.assignee}}{%else%}{{vars.input.records[0].assignedTo['@id']}}{%endif%}",
+                    "alertDetectionDate": "{%if vars.input.records[0].alertDetectionDate is none %}{{vars.input.records[0].createDate}} {%else%} {{vars.input.records[0].alertDetectionDate}} {%endif%}"
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "collectionType": "\/api\/3\/alerts",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "07a6d514-303f-46ee-ab67-41c7617d2cfc",
+            "id": 3906
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "resource": "alerts",
+                "resources": [
+                    "alerts"
+                ],
+                "step_variables": {
+                    "input": {
+                        "records": [
+                            "{{vars.input.records[0]}}"
+                        ]
+                    }
+                },
+                "fieldbasedtrigger": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "OR",
+                    "filters": [
+                        {
+                            "type": "object",
+                            "field": "assignedTo",
+                            "value": "true",
+                            "_value": {
+                                "@id": "true",
+                                "display": "",
+                                "itemValue": ""
+                            },
+                            "operator": "isnull"
+                        },
+                        {
+                            "type": "datetime",
+                            "field": "alertDetectionDate",
+                            "value": "true",
+                            "operator": "isnull"
+                        }
+                    ]
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/ea155646-3821-4542-9702-b246da430a8d",
+            "uuid": "bd832abd-2ef7-4ca6-8736-464d561be85c",
+            "id": 3907
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get available assignees",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "\/api\/3\/people",
+                    "body": "",
+                    "method": "GET"
+                },
+                "version": "2.6.0",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "39151493-2b0b-4f4a-bfb8-d2957eca7476",
+            "id": 3908
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Get available assignees",
+            "targetStep": "\/api\/3\/workflow_steps\/39151493-2b0b-4f4a-bfb8-d2957eca7476",
+            "sourceStep": "\/api\/3\/workflow_steps\/bd832abd-2ef7-4ca6-8736-464d561be85c",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "094cf808-bfbf-4cf1-aba3-e62312fe168d"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Assign User",
+            "targetStep": "\/api\/3\/workflow_steps\/07a6d514-303f-46ee-ab67-41c7617d2cfc",
+            "sourceStep": "\/api\/3\/workflow_steps\/32c4aa73-8303-440e-b590-e95bfcc80f56",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "40c4c2b3-c779-407e-bab4-e35fd0de4fba"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get available assignees -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/32c4aa73-8303-440e-b590-e95bfcc80f56",
+            "sourceStep": "\/api\/3\/workflow_steps\/39151493-2b0b-4f4a-bfb8-d2957eca7476",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "087f0497-ffc7-4c25-9aa8-222f31e9c352"
+        }
+    ],
+    "priority": null,
+    "uuid": "474be090-dd8f-40b4-833b-0942b99f58d7",
+    "recordTags": [
+        "system",
+        "PostCreate"
+    ],
+    "id": 1068,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433433,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433433,
+    "owners": [],
+    "isPrivate": false
+}

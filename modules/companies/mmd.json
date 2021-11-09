@@ -1,0 +1,878 @@
+{
+    "@context": "\/api\/3\/contexts\/StagingModelMetadata",
+    "@id": "\/api\/3\/staging_model_metadatas\/8a284826-0dcb-4ce5-93d7-6801bd363998",
+    "@type": "StagingModelMetadata",
+    "type": "companies",
+    "parentType": null,
+    "tableName": "companies",
+    "ownable": true,
+    "userOwnable": false,
+    "trackable": true,
+    "taggable": true,
+    "peerReplicable": false,
+    "defaultSort": [],
+    "uniqueConstraint": [],
+    "indexable": true,
+    "writable": true,
+    "attributes": [
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/85e5c49c-db9c-4d0f-813d-b1bbe42927f6",
+            "@type": "AttributeMetadata",
+            "type": "string",
+            "name": "name",
+            "length": 1024,
+            "orderIndex": 3,
+            "formType": "text",
+            "dataSource": [],
+            "searchable": true,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": true,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "required": true
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": null,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/8a284826-0dcb-4ce5-93d7-6801bd363998",
+            "uuid": "85e5c49c-db9c-4d0f-813d-b1bbe42927f6",
+            "displayName": "{{ name }}",
+            "descriptions": {
+                "singular": "Company Name"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/0f5a23eb-59f4-4cd8-adb4-bdc4425bf062",
+            "@type": "AttributeMetadata",
+            "type": "string",
+            "name": "uuid",
+            "length": 36,
+            "orderIndex": 20,
+            "formType": null,
+            "dataSource": [],
+            "searchable": false,
+            "peerReplicable": true,
+            "system": true,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": false,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": true,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/8a284826-0dcb-4ce5-93d7-6801bd363998",
+            "uuid": "0f5a23eb-59f4-4cd8-adb4-bdc4425bf062",
+            "displayName": "{{ uuid }}",
+            "descriptions": {
+                "singular": "UUID"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/eda7ef3f-74a2-4ef8-9703-c53cb7e6eab4",
+            "@type": "AttributeMetadata",
+            "type": "string",
+            "name": "url",
+            "length": 1024,
+            "orderIndex": 4,
+            "formType": "text",
+            "dataSource": [],
+            "searchable": true,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": true,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": null,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/8a284826-0dcb-4ce5-93d7-6801bd363998",
+            "uuid": "eda7ef3f-74a2-4ef8-9703-c53cb7e6eab4",
+            "displayName": "{{ url }}",
+            "descriptions": {
+                "singular": "URL"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/20ebd0c7-d8db-4751-b7aa-701b995b6531",
+            "@type": "AttributeMetadata",
+            "type": "string",
+            "name": "phoneMain",
+            "length": 1024,
+            "orderIndex": 5,
+            "formType": "phone",
+            "dataSource": [],
+            "searchable": false,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": null,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/8a284826-0dcb-4ce5-93d7-6801bd363998",
+            "uuid": "20ebd0c7-d8db-4751-b7aa-701b995b6531",
+            "displayName": "{{ phoneMain }}",
+            "descriptions": {
+                "singular": "Main"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/516c5c9f-a92e-43ec-8b16-fe9c3f07ccf1",
+            "@type": "AttributeMetadata",
+            "type": "string",
+            "name": "phoneTollfree",
+            "length": 1024,
+            "orderIndex": 6,
+            "formType": "phone",
+            "dataSource": [],
+            "searchable": false,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": null,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/8a284826-0dcb-4ce5-93d7-6801bd363998",
+            "uuid": "516c5c9f-a92e-43ec-8b16-fe9c3f07ccf1",
+            "displayName": "{{ phoneTollfree }}",
+            "descriptions": {
+                "singular": "Tollfree"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/262d2dcc-2b15-4642-82da-5b65d6fff2cd",
+            "@type": "AttributeMetadata",
+            "type": "string",
+            "name": "phoneFax",
+            "length": 1024,
+            "orderIndex": 7,
+            "formType": "phone",
+            "dataSource": [],
+            "searchable": false,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": null,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/8a284826-0dcb-4ce5-93d7-6801bd363998",
+            "uuid": "262d2dcc-2b15-4642-82da-5b65d6fff2cd",
+            "displayName": "{{ phoneFax }}",
+            "descriptions": {
+                "singular": "Fax"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/51436b5f-1b8f-4c4d-8215-3e8f8bf507fd",
+            "@type": "AttributeMetadata",
+            "type": "string",
+            "name": "description",
+            "length": null,
+            "orderIndex": 8,
+            "formType": "richtext",
+            "dataSource": [],
+            "searchable": true,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": true,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": null,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/8a284826-0dcb-4ce5-93d7-6801bd363998",
+            "uuid": "51436b5f-1b8f-4c4d-8215-3e8f8bf507fd",
+            "displayName": "{{ description }}",
+            "descriptions": {
+                "singular": "Description"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/f6d240f4-62ad-48b2-9d7c-871b8edd38d0",
+            "@type": "AttributeMetadata",
+            "type": "picklists",
+            "name": "status",
+            "length": null,
+            "orderIndex": 9,
+            "formType": "picklist",
+            "dataSource": {
+                "model": "picklists",
+                "query": {
+                    "filters": [
+                        {
+                            "field": "listName__name",
+                            "operator": "eq",
+                            "value": "CompanyStatus"
+                        }
+                    ],
+                    "logic": "AND",
+                    "sort": [
+                        {
+                            "direction": "ASC",
+                            "field": "orderIndex"
+                        }
+                    ]
+                }
+            },
+            "searchable": false,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": true,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": null,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/8a284826-0dcb-4ce5-93d7-6801bd363998",
+            "uuid": "f6d240f4-62ad-48b2-9d7c-871b8edd38d0",
+            "displayName": "{{ status }}",
+            "descriptions": {
+                "singular": "Status"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/941a859f-eb95-4db2-862b-fef69f1babb6",
+            "@type": "AttributeMetadata",
+            "type": "picklists",
+            "name": "type",
+            "length": null,
+            "orderIndex": 10,
+            "formType": "picklist",
+            "dataSource": {
+                "model": "picklists",
+                "query": {
+                    "filters": [
+                        {
+                            "field": "listName__name",
+                            "operator": "eq",
+                            "value": "CompanyType"
+                        }
+                    ],
+                    "logic": "AND",
+                    "sort": [
+                        {
+                            "direction": "ASC",
+                            "field": "orderIndex"
+                        }
+                    ]
+                }
+            },
+            "searchable": false,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": true,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": null,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/8a284826-0dcb-4ce5-93d7-6801bd363998",
+            "uuid": "941a859f-eb95-4db2-862b-fef69f1babb6",
+            "displayName": "{{ type }}",
+            "descriptions": {
+                "singular": "Type"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/8090d485-253f-4b95-96ab-1584a477af01",
+            "@type": "AttributeMetadata",
+            "type": "picklists",
+            "name": "industry",
+            "length": null,
+            "orderIndex": 11,
+            "formType": "picklist",
+            "dataSource": {
+                "model": "picklists",
+                "query": {
+                    "filters": [
+                        {
+                            "field": "listName__name",
+                            "operator": "eq",
+                            "value": "Industry"
+                        }
+                    ],
+                    "logic": "AND",
+                    "sort": [
+                        {
+                            "direction": "ASC",
+                            "field": "orderIndex"
+                        }
+                    ]
+                }
+            },
+            "searchable": false,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": true,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": null,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/8a284826-0dcb-4ce5-93d7-6801bd363998",
+            "uuid": "8090d485-253f-4b95-96ab-1584a477af01",
+            "displayName": "{{ industry }}",
+            "descriptions": {
+                "singular": "Industry"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/e86a4980-8669-44d8-9b27-d81b625574e0",
+            "@type": "AttributeMetadata",
+            "type": "alerts",
+            "name": "alerts",
+            "length": null,
+            "orderIndex": 12,
+            "formType": "manyToMany",
+            "dataSource": {
+                "model": "alerts"
+            },
+            "searchable": false,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": true,
+            "inversedField": "companies",
+            "ownsRelationship": false,
+            "validation": {
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": null,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/8a284826-0dcb-4ce5-93d7-6801bd363998",
+            "uuid": "e86a4980-8669-44d8-9b27-d81b625574e0",
+            "displayName": "{{ alerts }}",
+            "descriptions": {
+                "singular": "Alerts"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/a12127d7-ce62-45bc-ab80-d6a5c843a6c8",
+            "@type": "AttributeMetadata",
+            "type": "assets",
+            "name": "assets",
+            "length": null,
+            "orderIndex": 13,
+            "formType": "manyToMany",
+            "dataSource": {
+                "model": "assets"
+            },
+            "searchable": false,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": true,
+            "inversedField": "companies",
+            "ownsRelationship": false,
+            "validation": {
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": null,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/8a284826-0dcb-4ce5-93d7-6801bd363998",
+            "uuid": "a12127d7-ce62-45bc-ab80-d6a5c843a6c8",
+            "displayName": "{{ assets }}",
+            "descriptions": {
+                "singular": "Assets"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/8f74c571-2edc-47ca-b2e6-585bf1b30d68",
+            "@type": "AttributeMetadata",
+            "type": "tasks",
+            "name": "tasks",
+            "length": null,
+            "orderIndex": 14,
+            "formType": "manyToMany",
+            "dataSource": {
+                "model": "tasks"
+            },
+            "searchable": false,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": true,
+            "inversedField": "companies",
+            "ownsRelationship": false,
+            "validation": {
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": null,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/8a284826-0dcb-4ce5-93d7-6801bd363998",
+            "uuid": "8f74c571-2edc-47ca-b2e6-585bf1b30d68",
+            "displayName": "{{ tasks }}",
+            "descriptions": {
+                "singular": "Tasks"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/47871f2e-5fbe-4b5f-b702-022e8a819d5a",
+            "@type": "AttributeMetadata",
+            "type": "incidents",
+            "name": "incidents",
+            "length": null,
+            "orderIndex": 15,
+            "formType": "manyToMany",
+            "dataSource": {
+                "model": "incidents"
+            },
+            "searchable": false,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": true,
+            "inversedField": "companies",
+            "ownsRelationship": false,
+            "validation": {
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": null,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/8a284826-0dcb-4ce5-93d7-6801bd363998",
+            "uuid": "47871f2e-5fbe-4b5f-b702-022e8a819d5a",
+            "displayName": "{{ incidents }}",
+            "descriptions": {
+                "singular": "Incidents"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/b3daf2ef-679d-455d-b48c-cbc0c213fc5c",
+            "@type": "AttributeMetadata",
+            "type": "attachments",
+            "name": "attachments",
+            "length": null,
+            "orderIndex": 16,
+            "formType": "manyToMany",
+            "dataSource": {
+                "model": "attachments"
+            },
+            "searchable": false,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": true,
+            "inversedField": "companies",
+            "ownsRelationship": true,
+            "validation": {
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": null,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/8a284826-0dcb-4ce5-93d7-6801bd363998",
+            "uuid": "b3daf2ef-679d-455d-b48c-cbc0c213fc5c",
+            "displayName": "{{ attachments }}",
+            "descriptions": {
+                "singular": "Attachments"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/9faf5173-f096-453d-bc12-42241144af03",
+            "@type": "AttributeMetadata",
+            "type": "notes",
+            "name": "notes",
+            "length": null,
+            "orderIndex": 17,
+            "formType": "manyToMany",
+            "dataSource": {
+                "model": "notes"
+            },
+            "searchable": false,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": true,
+            "inversedField": "companies",
+            "ownsRelationship": true,
+            "validation": {
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": null,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/8a284826-0dcb-4ce5-93d7-6801bd363998",
+            "uuid": "9faf5173-f096-453d-bc12-42241144af03",
+            "displayName": "{{ notes }}",
+            "descriptions": {
+                "singular": "Notes"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/f6928b4a-b899-42a8-8e9f-dbdbd6706afb",
+            "@type": "AttributeMetadata",
+            "type": "comments",
+            "name": "comments",
+            "length": null,
+            "orderIndex": 18,
+            "formType": "manyToMany",
+            "dataSource": {
+                "model": "comments"
+            },
+            "searchable": false,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": true,
+            "inversedField": "companies",
+            "ownsRelationship": true,
+            "validation": {
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": null,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/8a284826-0dcb-4ce5-93d7-6801bd363998",
+            "uuid": "f6928b4a-b899-42a8-8e9f-dbdbd6706afb",
+            "displayName": "{{ comments }}",
+            "descriptions": {
+                "singular": "Comments"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/10a88ea4-6802-48a2-a497-6a5d4bd1c43c",
+            "@type": "AttributeMetadata",
+            "type": "people",
+            "name": "persons",
+            "length": null,
+            "orderIndex": 19,
+            "formType": "manyToMany",
+            "dataSource": {
+                "model": "people"
+            },
+            "searchable": false,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": true,
+            "inversedField": "companies",
+            "ownsRelationship": true,
+            "validation": {
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": null,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/8a284826-0dcb-4ce5-93d7-6801bd363998",
+            "uuid": "10a88ea4-6802-48a2-a497-6a5d4bd1c43c",
+            "displayName": "{{ persons }}",
+            "descriptions": {
+                "singular": "People"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/6aa3581e-505d-4f50-847c-ac6397ae7554",
+            "@type": "AttributeMetadata",
+            "type": "indicators",
+            "name": "indicators",
+            "length": null,
+            "orderIndex": 21,
+            "formType": "manyToMany",
+            "dataSource": {
+                "model": "indicators"
+            },
+            "searchable": false,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": true,
+            "inversedField": "companies",
+            "ownsRelationship": false,
+            "validation": {
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": null,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/8a284826-0dcb-4ce5-93d7-6801bd363998",
+            "uuid": "6aa3581e-505d-4f50-847c-ac6397ae7554",
+            "displayName": "{{ indicators }}",
+            "descriptions": {
+                "singular": "Indicators"
+            }
+        }
+    ],
+    "system": false,
+    "module": "companies",
+    "uuid": "8a284826-0dcb-4ce5-93d7-6801bd363998",
+    "displayName": "{{ name }}",
+    "descriptions": {
+        "plural": "Companies",
+        "singular": "Company"
+    }
+}

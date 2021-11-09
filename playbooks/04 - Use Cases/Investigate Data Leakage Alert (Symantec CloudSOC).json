@@ -1,0 +1,1169 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Investigate Data Leakage Alert (Symantec CloudSOC)",
+    "aliasName": null,
+    "tag": null,
+    "description": "Investigate data leakage alert  ingested from Symantec CloudSOC",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/59667fcc-7feb-4ba4-a5a2-e03a9287f857",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/56112e7e-c21b-43ab-a11e-16ed3f760dd2",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Deactivate User from AD",
+            "description": null,
+            "arguments": {
+                "name": "Active Directory",
+                "config": "168972ff-63e2-4a03-8a2c-feb0e33d0a9c",
+                "params": {
+                    "search_attr_name": "SamAccount Name",
+                    "search_attr_value": "{{vars.steps.Lookup_User_Details.data.entries[0].attributes.sAMAccountName}}"
+                },
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>The user&nbsp;<strong>{{vars.steps.Lookup_User_Details.data.entries[0].attributes.cn}}<\/strong> has been disabled from <strong>Active&nbsp; Directory<\/strong>.&nbsp;Email notifications sent to Product and Legal Team.<\/p>",
+                    "records": "{{vars.input.records[0]['@id']}}"
+                },
+                "version": "2.1.1",
+                "connector": "activedirectory",
+                "operation": "disable_user_account",
+                "mock_result": "{\n  \"operation\": \"disable_user_account\",\n  \"data\": {\n    \"result\": 0,\n    \"dn\": \"\",\n    \"description\": \"success\",\n    \"type\": \"modifyResponse\",\n    \"message\": \"\",\n    \"referrals\": null\n  },\n  \"status\": \"Success\",\n  \"message\": \"\"\n}",
+                "operationTitle": "Disable User Account ",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1380",
+            "left": "135",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "6196f857-7c3a-492d-a941-917e284460bb",
+            "id": 3245
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Search Incident in DLP",
+            "description": null,
+            "arguments": {
+                "name": "Symantec DLP",
+                "config": "801a5c38-2624-430d-978a-dc4e5ef352eb",
+                "params": {
+                    "report_id": "143",
+                    "creation_date_greater_then": "2018-05-03"
+                },
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Querying Symantec DLP for additional DLP Events involving user:&nbsp;<span style=\"background-color: #000000; color: #ffffff;\"><strong>{{vars.steps.Lookup_User_Details.data.entries[0].attributes.cn}}<\/strong><\/span><\/p>",
+                    "records": ""
+                },
+                "version": "2.1.0",
+                "connector": "symantec-dlp",
+                "operation": "get_incidents_ids",
+                "mock_result": "{\n    \"status\": \"Success\",\n    \"data\": {\n      \"ns5:incidentListResponse\": {\n        \"@xmlns:ns4\": \"http:\/\/www.vontu.com\/v2011\/enforce\/webservice\/incident\/common\/schema\",\n        \"ns5:incidentId\": [\n          \"1711\",\n          \"1714\",\n          \"1715\",\n          \"1712\",\n          \"1713\"\n        ],\n        \"@xmlns:ns6\": \"http:\/\/www.vontu.com\/v2011\/enforce\/webservice\/incident\",\n        \"@xmlns:ns3\": \"http:\/\/www.vontu.com\/enforce\/export\/incident\/schema\",\n        \"@xmlns:ns2\": \"http:\/\/www.vontu.com\/enforce\/export\/incident\/common\/schema\",\n        \"ns5:incidentLongId\": [\n          \"1711\",\n          \"1714\",\n          \"1715\",\n          \"1712\",\n          \"1713\"\n        ],\n        \"@xmlns:ns5\": \"http:\/\/www.vontu.com\/v2011\/enforce\/webservice\/incident\/schema\"\n      }\n    },\n    \"message\": \"\",\n    \"operation\": \"get_incidents_ids\"\n  }",
+                "operationTitle": "Get Incidents IDs",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1515",
+            "left": "485",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "83713fcc-902e-42a1-865a-4c09efce38df",
+            "id": 3246
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "alertRawdata": "{{vars.request.data.rawdata}}",
+                "useMockOutput": "{{globalVars.Demo_mode}}",
+                "movedIpFileList": "[]",
+                "intellectualPropertyFlag": "false"
+            },
+            "status": null,
+            "top": "165",
+            "left": "310",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "1849fdd2-2fc4-4bf5-92ed-6224fce0f358",
+            "id": 3247
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Find if user in watch list",
+            "description": null,
+            "arguments": {
+                "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "type": "primitive",
+                            "field": "employeeName",
+                            "value": "{{vars.steps.Lookup_User_Details.data.entries[0].attributes.cn}}",
+                            "operator": "eq",
+                            "_operator": "eq"
+                        }
+                    ]
+                },
+                "module": "employeewatchlist?$limit=30",
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>{% if vars.result | length==0 %}<span class=\"fa fa-exclamation-triangle\" style=\"font-size: 15px; color: #DE7A13;\"><\/span>&nbsp; User:&nbsp;<strong>{{vars.userName}}<\/strong>&nbsp;was not&nbsp;found on Employee&nbsp;Watchlist{%else%}User: <strong>{{vars.userName}}<\/strong> found&nbsp;on Employee Watchlist with status:&nbsp;<span class=\"badge badge-pill badge-danger\" style=\"background:#e31b1d; color: #fff;\">{{vars.result[0].status.itemValue}}&nbsp;<\/span>{%endif%}<\/p>",
+                    "records": "['{{vars.input.records[0]['@id']}}']"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "705",
+            "left": "310",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
+            "uuid": "b4c6bc24-aa53-424d-8de9-9c298b4683be",
+            "id": 3248
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Raise the Severity of the Alert",
+            "description": null,
+            "arguments": {
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p><strong><span style=\"font-size: 15px; color: #DE7A13;\" class=\"fa fa-exclamation-triangle\"><\/span>&nbsp;Sensitive File&nbsp;Exfiltration&nbsp;Detected<br><span style=\"background:#e31b1d; color: #fff;\" class=\"badge badge-pill badge-danger\">Initiating&nbsp;Containment&nbsp;Actions&nbsp;<\/span><\/strong><\/p>",
+                    "records": "['{{vars.input.records[0]['@id']}}']"
+                },
+                "resource": {
+                    "status": {
+                        "id": 54,
+                        "@id": "\/api\/3\/picklists\/7de816ff-7140-4ee5-bd05-93ce22002146",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Open",
+                        "listName": "\/api\/3\/picklist_names\/33e964a9-d607-49f2-813c-7ce46141815a",
+                        "itemValue": "Open",
+                        "orderIndex": 1
+                    },
+                    "severity": {
+                        "id": 90,
+                        "@id": "\/api\/3\/picklists\/7efa2220-39bb-44e4-961f-ac368776e3b0",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#A51516",
+                        "display": "Critical",
+                        "listName": "\/api\/3\/picklist_names\/4e80cba3-032f-48b4-ac03-17e3ec247aac",
+                        "itemValue": "Critical",
+                        "orderIndex": 4
+                    }
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "__recommend": [],
+                "tagsOperation": "OverwriteTags",
+                "collectionType": "\/api\/3\/alerts",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1110",
+            "left": "135",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "b9e86661-e759-4fdc-9a74-9ab28c0abafd",
+            "id": 3249
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Email Notification",
+            "description": null,
+            "arguments": {
+                "name": "SMTP",
+                "config": "8dcaad2a-8cc4-4156-a95e-87e420f76a1f",
+                "params": {
+                    "cc": "legalteam@mailinator.com",
+                    "to": "cyopsmanager@mailinator.com",
+                    "bcc": "",
+                    "from": "no-reply@cybersponse.com",
+                    "content": "<p>Attention,<\/p>\n<p>Sensitive file exfiltration detected. Please find the details below:<\/p>\n<p><strong>User<\/strong>:&nbsp;{{vars.steps.Lookup_User_Details.data.entries[0].attributes.cn}}<\/p>\n<p><strong>Files<\/strong>:&nbsp;{{vars.exfiledFile}}&nbsp;<\/p>\n<p>&nbsp;<\/p>\n<p>Thanks &amp; regards,<\/p>\n<p>Vsoc Team<\/p>",
+                    "subject": "",
+                    "iri_list": "",
+                    "file_name": "",
+                    "file_path": ""
+                },
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Email notification of sensitive file exfiltration to Legal and Engineering teams.<\/p>",
+                    "records": ""
+                },
+                "version": "2.4.2",
+                "connector": "smtp",
+                "operation": "send_richtext_email",
+                "ignore_errors": true,
+                "operationTitle": "Send Rich Text Email",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1245",
+            "left": "135",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "b277366e-55f6-42e9-9f51-1fd8558860e1",
+            "id": 3250
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Note for task completion of revoking file permission",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "type": {
+                        "id": 247,
+                        "@id": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "icon": null,
+                        "uuid": "ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Comment",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/0841c1eb-a0a3-4abd-b29c-9f68e4d9b14f",
+                        "itemValue": "Comment",
+                        "orderIndex": 1
+                    },
+                    "alerts": "['{{vars.input.records[0]['@id']}}']",
+                    "people": [],
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p><span style=\"font-size: 15px; color: #DE7A13;\" class=\"fa fa-exclamation-triangle\"><\/span>&nbsp;File Permissions revoked <strong><span style=\"color: #008000;\">successfully<span style=\"color: #ffffff;\">,<\/span>&nbsp;<\/span><\/strong>and User <strong><span style=\"color: #ff0000;\">blocked<\/span><\/strong>&nbsp;in&nbsp;Cloud.SOC<\/p>",
+                    "__replace": "",
+                    "isImportant": false,
+                    "peopleUpdated": false
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/comments",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1785",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "14ce8984-8d38-4271-a0b2-cc30bc6f1714",
+            "id": 3251
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Additional Alerts",
+            "description": null,
+            "arguments": {
+                "for_each": {
+                    "item": "{{vars.steps.Fetch_Incident_Details}}",
+                    "condition": ""
+                },
+                "resource": {
+                    "name": "Symantec DLP Event- {{vars.item.data['ns5:incidentDetailResponse']['ns5:response']['ns5:incident']['ns5:fileName']}}",
+                    "tags": null,
+                    "type": {
+                        "id": 5265,
+                        "@id": "\/api\/3\/picklists\/3eb31470-7a13-4029-9b48-6f5f3d493002",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Data Leakage",
+                        "listName": "\/api\/3\/picklist_names\/a7087b9c-5660-495f-a8ac-c3b198ddb8c2",
+                        "itemValue": "Data Leakage",
+                        "orderIndex": 4
+                    },
+                    "dueBy": null,
+                    "hunts": null,
+                    "notes": null,
+                    "state": null,
+                    "tasks": null,
+                    "users": null,
+                    "alerts": "[\"{{vars.input.records[0]['@id']}}\"]",
+                    "assets": null,
+                    "domain": null,
+                    "emails": null,
+                    "events": null,
+                    "owners": null,
+                    "source": "Symantec DLP",
+                    "status": {
+                        "id": 22,
+                        "@id": "\/api\/3\/picklists\/7de816ff-7140-4ee5-bd05-93ce22002146",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Open",
+                        "listName": "\/api\/3\/picklist_names\/33e964a9-d607-49f2-813c-7ce46141815a",
+                        "itemValue": "Open",
+                        "orderIndex": 1
+                    },
+                    "emailCc": null,
+                    "emailTo": null,
+                    "metrics": null,
+                    "persons": null,
+                    "subject": null,
+                    "urlFull": null,
+                    "comments": null,
+                    "fileHash": null,
+                    "filePath": "{{vars.item.data['ns5:incidentDetailResponse']['ns5:response']['ns5:incident']['ns5:filePath']}}",
+                    "reporter": null,
+                    "services": null,
+                    "severity": {
+                        "id": 59,
+                        "@id": "\/api\/3\/picklists\/b3c20a3a-ecfd-4adc-a225-0205968e6793",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#D2AC1A",
+                        "display": "Medium",
+                        "listName": "\/api\/3\/picklist_names\/4e80cba3-032f-48b4-ac03-17e3ec247aac",
+                        "itemValue": "Medium",
+                        "orderIndex": 2
+                    },
+                    "sourceId": "{{vars.item.data['ns5:incidentDetailResponse']['ns5:response']['ns5:incident']['ns5:uniqueMessageId']}}",
+                    "sourceIp": null,
+                    "userName": "{{vars.item.data['ns5:incidentDetailResponse']['ns5:response']['ns5:incident']['ns5:userName']}}",
+                    "__replace": "true",
+                    "campaigns": null,
+                    "companies": null,
+                    "deviceUID": null,
+                    "dllLoaded": null,
+                    "emailBody": null,
+                    "emailFrom": null,
+                    "epochTime": null,
+                    "eventTime": null,
+                    "evidences": null,
+                    "fileNames": null,
+                    "incidents": null,
+                    "processId": null,
+                    "assignedTo": "{{vars.input.records[0].assignedTo['@id']}}",
+                    "indicators": null,
+                    "returnPath": null,
+                    "sourceData": null,
+                    "sourcePort": null,
+                    "sourceTool": null,
+                    "sourceType": null,
+                    "attachments": null,
+                    "commandLine": null,
+                    "description": null,
+                    "latestLogin": null,
+                    "processGuid": null,
+                    "processName": null,
+                    "processTree": null,
+                    "registryKey": null,
+                    "targetAsset": null,
+                    "userDetails": null,
+                    "assigneddate": null,
+                    "closureNotes": null,
+                    "computerName": "{{vars.item.data['ns5:incidentDetailResponse']['ns5:response']['ns5:incident']['ns5:machineName']}}",
+                    "emailHeaders": null,
+                    "emailSubject": null,
+                    "legalMatters": null,
+                    "resolveddate": null,
+                    "senderDomain": null,
+                    "destinationIp": null,
+                    "earliestLogin": null,
+                    "relatedEvents": null,
+                    "sandboxTaskId": null,
+                    "scheduledTask": null,
+                    "sourceProcess": null,
+                    "targetProcess": null,
+                    "bitsTransferId": null,
+                    "killChainPhase": null,
+                    "mitreTechnique": null,
+                    "attachmentNames": null,
+                    "destinationPort": null,
+                    "vulnerabilities": null,
+                    "bytesTransferred": null,
+                    "correlationGraph": null,
+                    "escalationreason": null,
+                    "parentProcessPid": null,
+                    "registryKeyValue": null,
+                    "offenseCreateDate": null,
+                    "parentProcessName": null,
+                    "physicalIncidents": null,
+                    "reporterEmailBody": null,
+                    "decodedCommandLine": null,
+                    "senderEmailAddress": null,
+                    "escalatedtoincident": {
+                        "id": 6808,
+                        "@id": "\/api\/3\/picklists\/2128a09c-153d-4db3-985d-de6be33deae5",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#808080",
+                        "display": "No",
+                        "listName": "\/api\/3\/picklist_names\/e131cc54-9ae4-43c9-b830-af6e331fe024",
+                        "itemValue": "No",
+                        "orderIndex": 1
+                    },
+                    "systemAssignedQueue": null,
+                    "parentProcessCmdLine": null,
+                    "recipientEmailAddress": null
+                },
+                "_showJson": true,
+                "collection": "\/api\/3\/upsert\/alerts",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1785",
+            "left": "485",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "1ca0c190-761e-42b2-85ec-8c04bd816976",
+            "id": 3252
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Find Intellectual Property",
+            "description": null,
+            "arguments": {
+                "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "type": "primitive",
+                            "field": "fileName",
+                            "value": "{{vars.input.records[0].fileName}}",
+                            "operator": "eq",
+                            "_operator": "eq"
+                        }
+                    ]
+                },
+                "module": "sensitivefile?$limit=30",
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p><span style=\"font-size: 15px; color: #DE7A13;\" class=\"fa fa-exclamation-triangle\"><\/span>&nbsp; {% if vars.result %}<span style=\"color: #000000;\"><strong><span style=\"color: #ffffff;\">Sensitive file<\/span>&nbsp;<span style=\"background:#e31b1d; color: #fff;\" class=\"badge badge-pill badge-danger\">{{vars.result[0].fileName}}<\/span> <span style=\"color: #ffffff;\">identified in Symantec.CloudSOC Alert.<\/span><\/strong><\/span>{% else %}No sensitive files identified in alert.{% endif %}<\/p>",
+                    "records": ""
+                },
+                "step_variables": {
+                    "exfiledFile": "{{vars.result[0].fileName}}"
+                }
+            },
+            "status": null,
+            "top": "840",
+            "left": "310",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
+            "uuid": "c58f16a3-be0a-4e18-8cf7-81e2687ca18c",
+            "id": 3253
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Were sensitive files involved",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Sensitive Files Involved",
+                        "step_iri": "\/api\/3\/workflow_steps\/b9e86661-e759-4fdc-9a74-9ab28c0abafd",
+                        "condition": "{{ vars.steps.Find_Intellectual_Property | length > 0 }}"
+                    },
+                    {
+                        "option": "No Sensitive Files",
+                        "default": true,
+                        "step_iri": "\/api\/3\/workflow_steps\/64c0aebc-f1b6-46f9-8c93-725a1490ffb9"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "975",
+            "left": "310",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "0d12a7c2-a244-438c-83d7-43ffed151cd6",
+            "id": 3254
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Fetch Incident Details",
+            "description": null,
+            "arguments": {
+                "name": "Symantec DLP",
+                "config": "801a5c38-2624-430d-978a-dc4e5ef352eb",
+                "params": {
+                    "include_history": true,
+                    "incident_long_id": "{{vars.steps.Search_Incident_in_DLP.data['ns5:incidentListResponse']['ns5:incidentLongId'][1]}}",
+                    "include_violations": true
+                },
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p><strong>Symantec DLP&nbsp;Query Results:<\/strong><\/p>\n<p>{{vars.result | json_query(\"[*].data.[\\\"ns5:incidentDetailResponse\\\"][].[\\\"ns5:response\\\"][].[\\\"ns5:incident\\\"][].[\\\"ns5:fileName\\\"][]\")}}}}<\/p>",
+                    "records": ""
+                },
+                "version": "2.1.0",
+                "connector": "symantec-dlp",
+                "operation": "get_incident_details",
+                "mock_result": "[\n  {\n    \"data\": {\n      \"ns5:incidentDetailResponse\": {\n        \"@xmlns:ns4\": \"http:\/\/www.vontu.com\/v2011\/enforce\/webservice\/incident\/common\/schema\",\n        \"ns5:response\": {\n          \"ns5:statusCode\": \"SUCCESS\",\n          \"ns5:incident\": {\n            \"ns5:status\": \"Escalated\",\n            \"ns5:eventDate\": \"2018-02-23T10:49:54.899-05:00\",\n            \"ns5:policy\": {\n              \"ns5:version\": \"3\",\n              \"ns5:name\": \"Access\",\n              \"ns5:label\": \"Access\",\n              \"@policyId\": \"23\"\n            },\n            \"ns5:fileCreateDate\": \"2018-02-23T10:49:53.232-05:00\",\n            \"ns5:filePath\": \"\\\\\\\\CORP\\\\Engineering\\\\FutureReleases\\\\\",\n            \"ns5:detectionServer\": \"Endpoint Server\",\n            \"@xsi:type\": \"ns5:EndpointLocalFileSystemIncidentDetail\",\n            \"ns5:incidentHistory\": [\n              {\n                \"ns4:date\": \"2018-02-23T10:58:45.386-05:00\",\n                \"ns4:user\": \"Peter.Gibbons\",\n                \"ns4:actionType\": \"<Nested object redacted>\",\n                \"ns4:detail\": \"No recipients specified for incident notification.\"\n              },\n              {\n                \"ns4:date\": \"2018-02-23T10:58:45.238-05:00\",\n                \"ns4:user\": \"Peter.Gibbons\",\n                \"ns4:actionType\": \"<Nested object redacted>\",\n                \"ns4:detail\": \"Unable to send incident notification: SMTP server setting is empty.\"\n              },\n              {\n                \"ns4:date\": \"2018-02-23T10:58:45.124-05:00\",\n                \"ns4:user\": \"Peter.Gibbons\",\n                \"ns4:actionType\": \"<Nested object redacted>\",\n                \"ns4:detail\": \"Escalated\"\n              },\n              {\n                \"ns4:date\": \"2018-02-23T10:58:45.108-05:00\",\n                \"ns4:user\": \"Peter.Gibbons\",\n                \"ns4:actionType\": \"<Nested object redacted>\",\n                \"ns4:detail\": \"New\"\n              },\n              {\n                \"ns4:date\": \"2018-02-23T10:49:54.894-05:00\",\n                \"ns4:user\": \"Peter.Gibbons\",\n                \"ns4:actionType\": \"<Nested object redacted>\",\n                \"ns4:detail\": \"High\"\n              },\n              {\n                \"ns4:date\": \"2018-02-23T10:49:54.885-05:00\",\n                \"ns4:user\": \"Endpoint Server\",\n                \"ns4:actionType\": \"<Nested object redacted>\"\n              }\n            ],\n            \"ns5:incidentCreationDate\": \"2018-02-23T10:58:45.596-05:00\",\n            \"ns5:incidentId\": \"4\",\n            \"ns5:applicationPath\": \"\\\\Device\\\\HarddiskVolume2\\\\Windows\\\\explorer.exe\",\n            \"ns5:messageHeader\": {\n              \"@componentLongId\": \"7\",\n              \"ns4:policyRuleViolation\": {\n                \"ns4:policyRule\": \"<Nested object redacted>\",\n                \"ns4:violation\": \"<Nested object redacted>\"\n              },\n              \"ns4:name\": \"Header\",\n              \"ns4:ruleViolationCount\": \"1\",\n              \"@componentId\": \"7\",\n              \"ns4:componentType\": {\n                \"@typeId\": \"1\",\n                \"#text\": \"Header\"\n              }\n            },\n            \"ns5:incidentLongId\": \"4\",\n            \"@xmlns:xsi\": \"http:\/\/www.w3.org\/2001\/XMLSchema-instance\",\n            \"ns5:volumeName\": \"\\\\Device\\\\HarddiskVolume2\",\n            \"ns5:messageType\": {\n              \"@typeId\": \"14\",\n              \"#text\": \"Endpoint Local Drive\"\n            },\n            \"ns5:fileLastAccessDate\": \"2018-02-23T10:49:53.232-05:00\",\n            \"ns5:violatedPolicyRule\": {\n              \"ns4:ruleName\": \"Access\",\n              \"@ruleId\": \"172\"\n            },\n            \"ns5:customAttributeGroup\": {\n              \"ns4:customAttribute\": [\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\"\n              ],\n              \"ns4:name\": \"Predefined\"\n            },\n            \"ns5:blockedStatus\": \"Passed\",\n            \"ns5:userName\": \"TEST-PC\\\\Peter.Gibbons\",\n            \"ns5:severity\": \"high\",\n            \"ns5:applicationName\": \"explorer.exe\",\n            \"ns5:matchCount\": \"1\",\n            \"ns5:fileName\": \"Product Architecture v8.2.docx\",\n            \"ns5:ruleViolationCount\": \"1\",\n            \"ns5:superseded\": \"No\",\n            \"ns5:detectionDate\": \"2018-02-23T10:58:38.431-05:00\",\n            \"ns5:messageSource\": {\n              \"#text\": \"Endpoint\",\n              \"@sourceType\": \"ENDPOINT\"\n            },\n            \"ns5:machineIP\": \"192.168.50.94\",\n            \"ns5:uniqueMessageId\": \"27B5E366-43F7-4C25-8535-E2037757A594\",\n            \"ns5:machineName\": \"TEST-PC\"\n          },\n          \"ns5:incidentLongId\": \"1714\",\n          \"ns5:incidentId\": \"41714\"\n        },\n        \"@xmlns:ns6\": \"http:\/\/www.vontu.com\/v2011\/enforce\/webservice\/incident\",\n        \"@xmlns:ns3\": \"http:\/\/www.vontu.com\/enforce\/export\/incident\/schema\",\n        \"@xmlns:ns2\": \"http:\/\/www.vontu.com\/enforce\/export\/incident\/common\/schema\",\n        \"@xmlns:ns5\": \"http:\/\/www.vontu.com\/v2011\/enforce\/webservice\/incident\/schema\"\n      }\n    }\n  },\n  {\n    \"data\": {\n      \"ns5:incidentDetailResponse\": {\n        \"@xmlns:ns4\": \"http:\/\/www.vontu.com\/v2011\/enforce\/webservice\/incident\/common\/schema\",\n        \"ns5:response\": {\n          \"ns5:statusCode\": \"SUCCESS\",\n          \"ns5:incident\": {\n            \"ns5:status\": \"Escalated\",\n            \"ns5:eventDate\": \"2018-02-23T10:49:54.899-05:00\",\n            \"ns5:policy\": {\n              \"ns5:version\": \"3\",\n              \"ns5:name\": \"Access\",\n              \"ns5:label\": \"Access\",\n              \"@policyId\": \"23\"\n            },\n            \"ns5:fileCreateDate\": \"2018-02-23T10:49:53.232-05:00\",\n            \"ns5:filePath\": \"\\\\\\\\CORP\\\\Engineering\\\\FutureReleases\\\\\",\n            \"ns5:detectionServer\": \"Endpoint Server\",\n            \"@xsi:type\": \"ns5:EndpointLocalFileSystemIncidentDetail\",\n            \"ns5:incidentHistory\": [\n              {\n                \"ns4:date\": \"2018-02-23T10:58:45.386-05:00\",\n                \"ns4:user\": \"Peter.Gibbons\",\n                \"ns4:actionType\": \"<Nested object redacted>\",\n                \"ns4:detail\": \"No recipients specified for incident notification.\"\n              },\n              {\n                \"ns4:date\": \"2018-02-23T10:58:45.238-05:00\",\n                \"ns4:user\": \"Peter.Gibbons\",\n                \"ns4:actionType\": \"<Nested object redacted>\",\n                \"ns4:detail\": \"Unable to send incident notification: SMTP server setting is empty.\"\n              },\n              {\n                \"ns4:date\": \"2018-02-23T10:58:45.124-05:00\",\n                \"ns4:user\": \"Peter.Gibbons\",\n                \"ns4:actionType\": \"<Nested object redacted>\",\n                \"ns4:detail\": \"Escalated\"\n              },\n              {\n                \"ns4:date\": \"2018-02-23T10:58:45.108-05:00\",\n                \"ns4:user\": \"Peter.Gibbons\",\n                \"ns4:actionType\": \"<Nested object redacted>\",\n                \"ns4:detail\": \"New\"\n              },\n              {\n                \"ns4:date\": \"2018-02-23T10:49:54.894-05:00\",\n                \"ns4:user\": \"Peter.Gibbons\",\n                \"ns4:actionType\": \"<Nested object redacted>\",\n                \"ns4:detail\": \"High\"\n              },\n              {\n                \"ns4:date\": \"2018-02-23T10:49:54.885-05:00\",\n                \"ns4:user\": \"Endpoint Server\",\n                \"ns4:actionType\": \"<Nested object redacted>\"\n              }\n            ],\n            \"ns5:incidentCreationDate\": \"2018-02-23T10:58:45.596-05:00\",\n            \"ns5:incidentId\": \"4\",\n            \"ns5:applicationPath\": \"\\\\Device\\\\HarddiskVolume2\\\\Windows\\\\explorer.exe\",\n            \"ns5:messageHeader\": {\n              \"@componentLongId\": \"7\",\n              \"ns4:policyRuleViolation\": {\n                \"ns4:policyRule\": \"<Nested object redacted>\",\n                \"ns4:violation\": \"<Nested object redacted>\"\n              },\n              \"ns4:name\": \"Header\",\n              \"ns4:ruleViolationCount\": \"1\",\n              \"@componentId\": \"7\",\n              \"ns4:componentType\": {\n                \"@typeId\": \"1\",\n                \"#text\": \"Header\"\n              }\n            },\n            \"ns5:incidentLongId\": \"4\",\n            \"@xmlns:xsi\": \"http:\/\/www.w3.org\/2001\/XMLSchema-instance\",\n            \"ns5:volumeName\": \"\\\\Device\\\\HarddiskVolume2\",\n            \"ns5:messageType\": {\n              \"@typeId\": \"14\",\n              \"#text\": \"Endpoint Local Drive\"\n            },\n            \"ns5:fileLastAccessDate\": \"2018-02-23T10:49:53.232-05:00\",\n            \"ns5:violatedPolicyRule\": {\n              \"ns4:ruleName\": \"Access\",\n              \"@ruleId\": \"172\"\n            },\n            \"ns5:customAttributeGroup\": {\n              \"ns4:customAttribute\": [\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\",\n                \"<Nested object redacted>\"\n              ],\n              \"ns4:name\": \"Predefined\"\n            },\n            \"ns5:blockedStatus\": \"Passed\",\n            \"ns5:userName\": \"TEST-PC\\\\Peter.Gibbons\",\n            \"ns5:severity\": \"high\",\n            \"ns5:applicationName\": \"explorer.exe\",\n            \"ns5:matchCount\": \"1\",\n            \"ns5:fileName\": \"Product Roadmap 2019.pdf\",\n            \"ns5:ruleViolationCount\": \"1\",\n            \"ns5:superseded\": \"No\",\n            \"ns5:detectionDate\": \"2018-02-23T10:58:38.431-05:00\",\n            \"ns5:messageSource\": {\n              \"#text\": \"Endpoint\",\n              \"@sourceType\": \"ENDPOINT\"\n            },\n            \"ns5:machineIP\": \"192.168.50.94\",\n            \"ns5:uniqueMessageId\": \"27B5E366-43F7-4C25-8535-E2037757A595\",\n            \"ns5:machineName\": \"TEST-PC\"\n          },\n          \"ns5:incidentLongId\": \"1714\",\n          \"ns5:incidentId\": \"41714\"\n        },\n        \"@xmlns:ns6\": \"http:\/\/www.vontu.com\/v2011\/enforce\/webservice\/incident\",\n        \"@xmlns:ns3\": \"http:\/\/www.vontu.com\/enforce\/export\/incident\/schema\",\n        \"@xmlns:ns2\": \"http:\/\/www.vontu.com\/enforce\/export\/incident\/common\/schema\",\n        \"@xmlns:ns5\": \"http:\/\/www.vontu.com\/v2011\/enforce\/webservice\/incident\/schema\"\n      }\n    }\n  }\n]",
+                "operationTitle": "Get Incident Details",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1650",
+            "left": "485",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "808900fb-d7e1-4235-aa9b-404ab72df90d",
+            "id": 3255
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start Investigation",
+            "description": null,
+            "arguments": {
+                "message": {
+                    "tags": [],
+                    "type": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "Investigating Potential {{vars.input.records[0].type.itemValue}}, with following fields of interest:\n{% if vars.input.records[0].domain %}Domain: {{vars.input.records[0].domain -}}{% endif %}\n{% if vars.input.records[0].sourceIp %}SourceIP: {{ vars.input.records[0].sourceIp -}}{% endif %}\n{% if vars.input.records[0].destinationIp %}DestinationIP: {{vars.input.records[0].destinationIp -}}{% endif %}\n{% if vars.input.records[0].fileHash %}File Hash: {{vars.input.records[0].fileHash -}}{% endif %}\n{% if vars.input.records[0].computerName %}ComputerName: {{vars.input.records[0].computerName -}}{% endif %}\n{% if vars.input.records[0].processName %}Process: {{vars.input.records[0].processName -}}{% endif %}\n{% if vars.input.records[0].sourceProcess %}SourceProcess: {{vars.input.records[0].sourceProcess -}}{% endif %}",
+                    "records": ""
+                },
+                "resource": {
+                    "status": {
+                        "id": 113,
+                        "@id": "\/api\/3\/picklists\/758925e7-629c-46d8-89db-fb36f5fbe88a",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Investigating",
+                        "listName": "\/api\/3\/picklist_names\/33e964a9-d607-49f2-813c-7ce46141815a",
+                        "itemValue": "Investigating",
+                        "orderIndex": 2
+                    }
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "__recommend": [],
+                "collectionType": "\/api\/3\/alerts",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "300",
+            "left": "310",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "5cb523fc-a465-4a3c-ac64-3856d6802bc5",
+            "id": 3256
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Manual Task for Inline block on Cloud SOC",
+            "description": null,
+            "arguments": {
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Added manual tasks for:<br>1. Blocking the user in CloudSOC&nbsp;<br>2. Revoking File Permissions&nbsp;<\/p>",
+                    "records": "['{{vars.input.records[0]['@id']}}']"
+                },
+                "resource": {
+                    "id": null,
+                    "name": "Block the user on CloudSOC",
+                    "type": {
+                        "id": 5268,
+                        "@id": "\/api\/3\/picklists\/826ad76d-e418-4928-9bc9-ea552ebcc5f9",
+                        "icon": null,
+                        "uuid": "826ad76d-e418-4928-9bc9-ea552ebcc5f9",
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Incident Response",
+                        "listName": "\/api\/3\/picklist_names\/b837e375-76af-4ba5-b6a1-bd1c3cd27292",
+                        "itemValue": "Incident Response",
+                        "orderIndex": 6
+                    },
+                    "dueBy": null,
+                    "notes": null,
+                    "alerts": "['{{vars.input.records[0]['@id']}}']",
+                    "assets": null,
+                    "owners": null,
+                    "status": {
+                        "id": 117,
+                        "@id": "\/api\/3\/picklists\/959021fc-c19d-4aee-8e51-5395c5029719",
+                        "icon": null,
+                        "uuid": "959021fc-c19d-4aee-8e51-5395c5029719",
+                        "@type": "Picklist",
+                        "color": "#ffce1f",
+                        "display": "In progress",
+                        "listName": "\/api\/3\/picklist_names\/21ddbcfd-b4a3-4273-adea-c674fe47d643",
+                        "itemValue": "In progress",
+                        "orderIndex": 0
+                    },
+                    "stepid": null,
+                    "tenant": null,
+                    "persons": null,
+                    "comments": null,
+                    "conflict": null,
+                    "priority": {
+                        "id": 118,
+                        "@id": "\/api\/3\/picklists\/612befbc-4255-403a-958b-11efce3e1d8c",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#ab0e0e",
+                        "display": "Urgent",
+                        "listName": "\/api\/3\/picklist_names\/bea9a490-50d1-4597-8ad9-24422e10676e",
+                        "itemValue": "Urgent",
+                        "orderIndex": 1
+                    },
+                    "taskdata": null,
+                    "tasktype": null,
+                    "warrooms": null,
+                    "companies": null,
+                    "incidents": null,
+                    "startDate": null,
+                    "taskTeams": null,
+                    "createDate": null,
+                    "createUser": null,
+                    "modifyDate": null,
+                    "modifyUser": null,
+                    "recordTags": null,
+                    "userOwners": null,
+                    "workflowid": null,
+                    "attachments": null,
+                    "description": "<p>Disable&nbsp;user in Cloud.SOC<\/p>\n<p><strong>Details:<\/strong><\/p>\n<p><strong>User:&nbsp;<\/strong>{{vars.steps.Lookup_User_Details.data.entries[0].attributes.cn}}<\/p>\n<p><strong>SAM Account Name<\/strong>:&nbsp;{{vars.steps.Lookup_User_Details.data.entries[0].attributes.sAMAccountName}}<\/p>\n<p><strong>Email&nbsp;Address:&nbsp;<\/strong>{{vars.request.data.userDetail}}<\/p>\n<p>&nbsp;<\/p>",
+                    "approvalhost": null,
+                    "actualMinutes": null,
+                    "assignedOnDate": null,
+                    "tenantRecordId": null,
+                    "completedOnDate": null,
+                    "vulnerabilities": null,
+                    "assignedToPerson": {
+                        "id": 187,
+                        "@id": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+                        "type": null,
+                        "@type": "Person",
+                        "email": "soc@cybersponse.com",
+                        "title": "Admin",
+                        "avatar": null,
+                        "userId": "ce5a842b-fbbc-4c6e-8d35-a0438fcdf80c",
+                        "display": "CS Admin",
+                        "rawData": null,
+                        "lastname": "Admin",
+                        "phoneFax": null,
+                        "userType": null,
+                        "@settings": "\/api\/3\/user_settings\/3451141c-bac6-467c-8d72-85e0fab569ce",
+                        "companyId": null,
+                        "firstname": "CS",
+                        "phoneHome": null,
+                        "phoneWork": "-9320",
+                        "createDate": 1507018444,
+                        "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+                        "department": null,
+                        "modifyDate": 1525004982,
+                        "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+                        "description": null,
+                        "phoneMobile": null
+                    },
+                    "systemAssignedQueue": null
+                },
+                "collection": "tasks",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1515",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/dc6ac63d-c5a5-472f-9eb4-6b18473a98b8",
+            "uuid": "2b883a23-7f0b-4123-b14f-f0019d8e94ab",
+            "id": 3257
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Lookup User Details",
+            "description": null,
+            "arguments": {
+                "name": "Active Directory",
+                "config": "168972ff-63e2-4a03-8a2c-feb0e33d0a9c",
+                "params": {
+                    "cookie": "",
+                    "page_size": "",
+                    "size_limit": "",
+                    "search_object": "User",
+                    "search_attr_name": "Email",
+                    "search_attr_value": "{{vars.input.records[0].userDetails}}"
+                },
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Investigating data leakage from :<\/p>\n<p><strong>User's Email ID : {{vars.input.records[0].userDetails}}<\/strong><\/p>\n<p>&nbsp;<\/p>\n<p><strong>Active Directory Details:<br><\/strong><strong>User's Name<\/strong> :&nbsp;{{vars.result.data.entries[0].attributes.cn}}<br><strong>Domain Name<\/strong> :&nbsp;{{vars.result.data.entries[0].dn}}<\/p>",
+                    "records": "{{vars.input.records[0]['@id']}}"
+                },
+                "version": "2.1.1",
+                "connector": "activedirectory",
+                "operation": "global_search",
+                "mock_result": "{\n  \"message\": \"\",\n  \"status\": \"Success\",\n  \"operation\": \"global_search\",\n  \"data\": {\n    \"entries\": [\n      {\n        \"dn\": \"CN=Peter Gibbons,OU=QA,DC=cyops,DC=local\",\n        \"attributes\": {\n          \"mail\": \"Peter.Gibbons@cyops.local\",\n          \"badPwdCount\": 0,\n          \"extensionAttribute10\": \"terminated\",\n          \"sn\": \"Gibbons\",\n          \"accountExpires\": 253402300799,\n          \"userAccountControl\": \"DONT_EXPIRE_PASSWORD | NORMAL_ACCOUNT | USER_ACCOUNT_DISABLED\",\n          \"primaryGroupID\": 513,\n          \"displayName\": \"Peter Gibbons\",\n          \"pwdLastSet\": 1525426282,\n          \"whenChanged\": 1525672135,\n          \"codePage\": 0,\n          \"sAMAccountType\": \"SAM_NORMAL_USER_ACCOUNT\",\n          \"uSNCreated\": 112185,\n          \"whenCreated\": 1525426282,\n          \"cn\": \"Peter Gibbons\",\n          \"name\": \"Peter Gibbons\",\n          \"uSNChanged\": 112495,\n          \"instanceType\": 4,\n          \"objectSid\": \"S-1-5-21-2775588645-2726100070-1280702769-1149\",\n          \"objectGUID\": \"9e0de594-c1e6-44d4-b633-1d09e8676d03\",\n          \"lastLogon\": null,\n          \"badPasswordTime\": null,\n          \"objectClass\": [\n            \"top\",\n            \"person\",\n            \"organizationalPerson\",\n            \"user\"\n          ],\n          \"objectCategory\": \"CN=Person,CN=Schema,CN=Configuration,DC=cyops,DC=local\",\n          \"sAMAccountName\": \"Peter.Gibbons\",\n          \"userPrincipalName\": \"Peter.Gibbons@cyops.local\",\n          \"logonCount\": 0,\n          \"countryCode\": 0,\n          \"givenName\": \"Peter\",\n          \"dSCorePropagationData\": [\n            null\n          ],\n          \"lastLogoff\": null,\n          \"distinguishedName\": \"CN=Peter Gibbons,OU=QA,DC=cyops,DC=local\"\n        }\n      }\n    ]\n  }\n}",
+                "operationTitle": "Global Search",
+                "step_variables": {
+                    "userName": "{{vars.result.data.entries[0].attributes.cn}}"
+                }
+            },
+            "status": null,
+            "top": "435",
+            "left": "310",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "b19717b8-d9ed-466a-8f86-2967c567431e",
+            "id": 3258
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Buffer Step",
+            "description": null,
+            "arguments": {
+                "params": [],
+                "version": "2.6.0",
+                "connector": "cyops_utilities",
+                "operation": "no_op",
+                "operationTitle": "Utils: No Operation",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1380",
+            "left": "495",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "64c0aebc-f1b6-46f9-8c93-725a1490ffb9",
+            "id": 3259
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Manual Task for revoking File permission",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "id": null,
+                    "name": "Revoke the file permission",
+                    "type": {
+                        "id": 5268,
+                        "@id": "\/api\/3\/picklists\/826ad76d-e418-4928-9bc9-ea552ebcc5f9",
+                        "icon": null,
+                        "uuid": "826ad76d-e418-4928-9bc9-ea552ebcc5f9",
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Incident Response",
+                        "listName": "\/api\/3\/picklist_names\/b837e375-76af-4ba5-b6a1-bd1c3cd27292",
+                        "itemValue": "Incident Response",
+                        "orderIndex": 6
+                    },
+                    "dueBy": null,
+                    "notes": null,
+                    "alerts": "['{{vars.input.records[0]['@id']}}']",
+                    "assets": null,
+                    "owners": null,
+                    "status": {
+                        "id": 117,
+                        "@id": "\/api\/3\/picklists\/959021fc-c19d-4aee-8e51-5395c5029719",
+                        "icon": null,
+                        "uuid": "959021fc-c19d-4aee-8e51-5395c5029719",
+                        "@type": "Picklist",
+                        "color": "#ffce1f",
+                        "display": "In progress",
+                        "listName": "\/api\/3\/picklist_names\/21ddbcfd-b4a3-4273-adea-c674fe47d643",
+                        "itemValue": "In progress",
+                        "orderIndex": 0
+                    },
+                    "stepid": null,
+                    "persons": null,
+                    "comments": null,
+                    "priority": {
+                        "id": 118,
+                        "@id": "\/api\/3\/picklists\/612befbc-4255-403a-958b-11efce3e1d8c",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#ab0e0e",
+                        "display": "Urgent",
+                        "listName": "\/api\/3\/picklist_names\/bea9a490-50d1-4597-8ad9-24422e10676e",
+                        "itemValue": "Urgent",
+                        "orderIndex": 1
+                    },
+                    "taskdata": null,
+                    "tasktype": null,
+                    "warrooms": null,
+                    "companies": null,
+                    "incidents": null,
+                    "startDate": null,
+                    "taskTeams": null,
+                    "createDate": null,
+                    "createUser": null,
+                    "modifyDate": null,
+                    "modifyUser": null,
+                    "recordTags": null,
+                    "workflowid": null,
+                    "attachments": null,
+                    "description": "<p>Details for revoking file permission :<\/p>\n<p><strong>User:<\/strong>&nbsp;{{vars.steps.Lookup_User_Details.data.entries[0].attributes.cn}}<\/p>\n<p><strong>File<\/strong>&nbsp;:&nbsp;{{vars.exfiledFile}}<\/p>",
+                    "approvalhost": null,
+                    "actualMinutes": null,
+                    "assignedOnDate": null,
+                    "completedOnDate": null,
+                    "vulnerabilities": null,
+                    "assignedToPerson": {
+                        "id": 187,
+                        "@id": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+                        "type": null,
+                        "@type": "Person",
+                        "email": "soc@cybersponse.com",
+                        "title": "Admin",
+                        "avatar": null,
+                        "userId": "ce5a842b-fbbc-4c6e-8d35-a0438fcdf80c",
+                        "display": "CS Admin",
+                        "rawData": null,
+                        "lastname": "Admin",
+                        "phoneFax": null,
+                        "userType": null,
+                        "@settings": "\/api\/3\/user_settings\/3451141c-bac6-467c-8d72-85e0fab569ce",
+                        "companyId": null,
+                        "firstname": "CS",
+                        "phoneHome": null,
+                        "phoneWork": "-9320",
+                        "createDate": 1507018444,
+                        "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+                        "department": null,
+                        "modifyDate": 1525004982,
+                        "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+                        "description": null,
+                        "phoneMobile": null
+                    },
+                    "systemAssignedQueue": null
+                },
+                "collection": "tasks",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1650",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/dc6ac63d-c5a5-472f-9eb4-6b18473a98b8",
+            "uuid": "59281b7f-a6fa-475e-9c14-0923639faa95",
+            "id": 3260
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Add user email as indicator",
+            "description": null,
+            "arguments": {
+                "arguments": {
+                    "assetIRI": "",
+                    "description": "",
+                    "indicatorType": "{{ \"IndicatorType\" | picklist(\"Email Address\", \"@id\") }}",
+                    "alertRecordIRI": "{{vars.request.data['@id']}}",
+                    "emailRecordIRI": "",
+                    "indicatorValue": "{{vars.input.records[0].userDetails}}",
+                    "indicatorFileIri": "",
+                    "incidentRecordIRI": ""
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "workflowReference": "\/api\/3\/workflows\/69af07bb-0ce0-4c27-add3-a30a1818d421"
+            },
+            "status": null,
+            "top": "570",
+            "left": "310",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "1ed34b45-5807-41b0-952c-74ff485d1145",
+            "id": 3261
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Close the Alert",
+            "description": null,
+            "arguments": {
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p><span style=\"color: #008000;\"><strong>Containment procedure completed.<\/strong><\/span><\/p>",
+                    "records": ""
+                },
+                "resource": {
+                    "status": {
+                        "id": 6802,
+                        "@id": "\/api\/3\/picklists\/fac53e73-8d16-4189-98d5-95fbd1555232",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Closed",
+                        "listName": "\/api\/3\/picklist_names\/33e964a9-d607-49f2-813c-7ce46141815a",
+                        "itemValue": "Closed",
+                        "orderIndex": 1
+                    }
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "__recommend": [],
+                "tagsOperation": "OverwriteTags",
+                "collectionType": "\/api\/3\/alerts",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1920",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "d165bcba-6ed9-40ba-bcbe-6369199d1650",
+            "id": 3262
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "4a90bdc4-7d72-4196-818a-deaeee63965d",
+                "resources": [
+                    "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                    "input": {
+                        "records": "{{vars.input.records}}"
+                    }
+                },
+                "displayConditions": {
+                    "alerts": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": [
+                            {
+                                "type": "object",
+                                "field": "state",
+                                "value": "\/api\/3\/picklists\/501d0562-89a0-4079-9a9e-cdde7d34e3ed",
+                                "_value": {
+                                    "@id": "\/api\/3\/picklists\/501d0562-89a0-4079-9a9e-cdde7d34e3ed",
+                                    "display": "Indicator Extracted",
+                                    "itemValue": "Indicator Extracted"
+                                },
+                                "operator": "eq"
+                            },
+                            {
+                                "type": "primitive",
+                                "field": "source",
+                                "value": "Symantec Cloud.SOC",
+                                "operator": "eq",
+                                "_operator": "eq"
+                            },
+                            {
+                                "type": "object",
+                                "field": "type",
+                                "value": "\/api\/3\/picklists\/3eb31470-7a13-4029-9b48-6f5f3d493002",
+                                "_value": {
+                                    "@id": "\/api\/3\/picklists\/3eb31470-7a13-4029-9b48-6f5f3d493002",
+                                    "display": "Data Leakage",
+                                    "itemValue": "Data Leakage"
+                                },
+                                "operator": "eq"
+                            },
+                            {
+                                "type": "object",
+                                "field": "status",
+                                "value": "\/api\/3\/picklists\/7de816ff-7140-4ee5-bd05-93ce22002146",
+                                "_value": {
+                                    "@id": "\/api\/3\/picklists\/7de816ff-7140-4ee5-bd05-93ce22002146",
+                                    "display": "Open",
+                                    "itemValue": "Open"
+                                },
+                                "operator": "eq"
+                            }
+                        ]
+                    }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": false,
+                "singleRecordExecution": true
+            },
+            "status": null,
+            "top": "30",
+            "left": "310",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "uuid": "56112e7e-c21b-43ab-a11e-16ed3f760dd2",
+            "id": 3263
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Escalate and Close Alert -> Email Notification",
+            "targetStep": "\/api\/3\/workflow_steps\/b277366e-55f6-42e9-9f51-1fd8558860e1",
+            "sourceStep": "\/api\/3\/workflow_steps\/b9e86661-e759-4fdc-9a74-9ab28c0abafd",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "bb206358-9125-450c-bbb2-c0f2dd3539b0"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start Investigation -> Lookup User Details",
+            "targetStep": "\/api\/3\/workflow_steps\/b19717b8-d9ed-466a-8f86-2967c567431e",
+            "sourceStep": "\/api\/3\/workflow_steps\/5cb523fc-a465-4a3c-ac64-3856d6802bc5",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "a0660225-139c-442d-93c5-48d29a997352"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Add user as Observablea -> Find if user in watch list",
+            "targetStep": "\/api\/3\/workflow_steps\/b4c6bc24-aa53-424d-8de9-9c298b4683be",
+            "sourceStep": "\/api\/3\/workflow_steps\/1ed34b45-5807-41b0-952c-74ff485d1145",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "a3ba1a95-427f-4dfd-ae73-41ba2e74ec19"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Deactivate User from AD -> Manual Task for Inline block on Cloud SOC",
+            "targetStep": "\/api\/3\/workflow_steps\/2b883a23-7f0b-4123-b14f-f0019d8e94ab",
+            "sourceStep": "\/api\/3\/workflow_steps\/6196f857-7c3a-492d-a941-917e284460bb",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "dc64e9e7-fa87-4adc-bbc8-bab862746448"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Buffer Step -> Search Incident in DLP",
+            "targetStep": "\/api\/3\/workflow_steps\/83713fcc-902e-42a1-865a-4c09efce38df",
+            "sourceStep": "\/api\/3\/workflow_steps\/64c0aebc-f1b6-46f9-8c93-725a1490ffb9",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "6fd39084-7a04-46c9-8fa2-13e0edd96c71"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Note for task completion of revoking file permission -> Copy  of Escalate and Close Alert",
+            "targetStep": "\/api\/3\/workflow_steps\/d165bcba-6ed9-40ba-bcbe-6369199d1650",
+            "sourceStep": "\/api\/3\/workflow_steps\/14ce8984-8d38-4271-a0b2-cc30bc6f1714",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "e15c3143-3e6e-4a21-8f5b-21cea5e9df62"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Search Incident in DLP -> Copy  of Search Incident in DLP",
+            "targetStep": "\/api\/3\/workflow_steps\/808900fb-d7e1-4235-aa9b-404ab72df90d",
+            "sourceStep": "\/api\/3\/workflow_steps\/83713fcc-902e-42a1-865a-4c09efce38df",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "8cf3f435-5e5d-426b-b9b2-e7e5f672ce13"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Fetch Incident Details -> Create Additional Alerts",
+            "targetStep": "\/api\/3\/workflow_steps\/1ca0c190-761e-42b2-85ec-8c04bd816976",
+            "sourceStep": "\/api\/3\/workflow_steps\/808900fb-d7e1-4235-aa9b-404ab72df90d",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "0443412d-6446-4e62-87b3-7ec19a8ed2a5"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/1849fdd2-2fc4-4bf5-92ed-6224fce0f358",
+            "sourceStep": "\/api\/3\/workflow_steps\/56112e7e-c21b-43ab-a11e-16ed3f760dd2",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "35a12c02-8bf7-4e00-acb9-20b57cedf4a2"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Find if user in watch list -> Find Intellectual Property",
+            "targetStep": "\/api\/3\/workflow_steps\/c58f16a3-be0a-4e18-8cf7-81e2687ca18c",
+            "sourceStep": "\/api\/3\/workflow_steps\/b4c6bc24-aa53-424d-8de9-9c298b4683be",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "b8bb054c-2a75-4bff-90fc-5ce2e060605d"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Manual Task for revoking File permission -> Copy  of Note for task completion of Block User",
+            "targetStep": "\/api\/3\/workflow_steps\/14ce8984-8d38-4271-a0b2-cc30bc6f1714",
+            "sourceStep": "\/api\/3\/workflow_steps\/59281b7f-a6fa-475e-9c14-0923639faa95",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "c9c093b3-d0af-482b-a8a5-ffea1fbdb1b7"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Find Intellectual Property -> Were sensitive files involved",
+            "targetStep": "\/api\/3\/workflow_steps\/0d12a7c2-a244-438c-83d7-43ffed151cd6",
+            "sourceStep": "\/api\/3\/workflow_steps\/c58f16a3-be0a-4e18-8cf7-81e2687ca18c",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "10372a81-f548-4e11-8ceb-21857987a278"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Email Notification -> Copy  of Lookup User Details",
+            "targetStep": "\/api\/3\/workflow_steps\/6196f857-7c3a-492d-a941-917e284460bb",
+            "sourceStep": "\/api\/3\/workflow_steps\/b277366e-55f6-42e9-9f51-1fd8558860e1",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "4bfcf563-e1a8-4011-8149-23d3f2cec5dc"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Lookup User Details -> Add user as Observablea",
+            "targetStep": "\/api\/3\/workflow_steps\/1ed34b45-5807-41b0-952c-74ff485d1145",
+            "sourceStep": "\/api\/3\/workflow_steps\/b19717b8-d9ed-466a-8f86-2967c567431e",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "674fb261-d053-40f8-9439-da8960d0ee73"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Manual Task for Inline block on Cloud SOC -> Manual Task for revoking File permission",
+            "targetStep": "\/api\/3\/workflow_steps\/59281b7f-a6fa-475e-9c14-0923639faa95",
+            "sourceStep": "\/api\/3\/workflow_steps\/2b883a23-7f0b-4123-b14f-f0019d8e94ab",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "bf0c650d-5180-42a2-bc02-1d198e390f87"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Start Investigation",
+            "targetStep": "\/api\/3\/workflow_steps\/5cb523fc-a465-4a3c-ac64-3856d6802bc5",
+            "sourceStep": "\/api\/3\/workflow_steps\/1849fdd2-2fc4-4bf5-92ed-6224fce0f358",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "5f25645d-944a-46a9-8321-74cd5dd2c24f"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Were sensitive files involved -> Raise the Severity of the Alert",
+            "targetStep": "\/api\/3\/workflow_steps\/b9e86661-e759-4fdc-9a74-9ab28c0abafd",
+            "sourceStep": "\/api\/3\/workflow_steps\/0d12a7c2-a244-438c-83d7-43ffed151cd6",
+            "label": "Sensitive Files Involved",
+            "isExecuted": false,
+            "uuid": "ec19e4bb-9d65-42ed-b381-837ccacab0fa"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Were sensitive files involved -> Buffer Step",
+            "targetStep": "\/api\/3\/workflow_steps\/64c0aebc-f1b6-46f9-8c93-725a1490ffb9",
+            "sourceStep": "\/api\/3\/workflow_steps\/0d12a7c2-a244-438c-83d7-43ffed151cd6",
+            "label": "No Sensitive Files",
+            "isExecuted": false,
+            "uuid": "9ed8d409-56b1-45a6-b3e3-dcb510797dcf"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Deactivate User from AD -> Search Incident in DLP",
+            "targetStep": "\/api\/3\/workflow_steps\/83713fcc-902e-42a1-865a-4c09efce38df",
+            "sourceStep": "\/api\/3\/workflow_steps\/6196f857-7c3a-492d-a941-917e284460bb",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "09714c78-9e92-4392-b025-f1b0c7df9bd4"
+        }
+    ],
+    "priority": null,
+    "uuid": "aafbde8c-4519-4f5d-9b75-4e939deda700",
+    "recordTags": [
+        "PostCreate",
+        "Alerts"
+    ],
+    "id": 983,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433427,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433427,
+    "owners": [],
+    "isPrivate": false
+}
