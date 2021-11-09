@@ -1,0 +1,932 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Investigate Lost \/ Stolen Device",
+    "aliasName": null,
+    "tag": null,
+    "description": "Investigates lost or stolen devices using ServiceNow and Active Directory.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/59667fcc-7feb-4ba4-a5a2-e03a9287f857",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/f1f9335e-ee0a-470f-ac10-b995c3c60baf",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "dc12a6dc-3e7c-468d-87de-1232e55bdf4d",
+                "resources": [
+                    "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                    "input": {
+                        "records": "{{vars.input.records}}"
+                    },
+                    "loggedInUser": "{{vars.currentUser | fromIRI }}"
+                },
+                "displayConditions": {
+                    "alerts": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": [
+                            {
+                                "type": "object",
+                                "field": "type",
+                                "value": "\/api\/3\/picklists\/2b8024fd-096a-426f-bf7f-63fb149ff9ee",
+                                "_value": {
+                                    "@id": "\/api\/3\/picklists\/2b8024fd-096a-426f-bf7f-63fb149ff9ee",
+                                    "itemValue": "Lost \/ Stolen"
+                                },
+                                "operator": "eq"
+                            }
+                        ]
+                    }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": false,
+                "singleRecordExecution": true
+            },
+            "status": null,
+            "top": "30",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "uuid": "f1f9335e-ee0a-470f-ac10-b995c3c60baf",
+            "id": 3293
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Asset Details From ServiceNow",
+            "description": null,
+            "arguments": {
+                "name": "ServiceNow",
+                "config": "45bd0d6d-e7d0-4587-832a-17e8d4644505",
+                "params": {
+                    "adv_query": "assigned_to={{vars.Owner}}&subcategory={{vars.Type}}&serial_number={{vars.Serial_number}}",
+                    "table_name": "cmdb_ci_hardware",
+                    "sysparm_limit": 10000
+                },
+                "message": {
+                    "tags": [],
+                    "type": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Retriving asset details from ServiceNow<\/p>",
+                    "records": ""
+                },
+                "version": "3.1.0",
+                "connector": "servicenow",
+                "operation": "advance_search",
+                "mock_result": "{\n  \"data\": {\n    \"result\": [\n      {\n        \"due\": \"\",\n        \"cost\": \"1934.9384\",\n        \"fqdn\": \"\",\n        \"name\": \"MacBook Pro 17\\\"\",\n        \"asset\": {\n          \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/alm_asset\/29ec3afe2f3f50103d07ae6df699b617\",\n          \"value\": \"29ec3afe2f3f50103d07ae6df699b617\"\n        },\n        \"due_in\": \"\",\n        \"sys_id\": \"463e32322f7f50103d07ae6df699b681\",\n        \"vendor\": {\n          \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/core_company\/b7e9e843c0a80169009a5a485bb2a2b5\",\n          \"value\": \"b7e9e843c0a80169009a5a485bb2a2b5\"\n        },\n        \"company\": {\n          \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/core_company\/81fbfe03ac1d55eb286d832de58ae1fd\",\n          \"value\": \"81fbfe03ac1d55eb286d832de58ae1fd\"\n        },\n        \"cost_cc\": \"GBP\",\n        \"monitor\": \"false\",\n        \"assigned\": \"\",\n        \"category\": \"Hardware\",\n        \"comments\": \"\",\n        \"lease_id\": \"\",\n        \"location\": \"\",\n        \"model_id\": {\n          \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/cmdb_model\/3a018d0f1b1310002502fbcd2c0713f7\",\n          \"value\": \"3a018d0f1b1310002502fbcd2c0713f7\"\n        },\n        \"owned_by\": \"\",\n        \"schedule\": \"\",\n        \"sys_tags\": \"\",\n        \"asset_tag\": \"FSR00127\",\n        \"can_print\": \"false\",\n        \"po_number\": \"\",\n        \"skip_sync\": \"false\",\n        \"attributes\": \"\",\n        \"checked_in\": \"\",\n        \"department\": {\n          \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/cmn_department\/221f79b7c6112284005d646b76ab978c\",\n          \"value\": \"221f79b7c6112284005d646b76ab978c\"\n        },\n        \"dns_domain\": \"\",\n        \"gl_account\": \"\",\n        \"ip_address\": \"\",\n        \"managed_by\": \"\",\n        \"order_date\": \"\",\n        \"start_date\": \"\",\n        \"sys_domain\": {\n          \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user_group\/global\",\n          \"value\": \"global\"\n        },\n        \"unverified\": \"false\",\n        \"assigned_to\": {\n          \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user\/4f7db2322f7f50103d07ae6df699b636\",\n          \"value\": \"4f7db2322f7f50103d07ae6df699b636\"\n        },\n        \"checked_out\": \"\",\n        \"cost_center\": \"\",\n        \"fault_count\": \"0\",\n        \"mac_address\": \"\",\n        \"subcategory\": \"Computer\",\n        \"duplicate_of\": \"\",\n        \"install_date\": \"\",\n        \"manufacturer\": {\n          \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/core_company\/b7e9e843c0a80169009a5a485bb2a2b5\",\n          \"value\": \"b7e9e843c0a80169009a5a485bb2a2b5\"\n        },\n        \"model_number\": \"\",\n        \"supported_by\": \"\",\n        \"delivery_date\": \"\",\n        \"justification\": \"\",\n        \"purchase_date\": \"\",\n        \"serial_number\": \"BQP-854-D33246-GH\",\n        \"support_group\": \"\",\n        \"sys_mod_count\": \"2\",\n        \"change_control\": \"\",\n        \"correlation_id\": \"\",\n        \"install_status\": \"1\",\n        \"invoice_number\": \"\",\n        \"sys_class_name\": \"cmdb_ci_computer\",\n        \"sys_class_path\": \"\/!!\/!2\/!(\",\n        \"sys_created_by\": \"admin\",\n        \"sys_created_on\": \"2020-10-15 19:59:26\",\n        \"sys_updated_by\": \"admin\",\n        \"sys_updated_on\": \"2020-10-16 10:37:26\",\n        \"default_gateway\": \"\",\n        \"hardware_status\": \"installed\",\n        \"last_discovered\": \"\",\n        \"sys_domain_path\": \"\/\",\n        \"assignment_group\": \"\",\n        \"discovery_source\": \"\",\n        \"first_discovered\": \"\",\n        \"short_description\": \"\",\n        \"hardware_substatus\": \"in_use\",\n        \"operational_status\": \"1\",\n        \"warranty_expiration\": \"\",\n        \"maintenance_schedule\": \"\"\n      }\n    ]\n  },\n  \"status\": \"Success\",\n  \"_status\": true,\n  \"message\": \"\",\n  \"operation\": null,\n  \"request_id\": null\n}",
+                "operationTitle": "Advanced Search",
+                "pickFromTenant": false,
+                "step_variables": {
+                    "tmp": "{{ vars.All_details.append(vars.result.data.result[0]['assigned_to'].link)}}\n{{ vars.All_details.append(vars.result.data.result[0].company.link)}}\n{{ vars.All_details.append(vars.result.data.result[0].vendor.link)}}"
+                }
+            },
+            "status": null,
+            "top": "980",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "f1a1d699-4f09-4313-8cd3-ea1ae602800c",
+            "id": 3294
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Send Confirmation Mail",
+            "description": null,
+            "arguments": {
+                "message": {
+                    "tags": [],
+                    "type": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Device confirmation details sent over mail to the end user and his\/her manager<\/p>",
+                    "records": ""
+                },
+                "resource": {
+                    "cc": "{{vars.manager_email}}",
+                    "to": "{{vars.steps.Get_Details_from_ServiceNow[0].data.result.email}}",
+                    "body": "<p>Hello {{vars.Owner}},<\/p>\n<br>\n<p>Please confirm below device details <\/p>\n&nbsp;\n<table style=\"width: 408px; border-color: white;\" border=\"2\">\n<tbody>\n<tr>\n<td style=\"width: 138px; text-align: center;\">&nbsp;Info<\/td>\n<td style=\"width: 269px; text-align: center;\">&nbsp;Value<\/td>\n<\/tr>\n<tr>\n<td style=\"width: 138px;\">Name<\/td>\n<td style=\"width: 269px;\">{{vars.steps.Get_Asset_Details_From_ServiceNow.data.result[0].name}}<\/td>\n<\/tr>\n<tr>\n<td style=\"width: 138px;\">Assigned To<\/td>\n<td style=\"width: 269px;\">{{vars.steps.Get_Details_from_ServiceNow[0].data.result.name}}<\/td>\n<\/tr>\n<tr>\n<td style=\"width: 138px;\">Vendor<\/td>\n<td style=\"width: 269px;\">{{vars.steps.Get_Details_from_ServiceNow[2].data.result.name}}<\/td>\n<\/tr>\n<tr>\n<td style=\"width: 138px;\">Company<\/td>\n<td style=\"width: 269px;\">{{vars.steps.Get_Details_from_ServiceNow[1].data.result.name}}<\/td>\n<\/tr>\n<tr>\n<td style=\"width: 138px;\">Serial Number<\/td>\n<td style=\"width: 269px;\">{{vars.steps.Get_Asset_Details_From_ServiceNow.data.result[0].serial_number}}<\/td>\n<\/tr>\n<\/tbody>\n<\/table>\n <\/br>\n\n<\/br><p>Thanks<\/p>\n<p>FortiSOAR Team<\/p> \n \n \n ",
+                    "type": {
+                        "id": 276,
+                        "@id": "\/api\/3\/picklists\/b8e7c917-5299-4a43-9c1a-fac1d9a5438f",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Email",
+                        "listName": "\/api\/3\/picklist_names\/57d30379-dbba-4684-b126-ec3ad8766f06",
+                        "itemValue": "Email",
+                        "orderIndex": 0
+                    },
+                    "alerts": "{{vars.input.records[0]['@id']}}",
+                    "subject": "Confirm device list details owned by {{vars.Owner}}",
+                    "__replace": "",
+                    "msgDirection": {
+                        "id": 274,
+                        "@id": "\/api\/3\/picklists\/1b0fd95b-9508-47b9-9e90-e8bcd712bb83",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Sent",
+                        "listName": "\/api\/3\/picklist_names\/09b97c81-669a-4ac8-8668-920913f3329b",
+                        "itemValue": "Sent",
+                        "orderIndex": 1
+                    }
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/communication",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1785",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "eeccb706-b05a-48c9-b31a-baf1bc323e51",
+            "id": 3295
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Isolate System",
+            "description": null,
+            "arguments": {
+                "name": "Fortinet FortiEDR",
+                "config": "c6aa2e46-35ff-461f-b136-8e21af2c9366",
+                "params": {
+                    "type": "Name",
+                    "devices": "{{vars.steps.Get_Asset_Details_From_ServiceNow.data.result[0].name}}",
+                    "organization": ""
+                },
+                "message": {
+                    "tags": [],
+                    "type": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "Device isolated succesfully and confirmed by {{vars.loggedInUserName}}",
+                    "records": ""
+                },
+                "version": "1.2.0",
+                "connector": "fortinet-fortiedr",
+                "operation": "isolate_collector",
+                "mock_result": "{\n  \"data\": {\n    \"result\": \"Successfully executed isolate_collector\"\n  },\n  \"status\": \"Success\",\n  \"_status\": true,\n  \"message\": \"\",\n  \"operation\": null,\n  \"request_id\": null\n}",
+                "operationTitle": "Isolate Collector",
+                "pickFromTenant": false,
+                "step_variables": []
+            },
+            "status": null,
+            "top": "2060",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "3da0c44b-d294-4997-a36e-079040e24206",
+            "id": 3296
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Send Mail to IT and HR",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "cc": "{{vars.HrEmail}}",
+                    "to": "{{vars.ITdeptEmail}}",
+                    "body": "<p>Hello Team<\/p><\/br>\n<p>Please look into below are reported lost\/stolen device details<\/p>\n&nbsp;\n<table style=\"width: 408px; border-color: white;\" border=\"2\">\n<tbody>\n<tr>\n<td style=\"width: 138px; text-align: center;\">&nbsp;Info<\/td>\n<td style=\"width: 269px; text-align: center;\">&nbsp;Value<\/td>\n<\/tr>\n<tr>\n<td style=\"width: 138px;\">Name<\/td>\n<td style=\"width: 269px;\">{{vars.steps.Get_Asset_Details_From_ServiceNow.data.result[0].name}}<\/td>\n<\/tr>\n<tr>\n<td style=\"width: 138px;\">Assigned To<\/td>\n<td style=\"width: 269px;\">{{vars.steps.Get_Details_from_ServiceNow[0].data.result.name}}<\/td>\n<\/tr>\n<tr>\n<td style=\"width: 138px;\">Vendor<\/td>\n<td style=\"width: 269px;\">{{vars.steps.Get_Details_from_ServiceNow[2].data.result.name}}<\/td>\n<\/tr>\n<tr>\n<td style=\"width: 138px;\">Company<\/td>\n<td style=\"width: 269px;\">{{vars.steps.Get_Details_from_ServiceNow[1].data.result.name}}<\/td>\n<\/tr>\n<tr>\n<td style=\"width: 138px;\">Serial Number<\/td>\n<td style=\"width: 269px;\">{{vars.steps.Get_Asset_Details_From_ServiceNow.data.result[0].serial_number}}<\/td>\n<\/tr>\n<\/tbody>\n<\/table>\n <\/br>\n\n<\/br><p>Thanks<\/p>\n<p>FortiSOAR Team<\/p> \n \n ",
+                    "type": {
+                        "id": 276,
+                        "@id": "\/api\/3\/picklists\/b8e7c917-5299-4a43-9c1a-fac1d9a5438f",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Email",
+                        "listName": "\/api\/3\/picklist_names\/57d30379-dbba-4684-b126-ec3ad8766f06",
+                        "itemValue": "Email",
+                        "orderIndex": 0
+                    },
+                    "alerts": "{{vars.input.records[0]['@id']}}",
+                    "subject": "Device lost\/Stolen - {{vars.steps.Get_Asset_Details_From_ServiceNow.data.result.name}}",
+                    "__replace": "",
+                    "msgDirection": {
+                        "id": 274,
+                        "@id": "\/api\/3\/picklists\/1b0fd95b-9508-47b9-9e90-e8bcd712bb83",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Sent",
+                        "listName": "\/api\/3\/picklist_names\/09b97c81-669a-4ac8-8668-920913f3329b",
+                        "itemValue": "Sent",
+                        "orderIndex": 1
+                    }
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/communication",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "2190",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "f4faa9bc-d45a-4f8f-8e47-30a2776cde85",
+            "id": 3297
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start Investigation",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "status": {
+                        "id": 113,
+                        "@id": "\/api\/3\/picklists\/758925e7-629c-46d8-89db-fb36f5fbe88a",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Investigating",
+                        "listName": "\/api\/3\/picklist_names\/33e964a9-d607-49f2-813c-7ce46141815a",
+                        "itemValue": "Investigating",
+                        "orderIndex": 2
+                    },
+                    "deviceUID": "{%if vars.steps.Create_New_Asset_Record %}{{vars.steps.Create_New_Asset_Record.deviceUid}}{%else%}{{vars.steps.Link_Asset_to_the_Alert.deviceUid}}{%endif%}",
+                    "deviceType": "{{( \"AssetCategory\" | picklist(vars.Type))['@id']}}",
+                    "deviceOwner": "{{vars.Owner}}",
+                    "deviceSerialNo": "{{vars.Serial_number}}"
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "collectionType": "\/api\/3\/alerts",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "840",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "49fa29a7-13d6-4b9e-b9ea-e942ef4d0fc5",
+            "id": 3298
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create ServiceNow Asset Details Note",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "type": {
+                        "id": 247,
+                        "@id": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "icon": null,
+                        "uuid": "ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Comment",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/0841c1eb-a0a3-4abd-b29c-9f68e4d9b14f",
+                        "itemValue": "Comment",
+                        "orderIndex": 1
+                    },
+                    "alerts": "{{vars.input.records[0]['@id']}}",
+                    "people": [],
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Following are device details found on ServiceNow<\/p>\n&nbsp;\n<table border=\"2\" style=\"width: 408px; border-color: white;\">\n<tbody>\n<tr>\n<td style=\"width: 138px; text-align: center;\">&nbsp;Info<\/td>\n<td style=\"width: 269px; text-align: center;\">&nbsp;Value<\/td>\n<\/tr>\n<tr>\n<td style=\"width: 138px;\">Name<\/td>\n<td style=\"width: 269px;\">{{vars.steps.Get_Asset_Details_From_ServiceNow.data.result[0].name}}<\/td>\n<\/tr>\n<tr>\n<td style=\"width: 138px;\">Assigned To<\/td>\n<td style=\"width: 269px;\">{{vars.steps.Get_Details_from_ServiceNow[0].data.result.name}}<\/td>\n<\/tr>\n<tr>\n<td style=\"width: 138px;\">Vendor<\/td>\n<td style=\"width: 269px;\">{{vars.steps.Get_Details_from_ServiceNow[2].data.result.name}}<\/td>\n<\/tr>\n<tr>\n<td style=\"width: 138px;\">Company<\/td>\n<td style=\"width: 269px;\">{{vars.steps.Get_Details_from_ServiceNow[1].data.result.name}}<\/td>\n<\/tr>\n<tr>\n<td style=\"width: 138px;\">Serial Number<\/td>\n<td style=\"width: 269px;\">{{vars.steps.Get_Asset_Details_From_ServiceNow.data.result[0].serial_number}}<\/td>\n<\/tr>\n<\/tbody>\n<\/table>\n <br>\n",
+                    "__replace": "",
+                    "isImportant": false,
+                    "peopleUpdated": false
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/comments",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1245",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "d956ef42-bfd0-48b8-98ee-3c6cc42b57eb",
+            "id": 3299
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Close Alert",
+            "description": null,
+            "arguments": {
+                "message": {
+                    "tags": [],
+                    "type": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<span style=\"font-size: 15px; color: #DE7A13;\" class=\"fa fa-exclamation-triangle\"><\/span>&nbsp;Email sent to the Legal department.",
+                    "records": ""
+                },
+                "resource": {
+                    "status": {
+                        "id": 246,
+                        "@id": "\/api\/3\/picklists\/fac53e73-8d16-4189-98d5-95fbd1555232",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Closed",
+                        "listName": "\/api\/3\/picklist_names\/33e964a9-d607-49f2-813c-7ce46141815a",
+                        "itemValue": "Closed",
+                        "orderIndex": 4
+                    }
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "__recommend": [],
+                "collectionType": "\/api\/3\/alerts",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "2325",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "4ed42109-f1f7-4d9a-8ba8-0c101c169dd4",
+            "id": 3300
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "Type": "{{vars.input.records[0].deviceType | ternary(vars.input.records[0].deviceType.itemValue, (vars.input.records[0].emailBody | regex_search('(?<=Device Type :)(.*)') | trim) if vars.input.records[0].emailBody else \"\" )}}",
+                "Owner": "{{vars.input.records[0].deviceOwner | ternary(vars.input.records[0].deviceOwner, (vars.input.records[0].emailBody | regex_search('(?<=Device Owner :)(.*)') | trim) if vars.input.records[0].emailBody else \"\" )}}",
+                "HrEmail": "hr.dept@example.com",
+                "All_details": "[]",
+                "ITdeptEmail": "it.dept@exampl.com",
+                "Serial_number": "{{vars.input.records[0].deviceSerialNo | ternary(vars.input.records[0].deviceSerialNo, (vars.input.records[0].emailBody | regex_search('(?<=serial number :)(.*)') | trim) if vars.input.records[0].emailBody else \"\" )}}",
+                "useMockOutput": "true",
+                "loggedInUserName": "{{vars.loggedInUser.firstname}} {{vars.loggedInUser.lastname}}"
+            },
+            "status": null,
+            "top": "160",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "520d8dc1-6b78-424d-864b-9006e29129dd",
+            "id": 3301
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Find Existing Asset in FotiSOAR",
+            "description": null,
+            "arguments": {
+                "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "type": "primitive",
+                            "field": "serialNumber",
+                            "value": "{{vars.Serial_number}}",
+                            "operator": "eq",
+                            "_operator": "eq"
+                        }
+                    ]
+                },
+                "module": "assets?$limit=30",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "440",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
+            "uuid": "9a7b92b1-dd06-41cc-a868-c1db23551baf",
+            "id": 3302
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Does Asset Already Present in FortiSOAR Asset Module",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Yes",
+                        "step_iri": "\/api\/3\/workflow_steps\/b452c5e8-ea85-4d79-ac20-cce9c7e51742",
+                        "condition": "{{ vars.steps.Find_Existing_Asset_in_FotiSOAR | length > 0 }}",
+                        "step_name": "Link to the Alert"
+                    },
+                    {
+                        "option": "No",
+                        "default": true,
+                        "step_iri": "\/api\/3\/workflow_steps\/20a3ac39-d11f-458c-883a-90b0842a22dc",
+                        "step_name": "Create Asset"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "570",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "f2c56468-0ce8-4693-9463-59835bc89fad",
+            "id": 3303
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create New Asset Record",
+            "description": null,
+            "arguments": {
+                "message": {
+                    "tags": [],
+                    "type": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p><span style=\"font-size: 15px; color: #DE7A13;\" class=\"fa fa-exclamation-triangle\"><\/span>&nbsp;New Asset Created and linked with Alert {{vars.input.records[0].id}}<\/p>\n<ul style=\"list-style-type: square;\">\n<li><strong>FortiSOAR Asset ID<\/strong>:&nbsp;{{vars.result.id}}<\/li><\/ul>",
+                    "records": ""
+                },
+                "resource": {
+                    "ip": "192.168.54.136",
+                    "tag": "FSR00127",
+                    "name": "tonys-mac",
+                    "alerts": "{{vars.input.records[0]['@id']}}",
+                    "hostname": "tonys-mac",
+                    "__replace": "",
+                    "deviceUid": "712ece93-dc91-44a6-8fc4-ba3177d50473",
+                    "managedBy": "{{vars.Owner}}",
+                    "macAddress": "00-14-22-01-23-45",
+                    "serialNumber": "{{vars.Serial_number}}"
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/assets",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "700",
+            "left": "120",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "20a3ac39-d11f-458c-883a-90b0842a22dc",
+            "id": 3304
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Link Asset to the Alert",
+            "description": null,
+            "arguments": {
+                "message": {
+                    "tags": [],
+                    "type": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p><span style=\"font-size: 15px; color: #DE7A13;\" class=\"fa fa-exclamation-triangle\"><\/span>&nbsp;Found Asset In FortiSOAR<\/p>\n<li><strong>FortiSOAR Asset ID<\/strong>:&nbsp;{{vars.result.id}}<\/li>",
+                    "records": ""
+                },
+                "resource": {
+                    "__link": {
+                        "alerts": "{{vars.input.records[0]['@id']}}"
+                    }
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "{{vars.steps.Find_Existing_Asset_in_FotiSOAR[0]['@id']}}",
+                "__recommend": [],
+                "collectionType": "\/api\/3\/assets",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "700",
+            "left": "480",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "b452c5e8-ea85-4d79-ac20-cce9c7e51742",
+            "id": 3305
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Confirm Device Details",
+            "description": null,
+            "arguments": {
+                "type": "DecisionBased",
+                "input": {
+                    "schema": {
+                        "title": "Confirm Device To Isolate",
+                        "description": "<p>Please confirm below device details <\/p>\n&nbsp;\n<table style=\"width: 408px; border-color: white;\" border=\"2\">\n<tbody>\n<tr>\n<td style=\"width: 138px; text-align: center;\">&nbsp;Info<\/td>\n<td style=\"width: 269px; text-align: center;\">&nbsp;Value<\/td>\n<\/tr>\n<tr>\n<td style=\"width: 138px;\">Name<\/td>\n<td style=\"width: 269px;\">{{vars.steps.Get_Asset_Details_From_ServiceNow.data.result[0].name}}<\/td>\n<\/tr>\n<tr>\n<td style=\"width: 138px;\">Assigned To<\/td>\n<td style=\"width: 269px;\">{{vars.steps.Get_Details_from_ServiceNow[0].data.result.name}}<\/td>\n<\/tr>\n<tr>\n<td style=\"width: 138px;\">Vendor<\/td>\n<td style=\"width: 269px;\">{{vars.steps.Get_Details_from_ServiceNow[2].data.result.name}}<\/td>\n<\/tr>\n<tr>\n<td style=\"width: 138px;\">Company<\/td>\n<td style=\"width: 269px;\">{{vars.steps.Get_Details_from_ServiceNow[1].data.result.name}}<\/td>\n<\/tr>\n<tr>\n<td style=\"width: 138px;\">Serial Number<\/td>\n<td style=\"width: 269px;\">{{vars.steps.Get_Asset_Details_From_ServiceNow.data.result[0].serial_number}}<\/td>\n<\/tr>\n<\/tbody>\n<\/table>\n ",
+                        "inputVariables": []
+                    }
+                },
+                "record": "{{ vars.input.records[0][\"@id\"] }}",
+                "owner_detail": {
+                    "isAssigned": false
+                },
+                "step_variables": [],
+                "response_mapping": {
+                    "options": [
+                        {
+                            "option": "Confirm",
+                            "step_iri": "\/api\/3\/workflow_steps\/3da0c44b-d294-4997-a36e-079040e24206"
+                        }
+                    ],
+                    "duplicateOption": false
+                }
+            },
+            "status": null,
+            "top": "1920",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/fc04082a-d7dc-4299-96fb-6837b1baa0fe",
+            "uuid": "08c9ae2f-00b7-4b6b-8bed-42523e14df7c",
+            "id": 3306
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Details from ServiceNow",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "url": "{{vars.item}}",
+                    "body": "",
+                    "method": "GET",
+                    "params": "",
+                    "verify": true,
+                    "headers": "",
+                    "password": "HoCWpq03lzEP",
+                    "username": "admin",
+                    "auth_config": ""
+                },
+                "version": "3.0.4",
+                "for_each": {
+                    "item": "{{vars.All_details}}",
+                    "condition": ""
+                },
+                "connector": "cyops_utilities",
+                "operation": "api_call",
+                "mock_result": "[\n  {\n    \"data\": {\n      \"result\": {\n        \"vip\": \"false\",\n        \"zip\": \"\",\n        \"city\": \"\",\n        \"name\": \"Tony Stark\",\n        \"email\": \"tonys@outlook.com\",\n        \"phone\": \"\",\n        \"photo\": \"\",\n        \"roles\": \"\",\n        \"state\": \"\",\n        \"title\": \"\",\n        \"active\": \"true\",\n        \"avatar\": \"\",\n        \"gender\": \"\",\n        \"source\": \"\",\n        \"street\": \"\",\n        \"sys_id\": \"4f7db2322f7f50103d07ae6df699b636\",\n        \"company\": \"\",\n        \"country\": \"\",\n        \"manager\": \"\",\n        \"building\": \"\",\n        \"location\": \"\",\n        \"schedule\": \"\",\n        \"sys_tags\": \"\",\n        \"last_name\": \"Stark\",\n        \"time_zone\": \"\",\n        \"user_name\": \"tony.stark\",\n        \"department\": {\n          \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/cmn_department\/221f79b7c6112284005d646b76ab978c\",\n          \"value\": \"221f79b7c6112284005d646b76ab978c\"\n        },\n        \"first_name\": \"Tony\",\n        \"home_phone\": \"\",\n        \"last_login\": \"\",\n        \"locked_out\": \"false\",\n        \"sys_domain\": {\n          \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/sys_user_group\/global\",\n          \"value\": \"global\"\n        },\n        \"cost_center\": \"\",\n        \"date_format\": \"\",\n        \"ldap_server\": \"\",\n        \"middle_name\": \"\",\n        \"time_format\": \"\",\n        \"introduction\": \"\",\n        \"mobile_phone\": \"\",\n        \"notification\": \"2\",\n        \"sys_mod_count\": \"1\",\n        \"user_password\": \"\",\n        \"sys_class_name\": \"sys_user\",\n        \"sys_created_by\": \"admin\",\n        \"sys_created_on\": \"2020-10-15 19:58:11\",\n        \"sys_updated_by\": \"admin\",\n        \"sys_updated_on\": \"2020-10-20 12:24:32\",\n        \"employee_number\": \"\",\n        \"failed_attempts\": \"\",\n        \"last_login_time\": \"\",\n        \"sys_domain_path\": \"\/\",\n        \"preferred_language\": \"\",\n        \"default_perspective\": \"\",\n        \"calendar_integration\": \"1\",\n        \"password_needs_reset\": \"false\",\n        \"web_service_access_only\": \"false\",\n        \"enable_multifactor_authn\": \"false\",\n        \"internal_integration_user\": \"false\"\n      }\n    },\n    \"status\": \"Success\",\n    \"_status\": true,\n    \"message\": \"\",\n    \"operation\": null,\n    \"request_id\": null\n  },\n  {\n    \"data\": {\n      \"result\": {\n        \"zip\": \"\",\n        \"city\": \"Paris\",\n        \"name\": \"ACME France\",\n        \"notes\": \"\",\n        \"phone\": \"\",\n        \"state\": \"\",\n        \"theme\": \"\",\n        \"parent\": {\n          \"link\": \"https:\/\/dev103893.service-now.com\/api\/now\/table\/core_company\/81f87336ac1d55eb06002def816d139f\",\n          \"value\": \"81f87336ac1d55eb06002def816d139f\"\n        },\n        \"street\": \"\",\n        \"sys_id\": \"81fbfe03ac1d55eb286d832de58ae1fd\",\n        \"vendor\": \"false\",\n        \"contact\": \"\",\n        \"country\": \"France\",\n        \"primary\": \"false\",\n        \"profits\": \"0\",\n        \"website\": \"\",\n        \"customer\": \"true\",\n        \"discount\": \"\",\n        \"latitude\": \"32.711472\",\n        \"sys_tags\": \"\",\n        \"fax_phone\": \"\",\n        \"longitude\": \"-117.166587\",\n        \"rank_tier\": \"\",\n        \"apple_icon\": \"\",\n        \"market_cap\": \"0\",\n        \"banner_text\": \"\",\n        \"fiscal_year\": \"\",\n        \"stock_price\": \"\",\n        \"vendor_type\": \"\",\n        \"banner_image\": \"\",\n        \"manufacturer\": \"false\",\n        \"stock_symbol\": \"ACME\",\n        \"num_employees\": \"\",\n        \"sys_mod_count\": \"1\",\n        \"lat_long_error\": \"\",\n        \"sys_class_name\": \"core_company\",\n        \"sys_created_by\": \"dariusz.maint\",\n        \"sys_created_on\": \"2010-11-25 07:42:44\",\n        \"sys_updated_by\": \"admin\",\n        \"sys_updated_on\": \"2013-06-05 22:22:17\",\n        \"vendor_manager\": \"\",\n        \"publicly_traded\": \"false\",\n        \"revenue_per_year\": \"0\",\n        \"banner_image_light\": \"\"\n      }\n    },\n    \"status\": \"Success\",\n    \"_status\": true,\n    \"message\": \"\",\n    \"operation\": null,\n    \"request_id\": null\n  },\n  {\n    \"data\": {\n      \"result\": {\n        \"zip\": \"95014\",\n        \"city\": \"Cupertino\",\n        \"name\": \"Apple\",\n        \"notes\": \"\",\n        \"phone\": \"(408) 996-1010\",\n        \"state\": \"CA\",\n        \"theme\": \"\",\n        \"parent\": \"\",\n        \"street\": \"1 Infinite Loop\",\n        \"sys_id\": \"b7e9e843c0a80169009a5a485bb2a2b5\",\n        \"vendor\": \"true\",\n        \"contact\": \"\",\n        \"country\": \"\",\n        \"primary\": \"false\",\n        \"profits\": \"0\",\n        \"website\": \"\",\n        \"customer\": \"false\",\n        \"discount\": \"\",\n        \"latitude\": \"37.33055\",\n        \"sys_tags\": \"\",\n        \"fax_phone\": \"(408) 996-1010\",\n        \"longitude\": \"-122.0297\",\n        \"rank_tier\": \"valued\",\n        \"apple_icon\": \"\",\n        \"market_cap\": \"0\",\n        \"banner_text\": \"Think different.\",\n        \"fiscal_year\": \"\",\n        \"stock_price\": \"453.00\",\n        \"vendor_type\": \"1c8d13de37400100fceabfc8bcbe5dfc,8a8d53de37400100fceabfc8bcbe5d1e\",\n        \"banner_image\": \"\",\n        \"manufacturer\": \"true\",\n        \"stock_symbol\": \"AAPL\",\n        \"num_employees\": \"72800\",\n        \"sys_mod_count\": \"12\",\n        \"lat_long_error\": \"\",\n        \"sys_class_name\": \"core_company\",\n        \"sys_created_by\": \"glide.maint\",\n        \"sys_created_on\": \"2005-08-15 02:13:44\",\n        \"sys_updated_by\": \"admin\",\n        \"sys_updated_on\": \"2013-05-07 17:21:57\",\n        \"vendor_manager\": \"\",\n        \"publicly_traded\": \"true\",\n        \"revenue_per_year\": \"0\",\n        \"banner_image_light\": \"\"\n      }\n    },\n    \"status\": \"Success\",\n    \"_status\": true,\n    \"message\": \"\",\n    \"operation\": null,\n    \"request_id\": null\n  }\n]",
+                "operationTitle": "Utils: Make REST API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1100",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "8c8d9c87-5886-4f6f-86b8-a02e0f8825b8",
+            "id": 3307
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Retrieve Users Details From AD",
+            "description": null,
+            "arguments": {
+                "name": "Active Directory",
+                "config": "598c4c8c-08a8-4491-bcb8-2223cb53fc57",
+                "params": {
+                    "cookie": "",
+                    "page_size": "",
+                    "size_limit": "",
+                    "search_object": "User",
+                    "search_attr_name": "Email",
+                    "search_attr_value": "{{vars.steps.Get_Details_from_ServiceNow[0].data.result.email}}"
+                },
+                "message": {
+                    "tags": [],
+                    "type": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Retriving End users details from Active Directory<\/p>",
+                    "records": ""
+                },
+                "version": "2.1.1",
+                "connector": "activedirectory",
+                "operation": "global_search",
+                "mock_result": "{\n  \"data\": {\n    \"cookie\": \"\",\n    \"entries\": [\n      {\n        \"dn\": \"CN=Tony Stark,CN=Users,DC=cspune,DC=com\",\n        \"attributes\": {\n          \"c\": \"IN\",\n          \"l\": \"Pune\",\n          \"cn\": \"Tony Stark\",\n          \"co\": \"India\",\n          \"sn\": \"Stark\",\n          \"st\": \"Maharshtra\",\n          \"mail\": \"tonys@outlook.com\",\n          \"name\": \"Tony Stark\",\n          \"title\": \"System Engineer\",\n          \"manager\": \"CN=Bob M,CN=Users,DC=cspune,DC=com\",\n          \"codePage\": 0,\n          \"givenName\": \"Tony\",\n          \"lastLogon\": null,\n          \"objectSid\": \"S-1-5-21-3252237415-4094437703-262466058-1217\",\n          \"department\": \"IT\",\n          \"lastLogoff\": null,\n          \"logonCount\": 0,\n          \"objectGUID\": \"{99c1d25e-d9f5-4f07-b9bf-ae0b1b4b2e0a}\",\n          \"postalCode\": \"412352\",\n          \"pwdLastSet\": 1603201135,\n          \"uSNChanged\": 100817,\n          \"uSNCreated\": 100808,\n          \"badPwdCount\": 0,\n          \"countryCode\": 356,\n          \"displayName\": \"Tony Stark\",\n          \"objectClass\": [\n            \"top\",\n            \"person\",\n            \"organizationalPerson\",\n            \"user\"\n          ],\n          \"whenChanged\": 1603201241,\n          \"whenCreated\": 1603201135,\n          \"instanceType\": 4,\n          \"accountExpires\": 253402300799,\n          \"objectCategory\": \"CN=Person,CN=Schema,CN=Configuration,DC=cspune,DC=com\",\n          \"primaryGroupID\": 513,\n          \"sAMAccountName\": \"tonys\",\n          \"sAMAccountType\": \"SAM_NORMAL_USER_ACCOUNT\",\n          \"badPasswordTime\": null,\n          \"distinguishedName\": \"CN=Tony Stark,CN=Users,DC=cspune,DC=com\",\n          \"userPrincipalName\": \"tstark@cspune.com\",\n          \"userAccountControl\": \"USER_ACCOUNT_DISABLED | NORMAL_ACCOUNT\",\n          \"dSCorePropagationData\": [\n            1603201135,\n            null\n          ]\n        }\n      }\n    ]\n  },\n  \"status\": \"Success\",\n  \"_status\": true,\n  \"message\": \"\",\n  \"operation\": null,\n  \"request_id\": null\n}",
+                "operationTitle": "Global Search",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1380",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "33400f0b-6f4b-4f91-8cb6-30833bd031a5",
+            "id": 3308
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Retrieve Manager Email Address",
+            "description": null,
+            "arguments": {
+                "name": "Active Directory",
+                "config": "598c4c8c-08a8-4491-bcb8-2223cb53fc57",
+                "params": {
+                    "cookie": "",
+                    "page_size": "",
+                    "size_limit": "",
+                    "search_object": "User",
+                    "search_attr_name": "Distinguished Name",
+                    "search_attr_value": "{{vars.steps.Retrieve_Users_Details_From_AD.data.entries[0].attributes.manager}}"
+                },
+                "message": {
+                    "tags": [],
+                    "type": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Retriving Managers details from Active Directory<\/p>",
+                    "records": ""
+                },
+                "version": "2.1.1",
+                "connector": "activedirectory",
+                "operation": "global_search",
+                "mock_result": "{\n  \"data\": {\n    \"cookie\": \"\",\n    \"entries\": [\n      {\n        \"dn\": \"CN=Bob M,CN=Users,DC=cspune,DC=com\",\n        \"attributes\": {\n          \"c\": \"IN\",\n          \"l\": \"pune\",\n          \"cn\": \"Bob M\",\n          \"co\": \"India\",\n          \"sn\": \"k\",\n          \"st\": \"MH\",\n          \"info\": \"test\",\n          \"mail\": \"bobm@outlook.com\",\n          \"name\": \"Bob M\",\n          \"mobile\": \"9975865053\",\n          \"manager\": \"CN=Robert Banner,CN=Users,DC=cspune,DC=com\",\n          \"codePage\": 0,\n          \"memberOf\": [\n            \"CN=Remote Management Users,CN=Builtin,DC=cspune,DC=com\",\n            \"CN=Remote Desktop Users,CN=Builtin,DC=cspune,DC=com\",\n            \"CN=Administrators,CN=Builtin,DC=cspune,DC=com\"\n          ],\n          \"givenName\": \"bob\",\n          \"lastLogon\": 1603281092,\n          \"objectSid\": \"S-1-5-21-3252237415-4094437703-262466058-1108\",\n          \"adminCount\": 1,\n          \"lastLogoff\": null,\n          \"logonCount\": 164,\n          \"objectGUID\": \"{e64e35bb-2a69-4405-9f20-c8168cf7366f}\",\n          \"postalCode\": \"411045\",\n          \"pwdLastSet\": 1573025485,\n          \"uSNChanged\": 100806,\n          \"uSNCreated\": 35945,\n          \"badPwdCount\": 0,\n          \"countryCode\": 356,\n          \"displayName\": \"bob m\",\n          \"objectClass\": [\n            \"top\",\n            \"person\",\n            \"organizationalPerson\",\n            \"user\"\n          ],\n          \"whenChanged\": 1603200696,\n          \"whenCreated\": 1573025291,\n          \"instanceType\": 4,\n          \"directReports\": [\n            \"CN=Tony Stark,CN=Users,DC=cspune,DC=com\"\n          ],\n          \"accountExpires\": 253402300799,\n          \"objectCategory\": \"CN=Person,CN=Schema,CN=Configuration,DC=cspune,DC=com\",\n          \"primaryGroupID\": 513,\n          \"sAMAccountName\": \"bob\",\n          \"sAMAccountType\": \"SAM_NORMAL_USER_ACCOUNT\",\n          \"badPasswordTime\": 1601019205,\n          \"distinguishedName\": \"CN=bob m,CN=Users,DC=cspune,DC=com\",\n          \"userPrincipalName\": \"bobm@cspune.com\",\n          \"lastLogonTimestamp\": 1602583384,\n          \"userAccountControl\": \"NORMAL_ACCOUNT | DONT_EXPIRE_PASSWORD\",\n          \"dSCorePropagationData\": [\n            1595571543,\n            1573027969,\n            null\n          ],\n          \"physicalDeliveryOfficeName\": \"Jarvis, pune\",\n          \"msDS-SupportedEncryptionTypes\": 0\n        }\n      }\n    ]\n  },\n  \"status\": \"Success\",\n  \"_status\": true,\n  \"message\": \"\",\n  \"operation\": null,\n  \"request_id\": null\n}",
+                "operationTitle": "Global Search",
+                "pickFromTenant": false,
+                "step_variables": {
+                    "manager_email": "{{vars.result.data.entries[0].attributes.email}}"
+                }
+            },
+            "status": null,
+            "top": "1515",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "63e6fbf7-ba66-494c-bc6a-4dcb3c7909e1",
+            "id": 3309
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Add Note with Asset Details",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "type": {
+                        "id": 248,
+                        "@id": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Comment",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/0841c1eb-a0a3-4abd-b29c-9f68e4d9b14f",
+                        "itemValue": "Comment",
+                        "orderIndex": 1
+                    },
+                    "alerts": "{{vars.input.records[0]['@id']}}",
+                    "people": [],
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Investigating {{vars.input.records[0].type.itemValue}} with following fields of interest:<\/p>\n<ul style=\"list-style-type: square;\">\n<li><strong>Device Owner<\/strong>:&nbsp;{{vars.Owner}}<\/li>\n<li><strong>Device Type<\/strong>:&nbsp;{{vars.Type}}<\/li>\n<li><strong>Serial Number<\/strong>:&nbsp;{{vars.Serial_number}}<\/li><\/ul>",
+                    "__replace": "",
+                    "isImportant": false,
+                    "peopleUpdated": false
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/comments",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "300",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "e73bdede-877c-4908-ba8f-03fa310ada6c",
+            "id": 3310
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Add Note for User Details",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "type": {
+                        "id": 247,
+                        "@id": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "icon": null,
+                        "uuid": "ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Comment",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/0841c1eb-a0a3-4abd-b29c-9f68e4d9b14f",
+                        "itemValue": "Comment",
+                        "orderIndex": 1
+                    },
+                    "alerts": "{{vars.input.records[0]['@id']}}",
+                    "people": [],
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Below are end user's Detais found on AD :<\/p>\n<ul style=\"list-style-type: square;\">\n<li><strong>Name<\/strong>:&nbsp;{{vars.steps.Retrieve_Users_Details_From_AD.data.entries[0].attributes.name}}<\/li>\n<li><strong>Email Address<\/strong>:&nbsp;{{vars.steps.Retrieve_Users_Details_From_AD.data.entries[0].attributes.mail}}<\/li>\n<li><strong>Manager Name<\/strong>:&nbsp;{{vars.steps.Retrieve_Manager_Email_Address.data.entries[0].attributes.name}}<\/li>\n<li><strong>Manager's Email Address<\/strong>:&nbsp;{{vars.steps.Retrieve_Manager_Email_Address.data.entries[0].attributes.mail}}<\/li><\/ul>",
+                    "__replace": "",
+                    "isImportant": false,
+                    "peopleUpdated": false
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/comments",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1640",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "2c46afc7-7a41-4611-b5f2-e57e51dab4fd",
+            "id": 3311
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "fortiEDR -> Send Mail to IT and HR Team",
+            "targetStep": "\/api\/3\/workflow_steps\/f4faa9bc-d45a-4f8f-8e47-30a2776cde85",
+            "sourceStep": "\/api\/3\/workflow_steps\/3da0c44b-d294-4997-a36e-079040e24206",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "d1645ad5-68fc-46ca-a6a8-6c8bc81f33e5"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/520d8dc1-6b78-424d-864b-9006e29129dd",
+            "sourceStep": "\/api\/3\/workflow_steps\/f1f9335e-ee0a-470f-ac10-b995c3c60baf",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "a15e3345-4e62-41f2-8481-9b23d2fe0e96"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Find Existing Asset in FortiSOAR -> Does Asset present in FortiSOAR",
+            "targetStep": "\/api\/3\/workflow_steps\/f2c56468-0ce8-4693-9463-59835bc89fad",
+            "sourceStep": "\/api\/3\/workflow_steps\/9a7b92b1-dd06-41cc-a868-c1db23551baf",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "531ffb73-b856-46ba-992c-668430d81a4a"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Does Asset present in FortiSOAR -> Create Asset",
+            "targetStep": "\/api\/3\/workflow_steps\/20a3ac39-d11f-458c-883a-90b0842a22dc",
+            "sourceStep": "\/api\/3\/workflow_steps\/f2c56468-0ce8-4693-9463-59835bc89fad",
+            "label": "No",
+            "isExecuted": false,
+            "uuid": "53bcfb6f-7c34-4d01-a01f-adcf4d662882"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Asset -> Start Investigation",
+            "targetStep": "\/api\/3\/workflow_steps\/49fa29a7-13d6-4b9e-b9ea-e942ef4d0fc5",
+            "sourceStep": "\/api\/3\/workflow_steps\/20a3ac39-d11f-458c-883a-90b0842a22dc",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "59cbc48e-cf46-4123-94c4-5f3af2e5a241"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Does Asset present in FortiSOAR -> Link to the Alert",
+            "targetStep": "\/api\/3\/workflow_steps\/b452c5e8-ea85-4d79-ac20-cce9c7e51742",
+            "sourceStep": "\/api\/3\/workflow_steps\/f2c56468-0ce8-4693-9463-59835bc89fad",
+            "label": "Yes",
+            "isExecuted": false,
+            "uuid": "cac1c8ec-a1f0-45d5-bd6b-4b7786919603"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Link to the Alert -> Start Investigation",
+            "targetStep": "\/api\/3\/workflow_steps\/49fa29a7-13d6-4b9e-b9ea-e942ef4d0fc5",
+            "sourceStep": "\/api\/3\/workflow_steps\/b452c5e8-ea85-4d79-ac20-cce9c7e51742",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "673877f3-54af-4365-b9f8-cb1120e8b9e9"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Analyst Confirmation -> Isolate Device From Network",
+            "targetStep": "\/api\/3\/workflow_steps\/3da0c44b-d294-4997-a36e-079040e24206",
+            "sourceStep": "\/api\/3\/workflow_steps\/08c9ae2f-00b7-4b6b-8bed-42523e14df7c",
+            "label": "Confirm",
+            "isExecuted": false,
+            "uuid": "f9e7b4ab-b117-4efc-929b-eabea1b3a5a3"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Retrieve Users Details -> Retrieve Manager Email Address",
+            "targetStep": "\/api\/3\/workflow_steps\/63e6fbf7-ba66-494c-bc6a-4dcb3c7909e1",
+            "sourceStep": "\/api\/3\/workflow_steps\/33400f0b-6f4b-4f91-8cb6-30833bd031a5",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "1e7377fb-4401-4e11-b91a-a63f040e96a5"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Send Mail to IT and HR Team -> Close Alert",
+            "targetStep": "\/api\/3\/workflow_steps\/4ed42109-f1f7-4d9a-8ba8-0c101c169dd4",
+            "sourceStep": "\/api\/3\/workflow_steps\/f4faa9bc-d45a-4f8f-8e47-30a2776cde85",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "d28d4a17-7a3b-4cc3-b899-12ca0eba39a4"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Add Note with Asset Details",
+            "targetStep": "\/api\/3\/workflow_steps\/e73bdede-877c-4908-ba8f-03fa310ada6c",
+            "sourceStep": "\/api\/3\/workflow_steps\/520d8dc1-6b78-424d-864b-9006e29129dd",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "63e17c87-5e4b-405f-a106-37579df36c7b"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Add Note with Asset Details -> Find Existing Asset",
+            "targetStep": "\/api\/3\/workflow_steps\/9a7b92b1-dd06-41cc-a868-c1db23551baf",
+            "sourceStep": "\/api\/3\/workflow_steps\/e73bdede-877c-4908-ba8f-03fa310ada6c",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "ce709c0b-d6de-4cb6-ba6b-9664875aa038"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start Investigation -> Get Asset Details From ServiceNow",
+            "targetStep": "\/api\/3\/workflow_steps\/f1a1d699-4f09-4313-8cd3-ea1ae602800c",
+            "sourceStep": "\/api\/3\/workflow_steps\/49fa29a7-13d6-4b9e-b9ea-e942ef4d0fc5",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "09cb018b-30d4-4f51-8c15-6a284d43b792"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Send Confirmation Mail -> Confirm Device Details",
+            "targetStep": "\/api\/3\/workflow_steps\/08c9ae2f-00b7-4b6b-8bed-42523e14df7c",
+            "sourceStep": "\/api\/3\/workflow_steps\/eeccb706-b05a-48c9-b31a-baf1bc323e51",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "0ced147e-06c3-46f4-a255-edc7ccfa69e2"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Asset Details From ServiceNow -> Get Details from ServiceNow",
+            "targetStep": "\/api\/3\/workflow_steps\/8c8d9c87-5886-4f6f-86b8-a02e0f8825b8",
+            "sourceStep": "\/api\/3\/workflow_steps\/f1a1d699-4f09-4313-8cd3-ea1ae602800c",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "d636e5a2-2002-4505-91e2-84461ff02b62"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Details from ServiceNow -> Create Asset Note",
+            "targetStep": "\/api\/3\/workflow_steps\/d956ef42-bfd0-48b8-98ee-3c6cc42b57eb",
+            "sourceStep": "\/api\/3\/workflow_steps\/8c8d9c87-5886-4f6f-86b8-a02e0f8825b8",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "b768b795-2c85-4c55-8f3d-91020b574c1b"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Asset Note -> Retrieve Users Details",
+            "targetStep": "\/api\/3\/workflow_steps\/33400f0b-6f4b-4f91-8cb6-30833bd031a5",
+            "sourceStep": "\/api\/3\/workflow_steps\/d956ef42-bfd0-48b8-98ee-3c6cc42b57eb",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "cea1e454-8d0f-4e1d-ada6-577f69b936d4"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Retrieve Manager Email Address -> Add ServiceNow Asset Details Note",
+            "targetStep": "\/api\/3\/workflow_steps\/2c46afc7-7a41-4611-b5f2-e57e51dab4fd",
+            "sourceStep": "\/api\/3\/workflow_steps\/63e6fbf7-ba66-494c-bc6a-4dcb3c7909e1",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "71bd5a61-0adc-4d48-934c-fd944f202e2d"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Add ServiceNow Asset Details Note -> Send Confirmation Mail",
+            "targetStep": "\/api\/3\/workflow_steps\/eeccb706-b05a-48c9-b31a-baf1bc323e51",
+            "sourceStep": "\/api\/3\/workflow_steps\/2c46afc7-7a41-4611-b5f2-e57e51dab4fd",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "b5b6342f-2cff-4522-b7c5-a821f21d3b87"
+        }
+    ],
+    "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+    "uuid": "9d766bfa-b6f2-4e2c-89a7-984dff74aa01",
+    "recordTags": [
+        "ManualTrigger"
+    ],
+    "id": 986,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433427,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433427,
+    "owners": [],
+    "isPrivate": false
+}

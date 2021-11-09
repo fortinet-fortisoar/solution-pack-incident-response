@@ -1,0 +1,248 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Setup Connector Configurations",
+    "aliasName": null,
+    "tag": null,
+    "description": "Configures all connectors that are listed in the connector configuration file.",
+    "isActive": false,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/a41c4bc4-5b29-4701-96e7-e62e21e8763e",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/f04aacd3-4afe-4aad-a679-d8b147f9c6f0",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Connector Details",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "\/api\/integration\/connectors\/?format=json&page_size=1000",
+                    "body": "",
+                    "method": "GET"
+                },
+                "version": "2.7.0",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "8f9268c6-a0be-4d0a-97b1-d9c4d3a14916",
+            "id": 4339
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get File Path",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "{{vars.input.params.uploadFile['@id']}}"
+                },
+                "version": "2.7.0",
+                "connector": "cyops_utilities",
+                "operation": "download_file_from_cyops",
+                "operationTitle": "File: Compute Hash",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "7e8be873-a512-4250-b862-fd1823d763b8",
+            "id": 4340
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Data",
+            "description": null,
+            "arguments": {
+                "conData": "{{vars.steps.Get_Connector_Details.data.data}}"
+            },
+            "status": null,
+            "top": "570",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "3819f651-1552-4f1d-823c-32f10ee4f734",
+            "id": 4341
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "config": "{{vars.steps.Get_File_Path.data['cyops_file_path'] | readfile}}"
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "bacecee8-5be0-477f-90d0-8a773a1aa6d8",
+            "id": 4342
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "4232cfa1-98cd-4d4f-bbef-f0505e9eec30",
+                "title": "Setup Connector Configurations",
+                "resources": [
+                    "alerts"
+                ],
+                "inputVariables": [
+                    {
+                        "name": "uploadFile",
+                        "type": "string",
+                        "label": "Upload File",
+                        "title": "File Field",
+                        "usable": true,
+                        "tooltip": "Please upload a valid connector configuration file.",
+                        "dataType": "file",
+                        "formType": "file",
+                        "required": true,
+                        "_expanded": true,
+                        "collection": false,
+                        "dataSource": {
+                            "model": "files"
+                        },
+                        "searchable": false,
+                        "templateUrl": "app\/components\/form\/fields\/file.html",
+                        "defaultValue": {
+                            "filename": null
+                        },
+                        "lengthConstraint": true,
+                        "allowedEncryption": false,
+                        "allowedGridColumn": true,
+                        "useRecordFieldDefault": false
+                    }
+                ],
+                "step_variables": {
+                    "input": {
+                        "params": {
+                            "uploadFile": "{{vars.request.data[\"uploadFile\"]}}"
+                        },
+                        "records": "{{vars.input.records}}"
+                    }
+                },
+                "_promptexpanded": true,
+                "displayConditions": {
+                    "files": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    },
+                    "alerts": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "uuid": "f04aacd3-4afe-4aad-a679-d8b147f9c6f0",
+            "id": 4343
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Select Connector",
+            "description": null,
+            "arguments": {
+                "for_each": {
+                    "item": "{{vars.config.list}}",
+                    "condition": ""
+                },
+                "arguments": {
+                    "name": "{{vars.item.name}}",
+                    "config": "{{vars.item.config}}",
+                    "conData": "{{vars.conData}}"
+                },
+                "apply_async": false,
+                "ignore_errors": true,
+                "step_variables": [],
+                "workflowReference": "\/api\/3\/workflows\/661c5b3a-616f-4081-abdc-27ad42ae510d"
+            },
+            "status": null,
+            "top": "700",
+            "left": "120",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "c646b5a1-1670-4dfd-98bd-4bccd3857b5d",
+            "id": 4344
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Connector Details -> Config Var",
+            "targetStep": "\/api\/3\/workflow_steps\/3819f651-1552-4f1d-823c-32f10ee4f734",
+            "sourceStep": "\/api\/3\/workflow_steps\/8f9268c6-a0be-4d0a-97b1-d9c4d3a14916",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "963e219a-6ca7-40bc-a266-552e24df5e8b"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Data -> Select Connector",
+            "targetStep": "\/api\/3\/workflow_steps\/c646b5a1-1670-4dfd-98bd-4bccd3857b5d",
+            "sourceStep": "\/api\/3\/workflow_steps\/3819f651-1552-4f1d-823c-32f10ee4f734",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "3b11c0fa-c838-45b6-9a35-b17d9d448cfd"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Get Connector Details",
+            "targetStep": "\/api\/3\/workflow_steps\/8f9268c6-a0be-4d0a-97b1-d9c4d3a14916",
+            "sourceStep": "\/api\/3\/workflow_steps\/bacecee8-5be0-477f-90d0-8a773a1aa6d8",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "ea50a3dc-1208-4bd0-8642-d016001e2fc1"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Get File Path",
+            "targetStep": "\/api\/3\/workflow_steps\/7e8be873-a512-4250-b862-fd1823d763b8",
+            "sourceStep": "\/api\/3\/workflow_steps\/f04aacd3-4afe-4aad-a679-d8b147f9c6f0",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "87631bd1-dc30-49b7-9a67-da9e9969a570"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get File Path -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/bacecee8-5be0-477f-90d0-8a773a1aa6d8",
+            "sourceStep": "\/api\/3\/workflow_steps\/7e8be873-a512-4250-b862-fd1823d763b8",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "bb77c189-cbb0-4bc0-bdad-f9fba657abbe"
+        }
+    ],
+    "priority": null,
+    "uuid": "78d80d03-81a6-403a-8e76-fa7e4e45d3e3",
+    "recordTags": [
+        "ManualAction"
+    ],
+    "id": 1128,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433436,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433436,
+    "owners": [],
+    "isPrivate": false
+}

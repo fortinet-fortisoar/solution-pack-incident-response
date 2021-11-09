@@ -1,0 +1,48 @@
+{
+    "@context": "\/api\/3\/contexts\/SystemViewTemplate",
+    "@type": "SystemViewTemplate",
+    "type": "rows",
+    "config": {
+        "rows": [
+            {
+                "columns": [
+                    {
+                        "widgets": [
+                            {
+                                "type": "grid",
+                                "config": {
+                                    "wid": "01b447d3-f29a-4f7f-aee2-68bbd07a53ac",
+                                    "module": "vulnerabilities",
+                                    "columns": [
+                                        "id",
+                                        "vulnerabilityId",
+                                        "name",
+                                        "severity",
+                                        "status",
+                                        "cvss",
+                                        "riskScore",
+                                        "risk"
+                                    ],
+                                    "expandableCol": [],
+                                    "relationshipField": [],
+                                    "checkboxStatus": false,
+                                    "actionButtons": [],
+                                    "query": {
+                                        "sort": [],
+                                        "limit": 30,
+                                        "logic": "AND",
+                                        "filters": []
+                                    }
+                                }
+                            }
+                        ],
+                        "style": "col-lg-12"
+                    }
+                ],
+                "wid": "3f62792c-2198-4e5f-ae34-6944e5da0b68"
+            }
+        ],
+        "wid": "683c1a36-f3c6-4349-9ee0-6f50f442ec63"
+    },
+    "uuid": "modules-vulnerabilities-list"
+}

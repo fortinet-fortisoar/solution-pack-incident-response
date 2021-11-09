@@ -1,0 +1,381 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Create Default Global Variables",
+    "aliasName": null,
+    "tag": null,
+    "description": "Creates default global variables and SLA templates required for playbooks.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/a41c4bc4-5b29-4701-96e7-e62e21e8763e",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/9f8fb804-17da-43d8-884e-bd38fa4fd0a7",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Create SLA Template",
+            "description": null,
+            "arguments": {
+                "arguments": [],
+                "apply_async": false,
+                "step_variables": [],
+                "workflowReference": "\/api\/3\/workflows\/e5463ede-5abe-440a-8157-33cdca2da1aa"
+            },
+            "status": null,
+            "top": "1380",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "367b2b76-aff1-4f0b-b4d5-a2c7e32b37b7",
+            "id": 4169
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Demo Macro",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "\/api\/wf\/api\/dynamic-variable\/?format=json",
+                    "body": "{\"name\":\"Demo_mode\",\"value\":\"true\"}",
+                    "method": "POST"
+                },
+                "version": "3.0.1",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "ignore_errors": true,
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "705",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "1e43de0e-3ea8-4f00-980a-b07344b358cb",
+            "id": 4170
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Excludelist of URLs",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "\/api\/wf\/api\/dynamic-variable\/?format=json",
+                    "body": "{\"name\":\"Excludelist_URLs\",\"value\":\"https:\/\/www.google.com,https:\/\/mail.yahoo.com\/login.html,https:\/\/www.office.com\/\"}",
+                    "method": "POST"
+                },
+                "version": "3.0.3",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "ignore_errors": true,
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "975",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "ed50058e-8d2a-4fe8-83b0-cd8c6f5f610c",
+            "id": 4171
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Macro For AlienVault USMA Timestamp",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "\/api\/wf\/api\/dynamic-variable\/?format=json",
+                    "body": "{\"name\":\"USMA_Alarm_Last_Fetch_TS\",\"value\":0}",
+                    "method": "POST"
+                },
+                "version": "3.0.3",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "ignore_errors": true,
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "570",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "821be21c-2fa7-4069-aeec-ac599f06dd4e",
+            "id": 4172
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Excludelist of IPs",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "\/api\/wf\/api\/dynamic-variable\/?format=json",
+                    "body": "{\"name\":\"Excludelist_IPs\",\"value\":\"8.8.8.8,10.1.1.2\"}",
+                    "method": "POST"
+                },
+                "version": "3.0.3",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "ignore_errors": true,
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "840",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "21a0e56d-7298-4539-8108-96f7bc295bc4",
+            "id": 4173
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Indicator Type Map Macro",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "\/api\/wf\/api\/dynamic-variable\/?format=json",
+                    "body": "{\n  \"name\": \"Indicator_type_map\",\n  \"value\": \"{ \\\"attachmentNames\\\":\\\"File\\\",\\\"commandLine\\\": \\\"Process\\\",\\\"computerName\\\":\\\"Host\\\",\\\"decodedCommandLine\\\":\\\"Process\\\",\\\"destinationIp\\\": \\\"IP Address\\\",\\\"destinationPort\\\":\\\"Port\\\",\\\"domain\\\":\\\"Domain\\\",\\\"dllLoaded\\\": \\\"Process\\\",\\\"emailFrom\\\":\\\"Email Address\\\",\\\"emailCc\\\":\\\"Email Address\\\",\\\"emailTo\\\":\\\"Email Address\\\",\\\"fileHash\\\": \\\"FileHash-MD5\\\",\\\"parentProcessCmdLine\\\": \\\"Process\\\",\\\"parentProcessName\\\": \\\"Process\\\",\\\"recipientEmailAddress\\\":\\\"Email Address\\\",\\\"registryKey\\\": \\\"Registry\\\",\\\"registryKeyValue\\\": \\\"Registry\\\",\\\"reporter\\\":\\\"Email Address\\\",\\\"returnPath\\\":\\\"Email Address\\\",\\\"senderDomain\\\":\\\"Domain\\\",\\\"senderEmailAddress\\\": \\\"Email Address\\\",\\\"services\\\": \\\"Process\\\",\\\"sourceIp\\\": \\\"IP Address\\\",\\\"sourcePort\\\":\\\"Port\\\",\\\"sourceProcess\\\": \\\"Process\\\",\\\"targetAsset\\\":\\\"Host\\\",\\\"targetProcess\\\": \\\"Process\\\",\\\"url\\\": \\\"URL\\\",\\\"userName\\\": \\\"User\\\",\\\"userDetails\\\": \\\"User\\\",\\\"urlFull\\\": \\\"URL\\\",\\\"parentProcessName\\\": \\\"Process\\\",\\\"otherRecipients\\\": \\\"Email Address\\\"}\",\n  \"default_value\": \"\"\n}",
+                    "method": "POST"
+                },
+                "version": "3.0.3",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "ignore_errors": true,
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "0dd59de6-3a2e-421e-a771-c4e9918aabaf",
+            "id": 4174
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Macro For Qradar Polling",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "\/api\/wf\/api\/dynamic-variable\/?format=json",
+                    "body": "{\"name\":\"QRadarLastOffensePullTime\",\"value\":0}",
+                    "method": "POST"
+                },
+                "version": "2.2.0",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "ignore_errors": true,
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "d660d77e-9b64-4aa5-b324-d87714f14e36",
+            "id": 4175
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Macro For Qradar TimeZone",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "\/api\/wf\/api\/dynamic-variable\/?format=json",
+                    "body": "{\"name\":\"QRadarTimeZone\",\"value\":\"Asia\/Kolkata\"}",
+                    "method": "POST"
+                },
+                "version": "2.2.0",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "ignore_errors": true,
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "d5c68483-e76f-47e6-8ac1-97424fc0dad0",
+            "id": 4176
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Excludelist of Domains",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "\/api\/wf\/api\/dynamic-variable\/?format=json",
+                    "body": "{\"name\":\"Excludelist_Domains\",\"value\":\"google.com,yahoo.com,fortinet.net,cybersponse.com,gmail.com,outlook.com,microsoft.com\"}",
+                    "method": "POST"
+                },
+                "version": "3.0.3",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "ignore_errors": true,
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1110",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "4c160449-afff-419a-ac7d-84dab9302cab",
+            "id": 4177
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Reset SLA",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "\/api\/wf\/api\/dynamic-variable\/?format=json",
+                    "body": "{\"name\":\"Reset_SLA\",\"value\":\"true\"}",
+                    "method": "POST"
+                },
+                "version": "3.0.4",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "ignore_errors": true,
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1245",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "69df011a-1eba-44fa-9819-de2834451040",
+            "id": 4178
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "demo_records",
+                "step_variables": {
+                    "input": {
+                        "params": {
+                            "api_body": "{{vars.request.data}}"
+                        }
+                    }
+                },
+                "authentication_methods": [
+                    ""
+                ]
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/df26c7a2-4166-4ca5-91e5-548e24c01b5f",
+            "uuid": "9f8fb804-17da-43d8-884e-bd38fa4fd0a7",
+            "id": 4179
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Macro For Qradar TimeZone -> Create Macro For AlienVault USMA Timestamp",
+            "targetStep": "\/api\/3\/workflow_steps\/821be21c-2fa7-4069-aeec-ac599f06dd4e",
+            "sourceStep": "\/api\/3\/workflow_steps\/d5c68483-e76f-47e6-8ac1-97424fc0dad0",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "4936b363-b9fe-41a0-be15-736e3291e64a"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create White List URL -> Copy  of Create White List URL",
+            "targetStep": "\/api\/3\/workflow_steps\/ed50058e-8d2a-4fe8-83b0-cd8c6f5f610c",
+            "sourceStep": "\/api\/3\/workflow_steps\/21a0e56d-7298-4539-8108-96f7bc295bc4",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "c18ad14b-866d-4f8a-a8d6-55753af39be1"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Excludelist of Domains -> Create Reset SLA",
+            "targetStep": "\/api\/3\/workflow_steps\/69df011a-1eba-44fa-9819-de2834451040",
+            "sourceStep": "\/api\/3\/workflow_steps\/4c160449-afff-419a-ac7d-84dab9302cab",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "d859624e-bca1-4bcb-9614-526f913ba103"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Indicator Type Map Macro -> Create Macro For Qradar Polling",
+            "targetStep": "\/api\/3\/workflow_steps\/d660d77e-9b64-4aa5-b324-d87714f14e36",
+            "sourceStep": "\/api\/3\/workflow_steps\/0dd59de6-3a2e-421e-a771-c4e9918aabaf",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "975b400f-76a3-405b-a14d-521e1fec0b7f"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Reset SLA -> Create SLA Template",
+            "targetStep": "\/api\/3\/workflow_steps\/367b2b76-aff1-4f0b-b4d5-a2c7e32b37b7",
+            "sourceStep": "\/api\/3\/workflow_steps\/69df011a-1eba-44fa-9819-de2834451040",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "8a4805fb-dbe3-4c5f-9fd7-f1d3ee91a173"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create White List URL -> Copy  of Create White List URL",
+            "targetStep": "\/api\/3\/workflow_steps\/4c160449-afff-419a-ac7d-84dab9302cab",
+            "sourceStep": "\/api\/3\/workflow_steps\/ed50058e-8d2a-4fe8-83b0-cd8c6f5f610c",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "e6f43f36-c2c1-4c26-97d4-c01334257161"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Macro For AlienVault USMA Timestamp -> Create Demo Macro",
+            "targetStep": "\/api\/3\/workflow_steps\/1e43de0e-3ea8-4f00-980a-b07344b358cb",
+            "sourceStep": "\/api\/3\/workflow_steps\/821be21c-2fa7-4069-aeec-ac599f06dd4e",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "3a9422bd-f3e9-45fc-bf19-befdc3402b6b"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Create Indicator Type Map Macro",
+            "targetStep": "\/api\/3\/workflow_steps\/0dd59de6-3a2e-421e-a771-c4e9918aabaf",
+            "sourceStep": "\/api\/3\/workflow_steps\/9f8fb804-17da-43d8-884e-bd38fa4fd0a7",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "354a8e78-1bc2-45e2-ad09-0f75139bf6c1"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Macro For Qradar Polling -> Create Macro For Qradar TimeZone",
+            "targetStep": "\/api\/3\/workflow_steps\/d5c68483-e76f-47e6-8ac1-97424fc0dad0",
+            "sourceStep": "\/api\/3\/workflow_steps\/d660d77e-9b64-4aa5-b324-d87714f14e36",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "c21776aa-d5b8-4912-b43d-446f57678888"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Demo Macro -> Copy  of Create Demo Macro",
+            "targetStep": "\/api\/3\/workflow_steps\/21a0e56d-7298-4539-8108-96f7bc295bc4",
+            "sourceStep": "\/api\/3\/workflow_steps\/1e43de0e-3ea8-4f00-980a-b07344b358cb",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "648c8132-c949-4d2c-b93b-12a0babaa47d"
+        }
+    ],
+    "priority": null,
+    "uuid": "b500b700-03f3-47d6-8014-9dfee4f8ac4d",
+    "recordTags": [
+        "Demo"
+    ],
+    "id": 1112,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433436,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433436,
+    "owners": [],
+    "isPrivate": false
+}

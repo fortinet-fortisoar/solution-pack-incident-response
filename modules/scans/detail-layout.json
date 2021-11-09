@@ -1,0 +1,282 @@
+{
+    "@context": "\/api\/3\/contexts\/SystemViewTemplate",
+    "@type": "SystemViewTemplate",
+    "type": "rows",
+    "config": {
+        "rows": [
+            {
+                "columns": [
+                    {
+                        "widgets": [
+                            {
+                                "type": "primaryDetail",
+                                "config": {
+                                    "titleField": "name",
+                                    "wid": "b9966db7-6168-41cc-85c5-e5b61b12d2f8",
+                                    "idField": "id",
+                                    "picklistFieldReadOnly": false,
+                                    "titleFieldReadOnly": false,
+                                    "titleFieldLinky": true
+                                }
+                            },
+                            {
+                                "type": "tabs",
+                                "config": {
+                                    "wid": "0901f26b-185a-41d0-96ad-a530c5ff2f02",
+                                    "tabs": [
+                                        {
+                                            "title": "Scan Details",
+                                            "active": 0,
+                                            "widget": {
+                                                "type": "rows",
+                                                "config": {
+                                                    "wid": "f98984bb-410d-40b3-979c-b2642a8a4bc2",
+                                                    "rows": [
+                                                        {
+                                                            "columns": [
+                                                                {
+                                                                    "widgets": [
+                                                                        {
+                                                                            "type": "editableFormGroup",
+                                                                            "config": {
+                                                                                "title": "",
+                                                                                "rows": [
+                                                                                    {
+                                                                                        "columns": [
+                                                                                            {
+                                                                                                "fields": [
+                                                                                                    {
+                                                                                                        "name": "state",
+                                                                                                        "highlightMode": true
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "name": "duration",
+                                                                                                        "highlightMode": true
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "name": "userId",
+                                                                                                        "highlightMode": true
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "name": "scanId",
+                                                                                                        "highlightMode": true
+                                                                                                    }
+                                                                                                ],
+                                                                                                "style": "col-lg-6"
+                                                                                            },
+                                                                                            {
+                                                                                                "fields": [
+                                                                                                    {
+                                                                                                        "name": "launchDateTime",
+                                                                                                        "highlightMode": true
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "name": "processed",
+                                                                                                        "highlightMode": true
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "name": "createUser",
+                                                                                                        "highlightMode": true
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "name": "createDate",
+                                                                                                        "highlightMode": true
+                                                                                                    }
+                                                                                                ],
+                                                                                                "style": "col-lg-6"
+                                                                                            }
+                                                                                        ],
+                                                                                        "style": "display-inline-block"
+                                                                                    }
+                                                                                ],
+                                                                                "wid": "ef17b285-bef6-458c-b750-b2be13eb8b31"
+                                                                            }
+                                                                        }
+                                                                    ],
+                                                                    "style": "col-lg-12"
+                                                                }
+                                                            ],
+                                                            "wid": "6e37ab11-a99c-4b86-867e-efb48ff4067a"
+                                                        },
+                                                        {
+                                                            "columns": [
+                                                                {
+                                                                    "widgets": [
+                                                                        {
+                                                                            "type": "tabs",
+                                                                            "config": {
+                                                                                "tabs": [
+                                                                                    {
+                                                                                        "title": "Correlations",
+                                                                                        "widget": {
+                                                                                            "type": "relationship.subtab",
+                                                                                            "config": {
+                                                                                                "excludes": [
+                                                                                                    "comments",
+                                                                                                    "owners"
+                                                                                                ],
+                                                                                                "gridsConfig": {
+                                                                                                    "assets": {
+                                                                                                        "columns": [
+                                                                                                            "hostname",
+                                                                                                            "ip",
+                                                                                                            "dateScanned",
+                                                                                                            "propertyOf",
+                                                                                                            "criticality"
+                                                                                                        ]
+                                                                                                    },
+                                                                                                    "vulnerabilities": {
+                                                                                                        "columns": [
+                                                                                                            "vulnerabilityId",
+                                                                                                            "name",
+                                                                                                            "severity",
+                                                                                                            "cvss",
+                                                                                                            "lastSeenDate",
+                                                                                                            "status"
+                                                                                                        ]
+                                                                                                    }
+                                                                                                },
+                                                                                                "wid": "0e7d67f9-18cb-4a62-872c-9e6c25ca75fd",
+                                                                                                "expandableCol": []
+                                                                                            }
+                                                                                        },
+                                                                                        "show": true,
+                                                                                        "flag": true,
+                                                                                        "icon": "fa fa-list-alt"
+                                                                                    },
+                                                                                    {
+                                                                                        "title": "Access Control",
+                                                                                        "active": 0,
+                                                                                        "widget": {
+                                                                                            "type": "relationship.subtab",
+                                                                                            "config": {
+                                                                                                "wid": "0099bac6-8c2f-4fee-9c47-21a68347ed89",
+                                                                                                "excludes": [
+                                                                                                    "notes",
+                                                                                                    "comments",
+                                                                                                    "attachments",
+                                                                                                    "assets",
+                                                                                                    "vulnerabilities"
+                                                                                                ],
+                                                                                                "expandableCol": []
+                                                                                            }
+                                                                                        },
+                                                                                        "icon": "icon icon-access-control"
+                                                                                    }
+                                                                                ],
+                                                                                "wid": "b6271f27-2a58-4c66-98cd-5630a23d7d9d",
+                                                                                "isPrimaryTab": false
+                                                                            }
+                                                                        }
+                                                                    ],
+                                                                    "style": "col-lg-12"
+                                                                }
+                                                            ],
+                                                            "wid": "348dd154-1a06-4a23-be9c-1b08b935d4f6"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "icon": "icon icon-scans",
+                                            "show": true
+                                        },
+                                        {
+                                            "title": "Playbooks",
+                                            "active": 0,
+                                            "widget": {
+                                                "type": "executedPlaybooks",
+                                                "config": {
+                                                    "wid": "4e1e9b57-5b4c-4a39-80c9-8deefd624ea8"
+                                                }
+                                            },
+                                            "icon": "icon icon-playbooks",
+                                            "show": false
+                                        },
+                                        {
+                                            "title": "Audit Log",
+                                            "active": 0,
+                                            "widget": {
+                                                "type": "rows",
+                                                "config": {
+                                                    "wid": "b7424f69-1827-47e7-94ce-3884a5ace231",
+                                                    "rows": [
+                                                        {
+                                                            "columns": [
+                                                                {
+                                                                    "widgets": [
+                                                                        {
+                                                                            "type": "timeline",
+                                                                            "config": {
+                                                                                "wid": "494dfb24-2d5f-48a8-bed5-4833b0f3a843"
+                                                                            }
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ],
+                                                            "wid": "7a21f908-404c-4a19-9417-4f9b32cd571b"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "icon": "fa fa-eye",
+                                            "show": false
+                                        }
+                                    ],
+                                    "isPrimaryTab": true
+                                }
+                            }
+                        ],
+                        "style": "col-lg-12"
+                    }
+                ],
+                "wid": "34c49338-3600-4c90-b85f-ba3c30837120"
+            },
+            {
+                "columns": [
+                    {
+                        "widgets": [
+                            {
+                                "type": "defaultFields",
+                                "config": {
+                                    "wid": "f8215b01-7396-43f0-8ce4-12f7de2f01e8",
+                                    "rows": [
+                                        {
+                                            "columns": [
+                                                {
+                                                    "fields": []
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "fields": [
+                                        "name",
+                                        "id",
+                                        "modifyUser",
+                                        "modifyDate",
+                                        "state",
+                                        "duration",
+                                        "userId",
+                                        "scanId",
+                                        "launchDateTime",
+                                        "processed",
+                                        "createUser",
+                                        "createDate"
+                                    ],
+                                    "excludedFields": [
+                                        "recordTags"
+                                    ]
+                                }
+                            }
+                        ],
+                        "style": "col-lg-12"
+                    }
+                ],
+                "wid": "dd015810-2c23-4a70-a112-7571261a3f12"
+            }
+        ],
+        "wid": "d30770b1-5e8e-432b-a86b-19f0da033cb8",
+        "actionButtons": [],
+        "allowExecuteConnectorActionButton": true
+    },
+    "uuid": "modules-scans-detail"
+}

@@ -1,0 +1,167 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Whois - IP Reputation",
+    "aliasName": null,
+    "tag": null,
+    "description": "Retrieves whois data for indicators of type 'IP Address' using Whois RDAP.",
+    "isActive": false,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "indicator_value"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/b135c052-e170-4cff-8cc7-9a4bfe607ccb",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/1c415373-4938-4228-bd60-d1c2a7526c47",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Configurations",
+            "description": null,
+            "arguments": {
+                "indicator_value": "{{vars.input.params['indicator_value']}}"
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "942b0375-265c-485e-a308-87fe2db63fdb",
+            "id": 2987
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "enrichment_summary",
+            "description": null,
+            "arguments": {
+                "tags": "None",
+                "source": "Whois",
+                "enrichmentSummary": "{{vars.steps.Compute_Whois_Summary.data['formatted_string']}}"
+            },
+            "status": null,
+            "top": "568",
+            "left": "126",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "2e94bf5c-d76a-4ab4-ad79-73f8df65c83a",
+            "id": 2988
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": []
+                    }
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "1c415373-4938-4228-bd60-d1c2a7526c47",
+            "id": 2989
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Compute Whois Summary",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "value": "{% if vars.foundWhoIsReputation %}\n<span style=\"font-size: 11pt;\"><strong>Whois Summary<\/strong><\/span><\/p>\n<table style=\"width: 700px;\" border=\"\\&quot;1\\&quot;\">\n<tbody>\n<tr>\n<td style=\"width: 100px;\"><strong>asn_country_code<\/strong><\/td>\n<td style=\"width: 600px;\">{{vars.steps.Whois_IP.data['asn_country_code']}}<\/td>\n<\/tr>\n<tr>\n<th style=\"width: 100px;\">entities<\/th>\n<td style=\"width: 600px;\">{% for value in vars.steps.Whois_IP.data.entities %} {{value}}<br \/>{%endfor%}<\/td>\n<\/tr>\n<tr>\n<th style=\"width: 100px;\">asn<\/th>\n<td style=\"width: 600px;\">{{vars.steps.Whois_IP.data.asn}}<\/td>\n<\/tr>\n<tr>\n<th style=\"width: 100px;\">asn_date<\/th>\n<td style=\"width: 600px;\">{{vars.steps.Whois_IP.data['asn_date']}}<\/td>\n<\/tr>\n<tr>\n<th style=\"width: 100px;\">asn_description<\/th>\n<td style=\"width: 600px;\">{{vars.steps.Whois_IP.data['asn_description']}}<\/td>\n<\/tr>\n<tr>\n<th style=\"width: 100px;\">asn_cidr<\/th>\n<td style=\"width: 600px;\">{{vars.steps.Whois_IP.data['asn_cidr']}}<\/td>\n<\/tr>\n<tr>\n<th style=\"width: 100px;\">objects<\/th>\n<td style=\"width: 600px;\">roles: {% for value in vars.steps.Whois_IP.data.objects[0].roles %} {{value}}&nbsp;<br \/>{%endfor%}<\/td>\n<\/tr>\n<tr>\n<th style=\"width: 150px;\">entities<\/th>\n<td style=\"width: 600px;\">{% for value in vars.steps.Whois_IP.data.entities %} {{value}} {%endfor%}<\/td>\n<\/tr>\n<\/tbody>\n<\/table>\n<p><br \/>{% endif %}<\/p>"
+                },
+                "version": "3.0.2",
+                "connector": "cyops_utilities",
+                "operation": "format_richtext",
+                "operationTitle": "Utils: Format as RichText",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "b974d4df-ee18-4e9b-b351-9fbc54465534",
+            "id": 2990
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Whois IP",
+            "description": null,
+            "arguments": {
+                "name": "Whois RDAP",
+                "config": "5f97d024-1ef2-4b73-b639-a2ec235f490d",
+                "params": {
+                    "ip": "{{vars.record}}"
+                },
+                "version": "1.0.0",
+                "connector": "whois-rdap",
+                "operation": "whois_ip",
+                "ignore_errors": true,
+                "operationTitle": "Whois IP",
+                "step_variables": {
+                    "foundWhoIsReputation": "{{ ( vars.result.data.asn_country_code and vars.result.data.asn_country_code | length > 0 ) | ternary(true,false) }}"
+                }
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "049e4fe8-3377-485f-aad4-f7eeae89022d",
+            "id": 2991
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Configurations",
+            "targetStep": "\/api\/3\/workflow_steps\/942b0375-265c-485e-a308-87fe2db63fdb",
+            "sourceStep": "\/api\/3\/workflow_steps\/1c415373-4938-4228-bd60-d1c2a7526c47",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "c87dee60-3cbc-45dc-a7d4-b77f1ae977c3"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Whois IP -> Compute Whois Summary",
+            "targetStep": "\/api\/3\/workflow_steps\/b974d4df-ee18-4e9b-b351-9fbc54465534",
+            "sourceStep": "\/api\/3\/workflow_steps\/049e4fe8-3377-485f-aad4-f7eeae89022d",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "144baa08-127a-456c-b698-f3e1d255c7ac"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Compute Whois Summary -> enrichment_summary",
+            "targetStep": "\/api\/3\/workflow_steps\/2e94bf5c-d76a-4ab4-ad79-73f8df65c83a",
+            "sourceStep": "\/api\/3\/workflow_steps\/b974d4df-ee18-4e9b-b351-9fbc54465534",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "b8fd65a0-5358-4562-b0f2-d4221bbd7fb4"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configurations -> Whois IP",
+            "targetStep": "\/api\/3\/workflow_steps\/049e4fe8-3377-485f-aad4-f7eeae89022d",
+            "sourceStep": "\/api\/3\/workflow_steps\/942b0375-265c-485e-a308-87fe2db63fdb",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "f191c033-2581-4a6a-a488-466c33c0b10c"
+        }
+    ],
+    "priority": null,
+    "uuid": "142a64eb-71aa-4277-96fb-e9578468bf62",
+    "recordTags": [
+        "Subroutine"
+    ],
+    "id": 961,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433424,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433424,
+    "owners": [],
+    "isPrivate": false
+}

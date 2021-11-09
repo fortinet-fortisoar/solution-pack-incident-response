@@ -1,0 +1,233 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Process CarbonBlack Bit9 Approval Requests",
+    "aliasName": null,
+    "tag": "#ManualAction",
+    "description": "Creates tasks against an incident to complete all requests listed in CarbonBlack Bit9 and sends requests for their approval process.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/59667fcc-7feb-4ba4-a5a2-e03a9287f857",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/e667908e-8498-417e-8f5f-d6b76d818401",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Process each approval request",
+            "description": null,
+            "arguments": {
+                "for_each": {
+                    "item": "{{vars.steps.Get_approval_requests.data}}",
+                    "condition": ""
+                },
+                "arguments": {
+                    "approval": "{{vars.item}}",
+                    "tenant_iri": "{{vars.input.records[0].tenant['@id']}}",
+                    "incident_iri": "{{vars.input.records[0]['@id']}}"
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "workflowReference": "\/api\/3\/workflows\/26a804b4-023a-44d7-8b74-4a06a0ecdc81"
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "ea6e3733-27d7-4b9a-9536-92963bcdcbd3",
+            "id": 3479
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get approval requests",
+            "description": null,
+            "arguments": {
+                "name": "CarbonBlack Protection Bit9",
+                "config": "cb195cd1-44eb-4ef1-8037-d2e3a06379dd",
+                "params": {
+                    "id": "",
+                    "sort": "",
+                    "limit": "",
+                    "expand": "",
+                    "offset": "",
+                    "status": [
+                        "Closed"
+                    ],
+                    "process": "",
+                    "fileName": "",
+                    "pathName": "",
+                    "policyId": "",
+                    "priority": "",
+                    "createdBy": "",
+                    "computerId": "",
+                    "dateCreated": "",
+                    "requestType": "Approval",
+                    "computerName": "",
+                    "dateModified": "",
+                    "fileCatalogId": ""
+                },
+                "version": "1.0.2",
+                "connector": "carbonblack-protect-bit9",
+                "operation": "get_approval_request",
+                "annotation": {
+                    "id": 654,
+                    "name": "get_requests",
+                    "system": false,
+                    "category": "investigation",
+                    "connectors": [
+                        184
+                    ],
+                    "displayName": "Get Requests",
+                    "connectorsData": [
+                        {
+                            "id": 184,
+                            "name": "carbonblack-protect-bit9",
+                            "label": "CarbonBlack Protection Bit9",
+                            "version": "1.0.0",
+                            "icon_small": "data:image\/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KTMInWQAALutJREFUeAHtnQmcXUWV\/+ve+17v2QmBbN1ZhECICi7gHmUUcR2dQVTUYWaUcYCgjM7G+B\/jOjPqqBEQicMAwjjMJy6j4wjjMIofREAJi5AAIekknZCFkLWT3t679\/6\/v7q3Xt9+6U66SXe6P82tT9+uulWnTp0653dP1a2q955njPG5RiLEMPVGgnHOc9g0MCI2Wr58uTV8bvxhs1POSBqI49gExPJYAtdwX7Acdp7DLePznd+I2MgjjNQwKIHz8DzWQA6s57HxR7LrObBGUrvPY945sJ7Hxh\/JrufAGkntPo95F9T35VynX2Df4HQ7XEFvXKMaVtH6qlVGazV5OM4aKCynQa7YrDIRyfEYcq88ClYtLAdUP122sKa5UNvo94ReVBPEB4mbMrHkUp5iF1Tu0q6svzrZPMdX9Vwdx8Pxy+Zn6\/ZXR3kD1fPr6Mv+oHvxN9d0uDby+PhpQENhPDWKzi0USl8x3AUmDCcXPN\/zonhywXieiSyAbNpLhhUWVlkCI58S\/rwpRZcfeVMKpL3E+ZHmhjzK47g3hmlMHpnik9Q1cpgwU35viJL7OFKRhww2uDq2vuQD8pLP1aPN0Ct7E8t1PRoN\/5arvHypKSy\/a9x6Zdf1MRNbU2GgKTWBdxoGM2HkCU3HFFx1wDAqIQRrk+t9s\/1A1DIqAuSNykfhCjwv7AnjGEB4uJaQe4cN604qN4NQmMDk6LPpQVR9ziTV7eD7wu5yXPQ90\/OcmeYVj0kDFljaMBSoBCeNThiqz4RXhhtKyNJn00PhMVTabDt0IwJUCsn\/oTLL6Y9ZA30AdMzccga5BlIN5MDKoTAiGsiBNSJqzZnmwMoxMCIayIE1ImrNmebAyjEwIhrIgTUias2Z5sDKMTAiGsiBNSJqzZnmwMoxMCIayIE1ImrNmebAyjEwIhqwwApHhHXO9PmsAQssnW7IQ66B4dRAPhQOpzZzXhUN5MCqqCJPDKcGcmANpzZzXhUN5MCqqCJPDKcGxiew7PH94VRTzmuoGhifwBqqFnL6YddADqxhV2nOUBoYn8CyHzTKDTyaGhifwBpNjeZtWw2MU2DlHyccbXyPU2BlP7462ip+frY\/ToH1\/DTmWOp1DqyxZI1xJEsOrHFkzLHUlRxYY8ka40iWHFjjyJhjqSs5sMaSNcaRLDmwxpExx1JXcmCNJWuMI1lyYI0jY46lruTAGkvWGEey5MAaR8YcS13JgTWWrDGOZMmBNY6MOZa6kgNrLFljHMmSA2scGXMsdSUH1liyxjiS5XkDrNOn219vGUemG9tdGZ\/A6udzhWt35T9\/cjyhOD6BlX9K53hiqN+2xgiw+PCDJ1H6+RCEx5cs+TUUpT9W2G838syxpoFRthZA8vWLmKgl4uvfLIgAWFziSn5MMy7tM3G4A9ydYLzilLGmv1yeATQwSsACSQJRHJi48zHrrLzaBn4HtcNEXUhas5BiABf1mJqZ55jCpBkmPLTH9Gx\/hDwAZ71b\/kmcAWw6JrJHAVgCFb\/vi4fyyk+YxhdfYRrPONcUJp4IjjpM18aHTfsDN5vy\/s04sw4z+XVfN5NetNQcXP+Q2XnLRSYq+1RvBJTlMaHAXIj+NXCcgZWAyv6Mc7jOTD5\/pZnyyneboGlaZXbVdNqrTP38s8wzqz5pwt2rTdA4lSlWE\/E0wCR3Bqh8xA71zam51+rfrKOfe5wn75qk15io4wkz4TVfNtNe935TAFQa3uJyd+LFCrVmwhlLzdS3LLe\/TR1bAAEhzcH8OjTG8FnSL\/IylHp9fpl89LWZS1DRwHH0WHgXv4E51SOmePLrzaSz32mC2kYT9nSag0\/eazqfus\/UnLjANL3wDaZm4nRTd\/J8408UoJJJvMe8Ku7ZYsEWTD7HhAce4r4JnM6AiMl+xedV+pYnRlEDxxFYyXJC3G1Mw+J3mNoZLXYgO\/j4r80z3\/09E3aiBfBRPni9mcicas9dt5hwH3AJku90jsOSqW1+l5n06j+jbrPp2bnZ7L3rBtO9eZXxas8AXPnvio8ijg5r+vgBS2+BvPIxEpq65jNMwFtf6eA+s\/\/eH+B9GNimvsJEndvMgXtvNB1rf2q62\/7bGEY6t7IVNEww09\/xGVPfvMR2om7mIt4WTzQ7\/u1pU96zHnCdCH9QW6lxWF\/zjOOogeM0x9KknaGsfMD4jS2mOBkQEEp7d5qebfcbr24Ca1UdTJnqmX\/tMt3bfgeoFiSrCp5nPVvN9GZTO\/NU07NnK0sPrG1Rv37eC82El1\/M8PoMd5pvORiSzMOoauA4AUt9xOjxQTsn8mvrbafDjgN4qSeYe03inrlUrEXSAgDT5Epvfb3BC3xz8PG7zbaVf2D23H0b9dqNjxesn\/di40+AvHzI1u2tkadGUwPHEVjqptavelfV7Uz8KL2PWYGXHyrt2W723nmt6Vr\/G7P\/F5ebzq1P2prFyTNMYcq5EKxLgSVflnuuo6h1xIuPH7BivRUy5HWtYYG93Xas0DSZNawXsya1k3tEsavxIfPw3dwnk3a3VFU+sNeUdt3LXOxFJjwYmp5ntlge8n5+\/QkAllvVdxVsaf5vtDRwnIAlD8JKe6GJOVQ3ANlq+1ucepKpbXk1c6QSZYCuZ78JJs4xDYveYrx4a7K4njqf2AImAR\/TLkBU5ZXkqPIwZjRwnIBFfzVn0ikFPEvnxgdNufuQCeqa7HpW4cRZJtzzK2O6t5uJr\/igmfGe5Wbym75u96edAwrqG03QMNeUdz1o\/KaiqT1xrlVi1NXBZH5nsrdo52UCXIIynGQV+saM3se9IHa5oXea7GGJxDcMf88xNvt7Xv3JpmvtraZry++bpoVnmcaFLzUnfegHpmP9b43e\/BoXvdIUm6aaSS97qzn08GsqC6S10+eaqed\/yuy\/59um6az3mvo5i6yIPXu2Acq7eCk4Df5uoTTBU\/pCme2KEJeDLauR5Ckcdp0cv3Us2VPrWLUz2GB+2Oy7+9\/wOnPYfJ5uGha+3DSwP2j8gBEugfahdb8xpafvZlsw2baJw7KZeOabTNNpr+CtsQHnV2fCUpc5xJtixOJqMLkOp3gwx01f0IzanR0Ke6e8I+WtXP8AF0vsftMSc+ihr5pnf7bSrktpfPSCBONh5wGz\/4Gfmj0\/uSqZkKcr74eeut9079xkCnZTGhBFZdP+6C\/Mwd98xXiNC7jXBrV78AaccDkCJ1Ae9yptWHVR8VjHT+Myeg+LoovNgXs+xUS+lf3BN1nPFbI21bnht+bQo7fi3Jjs189iFf6XTPh3m\/aHbmck7TKTzrnABPUTTWfbGupfb6JSkYl\/rR1mh1UzObNj0kAFWMfEZaiVtfTAxqBXs9h0rvuh6Vr3r6TxQgxtdo20ZhHDHVBnDeHAPV8w+391AI\/WDLDaTXfrdwHSCSbsaGP8m0+axdXK3GqoguT0I6WB0QGW6w2A8GpmAoyZYIjXxQKH+AQowyE+t\/IezGKA0xsgE\/+aRuhitgTxZoBSSxgJXZW\/7edTOq7JPD4+GhhdYKmPztv48lACVPX8CMBpjUJLCFoF9QGfFlPtCdJqWjEk5J\/SSfQwiv9HH1i28wLNACBxC1lOSXaJ3d3k8VjVgAWW1rFk1uoBRffO3AOlsx1zNI6Pq5ulyaYd\/dHyBiofoB1P7R6t7SzPPD38GhjQY6VGd7brY6iBjFZtUN1XGPQju+OTpXN5\/ZDbrGx5Nk079jabNxCPPH\/kNZCsY7GQVdl6YxskC6ojAaO\/MuVlr+ouDFRHdP2VufwjlYkGQMlTWTKPybsSsTYS8jAqGrAeqxSFD8dR8Ak97eCKGTImScORPMBAZQPli+VzKRtqHc7HR4d64jrw9WjapLcm\/1KQ1KLHKVpuz6scp8ZGoZm0f\/LM+XW4DuRAhl0vy5cv9wso3nD5p18w\/oaNVerbqiM6SSjyMBIasEPhcjiPRwNoCVXgysPx10DlrXD58LetqVFlrjb87HOOY1kDFWBdcMEFfUCwatUqO2d2+e5enVGeu3flrpO7du3yli5dGjHO2qzqcldPhUMrW4w8CU9qehdcYNlX\/lXz5V5llXl\/tq1q2gqTNJEtry7L7wevAU3e+gsY7wKdqHHBr7r3QEa23NG52E0K3X0lTvn0AXJaKH4D1ctONCu8KolEFtXN8nW8FGfDkXn1ypCtPx7TWT0MW\/\/s5B1tR3986aVzmoKaszlk50eeKURR+dldO3bczZPbefnlly+KfH\/qru3b7+c+vBRar1A45cDemvtuueUrh5YtW3ZmHPuL+QRqp76oI\/a9hshEa6\/7xjdWX3DllfUzStFrY9+f4kXsHhN6esy9K1euaKPexNArvDKI4ym0G8Zx+bGrr756LSTqYHTZZZct9rzCGZKJ3Z7tBw\/uu++mm27SoStzybJlCwomOJOCGsr3R1HpvmuvvVafwDCXXHJJQ01Nwzk9PeHmlSuv3kCWR16hUF\/\/ykLszQt9s6b1ySfX3H777faj0x\/+8J+\/pLah7gXQRSx+FXo6e55YufLaB7mXHHl4jhqwyiuUoldQ\/6Yojv\/Zi+KvepH\/MWOamhKehTf6cXDzjBmzz9Q9xn4V5V+ZOLHzBN3HcfA2Mr\/KF3usJL6eVcqvFeLgHSqb1B5NJO8rLFhez5LlP5L+UhBE9qPM5bJ\/sh9HX4PsGr4S5Kux8W+94oorXsK9dpwhLV7g+f53uPkin3X9buOEyR9VvkIQe29E8Jsg+gfQeiOH479w0UXL+DAiaBCIPe9zQRCfq3tCXFPT+AE\/9m4G2v\/oh+a2lpYF5ylfl+d7H4HXzcj9j3wLDgft47erUjqUZ72fsvMwSA1YYOFxJqDlbb7nfyiK\/NeW\/egvjTmoc77gJe6pq6tdSOoq3WM0fURhQhja8y3klG8N\/Pj3MNNvuXnAM+G5cVy6ibQpFLo1h6uh7Etx6L+W\/eN3USY6+EY4K6+G6\/NlE70ZE+O2\/I+oTIHPE07FUz0a+TFl5t85sPwRvFizylhQn8z\/zbR1IZb\/G663NjVFr1YZwPLpSz1y8skNYy6++OLJsRd9mOTdvhctBajf9Lxoj8oU4Ds5juM7Qj86P1Q\/ouKNyk6BBas8PBcNJMDCTWE8jkRFrFZHDV6ptJ9hzw47mCnu7OzksLr35suuuBJgGD5yrINQSbjmmms2rlix4ndYYAdo2Mlw9ojyVFooFMi2xxEKQVCagLfq2b17N1\/1AbAKDLoep\/0K8UPf+sY3HmMYWkP9OSpLA7LFO65bseJJQPK\/5NXHcfJdkdACnngPbd2HKP9FGbLGJ7uKxDhf7fAYc+hQ4Hva4Ym9Fj5qMdE34XXf\/OY3f5Wh5XAXvtHzGr2S5+\/Y0b6Xsjg72c\/Q5slBasACC8UCHNPMrOIahp3vx17h3VKueACkJpT+ADc\/ACOfhIZPmMaHomJoJ+4YwHoG6ss72U8+MKexMUDFQcDRM8sY6n4SRd7yiRMn2iHWLwsb0Efe5Zdf8fHlEL4Kz3O32lRgjOqk\/MXLll35KVDyGdrfFMfdm21hFHeBlIWXX\/ExhsJgBW0wX\/L5Hsk0gCq8kpV\/1aob9uJkvwXH+UHs\/5K+fe+jzAsdKTFfzBW\/0Y\/MbV4Qr5w0KT5dZVOmTEl0kyHMk4PXgFUeTqkOxbfFYfyxyI\/eE3jRf8ICOxP4ggQsFAKAf\/CNjO19kqK4yAxfxRjAGlBDJAmbXrdupo01LJEl13Qts\/p3el7wuW3btsnjYcv0YFVslnBzBT5lX1cX86VKgL8XT4PubYBoD17n89ddd528iRwMzsfjy7a8t3L7XrY3f3z99dc8oDKBWbLwz8rA0kdw9dUrvsOw+Xr4fJq2mMT7y0SrAFE9DP+Pbl4UefGfd3UdfEL5e\/fuBet5eK4asMDirQ0Qed2FgmkzpVJrwMwXTwTYrOLldZrWrHlIX5bA5NufhDGmlkpF+1aVbThBYm9OuVwGUzJy\/Iznlddh8n0tLS18i60FljxeFPvRJ7Du5VxTamvLs1xtgNTAiHdPZ2f7W9rb97\/rmmu+\/nNAIq8InmJAZdb0dIfvApCrmO6f6jxnuVy0iPIiPCVhyZIlU5Yt+9gneLOd1d3d+S9kPYBMaseWC6WkD5TLXa21vr\/tpJNOkgf287UstHAMIQEW0yh4nBJG3qqgUPubMPS+XVNTM0188WYAII5nzVrScPXVX\/tZFIY3AqAALCaGSRvHs2RwdZfNxWGx\/mACLP3ZyAS\/8fzwTt4qz1UhXsXWx8F0XXPNiu8CkGd8v3iZrWjL1bTpvuGGG\/ZomeElDK+nnHKKbYN8G2s5IQrt2+g5M2bMfLPq1tSElCFLr3R8hMc\/H6B9r6a2\/teQvIju\/Ig48UhR1EGFd9P2z0uh+TXd5Y3YlkX5PAtNPMdgPYAflx8wcd1fYdwCRitilmcPFYv2rRAM\/Zz7TY2N3Xbo463xi3w1+51RdMiWuyGDgfAWJ8P06dPtMNTe3tA+cUr58xzEORnjRXga3gT9dQldz3Y+jfpZrxxu0j1e7ZMsCczhLa4uWa\/yvh\/7ZhJF8mzxfIYmOw5yU\/Dj\/w2N33r++efjZOJfMdb+NZ+9cG96e5lhfZnPhWlNzEybNm3bzp37LwmKHm98pgVWD+3fX\/ypyggC7y2M1msZOnkp9OqY+D1EPuLm4Vg10Pts9+VUvfJ+2D3kqqtLxndBaRlG+f0aCE\/gaGyd9N6mVa\/6XnnuGqDM1h2Ar+r2FyTDQGWV9lKa8Xrv7DSs\/WOpRnOrRLkYxdM+n7PAXXfdZYcKreesWbOmz96g6Fy5o1d9pTNzE3kt7Rv2MR73ffYRHX11\/ep7147i6jLdr1JBZn9z8eLFcboWZeklszxpIvtS+rZcNSpl9oZ\/onEyubxxHFsbDXf\/pPcKsIabOfxGROgRkPP5zHJEbCRgFTJa7eNZMvlKSgAFFyd3yX+Bs+Lp0gInsPJdHRenJANGjpeLRai6A9UXXZZW9EcLycQ9oRps\/SPJIE5OBhc7eV3sZBpMe6rj+KhedduOR3W+ayMbO1qXN5Q6g6EVX9dGhd4BS4rOKtsJkY0FPDFQ5WyorMJnM6vSA9WtIrP8JUd1G6LTnKg6\/2gyq95AQfwG0+9sfafAbJ7Syu9PD8pX37Ny90cHyVGD41Ut80AOQfQK\/bWnvitk5Upykv\/ZOv3pPUtbbQMrj4AVLZgx48S4tvYUUSPNYY3FYWFX69OtGyhWg9mGogUzZ86Jgtp5vpf+hISYpAFGWlPYM2n69KdWr17Nomafuo7MxVJEOHv27Pq6IFjE4ldzzO43q\/5Psze0dv369Qcy9S0ta2KTeY09jZX5oD+5HWMXSx5LVyw+tWHDhmdmzpzZ0FAsLgojv9H3+emLPksmaS2tw7GviRwdneXy4yzwdlTJIX2F8+fPnxT3xKcaP5yhNqDf1lEqPZGhF8MQmU8KomhBRRblHiHQN7QQSHdPbNq0ad\/cuXOn1Pj+qSwJ1bBD1rr+6ae3UlYNLqsfsZ03b15zXI4XsRMxkR\/F2u+F3hOt21rbKBKN6gkYSrsQqY6PjJxWaduwdavsni13dLYN2cAre6ewslQse17r5s2bt0OgH6VhG7lYfFXAyQQgpcVFdaIvo0J4YP7cltsi33xNnaNc9aRQbQi+yzPRF6mq5YckzxYk\/0Bix95nn\/0RAnyJujtUgyuLctdWSIdeBD4\/TuEbkESfq\/FR7D7TU7p7QXPz1zZs3qx1KJ8jEP5qjBT19JwRFoqsqnvaRM\/KLZ66JI+TSbHdRfC6y1ov+2EYhidFhcLVHMxZwgZQO3wON1Bs0JffhExri8XiRdTbyOVktv1omdNynleOLoXPS9HDZMq1rbC7Lij+qmV2yzc2bd10P3lW1xhrKdtVX095lBHKtXmYzJRpF6GOI0e7o9D\/EHXuQz+L+NKnW8D7zNAvcFjAXMvlAELSpssCuimFf4qWPsjTNB+R2WHgm8QKZv38Oc039MThjVu3btX6pXMUrk88G+GF9OOfgMfPmpubL07Bom06ORYX1GaIPEvY+b+JPk33ovAK8m7iSoBFoh6lTq+oi4yqcBJlf8+iz\/SFCxdeiffoxrhFa9zYa2I1vpGnuhElVKopJUumOVdS92Q6+9HW1tb9ZFeDKwQ4b4jD6FqMuMgy6WU1g\/s\/ZAH2ZQvntHxs\/ZZNP+pavLjAq6rItDvQwkIsy2hqrTfoPiuPSpxMbFvZ\/Uq2pfhhHnMi1ScA4AnV9I4b3gf7hLODMLLg4I3T501ZQI4XzG35M9a+Pk9jJ6iFXrH5NSnfvJ9+nz1vzpxLN27Z8jPxUzu4P3m1rH5UhMPsK7NoJBO6ncBPpamvutfOwMn0uT6KwvRok0pskLHLs2bNmmbKZb44zLu4qk8Cx1nIe1aNVziF0eFvU3CpX70K9LyJWv9GnjdR8AHKvsylh8iJbbC\/wf4SqI7M2eiIkyp+RR6rKFal2Vqp8N0KOd5HK+76jKE13sm2Q7H586i7\/FvybuSygSeHQ3q2bpn4aTJ5CthfZARBVClhFpcO5L2Xp\/VB0hJSFazeiMsLm5vPwmOshGZByqub4jbI1P5cLh2DaYbhtXiAfRj1l+RJyYdwsb9jrHIei1yWVY13EokJ8Oqkoe00JBCoUT2deurkdRW0XV3iv8p2Y\/XdFf+RlMuF6\/hiIw\/hk\/zsit3GqlvDOip1582d+wFq\/jNyNKZya7jeRmGNlE1a\/V7ANsDX58+ef2Hr1tZH2QjfR3NPUU\/9dx5AdpjJxQkOvgzfeNsTlAmHMTsHZi+Gs3us8JNOkv6wqEvaBQsqHvzauKf0DwKVZErl0vC0m+vE9KLYfIwhVcP6VVzi4zwXQEaJKR5gcemCOXNu37Bly2PQVLyWBRUZdELy9NBQDTBS2gYLLFJSVBJi7wt+VPoJp0QnlJl4BGEYhLH3XkT8C\/Zx5Jn+BKT\/aPXWrXalG8Y6SgDfqIv4Sq8M8IJgYhQUBDTPlKM\/oPhvKJvA2a6LmZPdtmHbti089TUApEfzHMg+jeIWRMKRB1B04LAQ3MdxU3gXzgL0V5J3Nk\/RLAbHT58yc+Z71m3b9myxs3NNVD\/5PWGRQZoQaHPS92t1cDAICm9iqHsc73BZieM8FNfxlMtQiBjqpyxMifsiXff4ikrc\/0\/xDZ+JysUggh\/yJjrp4ckphEEtX54UNTZqKA9Wm9UllH0GNT8FnUAlw9xBP68Fhk+F\/J4Lp4LOZjfhChRzJjSnsZ2lYeLPgs6a\/ylNKD0mWQhqp5N54slsS1yPrEvwQvegzb9Anz1hULD24SRIWGysU9uw9xi97UOpW4FTQbGVNyqVLiL9kbTgAL3gAGZ8G+P5HtqaQasXQ\/5H0OABvb+YP3fur1vb2n7CfYWH0vK9yAIE\/BaG3svIu5RLuy\/SdS9eknqcYPEsMimzwQGLfIEDej9uW7\/FTggdjeJPL5jb3EL8Qa4zQbqOnfwfVyZwTi8M1m94evPWTKaSX5w3t6WZ+BKu09CKTqtu6e7utn2vD2reTh\/OT2T1HmV75o82bd78MDQuPMXT\/mDshzcDbtV9fViwx3pWrt+zh6d7zzpH6GI8yf5Esd4hNp8f35wMv65YsQWiEijQKgneu3kqNyjvCKGiVPa4PwQqTk1p\/7NQLn1UYM\/UfbylpeVhxuibMc4Lwyh6OQ\/VrPXb1m9h80merRKg2wfk+c0XX4\/\/\/o1tbWsrhb0JeRTkZVqW\/pye6wQPqaehed68eTNAwyW0p+GT40DmMxu2bP5qLwuzkfR9TDt2Y+uroKsFwJfR\/p3MfznTVvFItMGdDuMRoaMPAMDvA8A7lcsVcrlg9acbl3n66adr2EiCBRVJnKtcr5FHISqkMXr3fpA8Yn4jbS4WjQJcExva9kt2HiB3TFGAwPYeb\/k96nbSEdDrLVE9zdOIOAkYvwdQF3ElDFvR5+ngw65tlSvNEPIUY+tnkHGPlEZ4N21MJI4c7WJj5VWZhhNrBKQLovaoXpmOjqR4Vh4o9\/BxmsLlqa5cvu6zl\/J1xQtmz15Ip9+SPIwMa4H\/OYEq7bfqFDUHVV+Yfl8XhtEWDPhleeqUh\/gHKT2\/BHOQiXVii1QO6c8TD2IrAzKr7SRUTOkykpiR6FwM8rI093utWzbrJcH1vdJeY1fXF0HMHSojfi31XqM08jg8JDaNY5ypZgteE8P5Mr2xQ6Zh2NGpmmitRE7AtWvX8ohUBZjYcZInQMRRGhuO9W3ifhdnxGHlaUJ9WHB1AY14MHI0Wl7sPLdy\/7QMQW3NJazgvHG8kNQr7I3x7gxqanTqQFtItj5JtW95MGn\/Xx4juWx64b283FWW16zQrjEJHVn2PJbKCNi809bP8qxL+pYQpLJYIptjlaS+Zy8VW32IBC94DtEiWYW772\/cuPEREj791lAh2pA5iAoNrwf\/yaDyLrzQrbpPgx7uONWT4YnrbZ5HjzLbXspD6aiuzs7r0upJ5CrRN7WLmr3zmK5ojGUe569UPYEzLVd7JYH5dzt3HsLy32ZuqqGuAbu8WRwpd07Hyk6W3hr389AjVPx2JvzvFR1BoM+GxISZnMOAlSnrk2StwnZQmXRAT5ELhzF1BRw2toGhSx3ncBZ1vbhSF0f7EjrF\/IJ+xOZ2OmbfNiFzOlN9pVWHKYu5A6Vp2J4Cvs9SIUHlA8tgSQb+R8VEiYlBRaj76kv5asMqHq9yFgYJkHs\/eRoeFKTLhJe9tXIFWmLZ0Namua7KrcdLiof4XxwGDlpPnEkXztJch\/j+jp4OWyMFZ6WmA7Pf3X03mb\/Tw47UZwM4jQCyEyzi0ObrxSc2eiD201\/NGi7XuiX3pd0tLc5Bqcph4TBgoRlrpBSRFWSC2CnU1puW5mLZOUJFmfKaauElL7G1ve6FyTyKfNVNjpoaT8awdRCehTvUEMd7Gc7TeVXVsyCGqUx8RExQ3UonyYlOsSV9QZhmHVMUIL\/0Yq+lSax+2b7NmDGDZZV4gZXbmFZe6586QmvqpwzgHqaKro5QZ9BFfYxXLMrgs9CllPvQTrwS9yKpblMPor9+x45ddOl3pAneXN57NJK4kNTxTJEXt1vp+S9UQJ\/PiguFP1a6cVMyGilNqG6j0uGkmP88kpbIIZ3YPqUcKmXs9pqsx\/DtJLBSxyVoOKm7erWNeTrsE8BK88uZmM6wdU28IaXXTPVkr2DttZO3maeVzxuXY3d4XCzuNGG8nYLZ1JqpMT9dh7FMDq9w9ByGVRyn5qrxUl4yrmf1xt+361nDywriedEWE9fPN\/Ha6MCBb23at28fQ9JEyE8QZx7hre2l0p6jtCJdWH0chS5bPFR6fcfvScBoStIXO20Rv\/6AJd4Cu1x\/azKc8+CX7fTmCVWqhDhuYLb6TBR6fCwuOo+XlXo09SctLS0\/XrNpTfYFq1LFJfqAXpm0aI2EawzSCWM0f86cl6HMP9ZTStgM0nQYzgZyKkqgU5ZfWldPabhw7tzTEeYS1aX8WVaQ71dFhKthWEwX1Lz2cqHQbhlm+KX3imwbNe3trLvEByQFPCfgudKXgwzlc0jKGHR7Cc7+EpT9YXfp3g+CD+KI38twbo9U83DoWDTrWgrxAY7h6CVkuINV9FCYsiTTlOoYxNg1K1VPVFXFqDImxOG+1HgNfFRZQ2FVYGmDhW92Dn4Jp9usllhP9MN4WfoyJMP0K6tz0ZVCjH05T+tbWWSr7eTjxKTZBvGYrMYvSMwb37F5c9vjSCAQ6aMwCdy0LuIF\/4\/tgmfinnKxo6esBUQ9Fng6c3oq8f9Me3ra6k2VB8oJlXyiJqUZMNpNCRteVhf8Z1WXxYlhCKn2We7SUG7V57iyShDV0sFDzGJtux7rWixZJjIkkaMdztjyf44M9RY3uPq9dNq5OMzJ0H5UDjkvTGDFdAXbD0tZS5wHRi7sONDxI7J\/jDlw3A4CokyCA5a7l6XPdVChRpKPFXGDoCjayDf\/fVOZemXnbaMHfEkoZRUhYU0qqZNIyX+VkYeFWtkp\/mctLkLrMantAXha+dUti4x2WcCdPk6ye\/9bppMLhTrG\/Ca1RkYna2G0f8zBLfD+nDf+m3lcNDRK\/MRAkWEpxNvBB0zsvDKIuw55pl7zF+mzkTlzkY1m9Wk4Q6r4IbHslB2QSXsezvukqur7BLjJBh2ckDbUTbXUFrbNSvs+m6DK0Zsv+8XfZgb3RfUbzC0j+79Y2aFuMre2NdN\/hwHLSoKAil0QwHgD4oOj5srWrRs14ROobIOikRSiTwGmzilbdUIAyWtwvAZQfWT95s0aQtWm6nJ5O1MHNJ3D6yeRtw037bmOc++CFadcVzeNhUS71IFSGIV2OWVYsR3xUGIN0AI+Mq9pbdv070eoa9+C4oYGTgjYlXxBbxaAm0wdJ8dA1Z2KsuVZFWfz+09r\/KpSTMUAFLF08Aw7CO30Y0LshXNTJiKpgCTN072dN\/Oe3+xhGMIB1miyi7sV2eBXaYYzJP\/Kmtc72M89B5v+3oI5LReGcf\/zbQesCiPEuI03+kdhWEuD1mC85z\/Dlsf\/cIRiPXn2aZY0SWAYs7+MyqER493MK+kWjIUX86Yi8ofgw0fl4x0cIXkkraCeiIeWD56wSw3sYbHheAZ5D\/JOSVSlQXIUcCUaUucIwPhJyaJOi9exhyhZGIaRFlC1ydyrk0QPVhd42i5WoZ+SDGS\/gF2IU0lsO4IAInRyqu9ZvkeoNrQijta0wXkb+j6Vp+RFmgMlI4p9kLNtSl8lHb\/B1i9KW9la7O7e2l+LVLTIa2GxG6+1EzCtYE\/wTOa3tUwTLuf32v6FzunBqrdoTZlYYCnDWQcu32HF9vb+GiFPT62E1GWrQO+E7vLj8OoNbXazkmJjmG\/Ju7yPa2l9ELyd+D+44tRw2sF4GAPtYVFvKkPlGym7laFSb5Li7fiqY+6pOZcOMZ\/UD8nZT9NQZGlVbhWgjOcScOaujTAFlWs\/y07911GXB5ChG288OYziN5D3Cy7RSwZXT+lQ60NRV9RcP6n+ydTQTodDk7f\/Z40mbPA40rMt6ik9xt2pSHBO98GD2h15qHoEQB4t5MqQL0X3L0ymKuaRZPnB2ldwGFC2DVs2fZ8pzO9DcyHXy\/AOvOMkWMBolXoWHOppJUTWU7ltAAEve2WVVqmSJjRjtNsn6dK\/mvs3DNAFGNiR8f+Q9SFNBO0ShOoc6OjQsPqIZeqZ8\/AEr+Q+pvNqU0J6gFDiRToBQfw2LoW1PVFUeTNNsp7bf9q2ymAz3ylFOrFtDxDzeAW\/pexxvING0XfzNC\/iPkxltXXTPvCLLqWXmiD8XseBg3+Z6uWIhoOPgtNzcneU\/4CnoMVlHo670LeG9ZMZovRAy\/erPWti6ALRpewuwi4NPNCawvxceU7mtLxPNG3TppD6sl8JBV1Nvd20o1McZ5NnlzkYqCyeVLGS0E02pE+tnuLslSU5LE1D9qlnrcfGPWH4c4bFX6YWe+O+Z599tSqlvIvMkQ5S\/kOrDM6DQfepBQsWnJh23rarp5wOT6T\/f4cZ56ZD0I9Zv3oaVpJ\/SEZQ+9lAm7Y+cwwrM2UyhMCvuL\/LZ0jYzEj4Ew3j9Pl0luCv0sJp6pHEL1IfOIVxAlOCj\/MmdQoAvKrgea+ljMHeLsAeSe5UZaI+etif7vExXbmD2fE6ZJJi\/oRhS55F\/dLLRQzI7EvGvObmP0WX8jh6gh70u4s\/U3pSshWn5GGBM3Ca+4qXz07CPcT\/mhKpH4f1xQ6FKYGNnKKzeUNNpwIWtHg5v7n5FtB9Hk\/HJIYN7TX9gquUzgH4Oo+e26Ka2vfRLj+d6p\/HUsVNeKfPRUGwljoxK8LzybsKDbxbcmDLR7H6rUoT9CQKBEMyhCq6gEZc3To8z+RCV6EYN\/JqwEmvbBx0drKC1dAOYAQ2phnBLUyS+Yi\/p++w\/EBjbZ03f\/bsL9V3d2\/snjTJD7u6FoW+fxUSv91Ox0z8GGP4GrXLcH+YIZw8aXy08j7kyCSDB5oD8+Z2I+DSeaxp+KJrF8ydOx1d\/rimvaajq7GriaHjQpT498hdlzzQ8bc27NzwDPV1cFN8jhQklx7miGNN18TlUBvxi3nYpZM+A58FlnIHdF2UDTJUlIGAlTRe6\/aiH9xrgWPit2G8F2vXP\/VaBY3tC1paPsvPxf0HQk7kYTsfQ7ycI6+PsYhSRi4Z7iTK5LI7ebP9QtuWtlZkkuwS3QGjj5gVAfrk9ndj+cIkfivcXhgVS5xMoQN6dSGOalBiydSUgmJ7+WD3X5H72\/ShWIfRvoSs18tIyPYBfnr49V319Y+xBsjSS7AEGaanch\/C0F9Kz6dLbhmwr9y9L+ISvW8ZGUcJqiMTcnzffItH4nVMqt8ME76dxfuWF0aXluq7trMgOYeeae6FNq2Rbp08ffpNpq2Nu16bVaVVlg2SvdDa2tpG\/7+h\/nPfB1QitnhSrusJErqkyo8aMvTZekpLgACvpW+KWaVhg3P1M9l6f0\/KVKBQ8Dds2nQH84NPYBwZQD2chhivwyjncjlQdZH3t0we9QIguaXMfgN8rOIozMp0GK3oyGQXx7KaxT7rOZzeOJthonIxQX8FnpPNcvNauE3NMPEYEm6hic\/Ch3N01DJ82Qhel\/Qb4ONAxYuG93d8yuD7qTz9y21HL8u9f5mZ4GSCpbHG682UPnVUZx\/nqD7OW\/a9yK5SIu\/FyHM+sb56U0FLQf\/N0Y9Pph9yEdgzcmk+boOL09u+UaGjnuWZ+Gfop28BdzYHv56oFqoI0B9GdYQMhHT0LnbUMbpI+Afmhyj\/seQ58d7JcZl5EDl6Ce9v3Lz5X3ho38elLZ8e6OWhdCnN93PFH2SdaQVloteVUQR3mYCBmbva4NrIlPYmkR0y\/bSmDWqHU69R5tJ9zHuCZdPOtoeGXXdUR89jjEz\/xKT1EuieQEZLSNp6V+J7eKjen5Fb+uhfbg6jibfjoXSfwDBgQ7Jarhm3KlTzErgKzAGf5Gtb3hdF8Q3c703lkUwKO7D2l3ui8ENaPhA9l22bOA2oBP4EbW1Ut2Hz+Vd88tkn2znT\/lX0sy8htkOikpapYZP4fnD9fjHBo7CWZENVY2luElUaQ9M\/KUThTkBzqCv9gg9IbN10zNYq+ybmTZfEUfgCKnbV8vmalJv46BJQfM4s\/RfrK79ikvtKjKUtJDASPYVlfy3PJ5qUttI+9y44PmWetxVhObqdNbW27mKxPSWo1Enl4phvuAtwfRItTgEAAg1ySJQ+gXX4WIu8PX5P0c6RKBUvXQJX1Lpl040cJ7kzLhZfgz2auXr4gpE1cY1\/74bk9OpAcls98c0+B\/Cdn4rK0Sxkf0o8uSRIRubVlrY7DNc3FAp\/GrJTwTbLA9AoVOhIi07g2kz8EYar68g4C7c1GZjs4vvu7udTN49TpiD5BcY+bXH89AeR8TfRh309vr9VhExdRJcNVp6WLZv+r23u3D\/EXrNR0q9FoGmOGDrm2UrW02QzjpC2DWTKrbLTe\/F3oT+6rEJEp3atV3CVMrFz19V1MiSVZLYtyZCVo0JEQrwGwy9bR\/3L1nG8qxXv6gxG7mo5jqT\/bN\/URrU8rl3xkExZWbNlrtzJ78p0X92XI8lzmOzLly+3HksFEk6VHVF\/wlDcb8jWVadVV8JV85CCXb6jI6tPUH6WnwqzdfoQH+Gmuq2BSMVb7bk2jkSn\/vQnt+un2qwOrk51fvV9tRxqZ6Dg5FWd\/uRx9VQmm4quOqhsoDYkc9YGA9E5nlnZRWv14ZShm2qUuopHiwdb92gCunYGy8\/R9xcPti3VHQptf225vGPlM9j60o+uwYSh0Gb5DdUGh8l+JBeXbShP5xoYkgZyYA1JXTnxYDWQA2uwmsrphqSBHFhDUldOPFgN5MAarKZyuiFpIAfWkNSVEw9WAzmwBqupnG5IGsiBNSR15cSD1UAOrMFqKqcbkgZyYA1JXTnxYDWQA2uwmsrphqSBHFhDUldOPFgN5MAarKZyuiFpIAfWkNSVEw9WAzmwBqupnG5IGtAhrf4Ogg2JSU6ca6BaA\/pmFT4tNDwXR1ItrzTW4f1h4z3avNQn17\/RluVY28\/0w2TSw2Irx+\/\/AxSrpfihfBmKAAAAAElFTkSuQmCC",
+                            "operations": [
+                                {
+                                    "title": "Get Approval Requests",
+                                    "operation": "get_approval_request",
+                                    "description": "Get all or filtered approval requests"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "mock_result": "{\n  \"data\": [\n    {\n      \"id\": 898187,\n      \"fileCatalogId\": 22322,\n      \"processFileCatalogId\": 23223,\n      \"installerFileCatalogId\": 23357,\n      \"computerId\": 86434,\n      \"computerName\": \"Win-EP31\",\n      \"dateCreated\": \"01\/01\/2018\",\n      \"dateModified\": \"03\/03\/2018\",\n      \"modifiedBy\": \"George Chebat\",\n      \"enforcementLevel\": 5,\n      \"resolution\": \"In Progress\",\n      \"requestType\": \"Urgent\",\n      \"createdBy\": \"George Chebat\",\n      \"requestorComments\": \"Please unblock this file\",\n      \"requestorEmail\": \"george@example.com\",\n      \"priority\": \"High\",\n      \"resolutionComments\": \"\",\n      \"status\": \"In Progress\",\n      \"policyId\": 7816830,\n      \"multipleBlocks\": \"\",\n      \"fileName\": \"Notepad.exe\",\n      \"pathName\": \"c:\/\/program Files\/Notepad\",\n      \"process\": \"iexplorer\",\n      \"createdByUserId\": \"george\",\n      \"modifiedByUserId\": \"george\",\n      \"customRuleId\": 78812,\n      \"duplicates\": \"\",\n      \"related\": \"\",\n      \"platform\": \"\",\n      \"publisherReputation\": \"\",\n      \"customRuleType\": \"\",\n      \"installer\": \"\",\n      \"processName\": \"iexplorer\",\n      \"processPath\": \"c:\/\/program files\/iexplorer\",\n      \"responseMailSent\": \"\",\n      \"file\": \"Notepad.exe\"\n    }\n  ]\n}",
+                "operationTitle": "Get Approval Requests",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "5b9d8501-a139-475e-ac5f-f2789c685c25",
+            "id": 3480
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "e98e5ed6-73fd-4c2b-a617-ed2ef46d1fff",
+                "title": "Add To Excludelist - Files\/Applications",
+                "resources": [
+                    "incidents"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                    "input": {
+                        "records": "{{vars.input.records}}"
+                    },
+                    "useMockOutput": "{{globalVars.Demo_mode}}"
+                },
+                "displayConditions": {
+                    "incidents": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": false,
+                "singleRecordExecution": false
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "uuid": "e667908e-8498-417e-8f5f-d6b76d818401",
+            "id": 3481
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start Investigation",
+            "description": null,
+            "arguments": {
+                "message": {
+                    "tags": [],
+                    "type": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Investigating Potential {{vars.input.records[0].type.itemValue}}, with following fields of interest: {% if vars.input.records[0].domain %}Domain: {{vars.input.records[0].domain -}}{% endif %} {% if vars.input.records[0].sourceIP %}SourceIP: {{ vars.input.records[0].sourceIP -}}{% endif %} {% if vars.input.records[0].destinationIP %}DestinationIP: {{vars.input.records[0].destinationIP -}}{% endif %} {% if vars.input.records[0].filehash %}File Hash: {{vars.input.records[0].filehash -}}{% endif %} {% if vars.input.records[0].computerName %}ComputerName: {{vars.input.records[0].computerName -}}{% endif %} {% if vars.input.records[0].processName %}Process: {{vars.input.records[0].processName -}}{% endif %} {% if vars.input.records[0].sourceProcess %}SourceProcess: {{vars.input.records[0].sourceProcess -}}{% endif %}<\/p>\n<p>&nbsp;<\/p>",
+                    "records": ""
+                },
+                "resource": {
+                    "status": {
+                        "id": 113,
+                        "@id": "\/api\/3\/picklists\/758925e7-629c-46d8-89db-fb36f5fbe88a",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Investigating",
+                        "listName": "\/api\/3\/picklist_names\/33e964a9-d607-49f2-813c-7ce46141815a",
+                        "itemValue": "Investigating",
+                        "orderIndex": 2
+                    }
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "__recommend": [],
+                "collectionType": "\/api\/3\/incidents",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "5ff8ec4d-a68f-4573-b48f-9945116efe5f",
+            "id": 3482
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start Investigation -> Get approval requests",
+            "targetStep": "\/api\/3\/workflow_steps\/5b9d8501-a139-475e-ac5f-f2789c685c25",
+            "sourceStep": "\/api\/3\/workflow_steps\/5ff8ec4d-a68f-4573-b48f-9945116efe5f",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "0450ac93-bbba-42eb-b39a-3404d770193f"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get approval requests -> Process each approval request1",
+            "targetStep": "\/api\/3\/workflow_steps\/ea6e3733-27d7-4b9a-9536-92963bcdcbd3",
+            "sourceStep": "\/api\/3\/workflow_steps\/5b9d8501-a139-475e-ac5f-f2789c685c25",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "6e7df39a-af6a-4875-ba31-61ddd47b4abb"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Start Investigation",
+            "targetStep": "\/api\/3\/workflow_steps\/5ff8ec4d-a68f-4573-b48f-9945116efe5f",
+            "sourceStep": "\/api\/3\/workflow_steps\/e667908e-8498-417e-8f5f-d6b76d818401",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "599f5169-d30e-40b0-8e9d-b82da7c1454d"
+        }
+    ],
+    "priority": null,
+    "uuid": "6d3d669a-40e3-468e-be79-1eebcfb00302",
+    "recordTags": [
+        "ManualAction"
+    ],
+    "id": 998,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433427,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433427,
+    "owners": [],
+    "isPrivate": false
+}

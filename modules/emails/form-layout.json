@@ -1,0 +1,73 @@
+{
+    "@context": "\/api\/3\/contexts\/SystemViewTemplate",
+    "@type": "SystemViewTemplate",
+    "type": "form",
+    "config": {
+        "rows": [
+            {
+                "columns": [
+                    {
+                        "style": "col-lg-12",
+                        "widgets": [
+                            {
+                                "config": {
+                                    "rows": [
+                                        {
+                                            "columns": [
+                                                {
+                                                    "fields": [
+                                                        {
+                                                            "highlightMode": true,
+                                                            "linky": true,
+                                                            "name": "emailFrom"
+                                                        },
+                                                        {
+                                                            "highlightMode": true,
+                                                            "linky": true,
+                                                            "name": "emailTo"
+                                                        },
+                                                        {
+                                                            "highlightMode": true,
+                                                            "linky": true,
+                                                            "name": "emailCc"
+                                                        },
+                                                        {
+                                                            "highlightMode": true,
+                                                            "linky": true,
+                                                            "name": "emailBcc"
+                                                        },
+                                                        {
+                                                            "highlightMode": true,
+                                                            "linky": true,
+                                                            "name": "emailSubject"
+                                                        },
+                                                        {
+                                                            "highlightMode": true,
+                                                            "linky": true,
+                                                            "name": "emailBody"
+                                                        },
+                                                        {
+                                                            "highlightMode": true,
+                                                            "linky": true,
+                                                            "name": "recordTags",
+                                                            "readOnly": false
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "wid": "a1a66d09-c2cd-4ab1-856b-ff66ca13ffda"
+                                },
+                                "type": "formGroup"
+                            }
+                        ]
+                    }
+                ],
+                "wid": "36051799-41fc-4339-adaf-66fc7c441c02"
+            }
+        ],
+        "wid": "867c2a1f-9ac2-45aa-bdd2-476c2df630db"
+    },
+    "uuid": "modules-emails-form"
+}

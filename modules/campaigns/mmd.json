@@ -1,0 +1,813 @@
+{
+    "@context": "\/api\/3\/contexts\/StagingModelMetadata",
+    "@id": "\/api\/3\/staging_model_metadatas\/2cb563e2-65f9-471c-aada-4255fc46fdb5",
+    "@type": "StagingModelMetadata",
+    "type": "campaigns",
+    "parentType": null,
+    "tableName": "campaigns",
+    "ownable": true,
+    "userOwnable": false,
+    "trackable": true,
+    "taggable": true,
+    "peerReplicable": false,
+    "defaultSort": [],
+    "uniqueConstraint": [],
+    "indexable": true,
+    "writable": true,
+    "attributes": [
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/15befc96-85d2-4ec4-8f68-76f718c888aa",
+            "@type": "AttributeMetadata",
+            "type": "integer",
+            "name": "lastSeen",
+            "length": 0,
+            "orderIndex": 10,
+            "formType": "datetime",
+            "dataSource": [],
+            "searchable": true,
+            "peerReplicable": true,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false,
+                "buttonText": "",
+                "buttonIcon": "",
+                "buttonClass": "btn btn-default btn-sm"
+            },
+            "dataSourceFilters": [],
+            "defaultValue": null,
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": false,
+            "orphanRemoval": false,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/2cb563e2-65f9-471c-aada-4255fc46fdb5",
+            "uuid": "15befc96-85d2-4ec4-8f68-76f718c888aa",
+            "displayName": "{{ lastSeen }}",
+            "descriptions": {
+                "singular": "Last Seen"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/dfc56d07-e4fc-46cf-9385-fd57a1adaa81",
+            "@type": "AttributeMetadata",
+            "type": "string",
+            "name": "intendedEffect",
+            "length": 0,
+            "orderIndex": 9,
+            "formType": "text",
+            "dataSource": [],
+            "searchable": true,
+            "peerReplicable": true,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "required": false,
+                "_enableRange": false
+            },
+            "bulkAction": {
+                "allow": false,
+                "buttonText": "",
+                "buttonIcon": "",
+                "buttonClass": "btn btn-default btn-sm"
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": false,
+            "orphanRemoval": false,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/2cb563e2-65f9-471c-aada-4255fc46fdb5",
+            "uuid": "dfc56d07-e4fc-46cf-9385-fd57a1adaa81",
+            "displayName": "{{ intendedEffect }}",
+            "descriptions": {
+                "singular": "Intended Effect"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/5ab877bd-fda8-469b-8e72-add76b670466",
+            "@type": "AttributeMetadata",
+            "type": "alerts",
+            "name": "alerts",
+            "length": 0,
+            "orderIndex": 1,
+            "formType": "manyToMany",
+            "dataSource": {
+                "model": "alerts"
+            },
+            "searchable": false,
+            "peerReplicable": true,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": true,
+            "inversedField": "campaigns",
+            "ownsRelationship": false,
+            "validation": {
+                "required": false,
+                "_enableRange": false
+            },
+            "bulkAction": [],
+            "dataSourceFilters": [],
+            "defaultValue": null,
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": false,
+            "orphanRemoval": false,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/2cb563e2-65f9-471c-aada-4255fc46fdb5",
+            "uuid": "5ab877bd-fda8-469b-8e72-add76b670466",
+            "displayName": "{{ alerts }}",
+            "descriptions": {
+                "singular": "Alerts"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/5b172060-e2f0-4bc8-9a38-3b213246f84a",
+            "@type": "AttributeMetadata",
+            "type": "picklists",
+            "name": "attackVector",
+            "length": 0,
+            "orderIndex": 2,
+            "formType": "picklist",
+            "dataSource": {
+                "model": "picklists",
+                "query": {
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "field": "listName__name",
+                            "operator": "eq",
+                            "value": "CampaignVector"
+                        }
+                    ],
+                    "sort": [
+                        {
+                            "field": "orderIndex",
+                            "direction": "ASC"
+                        }
+                    ]
+                },
+                "displayConditions": {
+                    "3651f7f7-022d-4411-bd75-e634a6005fd6": {
+                        "visibility": "visible",
+                        "conditions": null
+                    },
+                    "35201777-969a-4343-8a1f-a373fa39744f": {
+                        "visibility": "visible",
+                        "conditions": null
+                    },
+                    "818ef3c9-15b0-4848-ad1e-4b7913bbcccf": {
+                        "visibility": "visible",
+                        "conditions": null
+                    }
+                }
+            },
+            "searchable": false,
+            "peerReplicable": true,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": true,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false,
+                "buttonText": "",
+                "buttonIcon": "",
+                "buttonClass": "btn btn-default btn-sm"
+            },
+            "dataSourceFilters": [],
+            "defaultValue": null,
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": false,
+            "orphanRemoval": false,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/2cb563e2-65f9-471c-aada-4255fc46fdb5",
+            "uuid": "5b172060-e2f0-4bc8-9a38-3b213246f84a",
+            "displayName": "{{ attackVector }}",
+            "descriptions": {
+                "singular": "Attack Vector"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/471048ed-526a-43b2-85fe-057e039035f6",
+            "@type": "AttributeMetadata",
+            "type": "string",
+            "name": "name",
+            "length": 0,
+            "orderIndex": 3,
+            "formType": "text",
+            "dataSource": [],
+            "searchable": true,
+            "peerReplicable": true,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": true,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "required": true
+            },
+            "bulkAction": {
+                "allow": false,
+                "buttonText": "",
+                "buttonIcon": "",
+                "buttonClass": "btn btn-default btn-sm"
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": false,
+            "orphanRemoval": false,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/2cb563e2-65f9-471c-aada-4255fc46fdb5",
+            "uuid": "471048ed-526a-43b2-85fe-057e039035f6",
+            "displayName": "{{ name }}",
+            "descriptions": {
+                "singular": "Campaign Name"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/54033852-ee69-4ad9-96e3-6370dd29094e",
+            "@type": "AttributeMetadata",
+            "type": "integer",
+            "name": "campaignStart",
+            "length": 0,
+            "orderIndex": 4,
+            "formType": "datetime",
+            "dataSource": [],
+            "searchable": true,
+            "peerReplicable": true,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false,
+                "buttonText": "",
+                "buttonIcon": "",
+                "buttonClass": "btn btn-default btn-sm"
+            },
+            "dataSourceFilters": [],
+            "defaultValue": null,
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": false,
+            "orphanRemoval": false,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/2cb563e2-65f9-471c-aada-4255fc46fdb5",
+            "uuid": "54033852-ee69-4ad9-96e3-6370dd29094e",
+            "displayName": "{{ campaignStart }}",
+            "descriptions": {
+                "singular": "Campaign Start"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/8e733671-01a1-403a-9601-8c174119cbc0",
+            "@type": "AttributeMetadata",
+            "type": "comments",
+            "name": "comments",
+            "length": 0,
+            "orderIndex": 5,
+            "formType": "manyToMany",
+            "dataSource": {
+                "model": "comments"
+            },
+            "searchable": false,
+            "peerReplicable": true,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": true,
+            "inversedField": "campaigns",
+            "ownsRelationship": true,
+            "validation": {
+                "required": false,
+                "_enableRange": false
+            },
+            "bulkAction": [],
+            "dataSourceFilters": [],
+            "defaultValue": null,
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": false,
+            "orphanRemoval": false,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/2cb563e2-65f9-471c-aada-4255fc46fdb5",
+            "uuid": "8e733671-01a1-403a-9601-8c174119cbc0",
+            "displayName": "{{ comments }}",
+            "descriptions": {
+                "singular": "Comments"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/9273ffec-5807-40cc-9376-26cb70805960",
+            "@type": "AttributeMetadata",
+            "type": "string",
+            "name": "description",
+            "length": 0,
+            "orderIndex": 6,
+            "formType": "richtext",
+            "dataSource": [],
+            "searchable": true,
+            "peerReplicable": true,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": true,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "required": false,
+                "_enableRange": false
+            },
+            "bulkAction": {
+                "allow": false,
+                "buttonText": "",
+                "buttonIcon": "",
+                "buttonClass": "btn btn-default btn-sm"
+            },
+            "dataSourceFilters": [],
+            "defaultValue": null,
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": false,
+            "orphanRemoval": false,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/2cb563e2-65f9-471c-aada-4255fc46fdb5",
+            "uuid": "9273ffec-5807-40cc-9376-26cb70805960",
+            "displayName": "{{ description }}",
+            "descriptions": {
+                "singular": "Description"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/42aa7b5d-4f6a-4943-a08d-5bc94552618d",
+            "@type": "AttributeMetadata",
+            "type": "incidents",
+            "name": "incidents",
+            "length": 0,
+            "orderIndex": 7,
+            "formType": "manyToMany",
+            "dataSource": {
+                "model": "incidents"
+            },
+            "searchable": false,
+            "peerReplicable": true,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": true,
+            "inversedField": "campaigns",
+            "ownsRelationship": false,
+            "validation": {
+                "required": false,
+                "_enableRange": false
+            },
+            "bulkAction": [],
+            "dataSourceFilters": [],
+            "defaultValue": null,
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": false,
+            "orphanRemoval": false,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/2cb563e2-65f9-471c-aada-4255fc46fdb5",
+            "uuid": "42aa7b5d-4f6a-4943-a08d-5bc94552618d",
+            "displayName": "{{ incidents }}",
+            "descriptions": {
+                "singular": "Incidents"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/f3f32154-3fc7-4b7f-bb46-2583570877d8",
+            "@type": "AttributeMetadata",
+            "type": "indicators",
+            "name": "indicators",
+            "length": 0,
+            "orderIndex": 8,
+            "formType": "manyToMany",
+            "dataSource": {
+                "model": "indicators"
+            },
+            "searchable": false,
+            "peerReplicable": true,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": true,
+            "inversedField": "campaigns",
+            "ownsRelationship": false,
+            "validation": {
+                "required": false,
+                "_enableRange": false
+            },
+            "bulkAction": [],
+            "dataSourceFilters": [],
+            "defaultValue": null,
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": false,
+            "orphanRemoval": false,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/2cb563e2-65f9-471c-aada-4255fc46fdb5",
+            "uuid": "f3f32154-3fc7-4b7f-bb46-2583570877d8",
+            "displayName": "{{ indicators }}",
+            "descriptions": {
+                "singular": "Indicators"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/c9bb8375-4171-4c6e-ac6e-c2a383bd0942",
+            "@type": "AttributeMetadata",
+            "type": "string",
+            "name": "malwareEmployed",
+            "length": 0,
+            "orderIndex": 11,
+            "formType": "text",
+            "dataSource": [],
+            "searchable": true,
+            "peerReplicable": true,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": true,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false,
+                "buttonText": "",
+                "buttonIcon": "",
+                "buttonClass": "btn btn-default btn-sm"
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "None",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": false,
+            "orphanRemoval": false,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/2cb563e2-65f9-471c-aada-4255fc46fdb5",
+            "uuid": "c9bb8375-4171-4c6e-ac6e-c2a383bd0942",
+            "displayName": "{{ malwareEmployed }}",
+            "descriptions": {
+                "singular": "Malware Employed"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/2edd4c72-6af8-448e-8d42-dab02eb424de",
+            "@type": "AttributeMetadata",
+            "type": "notes",
+            "name": "notes",
+            "length": 0,
+            "orderIndex": 12,
+            "formType": "manyToMany",
+            "dataSource": {
+                "model": "notes"
+            },
+            "searchable": false,
+            "peerReplicable": true,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": true,
+            "inversedField": "campaigns",
+            "ownsRelationship": true,
+            "validation": {
+                "required": false,
+                "_enableRange": false
+            },
+            "bulkAction": [],
+            "dataSourceFilters": [],
+            "defaultValue": null,
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": false,
+            "orphanRemoval": false,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/2cb563e2-65f9-471c-aada-4255fc46fdb5",
+            "uuid": "2edd4c72-6af8-448e-8d42-dab02eb424de",
+            "displayName": "{{ notes }}",
+            "descriptions": {
+                "singular": "Notes"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/810f0783-2660-4e21-9fdd-2e08151d5826",
+            "@type": "AttributeMetadata",
+            "type": "picklists",
+            "name": "status",
+            "length": 0,
+            "orderIndex": 13,
+            "formType": "picklist",
+            "dataSource": {
+                "model": "picklists",
+                "query": {
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "field": "listName__name",
+                            "operator": "eq",
+                            "value": "CampaignStatus"
+                        }
+                    ],
+                    "sort": [
+                        {
+                            "field": "orderIndex",
+                            "direction": "ASC"
+                        }
+                    ]
+                }
+            },
+            "searchable": false,
+            "peerReplicable": true,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "required": false,
+                "_enableRange": false
+            },
+            "bulkAction": {
+                "allow": false,
+                "buttonText": "",
+                "buttonIcon": "",
+                "buttonClass": "btn btn-default btn-sm"
+            },
+            "dataSourceFilters": [],
+            "defaultValue": null,
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": false,
+            "orphanRemoval": false,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/2cb563e2-65f9-471c-aada-4255fc46fdb5",
+            "uuid": "810f0783-2660-4e21-9fdd-2e08151d5826",
+            "displayName": "{{ status }}",
+            "descriptions": {
+                "singular": "Status"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/7c470861-c662-40db-ad74-2cdc77fdc490",
+            "@type": "AttributeMetadata",
+            "type": "string",
+            "name": "phishingLure",
+            "length": 0,
+            "orderIndex": 14,
+            "formType": "text",
+            "dataSource": [],
+            "searchable": true,
+            "peerReplicable": true,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false,
+                "buttonText": "",
+                "buttonIcon": "",
+                "buttonClass": "btn btn-default btn-sm"
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "The topic or otherwise identifying feature of the phishing emails used in this campaign.",
+            "visibility": [
+                {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "field": "attackVector",
+                            "operator": "eq",
+                            "value": "\/api\/3\/picklists\/3651f7f7-022d-4411-bd75-e634a6005fd6",
+                            "_value": {
+                                "display": "Phishing",
+                                "itemValue": "Phishing",
+                                "@id": "\/api\/3\/picklists\/3651f7f7-022d-4411-bd75-e634a6005fd6"
+                            },
+                            "type": "object"
+                        }
+                    ]
+                }
+            ],
+            "htmlEscape": false,
+            "orphanRemoval": false,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/2cb563e2-65f9-471c-aada-4255fc46fdb5",
+            "uuid": "7c470861-c662-40db-ad74-2cdc77fdc490",
+            "displayName": "{{ phishingLure }}",
+            "descriptions": {
+                "singular": "Phishing Lure"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/3f7db3de-9647-4b8b-bced-4677e518039f",
+            "@type": "AttributeMetadata",
+            "type": "string",
+            "name": "targetedCves",
+            "length": 0,
+            "orderIndex": 15,
+            "formType": "text",
+            "dataSource": [],
+            "searchable": true,
+            "peerReplicable": true,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "required": false,
+                "_enableRange": false
+            },
+            "bulkAction": {
+                "allow": false,
+                "buttonText": "",
+                "buttonIcon": "",
+                "buttonClass": "btn btn-default btn-sm"
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": [
+                {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "field": "attackVector",
+                            "operator": "eq",
+                            "value": "\/api\/3\/picklists\/35201777-969a-4343-8a1f-a373fa39744f",
+                            "_value": {
+                                "display": "Targeted Exploitation",
+                                "itemValue": "Targeted Exploitation",
+                                "@id": "\/api\/3\/picklists\/35201777-969a-4343-8a1f-a373fa39744f"
+                            },
+                            "type": "object"
+                        }
+                    ]
+                }
+            ],
+            "htmlEscape": false,
+            "orphanRemoval": false,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/2cb563e2-65f9-471c-aada-4255fc46fdb5",
+            "uuid": "3f7db3de-9647-4b8b-bced-4677e518039f",
+            "displayName": "{{ targetedCves }}",
+            "descriptions": {
+                "singular": "Targeted CVEs"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/2463865d-8825-4ae0-931a-28e251548aeb",
+            "@type": "AttributeMetadata",
+            "type": "string",
+            "name": "threatActor",
+            "length": 0,
+            "orderIndex": 16,
+            "formType": "text",
+            "dataSource": [],
+            "searchable": true,
+            "peerReplicable": true,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": true,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false,
+                "buttonText": "",
+                "buttonIcon": "",
+                "buttonClass": "btn btn-default btn-sm"
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "Unknown",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": false,
+            "orphanRemoval": false,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/2cb563e2-65f9-471c-aada-4255fc46fdb5",
+            "uuid": "2463865d-8825-4ae0-931a-28e251548aeb",
+            "displayName": "{{ threatActor }}",
+            "descriptions": {
+                "singular": "Threat Actor"
+            }
+        }
+    ],
+    "system": false,
+    "module": "campaigns",
+    "uuid": "2cb563e2-65f9-471c-aada-4255fc46fdb5",
+    "displayName": "{{ name }}",
+    "descriptions": {
+        "plural": "Campaigns",
+        "singular": "Campaign"
+    }
+}

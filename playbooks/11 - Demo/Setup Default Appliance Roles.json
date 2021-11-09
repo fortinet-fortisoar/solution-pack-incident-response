@@ -1,0 +1,192 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Setup Default Appliance Roles",
+    "aliasName": null,
+    "tag": null,
+    "description": "Auto Configures the appliance roles for playbook execution.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/a41c4bc4-5b29-4701-96e7-e62e21e8763e",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/3f3de85e-c40f-4ad8-8a78-aa1690131992",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Set Roles",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "{{vars.app_id}}",
+                    "body": "{   \"roles\": {{vars.role_list}}}",
+                    "method": "PUT"
+                },
+                "version": "2.7.0",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "705",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "08636d47-2366-4787-b8fe-0ad45fb7d590",
+            "id": 4345
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Make Role List",
+            "description": null,
+            "arguments": {
+                "temp": "{% for item in vars.steps.Get_Role_IDs.data['hydra:member']%}{{vars.role_list.append(item['@id'])}}{%endfor%}"
+            },
+            "status": null,
+            "top": "570",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "5fbb5029-bc93-4b4e-8c26-b5126dfe8cad",
+            "id": 4346
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Appliance ID",
+            "description": null,
+            "arguments": {
+                "app_id": "{{vars.steps.Get_Appliance_ID.data[\"hydra:member\"][0][\"@id\"]}}"
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "687e0249-b65a-46b7-a830-7d8ea47b4b24",
+            "id": 4347
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": []
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "3f3de85e-c40f-4ad8-8a78-aa1690131992",
+            "id": 4348
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Appliance ID",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "\/api\/3\/appliances",
+                    "body": "",
+                    "method": "GET"
+                },
+                "version": "2.7.0",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "72d6e70e-3523-4fed-beae-a2944c5c9a84",
+            "id": 4349
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Role IDs",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "\/api\/3\/roles",
+                    "body": "",
+                    "method": "GET"
+                },
+                "version": "2.7.0",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": {
+                    "role_list": "[]"
+                }
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "81a297a0-5417-46a9-ae8b-e992791f197d",
+            "id": 4350
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Appliance ID -> Get Role IDs",
+            "targetStep": "\/api\/3\/workflow_steps\/81a297a0-5417-46a9-ae8b-e992791f197d",
+            "sourceStep": "\/api\/3\/workflow_steps\/687e0249-b65a-46b7-a830-7d8ea47b4b24",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "428f3693-26f5-40fa-8156-c3e3d7d5f32f"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Make Role List -> Set Roles",
+            "targetStep": "\/api\/3\/workflow_steps\/08636d47-2366-4787-b8fe-0ad45fb7d590",
+            "sourceStep": "\/api\/3\/workflow_steps\/5fbb5029-bc93-4b4e-8c26-b5126dfe8cad",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "8b1bee6d-b60c-45a1-affc-e2612307d53f"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Get Appliance ID",
+            "targetStep": "\/api\/3\/workflow_steps\/72d6e70e-3523-4fed-beae-a2944c5c9a84",
+            "sourceStep": "\/api\/3\/workflow_steps\/3f3de85e-c40f-4ad8-8a78-aa1690131992",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "a13233b7-e855-420a-80cf-202628136449"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Role IDs -> Make Role List",
+            "targetStep": "\/api\/3\/workflow_steps\/5fbb5029-bc93-4b4e-8c26-b5126dfe8cad",
+            "sourceStep": "\/api\/3\/workflow_steps\/81a297a0-5417-46a9-ae8b-e992791f197d",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "a470d2f4-4b8c-496f-8cfe-034d78bbd759"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Appliance ID -> Appliance ID",
+            "targetStep": "\/api\/3\/workflow_steps\/687e0249-b65a-46b7-a830-7d8ea47b4b24",
+            "sourceStep": "\/api\/3\/workflow_steps\/72d6e70e-3523-4fed-beae-a2944c5c9a84",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "a8d5b91a-be65-42a0-bd2b-69331cf692d4"
+        }
+    ],
+    "priority": null,
+    "uuid": "47da90ce-6296-40ff-83f9-d87f0e0bf309",
+    "recordTags": [
+        "Subroutine"
+    ],
+    "id": 1129,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433436,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433436,
+    "owners": [],
+    "isPrivate": false
+}

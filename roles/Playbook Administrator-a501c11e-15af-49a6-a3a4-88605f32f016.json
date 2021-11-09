@@ -1,0 +1,94 @@
+{
+    "@context": "\/api\/3\/contexts\/Role",
+    "@id": "\/api\/3\/roles\/a501c11e-15af-49a6-a3a4-88605f32f016",
+    "@type": "Role",
+    "description": "Permitted across all major modules as well as the Security role",
+    "name": "Playbook Administrator",
+    "modulePermissions": [
+        {
+            "@id": "\/api\/3\/module_permissions\/1c3b0212-035d-4311-b65b-a48f239b5676",
+            "@type": "ModulePermission",
+            "canCreate": null,
+            "canExecute": null,
+            "canRead": true,
+            "canUpdate": null,
+            "canDelete": null,
+            "fieldPermissions": [],
+            "module": "security",
+            "uuid": "1c3b0212-035d-4311-b65b-a48f239b5676"
+        },
+        {
+            "@id": "\/api\/3\/module_permissions\/7fbeda66-4b1a-4edf-869a-06f1d5671e5b",
+            "@type": "ModulePermission",
+            "canCreate": null,
+            "canExecute": null,
+            "canRead": true,
+            "canUpdate": null,
+            "canDelete": null,
+            "fieldPermissions": [],
+            "module": "application",
+            "uuid": "7fbeda66-4b1a-4edf-869a-06f1d5671e5b"
+        },
+        {
+            "@id": "\/api\/3\/module_permissions\/5553831c-011b-4461-befe-c0441e26899a",
+            "@type": "ModulePermission",
+            "canCreate": true,
+            "canExecute": true,
+            "canRead": true,
+            "canUpdate": true,
+            "canDelete": true,
+            "fieldPermissions": [],
+            "module": "workflows",
+            "uuid": "5553831c-011b-4461-befe-c0441e26899a"
+        },
+        {
+            "@id": "\/api\/3\/module_permissions\/2e05727c-0da5-413c-9876-f3f8b2cd7cbc",
+            "@type": "ModulePermission",
+            "canCreate": true,
+            "canExecute": true,
+            "canRead": true,
+            "canUpdate": true,
+            "canDelete": null,
+            "fieldPermissions": [],
+            "module": "connectors",
+            "uuid": "2e05727c-0da5-413c-9876-f3f8b2cd7cbc"
+        },
+        {
+            "@id": "\/api\/3\/module_permissions\/3f0cda3a-bf48-4c3d-987f-71255a756dfb",
+            "@type": "ModulePermission",
+            "canCreate": true,
+            "canExecute": null,
+            "canRead": true,
+            "canUpdate": true,
+            "canDelete": true,
+            "fieldPermissions": [],
+            "module": "schedules",
+            "uuid": "3f0cda3a-bf48-4c3d-987f-71255a756dfb"
+        },
+        {
+            "@id": "\/api\/3\/module_permissions\/ab739acf-8897-410a-94d0-7c7fa2d1c124",
+            "@type": "ModulePermission",
+            "canCreate": true,
+            "canExecute": null,
+            "canRead": true,
+            "canUpdate": true,
+            "canDelete": null,
+            "fieldPermissions": [],
+            "module": "approvals",
+            "uuid": "ab739acf-8897-410a-94d0-7c7fa2d1c124"
+        },
+        {
+            "@id": "\/api\/3\/module_permissions\/c50a3959-843a-4841-8673-8457c150fed5",
+            "@type": "ModulePermission",
+            "canCreate": true,
+            "canExecute": null,
+            "canRead": true,
+            "canUpdate": true,
+            "canDelete": null,
+            "fieldPermissions": [],
+            "module": "email_templates",
+            "uuid": "c50a3959-843a-4841-8673-8457c150fed5"
+        }
+    ],
+    "uuid": "a501c11e-15af-49a6-a3a4-88605f32f016"
+}

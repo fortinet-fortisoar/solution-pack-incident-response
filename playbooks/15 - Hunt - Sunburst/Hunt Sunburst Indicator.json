@@ -1,0 +1,670 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Hunt Sunburst Indicator",
+    "aliasName": null,
+    "tag": null,
+    "description": "Performs a hunt on the specified Sunburst indicators using Splunk and FortiEDR.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "indicator_value",
+        "indicator_type",
+        "indicator_iri"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/e2c1a8f3-00dc-4e82-a9f0-5e9957529407",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/24ae9969-ffd0-4cd6-a6b8-5adc87134ec9",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": {
+                            "indicator_iri": "{{ vars.indicator_iri }}",
+                            "indicator_type": "{{ vars.indicator_type }}",
+                            "indicator_value": "{{ vars.indicator_value }}"
+                        }
+                    }
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "650",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "24ae9969-ffd0-4cd6-a6b8-5adc87134ec9",
+            "id": 4445
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Check Indicator Type",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "IP Address",
+                        "step_iri": "\/api\/3\/workflow_steps\/b104718c-3565-49c9-b824-ecf7df99b0d1",
+                        "condition": "{{ vars.input.params['indicator_type'] == \"IndicatorType\" | picklist(\"IP Address\", \"itemValue\") }}",
+                        "step_name": "Form IP Hunt Query"
+                    },
+                    {
+                        "option": "Domain",
+                        "step_iri": "\/api\/3\/workflow_steps\/8291acdd-7992-4f02-ac79-b574b714764a",
+                        "condition": "{{ vars.input.params['indicator_type'] ==\"IndicatorType\" | picklist(\"Domain\", \"itemValue\") }}",
+                        "step_name": "Form Domain Hunt Query"
+                    },
+                    {
+                        "option": "URL",
+                        "step_iri": "\/api\/3\/workflow_steps\/b53cafd8-2592-476f-8f30-a5e8b4626939",
+                        "condition": "{{ vars.input.params['indicator_type'] ==\"IndicatorType\" | picklist(\"URL\", \"itemValue\") }}",
+                        "step_name": "Form URL Hunt Query"
+                    },
+                    {
+                        "option": "FileHash",
+                        "default": true,
+                        "step_iri": "\/api\/3\/workflow_steps\/17c04b33-f668-4fb1-8fa8-7cd4f2403d1b",
+                        "step_name": "Temp"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "300",
+            "left": "650",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "b4c0d3a2-f9d0-4a12-84a1-25c2344d8e38",
+            "id": 4446
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Hunt Filehash",
+            "description": null,
+            "arguments": {
+                "name": "Fortinet FortiEDR",
+                "config": "2130fd81-cf68-4262-a504-0e9065e4b6c1",
+                "params": {
+                    "fileHashes": "{{vars.input.params['indicator_value']}}"
+                },
+                "version": "1.2.0",
+                "connector": "fortinet-fortiedr",
+                "operation": "search",
+                "mock_result": "{\n  \"data\": [\n    {\n      \"eventIds\": [],\n      \"filehash\": \"2C3571EE6008062D09BF95161F7225ADE556F5DC\",\n      \"applications\": [],\n      \"threatsHunting\": [\n        {\n          \"path\": \"\\\\device\\\\harddiskvolume2\\\\windows\\\\winsxs\\\\wow64_microsoft-windows-notepad_31bf3866ad364e35_10.0.18362.693_none_cf0f2e5d362498ef\\\\r\",\n          \"fileName\": \"notepad.exe\",\n          \"deviceName\": \"WIN-EP21\"\n        },\n        {\n          \"path\": \"\\\\device\\\\harddiskvolume2\\\\windows\\\\winsxs\\\\wow64_microsoft-windows-notepad_314f3856ad364e35_10.0.18362.693_none_cf0f2e5d362498ef\\\\r\",\n          \"fileName\": \"notepad.exe\",\n          \"deviceName\": \"WIN-EP22\"\n        },\n        {\n          \"path\": \"\\\\device\\\\harddiskvolume2\\\\windows\\\\winsxs\\\\wow64_microsoft-windows-notepad_31bg3856ad364e35_10.0.18362.693_none_cf0f2e5d362498ef\\\\r\",\n          \"fileName\": \"notepad.exe\",\n          \"deviceName\": \"WIN-EP23\"\n        }\n      ]\n    }\n  ],\n  \"status\": \"Success\",\n  \"_status\": true,\n  \"message\": \"\",\n  \"operation\": null,\n  \"request_id\": null\n}",
+                "ignore_errors": true,
+                "operationTitle": "Search Filehash",
+                "pickFromTenant": false,
+                "step_variables": {
+                    "ioc_found": "{%if vars.result.data[0].threatsHunting | length > 0%} true{%else%}false{%endif%}",
+                    "device_list": "{{vars.result.data[0].threatsHunting | json_query('[].deviceName[]') }}"
+                }
+            },
+            "status": null,
+            "top": "570",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "8fd930be-3e0d-4374-8b60-4812acf861b7",
+            "id": 4447
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create IP Hunt Query",
+            "description": null,
+            "arguments": {
+                "splunk_query": "sourcetype=\"fortigate_log\" srcip={{vars.input.params['indicator_value']}} | stats count by action srcip source eventtype"
+            },
+            "status": null,
+            "top": "435",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "b104718c-3565-49c9-b824-ecf7df99b0d1",
+            "id": 4448
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Domain Hunt Query",
+            "description": null,
+            "arguments": {
+                "splunk_query": "tag=web url=*\n| eval list=\"mozilla\"\n| `ut_parse_extended(url,list)`\n| stats earliest(_time) as earliest latest(_time) as latest by ut_domain"
+            },
+            "status": null,
+            "top": "435",
+            "left": "1175",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "8291acdd-7992-4f02-ac79-b574b714764a",
+            "id": 4449
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create URL Hunt Query",
+            "description": null,
+            "arguments": {
+                "splunk_query": "sourcetype=\"fortigate_log\" srcip={{vars.input.params['indicator_value']}} | stats count by action srcip source eventtype"
+            },
+            "status": null,
+            "top": "435",
+            "left": "825",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "b53cafd8-2592-476f-8f30-a5e8b4626939",
+            "id": 4450
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Query Splunk For IP",
+            "description": null,
+            "arguments": {
+                "name": "Splunk",
+                "config": "3132684a-7bf2-4cbe-9040-93fc315e245a",
+                "params": {
+                    "query": "{{vars.splunk_query}}",
+                    "exec_mode": "One Shot",
+                    "auto_cancel": "0",
+                    "latest_time": "",
+                    "earliest_time": "-24h",
+                    "additional_search_args": "{\"max_count\": \"10\"}"
+                },
+                "version": "1.6.0",
+                "connector": "splunk",
+                "operation": "invoke_search",
+                "mock_result": "{\n  \"data\": {\n    \"tags\": {\n      \"eventtype\": {\n        \"err0r\": [\n          \"error\"\n        ],\n        \"nix_errors\": [\n          \"error\"\n        ]\n      }\n    },\n    \"fields\": [\n      {\n        \"name\": \"action\",\n        \"groupby_rank\": \"0\"\n      },\n      {\n        \"name\": \"srcip\",\n        \"groupby_rank\": \"1\"\n      },\n      {\n        \"name\": \"source\",\n        \"groupby_rank\": \"2\"\n      },\n      {\n        \"name\": \"eventtype\",\n        \"groupby_rank\": \"3\"\n      },\n      {\n        \"name\": \"count\"\n      }\n    ],\n    \"preview\": false,\n    \"results\": [\n      {\n        \"count\": \"2\",\n        \"srcip\": \"{{vars.input.params['indicator_value']}}\",\n        \"action\": \"login\",\n        \"source\": \"udp:514\",\n        \"eventtype\": \"err0r\"\n      },\n      {\n        \"count\": \"2\",\n        \"srcip\": \"{{vars.input.params['indicator_value']}}\",\n        \"action\": \"login\",\n        \"source\": \"udp:514\",\n        \"eventtype\": \"nix_errors\"\n      }\n    ],\n    \"messages\": [],\n    \"highlighted\": {},\n    \"init_offset\": 0\n  },\n  \"status\": \"Success\",\n  \"_status\": true,\n  \"message\": \"\",\n  \"operation\": null,\n  \"request_id\": null\n}",
+                "ignore_errors": true,
+                "operationTitle": "Invoke Search",
+                "pickFromTenant": false,
+                "step_variables": {
+                    "ioc_found": "{%if vars.result.data.results | length > 0 %} true{%else%}false{%endif%}"
+                }
+            },
+            "status": null,
+            "top": "570",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "146d51f9-9a98-4f22-aa4a-4d44ade45b3c",
+            "id": 4451
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "ioc_found": "false",
+                "useMockOutput": "{{globalVars.Demo_mode}}"
+            },
+            "status": null,
+            "top": "165",
+            "left": "650",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "7ca43f6c-6016-427f-a89c-6aeaa9397960",
+            "id": 4452
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Analysis Summary",
+            "description": null,
+            "arguments": {
+                "ioc_found": "{{vars.ioc_found}}",
+                "indicator_type": "{{vars.input.params['indicator_type']}}",
+                "indicator_value": "{{vars.input.params['indicator_value']}}",
+                "analysis_summary": "{%if vars.steps.Format_EDR_Summary.data %}{{vars.EDR_Summary}}{%endif%}{%if vars.steps.Format_Splunk_IP_Summary.data %}{{vars.IP_Summary}}{%endif%}\n{%if vars.steps.Query_Splunk_For_URL.data %}{{vars.URL_Summary}}{%endif%}\n{%if vars.steps.Query_Splunk_For_Domain.data %}{{vars.Domain_Summary}}{%endif%}"
+            },
+            "status": null,
+            "top": "975",
+            "left": "650",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "c07a53af-eaa5-43be-8358-56940c5bcd5b",
+            "id": 4453
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Format EDR Summary",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "data": "{{vars.steps.Hunt_Filehash.data[0].threatsHunting}}",
+                    "display": "Horizontal",
+                    "styling": false,
+                    "template": "Stylized with row selection",
+                    "row_fields": "['deviceName']"
+                },
+                "version": "3.0.4",
+                "connector": "cyops_utilities",
+                "operation": "json_to_html",
+                "operationTitle": "Utils: Convert JSON into a HTML Table",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "705",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "b77bb250-47d7-4b0c-975a-fc29ee0b05ac",
+            "id": 4454
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Format Splunk IP Summary",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "data": "{{vars.steps.Query_Splunk_For_IP.data.results}}",
+                    "display": "Horizontal",
+                    "styling": false,
+                    "template": "Stylized with row selection",
+                    "row_fields": ""
+                },
+                "version": "3.0.5",
+                "connector": "cyops_utilities",
+                "operation": "json_to_html",
+                "operationTitle": "Utils: Convert JSON into a HTML Table",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "705",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "21b164b8-46ce-4654-9652-94bf91a47129",
+            "id": 4455
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create File Hash Hunt Query",
+            "description": null,
+            "arguments": {
+                "d": "d"
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "17c04b33-f668-4fb1-8fa8-7cd4f2403d1b",
+            "id": 4456
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Query Splunk For URL",
+            "description": null,
+            "arguments": {
+                "name": "Splunk",
+                "config": "3132684a-7bf2-4cbe-9040-93fc315e245a",
+                "params": {
+                    "query": "{{vars.splunk_query}}",
+                    "exec_mode": "One Shot",
+                    "auto_cancel": "0",
+                    "latest_time": "",
+                    "earliest_time": "-24h",
+                    "additional_search_args": "{\"max_count\": \"10\"}"
+                },
+                "version": "1.6.0",
+                "connector": "splunk",
+                "operation": "invoke_search",
+                "mock_result": "{\n  \"data\": {\n    \"tags\": {\n      \"eventtype\": {\n        \"nix-all-logs\": [\n          \"nix-all-logs\"\n        ],\n        \"nix_errors\": [\n          \"nix-all-logs\"\n        ]\n      }\n    },\n    \"fields\": [\n      {\n        \"name\": \"action\",\n        \"groupby_rank\": \"0\"\n      },\n      {\n        \"name\": \"url\",\n        \"groupby_rank\": \"1\"\n      },\n      {\n        \"name\": \"clientip\",\n        \"groupby_rank\": \"2\"\n      },\n      {\n        \"name\": \"method\",\n        \"groupby_rank\": \"3\"\n      },\n      {\n        \"name\": \"count\"\n      }\n    ],\n    \"preview\": false,\n    \"results\": [\n      {\n        \"count\": \"2\",\n        \"url\": \"{{vars.input.params['indicator_value']}}\",\n        \"action\": \"addtocart\",\n        \"clientip\": \"192.168.50.35\",\n        \"method\": \"post\"\n      },\n      {\n        \"count\": \"2\",\n        \"url\": \"{{vars.input.params['indicator_value']}}\",\n        \"action\": \"addtocart\",\n        \"clientip\": \"192.168.51.55\",\n        \"method\": \"post\"\n      }\n    ],\n    \"messages\": [],\n    \"highlighted\": {},\n    \"init_offset\": 0\n  },\n  \"status\": \"Success\",\n  \"_status\": true,\n  \"message\": \"\",\n  \"operation\": null,\n  \"request_id\": null\n}",
+                "ignore_errors": true,
+                "operationTitle": "Invoke Search",
+                "pickFromTenant": false,
+                "step_variables": {
+                    "ioc_found": "{%if vars.result.data.results | length > 0 %} true{%else%}false{%endif%}"
+                }
+            },
+            "status": null,
+            "top": "570",
+            "left": "825",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "d0ee5f2c-e411-4d3d-a427-bdc6a1cfc818",
+            "id": 4457
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Query Splunk For Domain",
+            "description": null,
+            "arguments": {
+                "name": "Splunk",
+                "config": "3132684a-7bf2-4cbe-9040-93fc315e245a",
+                "params": {
+                    "query": "{{vars.splunk_query}}",
+                    "exec_mode": "One Shot",
+                    "auto_cancel": "0",
+                    "latest_time": "",
+                    "earliest_time": "-24h",
+                    "additional_search_args": "{\"max_count\": \"10\"}"
+                },
+                "version": "1.6.0",
+                "connector": "splunk",
+                "operation": "invoke_search",
+                "mock_result": "{\n  \"data\": {\n    \"tags\": {},\n    \"fields\": [\n      {\n        \"name\": \"earliest\",\n        \"groupby_rank\": \"0\"\n      },\n      {\n        \"name\": \"latest\",\n        \"groupby_rank\": \"1\"\n      },\n      {\n        \"name\": \"count\"\n      }\n    ],\n    \"preview\": false,\n    \"results\": [\n      {\n        \"count\": \"2\",\n        \"ut_domain \": \"{{vars.input.params['indicator_value']}}\",\n        \"earliest\": \"1600944248\",\n        \"latest\": \"1600969448\"\n      },\n      {\n        \"count\": \"2\",\n        \"ut_domain \": \"{{vars.input.params['indicator_value']}}\",\n        \"earliest\": \"1600944248\",\n        \"latest\": \"1600969448\"\n      }\n    ],\n    \"messages\": [],\n    \"highlighted\": {},\n    \"init_offset\": 0\n  },\n  \"status\": \"Success\",\n  \"_status\": true,\n  \"message\": \"\",\n  \"operation\": null,\n  \"request_id\": null\n}",
+                "ignore_errors": true,
+                "operationTitle": "Invoke Search",
+                "pickFromTenant": false,
+                "step_variables": {
+                    "ioc_found": "{%if vars.result.data.results | length > 0 %} true{%else%}false{%endif%}"
+                }
+            },
+            "status": null,
+            "top": "570",
+            "left": "1175",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "fbc6a032-6bcf-4210-ad09-14e53a84f969",
+            "id": 4458
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "EDR Summary",
+            "description": null,
+            "arguments": {
+                "EDR_Summary": "Fiehash {{vars.input.params['indicator_value']}} is observed on following systems<\/br>{{vars.steps.Format_EDR_Summary.data}}"
+            },
+            "status": null,
+            "top": "840",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "5e10e003-9f59-4f7f-a193-84575c29c613",
+            "id": 4459
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "IP Summary",
+            "description": null,
+            "arguments": {
+                "IP_Summary": "<b>For IP {{vars.input.params['indicator_value']}} -{{vars.steps.Query_Splunk_For_IP.data.results | length}} events ({{arrow.utcnow().to(globalVars.QRadarTimeZone).shift(hours=-23).format('MM\/DD\/YYYY hh:mm:ss A')}} to {{arrow.utcnow().to(globalVars.QRadarTimeZone).shift(hours=-1).format('MM\/DD\/YYYY hh:mm:ss A')}})<\/b><\/br>{{vars.steps.Format_Splunk_IP_Summary.data}}"
+            },
+            "status": null,
+            "top": "840",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "52397b58-3e7a-4551-b616-9d6e2895fdfd",
+            "id": 4460
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Format Splunk URL Summary",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "data": "{{vars.steps.Query_Splunk_For_URL.data.results}}",
+                    "display": "Horizontal",
+                    "styling": false,
+                    "template": "Stylized with row selection",
+                    "row_fields": ""
+                },
+                "version": "3.0.5",
+                "connector": "cyops_utilities",
+                "operation": "json_to_html",
+                "operationTitle": "Utils: Convert JSON into a HTML Table",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "705",
+            "left": "825",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "366728a6-75d1-4eb1-86fe-e2a68c232b42",
+            "id": 4461
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Format Splunk Domain Summary",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "data": "{{vars.steps.Query_Splunk_For_Domain.data.results}}",
+                    "display": "Horizontal",
+                    "styling": false,
+                    "template": "Stylized with row selection",
+                    "row_fields": ""
+                },
+                "version": "3.0.5",
+                "connector": "cyops_utilities",
+                "operation": "json_to_html",
+                "operationTitle": "Utils: Convert JSON into a HTML Table",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "705",
+            "left": "1175",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "7af7a846-85e8-4c57-89e6-f125d7d9f647",
+            "id": 4462
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "URL Summary",
+            "description": null,
+            "arguments": {
+                "URL_Summary": "<b>For URL {{vars.input.params['indicator_value']}} -{{vars.steps.Query_Splunk_For_URL.data.results | length}} events ({{arrow.utcnow().to(globalVars.QRadarTimeZone).shift(hours=-23).format('MM\/DD\/YYYY hh:mm:ss A')}} to {{arrow.utcnow().to(globalVars.QRadarTimeZone).shift(hours=-1).format('MM\/DD\/YYYY hh:mm:ss A')}})<\/b><\/br>{{vars.steps.Format_Splunk_URL_Summary.data}}"
+            },
+            "status": null,
+            "top": "840",
+            "left": "825",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "28c94c62-4832-43f4-a619-b61014a19700",
+            "id": 4463
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Domain Summary",
+            "description": null,
+            "arguments": {
+                "Domain_Summary": "<b>For Domain {{vars.input.params['indicator_value']}} -{{vars.steps.Query_Splunk_For_Domain.data.results | length}} events ({{arrow.utcnow().to(globalVars.QRadarTimeZone).shift(hours=-23).format('MM\/DD\/YYYY hh:mm:ss A')}} to {{arrow.utcnow().to(globalVars.QRadarTimeZone).shift(hours=-1).format('MM\/DD\/YYYY hh:mm:ss A')}})<\/b><\/br>{{vars.steps.Format_Splunk_Domain_Summary.data}}"
+            },
+            "status": null,
+            "top": "840",
+            "left": "1175",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "efeef6c2-fc45-497a-93a3-5baa980ae26d",
+            "id": 4464
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Check Indicator Type -> IP Splunk Query",
+            "targetStep": "\/api\/3\/workflow_steps\/b104718c-3565-49c9-b824-ecf7df99b0d1",
+            "sourceStep": "\/api\/3\/workflow_steps\/b4c0d3a2-f9d0-4a12-84a1-25c2344d8e38",
+            "label": "IP Address",
+            "isExecuted": false,
+            "uuid": "9fa2f186-c836-4463-9014-d0daee46d36a"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "IP Splunk Query -> Query Spunk",
+            "targetStep": "\/api\/3\/workflow_steps\/146d51f9-9a98-4f22-aa4a-4d44ade45b3c",
+            "sourceStep": "\/api\/3\/workflow_steps\/b104718c-3565-49c9-b824-ecf7df99b0d1",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "6387b06e-086b-407b-8a7e-bc6c8c4a569f"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/7ca43f6c-6016-427f-a89c-6aeaa9397960",
+            "sourceStep": "\/api\/3\/workflow_steps\/24ae9969-ffd0-4cd6-a6b8-5adc87134ec9",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "bab18c96-54ae-4997-a219-9068e9e12d96"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Query Spunk For Domain -> Format Spunk Domain Summary",
+            "targetStep": "\/api\/3\/workflow_steps\/7af7a846-85e8-4c57-89e6-f125d7d9f647",
+            "sourceStep": "\/api\/3\/workflow_steps\/fbc6a032-6bcf-4210-ad09-14e53a84f969",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "406a1d8e-5ee2-4f67-af92-3e1145040097"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "EDR Summary -> Analysis Summary",
+            "targetStep": "\/api\/3\/workflow_steps\/c07a53af-eaa5-43be-8358-56940c5bcd5b",
+            "sourceStep": "\/api\/3\/workflow_steps\/5e10e003-9f59-4f7f-a193-84575c29c613",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "9cea25d4-2068-4f31-909c-5bd4e2dd8ee4"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Format Spunk Domain Summary -> Domain Summary",
+            "targetStep": "\/api\/3\/workflow_steps\/efeef6c2-fc45-497a-93a3-5baa980ae26d",
+            "sourceStep": "\/api\/3\/workflow_steps\/7af7a846-85e8-4c57-89e6-f125d7d9f647",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "2ce11567-be36-44ae-a27c-892c1eb57f9c"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Check Indicator Type -> URl Splunk Query",
+            "targetStep": "\/api\/3\/workflow_steps\/b53cafd8-2592-476f-8f30-a5e8b4626939",
+            "sourceStep": "\/api\/3\/workflow_steps\/b4c0d3a2-f9d0-4a12-84a1-25c2344d8e38",
+            "label": "URL",
+            "isExecuted": false,
+            "uuid": "5ffeeac8-48cc-4ade-bb49-a5ec238335ea"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Format Spunk IP Summary -> Copy  of EDR Summary",
+            "targetStep": "\/api\/3\/workflow_steps\/52397b58-3e7a-4551-b616-9d6e2895fdfd",
+            "sourceStep": "\/api\/3\/workflow_steps\/21b164b8-46ce-4654-9652-94bf91a47129",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "14c0112a-b849-40d2-9e03-2b5645c79983"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Domain Summary -> Analysis Summary",
+            "targetStep": "\/api\/3\/workflow_steps\/c07a53af-eaa5-43be-8358-56940c5bcd5b",
+            "sourceStep": "\/api\/3\/workflow_steps\/efeef6c2-fc45-497a-93a3-5baa980ae26d",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "d2e8a95f-ad71-4c42-8c11-ed05c55d3844"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "URL Summary -> Analysis Summary",
+            "targetStep": "\/api\/3\/workflow_steps\/c07a53af-eaa5-43be-8358-56940c5bcd5b",
+            "sourceStep": "\/api\/3\/workflow_steps\/28c94c62-4832-43f4-a619-b61014a19700",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "9a28992b-8aeb-43dd-8473-bf1cc7ecb9ad"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Check Indicator Type -> Temp",
+            "targetStep": "\/api\/3\/workflow_steps\/17c04b33-f668-4fb1-8fa8-7cd4f2403d1b",
+            "sourceStep": "\/api\/3\/workflow_steps\/b4c0d3a2-f9d0-4a12-84a1-25c2344d8e38",
+            "label": "FileHash",
+            "isExecuted": false,
+            "uuid": "309d4727-d579-483a-a5b1-fed3f9499a61"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Check Indicator Type",
+            "targetStep": "\/api\/3\/workflow_steps\/b4c0d3a2-f9d0-4a12-84a1-25c2344d8e38",
+            "sourceStep": "\/api\/3\/workflow_steps\/7ca43f6c-6016-427f-a89c-6aeaa9397960",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "329ad9fa-e5ed-409d-954a-37d09693502b"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Query Spunk -> Format Spunk Summary",
+            "targetStep": "\/api\/3\/workflow_steps\/21b164b8-46ce-4654-9652-94bf91a47129",
+            "sourceStep": "\/api\/3\/workflow_steps\/146d51f9-9a98-4f22-aa4a-4d44ade45b3c",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "942277a7-c9c5-4ee8-aaa8-41d969fb54c6"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Temp -> Hunt Filehash",
+            "targetStep": "\/api\/3\/workflow_steps\/8fd930be-3e0d-4374-8b60-4812acf861b7",
+            "sourceStep": "\/api\/3\/workflow_steps\/17c04b33-f668-4fb1-8fa8-7cd4f2403d1b",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "9f98b9d1-33a8-4f11-bda5-56fb67432362"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Format EDR Summary -> EDR Summary",
+            "targetStep": "\/api\/3\/workflow_steps\/5e10e003-9f59-4f7f-a193-84575c29c613",
+            "sourceStep": "\/api\/3\/workflow_steps\/b77bb250-47d7-4b0c-975a-fc29ee0b05ac",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "8fcfcc1c-4de3-425d-8d3c-ecbe06b10f4e"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "IP Summary -> Analysis Summary",
+            "targetStep": "\/api\/3\/workflow_steps\/c07a53af-eaa5-43be-8358-56940c5bcd5b",
+            "sourceStep": "\/api\/3\/workflow_steps\/52397b58-3e7a-4551-b616-9d6e2895fdfd",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "c0e141e4-9549-40b4-a909-2529ad44290a"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create URL Hunt Query -> Query Spunk For Hunt",
+            "targetStep": "\/api\/3\/workflow_steps\/d0ee5f2c-e411-4d3d-a427-bdc6a1cfc818",
+            "sourceStep": "\/api\/3\/workflow_steps\/b53cafd8-2592-476f-8f30-a5e8b4626939",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "9b7daf9b-6bad-44ec-9098-6e2dbb5b8b3a"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Domain Hunt Query -> Copy  of Query Spunk For Hunt",
+            "targetStep": "\/api\/3\/workflow_steps\/fbc6a032-6bcf-4210-ad09-14e53a84f969",
+            "sourceStep": "\/api\/3\/workflow_steps\/8291acdd-7992-4f02-ac79-b574b714764a",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "32891af5-560e-4325-8687-439503115e8d"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Query Spunk For URL -> Format Spunk URL Summary",
+            "targetStep": "\/api\/3\/workflow_steps\/366728a6-75d1-4eb1-86fe-e2a68c232b42",
+            "sourceStep": "\/api\/3\/workflow_steps\/d0ee5f2c-e411-4d3d-a427-bdc6a1cfc818",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "0d96f67e-40de-432b-a07c-13e6113ff48f"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Hunt Filehash -> Format Summary",
+            "targetStep": "\/api\/3\/workflow_steps\/b77bb250-47d7-4b0c-975a-fc29ee0b05ac",
+            "sourceStep": "\/api\/3\/workflow_steps\/8fd930be-3e0d-4374-8b60-4812acf861b7",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "152b3cec-0e8a-4809-a03a-dc6101f1c303"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Format Spunk URL Summary -> URL Summary",
+            "targetStep": "\/api\/3\/workflow_steps\/28c94c62-4832-43f4-a619-b61014a19700",
+            "sourceStep": "\/api\/3\/workflow_steps\/366728a6-75d1-4eb1-86fe-e2a68c232b42",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "858db400-33d6-4ce8-9387-357fd52a8b7a"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Check Indicator Type -> Domain Splunk Query",
+            "targetStep": "\/api\/3\/workflow_steps\/8291acdd-7992-4f02-ac79-b574b714764a",
+            "sourceStep": "\/api\/3\/workflow_steps\/b4c0d3a2-f9d0-4a12-84a1-25c2344d8e38",
+            "label": "Domain",
+            "isExecuted": false,
+            "uuid": "d358ef9a-5395-495e-951f-06f6ff2afe77"
+        }
+    ],
+    "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+    "uuid": "e8cfec1f-845e-4f90-ac51-6439b30495f3",
+    "recordTags": [
+        "Subroutine",
+        "sunburst"
+    ],
+    "id": 1146,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433438,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433438,
+    "owners": [],
+    "isPrivate": false
+}

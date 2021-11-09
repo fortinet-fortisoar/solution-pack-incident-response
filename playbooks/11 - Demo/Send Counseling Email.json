@@ -1,0 +1,193 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Send Counseling Email",
+    "aliasName": null,
+    "tag": null,
+    "description": "Sends the offending user a counseling email.",
+    "isActive": false,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/a41c4bc4-5b29-4701-96e7-e62e21e8763e",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/8c881bef-5c85-443e-8fa9-f3939cd0719c",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "e9934410-724a-46bb-91c7-d5033e2a0fa7",
+                "resources": [
+                    "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                    "input": {
+                        "records": "{{vars.input.records}}"
+                    }
+                },
+                "_promptexpanded": true,
+                "displayConditions": {
+                    "alerts": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": [
+                            {
+                                "type": "object",
+                                "field": "status",
+                                "value": "\/api\/3\/picklists\/fac53e73-8d16-4189-98d5-95fbd1555232",
+                                "_value": {
+                                    "itemValue": "Closed"
+                                },
+                                "operator": "neq"
+                            },
+                            {
+                                "type": "object",
+                                "field": "status",
+                                "value": "\/api\/3\/picklists\/0eb337fd-3375-4e11-bf36-6fb6d6681bcc",
+                                "_value": {
+                                    "itemValue": "Closed (Duplicate)"
+                                },
+                                "operator": "neq"
+                            },
+                            {
+                                "type": "object",
+                                "field": "status",
+                                "value": "\/api\/3\/picklists\/9c7dbfdf-76ed-4c7d-b339-d67d03cea00c",
+                                "_value": {
+                                    "itemValue": "Closed (False Positive)"
+                                },
+                                "operator": "neq"
+                            },
+                            {
+                                "type": "object",
+                                "field": "type",
+                                "value": "\/api\/3\/picklists\/3eb31470-7a13-4029-9b48-6f5f3d493002",
+                                "_value": {
+                                    "itemValue": "Data Leakage"
+                                },
+                                "operator": "eq"
+                            }
+                        ]
+                    },
+                    "assets": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": false,
+                "singleRecordExecution": true
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "uuid": "8c881bef-5c85-443e-8fa9-f3939cd0719c",
+            "id": 4336
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get User Details",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "{{vars.input.records[0]['@id']}}\/users",
+                    "body": "",
+                    "method": "GET"
+                },
+                "version": "2.6.0",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "2f9cd5b3-d53b-42ce-9a81-2711a64f22b4",
+            "id": 4337
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Send Counseling Email",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "hunts": null,
+                    "scans": null,
+                    "tasks": null,
+                    "users": "{{vars.steps.Get_User_Details.data['hydra:member'][0]['@id']}}",
+                    "alerts": "{{vars.input.records[0]['@id']}}",
+                    "assets": null,
+                    "emails": null,
+                    "events": null,
+                    "owners": null,
+                    "people": null,
+                    "content": "<p>Counseling email sent to user:&nbsp;{{vars.input.records[0].userName}} regarding Data Leakage Alert&nbsp;{{vars.input.records[0].id}}.<\/p>",
+                    "approvals": null,
+                    "campaigns": null,
+                    "companies": null,
+                    "customers": null,
+                    "evidences": null,
+                    "incidents": null,
+                    "isDeleted": null,
+                    "fraudAlert": null,
+                    "indicators": null,
+                    "attachments": null,
+                    "legalMatters": null,
+                    "vulnerabilities": null,
+                    "physicalIncident": null
+                },
+                "_showJson": false,
+                "collection": "\/api\/3\/comments",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "7216b3a4-62c0-4b2d-afd1-ce789b018466",
+            "id": 4338
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Get User Details",
+            "targetStep": "\/api\/3\/workflow_steps\/2f9cd5b3-d53b-42ce-9a81-2711a64f22b4",
+            "sourceStep": "\/api\/3\/workflow_steps\/8c881bef-5c85-443e-8fa9-f3939cd0719c",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "10bd2962-00c5-45d2-8984-9b0319bc40eb"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get User Details -> Send Counseling Email",
+            "targetStep": "\/api\/3\/workflow_steps\/7216b3a4-62c0-4b2d-afd1-ce789b018466",
+            "sourceStep": "\/api\/3\/workflow_steps\/2f9cd5b3-d53b-42ce-9a81-2711a64f22b4",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "fb3d89f3-ce09-4d77-a87e-87a7d62cb18a"
+        }
+    ],
+    "priority": null,
+    "uuid": "a7af0031-3550-4d17-9ab6-eb4b8b1afc19",
+    "recordTags": [],
+    "id": 1127,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433436,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433436,
+    "owners": [],
+    "isPrivate": false
+}

@@ -1,0 +1,174 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "MXToolBox - IP Reputation",
+    "aliasName": null,
+    "tag": null,
+    "description": "Retrieves the reputation of indicators of type 'IP Address' using MXToolBox.",
+    "isActive": false,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "indicator_value"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/b135c052-e170-4cff-8cc7-9a4bfe607ccb",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/6f016b7e-f3e8-4e26-ba7d-03dc1a8f24d5",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Configurations",
+            "description": null,
+            "arguments": {
+                "threshold": "5",
+                "indicator_value": "{{vars.input.params['indicator_value']}}"
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "1d7900fe-40dc-49f2-9874-a8de247f9b44",
+            "id": 2936
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": []
+                    }
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "6f016b7e-f3e8-4e26-ba7d-03dc1a8f24d5",
+            "id": 2937
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "enrichment_summary",
+            "description": null,
+            "arguments": {
+                "tags": "None",
+                "source": "MXTool Box",
+                "reputation": "{% if vars.Reputation >= vars.threshold %}\"Malicious\"{% elif vars.Reputation <= vars.threshold and vars.Reputation > 0 %}\"Suspicious\"{%elif vars.Reputation == 0%}\"No Reputation Available\"{%else%}\"Good\"{%endif%}",
+                "enrichmentSummary": "{{vars.steps.Compute_MxToolbox_Summary.data['formatted_string']}}"
+            },
+            "status": null,
+            "top": "570",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "f8fbdbf4-9a9c-4c59-9947-6216c3e0f458",
+            "id": 2938
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Compute MxToolbox Summary",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "value": "<p>{% if vars.foundIPMxReputation %}<\/p>\n<div class=\"card-container-body\" style=\"width: 200px;\">\n<div class=\"card-number \" style=\"font-size: 50px; font-weight: normal;\"><span class=\"card-count\">{{vars.steps.Get_Reputation_from_MxToolbox.data.result.MxRep}}<\/span>\n<div class=\"font-size-12 ng-binding\">{% if vars.steps.Get_Reputation_from_MxToolbox.data.result.MxRep == 100 %}Not blacklisted{%else%}Blacklisted{%endif%}<\/div>\n<div class=\"font-size-14 ng-binding\"><strong>MxToolbox<\/strong><\/div>\n<\/div>\n<\/div>\n<p>{% endif %}&nbsp;<\/p>"
+                },
+                "version": "3.0.3",
+                "connector": "cyops_utilities",
+                "operation": "format_richtext",
+                "ignore_errors": true,
+                "operationTitle": "Utils: Format as RichText",
+                "step_variables": {
+                    "Reputation": "{% if vars.foundIPMxReputation %}{{vars.steps.Get_Reputation_from_MxToolbox.data.result.MxRep}} {%else%} 0\n{%endif%}"
+                }
+            },
+            "status": null,
+            "top": "440",
+            "left": "120",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "7bec129e-4df4-482a-ac1a-caf63cb97d28",
+            "id": 2939
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Reputation from MxToolbox",
+            "description": null,
+            "arguments": {
+                "name": "MxToolbox",
+                "config": "aa41f424-4472-4f04-aeec-0a17d6df45f8",
+                "params": {
+                    "value": "{{vars.record}}",
+                    "object": "blacklist",
+                    "api_method": "Lookup"
+                },
+                "version": "1.0.0",
+                "connector": "mxtoolbox",
+                "operation": "api_call",
+                "ignore_errors": true,
+                "operationTitle": "Get MxToolbox Records",
+                "step_variables": {
+                    "foundIPMxReputation": "{{ ( vars.result.data and (vars.result.data | length > 0) ) | ternary(true,false) }}"
+                }
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "602de92e-23b8-4119-abbb-db6c76609fd7",
+            "id": 2940
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Configurations",
+            "targetStep": "\/api\/3\/workflow_steps\/1d7900fe-40dc-49f2-9874-a8de247f9b44",
+            "sourceStep": "\/api\/3\/workflow_steps\/6f016b7e-f3e8-4e26-ba7d-03dc1a8f24d5",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "54f1f22a-2fcd-4c31-a9a3-85926cdec607"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configurations -> Get Reputation from MxToolbox",
+            "targetStep": "\/api\/3\/workflow_steps\/602de92e-23b8-4119-abbb-db6c76609fd7",
+            "sourceStep": "\/api\/3\/workflow_steps\/1d7900fe-40dc-49f2-9874-a8de247f9b44",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "d019495a-c52d-4c3b-ab68-d2471dd68d40"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Compute MxToolbox Summary -> enrichment_summary",
+            "targetStep": "\/api\/3\/workflow_steps\/f8fbdbf4-9a9c-4c59-9947-6216c3e0f458",
+            "sourceStep": "\/api\/3\/workflow_steps\/7bec129e-4df4-482a-ac1a-caf63cb97d28",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "3496e414-1b52-47e6-bd55-73ec20ca5b02"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Reputation from MxToolbox -> Compute MxToolbox Summary",
+            "targetStep": "\/api\/3\/workflow_steps\/7bec129e-4df4-482a-ac1a-caf63cb97d28",
+            "sourceStep": "\/api\/3\/workflow_steps\/602de92e-23b8-4119-abbb-db6c76609fd7",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "925d511a-ed61-4598-9911-a03b741dc140"
+        }
+    ],
+    "priority": null,
+    "uuid": "bb22d5c1-c946-4cca-aef1-babcc00fcf96",
+    "recordTags": [
+        "Subroutine"
+    ],
+    "id": 951,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433424,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433424,
+    "owners": [],
+    "isPrivate": false
+}

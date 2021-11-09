@@ -1,0 +1,70 @@
+{
+    "@context": "\/api\/3\/contexts\/Role",
+    "@id": "\/api\/3\/roles\/17562d60-b841-4ed7-912b-1ebaf063c8c9",
+    "@type": "Role",
+    "description": "Manages the Roles and Teams area of the administration menu",
+    "name": "Security Administrator",
+    "modulePermissions": [
+        {
+            "@id": "\/api\/3\/module_permissions\/d7f3d2b2-4d0d-40e5-b2ac-e5ef0a1f60f0",
+            "@type": "ModulePermission",
+            "canCreate": true,
+            "canExecute": null,
+            "canRead": true,
+            "canUpdate": true,
+            "canDelete": true,
+            "fieldPermissions": [],
+            "module": "security",
+            "uuid": "d7f3d2b2-4d0d-40e5-b2ac-e5ef0a1f60f0"
+        },
+        {
+            "@id": "\/api\/3\/module_permissions\/fe1129d9-52b4-4cc1-a6a9-a72768d3308e",
+            "@type": "ModulePermission",
+            "canCreate": null,
+            "canExecute": null,
+            "canRead": true,
+            "canUpdate": null,
+            "canDelete": null,
+            "fieldPermissions": [],
+            "module": "application",
+            "uuid": "fe1129d9-52b4-4cc1-a6a9-a72768d3308e"
+        },
+        {
+            "@id": "\/api\/3\/module_permissions\/4b84c78d-a9dd-488f-8c34-a9b8acd575fe",
+            "@type": "ModulePermission",
+            "canCreate": true,
+            "canExecute": null,
+            "canRead": true,
+            "canUpdate": true,
+            "canDelete": true,
+            "fieldPermissions": [],
+            "module": "routers",
+            "uuid": "4b84c78d-a9dd-488f-8c34-a9b8acd575fe"
+        },
+        {
+            "@id": "\/api\/3\/module_permissions\/b52cf0ca-d5ca-4403-b285-4631ff0086e2",
+            "@type": "ModulePermission",
+            "canCreate": true,
+            "canExecute": null,
+            "canRead": true,
+            "canUpdate": true,
+            "canDelete": true,
+            "fieldPermissions": [],
+            "module": "tenants",
+            "uuid": "b52cf0ca-d5ca-4403-b285-4631ff0086e2"
+        },
+        {
+            "@id": "\/api\/3\/module_permissions\/c2543be0-66cf-46f3-9acd-c731662c9659",
+            "@type": "ModulePermission",
+            "canCreate": true,
+            "canExecute": null,
+            "canRead": true,
+            "canUpdate": true,
+            "canDelete": true,
+            "fieldPermissions": [],
+            "module": "agents",
+            "uuid": "c2543be0-66cf-46f3-9acd-c731662c9659"
+        }
+    ],
+    "uuid": "17562d60-b841-4ed7-912b-1ebaf063c8c9"
+}

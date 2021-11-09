@@ -1,0 +1,135 @@
+{
+    "@context": "\/api\/3\/contexts\/Dashboard",
+    "@type": "Dashboard",
+    "uuid": "3bc504ee-bf04-46b1-bfec-e000d2e40cd8",
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1636368001,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433442,
+    "displayName": "System Health Status",
+    "type": "rows",
+    "templateType": "dashboard",
+    "roles": [
+        "\/api\/3\/roles\/17562d60-b841-4ed7-912b-1ebaf063c8c9"
+    ],
+    "parentTemplateId": null,
+    "config": {
+        "rows": [
+            {
+                "columns": [
+                    {
+                        "widgets": [
+                            {
+                                "type": "systemMonitoring",
+                                "config": {
+                                    "wid": "ba018f75-1ff5-45f6-803c-0bc31fa4fd3a",
+                                    "systemMonitoringType": "cpu_percent",
+                                    "title": "CPU Usage",
+                                    "thresholdValue": 70
+                                }
+                            }
+                        ],
+                        "style": "col-lg-4"
+                    },
+                    {
+                        "widgets": [
+                            {
+                                "type": "systemMonitoring",
+                                "config": {
+                                    "wid": "c734fe9d-183e-4cab-bc57-37882b93a7b6",
+                                    "systemMonitoringType": "virtual_memory",
+                                    "title": "Virtual Memory Usage",
+                                    "thresholdValue": 70
+                                }
+                            }
+                        ],
+                        "style": "col-lg-4"
+                    },
+                    {
+                        "widgets": [
+                            {
+                                "type": "systemMonitoring",
+                                "config": {
+                                    "wid": "bfaadb32-4b97-465c-86e6-722deabac204",
+                                    "systemMonitoringType": "swap",
+                                    "title": "Swap Memory Usage",
+                                    "thresholdValue": 70
+                                }
+                            }
+                        ],
+                        "style": "col-lg-4"
+                    }
+                ],
+                "wid": "01543293-e79a-4be1-b790-df4ec14a2cce",
+                "_collapsed": false
+            },
+            {
+                "columns": [
+                    {
+                        "widgets": [
+                            {
+                                "type": "systemMonitoring",
+                                "config": {
+                                    "wid": "f6a720e4-ba57-411d-8b3f-f93c69b9ac94",
+                                    "systemMonitoringType": "disk_utilization",
+                                    "title": "Disk Space Usage",
+                                    "thresholdValue": 70
+                                }
+                            }
+                        ],
+                        "style": "col-lg-12"
+                    }
+                ],
+                "wid": "9bd3b2bc-c67b-4c17-9d63-09059c870bdc",
+                "container": true,
+                "_collapsed": false
+            },
+            {
+                "columns": [
+                    {
+                        "widgets": [
+                            {
+                                "type": "systemMonitoring",
+                                "config": {
+                                    "wid": "8308b57c-a749-4b19-aa1a-013083019ceb",
+                                    "systemMonitoringType": "service_status",
+                                    "title": "Service Status"
+                                }
+                            }
+                        ],
+                        "style": "col-lg-6"
+                    },
+                    {
+                        "widgets": [
+                            {
+                                "type": "systemMonitoring",
+                                "config": {
+                                    "wid": "dcd011a6-84b7-460b-be30-ceb2d86006d5",
+                                    "title": "Playbook Execution Monitoring",
+                                    "systemMonitoringType": "playbook_execution_monitoring",
+                                    "currentPBQueueLoad": true,
+                                    "currentPBExecutionLogSize": true,
+                                    "eligibleDBSizeToClean": true
+                                }
+                            },
+                            {
+                                "type": "connectorHealth",
+                                "config": {
+                                    "wid": "8c0ccaee-6ced-47cc-b1cf-7fdb745b45ad",
+                                    "title": "Connector Health Status"
+                                }
+                            }
+                        ],
+                        "style": "col-lg-6"
+                    }
+                ],
+                "wid": "9235d323-f981-41cd-aed0-60993ecdb4cb",
+                "_collapsed": false,
+                "container": false
+            }
+        ],
+        "wid": "4d8c0229-680c-4250-bfd3-c379de4f99c6"
+    },
+    "filterArray": [],
+    "updateDate": null
+}

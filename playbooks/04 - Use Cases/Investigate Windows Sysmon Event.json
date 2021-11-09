@@ -1,0 +1,523 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Investigate Windows Sysmon Event",
+    "aliasName": null,
+    "tag": "#ManualAction",
+    "description": "Investigates a Windows Sysmon event, and escalates the alert to an \u2018Incident\u2019 if malware is detected.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/59667fcc-7feb-4ba4-a5a2-e03a9287f857",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/41cab359-3c1e-4d05-a867-36b41fef10f0",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Update Alert Status",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "escalationReason": "Alert escalated for migation \/ remidiation process.",
+                    "escalatedtoincident": {
+                        "id": 6807,
+                        "@id": "\/api\/3\/picklists\/fa12313b-66af-4a2e-864e-a5f19241b734",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#bf0a0a",
+                        "display": "Yes",
+                        "listName": "\/api\/3\/picklist_names\/e131cc54-9ae4-43c9-b830-af6e331fe024",
+                        "itemValue": "Yes",
+                        "orderIndex": 0
+                    }
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "{{vars.alert_id}}",
+                "collectionType": "\/api\/3\/alerts",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "980",
+            "left": "480",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "ff6e6477-e0e4-4d84-97b7-a16bee7947e0",
+            "id": 3433
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Declare False Alarm",
+            "description": null,
+            "arguments": {
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>Aggregate score from VirusTotal is less than threshold.<\/p>\n<p>Alert is a false alarm&nbsp;and can be closed.<\/p>",
+                    "records": ""
+                },
+                "resource": {
+                    "type": {
+                        "id": 6790,
+                        "@id": "\/api\/3\/picklists\/34d2bb30-9aa2-4ed5-acf7-a5385b7ffa24",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "False Alarm",
+                        "listName": "\/api\/3\/picklist_names\/a7087b9c-5660-495f-a8ac-c3b198ddb8c2",
+                        "itemValue": "False Alarm",
+                        "orderIndex": 5
+                    },
+                    "status": {
+                        "id": 54,
+                        "@id": "\/api\/3\/picklists\/7de816ff-7140-4ee5-bd05-93ce22002146",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Open",
+                        "listName": "\/api\/3\/picklist_names\/33e964a9-d607-49f2-813c-7ce46141815a",
+                        "itemValue": "Open",
+                        "orderIndex": 1
+                    },
+                    "severity": {
+                        "id": 89,
+                        "@id": "\/api\/3\/picklists\/58d0753f-f7e4-403b-953c-b0f521eab759",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#28B35C",
+                        "display": "Low",
+                        "listName": "\/api\/3\/picklist_names\/4e80cba3-032f-48b4-ac03-17e3ec247aac",
+                        "itemValue": "Low",
+                        "orderIndex": 1
+                    }
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "{{vars.alert_id}}",
+                "__recommend": [],
+                "collectionType": "\/api\/3\/alerts",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "705",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "8830c629-fe6d-4631-b3bb-d7397ba90acb",
+            "id": 3434
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Is Malicious",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Yes",
+                        "step_iri": "\/api\/3\/workflow_steps\/f58fe50f-6dd7-4290-8f0c-c4acb90c77fb",
+                        "condition": "{{ vars.scan_score >= vars.aggregate_threshold }}"
+                    },
+                    {
+                        "option": "No",
+                        "step_iri": "\/api\/3\/workflow_steps\/8830c629-fe6d-4631-b3bb-d7397ba90acb",
+                        "condition": "{{ vars.scan_score < vars.aggregate_threshold }}"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "570",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "bf39d616-06f3-4453-9743-f6c3ccbc805a",
+            "id": 3435
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start Investigation",
+            "description": null,
+            "arguments": {
+                "message": {
+                    "tags": [],
+                    "type": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "Investigating Potential {{vars.input.records[0].type.itemValue}}, with following fields of interest:\n{% if vars.input.records[0].domain %}Domain: {{vars.input.records[0].domain -}}{% endif %}\n{% if vars.input.records[0].sourceIp %}SourceIP: {{ vars.input.records[0].sourceIp -}}{% endif %}\n{% if vars.input.records[0].destinationIp %}DestinationIP: {{vars.input.records[0].destinationIp -}}{% endif %}\n{% if vars.input.records[0].fileHash %}File Hash: {{vars.input.records[0].fileHash -}}{% endif %}\n{% if vars.input.records[0].computerName %}ComputerName: {{vars.input.records[0].computerName -}}{% endif %}\n{% if vars.input.records[0].processName %}Process: {{vars.input.records[0].processName -}}{% endif %}\n{% if vars.input.records[0].sourceProcess %}SourceProcess: {{vars.input.records[0].sourceProcess -}}{% endif %}",
+                    "records": ""
+                },
+                "resource": {
+                    "status": {
+                        "id": 113,
+                        "@id": "\/api\/3\/picklists\/758925e7-629c-46d8-89db-fb36f5fbe88a",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Investigating",
+                        "listName": "\/api\/3\/picklist_names\/33e964a9-d607-49f2-813c-7ce46141815a",
+                        "itemValue": "Investigating",
+                        "orderIndex": 2
+                    }
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "__recommend": [],
+                "collectionType": "\/api\/3\/alerts",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "300",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "b05a201d-d2cc-4a7d-b64f-bb92dd956604",
+            "id": 3436
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "alert_id": "{{vars.request.data.records[0]['@id']}}",
+                "md5_hash": "{{vars.rawdata.MD5}}",
+                "host_name": "{{vars.input.records[0].computerName}}",
+                "sha256_hash": "{{vars.rawdata.SHA256}}",
+                "useMockOutput": "{{globalVars.Demo_mode}}",
+                "parent_process": "{{vars.input.records[0].sourceProcess}}",
+                "aggregate_threshold": "5"
+            },
+            "status": null,
+            "top": "165",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "f7fceb39-c784-47c7-aac8-7470c76105bf",
+            "id": 3437
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Declare Malware Alarm",
+            "description": null,
+            "arguments": {
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p><span style=\"font-size: 15px;\" class=\"emoji\">\u26a0\ufe0f<\/span> The aggregate score is more than threshold limit.<\/p>\n<p><strong><span style=\"background:#e31b1d; color: #fff;\" class=\"badge badge-pill badge-danger\">Requesting immediate quarantine of host -&nbsp;{{vars.host_name}}<\/span><\/strong><\/p>",
+                    "records": ""
+                },
+                "resource": {
+                    "type": {
+                        "id": 122,
+                        "@id": "\/api\/3\/picklists\/0cbc2c31-c360-4770-b1e7-3653a8c24ead",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Malware",
+                        "listName": "\/api\/3\/picklist_names\/a7087b9c-5660-495f-a8ac-c3b198ddb8c2",
+                        "itemValue": "Malware",
+                        "orderIndex": 8
+                    },
+                    "severity": {
+                        "id": 90,
+                        "@id": "\/api\/3\/picklists\/7efa2220-39bb-44e4-961f-ac368776e3b0",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#A51516",
+                        "display": "Critical",
+                        "listName": "\/api\/3\/picklist_names\/4e80cba3-032f-48b4-ac03-17e3ec247aac",
+                        "itemValue": "Critical",
+                        "orderIndex": 4
+                    }
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "{{vars.alert_id}}",
+                "__recommend": [],
+                "collectionType": "\/api\/3\/alerts",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "700",
+            "left": "480",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "f58fe50f-6dd7-4290-8f0c-c4acb90c77fb",
+            "id": 3438
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get File Reputation",
+            "description": null,
+            "arguments": {
+                "name": "VirusTotal",
+                "config": "1ba6a7ef-304a-4f78-855d-70b09bcd0b0a",
+                "params": {
+                    "file_hash": "{{vars.md5_hash}}"
+                },
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p>File hash scan result :<\/p>\n<table border=\"1px\" style=\"width: auto;\">\n<tbody>\n<tr style=\"border: 1px solid; text-align: left;\">\n<td style=\"width: 150px\">Aggregate&nbsp; score<\/td>\n<td>{{vars.result.data.aggregate}}<\/td>\n<\/tr>\n<tr style=\"border: 1px solid; text-align: left;\">\n<td style=\"width: 150px\">Scan Result<\/td>\n<td>{{vars.result.data.scans.Symantec.result}}<\/td>\n<\/tr>\n<tr style=\"border: 1px solid; text-align: left;\">\n<td style=\"width: 150px\">Permalink<\/td>\n<td>{{vars.result.data.permalink}}<\/td>\n<\/tr>\n<\/tbody>\n<\/table>\n<p>&nbsp;<\/p>",
+                    "records": ""
+                },
+                "version": "2.0.0",
+                "connector": "virustotal",
+                "operation": "file_reputation",
+                "mock_result": "{\n    \"data\": {\n      \"sha1\": \"e889544aff85ffaf8b0d0da705105dee7c97fe26\",\n      \"response_code\": 1,\n      \"scan_id\": \"24d004a104d4d54034dbcffc2a4b19a11f39008a575aa614ea04703480b1022c-1520220103\",\n      \"md5\": \"db349b97c37d22f5ea1d1841e3c89eb4\",\n      \"total\": 67,\n      \"scans\": {\n        \"Microsoft\": {\n          \"result\": \"Ransom:Win32\/WannaCrypt\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"1.1.14600.4\"\n        },\n        \"SUPERAntiSpyware\": {\n          \"result\": \"Ransom.WannaCrypt\/Variant\",\n          \"update\": \"20180304\",\n          \"detected\": true,\n          \"version\": \"5.6.0.1032\"\n        },\n        \"Sophos\": {\n          \"result\": \"Troj\/Ransom-EMG\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"4.98.0\"\n        },\n        \"Yandex\": {\n          \"result\": \"Exploit.CVE-2017-0147!\",\n          \"update\": \"20180303\",\n          \"detected\": true,\n          \"version\": \"5.5.1.3\"\n        },\n        \"McAfee\": {\n          \"result\": \"Ransom-O\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"6.0.6.653\"\n        },\n        \"CrowdStrike\": {\n          \"result\": \"malicious_confidence_100% (W)\",\n          \"update\": \"20170201\",\n          \"detected\": true,\n          \"version\": \"1.0\"\n        },\n        \"K7AntiVirus\": {\n          \"result\": \"Exploit ( 0050d7a31 )\",\n          \"update\": \"20180304\",\n          \"detected\": true,\n          \"version\": \"10.40.26386\"\n        },\n        \"MAX\": {\n          \"result\": \"malware (ai score=100)\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"2017.11.15.1\"\n        },\n        \"Kaspersky\": {\n          \"result\": \"Trojan-Ransom.Win32.Wanna.m\",\n          \"update\": \"20180302\",\n          \"detected\": true,\n          \"version\": \"15.0.1.13\"\n        },\n        \"Tencent\": {\n          \"result\": \"Trojan.Win32.WannaCry.b\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"1.0.0.1\"\n        },\n        \"ClamAV\": {\n          \"result\": \"Win.Ransomware.WannaCry-6313787-0\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"0.99.2.0\"\n        },\n        \"K7GW\": {\n          \"result\": \"Exploit ( 0050d7a31 )\",\n          \"update\": \"20180304\",\n          \"detected\": true,\n          \"version\": \"10.40.26386\"\n        },\n        \"ALYac\": {\n          \"result\": \"Trojan.Ransom.WannaCryptor\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"1.1.1.5\"\n        },\n        \"TheHacker\": {\n          \"result\": \"Trojan\/Exploit.CVE-2017-0147.a\",\n          \"update\": \"20180303\",\n          \"detected\": true,\n          \"version\": \"6.8.0.5.2495\"\n        },\n        \"Ad-Aware\": {\n          \"result\": \"Trojan.Ransom.WannaCryptor.H\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"3.0.3.1010\"\n        },\n        \"Avast\": {\n          \"result\": \"Win32:WanaCry-A [Trj]\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"18.2.3827.0\"\n        },\n        \"AVware\": {\n          \"result\": \"Trojan.Win32.Generic!BT\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"1.5.0.42\"\n        },\n        \"Baidu\": {\n          \"result\": \"Win32.Worm.Rbot.a\",\n          \"update\": \"20180302\",\n          \"detected\": true,\n          \"version\": \"1.0.0.2\"\n        },\n        \"Rising\": {\n          \"result\": \"Ransom.WanaCrypt!1.AAED (KTSE)\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"25.0.0.1\"\n        },\n        \"AegisLab\": {\n          \"result\": \"Troj.Ransom.W32!c\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"4.2\"\n        },\n        \"MicroWorld-eScan\": {\n          \"result\": \"Trojan.Ransom.WannaCryptor.H\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"14.0.297.0\"\n        },\n        \"Fortinet\": {\n          \"result\": \"W32\/WannaCryptor.H!tr.ransom\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"5.4.247.0\"\n        },\n        \"F-Secure\": {\n          \"result\": \"Trojan.Ransom.WannaCryptor.H\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"11.0.19100.45\"\n        },\n        \"TrendMicro-HouseCall\": {\n          \"result\": \"WORM_WCRY.A\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"9.950.0.1006\"\n        },\n        \"Endgame\": {\n          \"result\": \"malicious (high confidence)\",\n          \"update\": \"20180303\",\n          \"detected\": true,\n          \"version\": \"2.0.3\"\n        },\n        \"SentinelOne\": {\n          \"result\": \"static engine - malicious\",\n          \"update\": \"20180225\",\n          \"detected\": true,\n          \"version\": \"1.0.15.206\"\n        },\n        \"Kingsoft\": {\n          \"result\": null,\n          \"update\": \"20180305\",\n          \"detected\": false,\n          \"version\": \"2013.8.14.323\"\n        },\n        \"VIPRE\": {\n          \"result\": \"Trojan.Win32.Generic!BT\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"65032\"\n        },\n        \"Comodo\": {\n          \"result\": \"TrojWare.Win32.WannaCry.jet\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"28624\"\n        },\n        \"Cyren\": {\n          \"result\": \"W32\/Trojan.ZTSA-8671\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"5.4.30.7\"\n        },\n        \"nProtect\": {\n          \"result\": \"Ransom\/W32.WannaCry.Zen\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"2018-03-05.01\"\n        },\n        \"McAfee-GW-Edition\": {\n          \"result\": \"BehavesLike.Win32.RansomWannaCry.wc\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"v2015\"\n        },\n        \"GData\": {\n          \"result\": \"Win32.Trojan-Ransom.WannaCry.D\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"A:25.16233B:25.11715\"\n        },\n        \"Symantec\": {\n          \"result\": \"Ransom.Wannacry\",\n          \"update\": \"20180304\",\n          \"detected\": true,\n          \"version\": \"1.5.0.0\"\n        },\n        \"Ikarus\": {\n          \"result\": \"Trojan-Ransom.WannaCry\",\n          \"update\": \"20180304\",\n          \"detected\": true,\n          \"version\": \"0.1.5.2\"\n        },\n        \"NANO-Antivirus\": {\n          \"result\": \"Trojan.Win32.Wanna.eoqegc\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"1.0.100.21498\"\n        },\n        \"ESET-NOD32\": {\n          \"result\": \"Win32\/Exploit.CVE-2017-0147.A\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"17002\"\n        },\n        \"Malwarebytes\": {\n          \"result\": \"Ransom.WannaCrypt\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"2.1.1.1115\"\n        },\n        \"CAT-QuickHeal\": {\n          \"result\": \"Ransom.WannaCrypt.A4\",\n          \"update\": \"20180304\",\n          \"detected\": true,\n          \"version\": \"14.00\"\n        },\n        \"ZoneAlarm\": {\n          \"result\": \"Trojan-Ransom.Win32.Wanna.m\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"1.0\"\n        },\n        \"Avast-Mobile\": {\n          \"result\": null,\n          \"update\": \"20180304\",\n          \"detected\": false,\n          \"version\": \"180304-00\"\n        },\n        \"DrWeb\": {\n          \"result\": \"Trojan.Encoder.11432\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"7.0.28.2020\"\n        },\n        \"Invincea\": {\n          \"result\": \"heuristic\",\n          \"update\": \"20180121\",\n          \"detected\": true,\n          \"version\": \"6.3.4.26036\"\n        },\n        \"F-Prot\": {\n          \"result\": \"W32\/WannaCrypt.D\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"4.7.1.166\"\n        },\n        \"VBA32\": {\n          \"result\": \"Trojan.Filecoder\",\n          \"update\": \"20180303\",\n          \"detected\": true,\n          \"version\": \"3.12.28.0\"\n        },\n        \"AhnLab-V3\": {\n          \"result\": \"Trojan\/Win32.WannaCryptor.R200572\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"3.12.0.20130\"\n        },\n        \"Cybereason\": {\n          \"result\": \"malicious.7c37d2\",\n          \"update\": \"20180225\",\n          \"detected\": true,\n          \"version\": \"1.2.27\"\n        },\n        \"Paloalto\": {\n          \"result\": \"generic.ml\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"1.0\"\n        },\n        \"Jiangmin\": {\n          \"result\": \"Trojan.WanaCry.i\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"16.0.100\"\n        },\n        \"Emsisoft\": {\n          \"result\": \"Trojan-Ransom.WanaCrypt0r (A)\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"4.0.2.899\"\n        },\n        \"CMC\": {\n          \"result\": null,\n          \"update\": \"20180304\",\n          \"detected\": false,\n          \"version\": \"1.1.0.977\"\n        },\n        \"Panda\": {\n          \"result\": \"Trj\/RansomCrypt.K\",\n          \"update\": \"20180304\",\n          \"detected\": true,\n          \"version\": \"4.6.4.2\"\n        },\n        \"Antiy-AVL\": {\n          \"result\": \"Trojan[Ransom]\/Win32.Scatter\",\n          \"update\": \"20180304\",\n          \"detected\": true,\n          \"version\": \"3.0.0.1\"\n        },\n        \"Arcabit\": {\n          \"result\": \"Trojan.Ransom.WannaCryptor.H\",\n          \"update\": \"20180303\",\n          \"detected\": true,\n          \"version\": \"1.0.0.830\"\n        },\n        \"Qihoo-360\": {\n          \"result\": \"Win32\/Trojan.Multi.daf\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"1.0.0.1120\"\n        },\n        \"AVG\": {\n          \"result\": \"Win32:WanaCry-A [Trj]\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"18.2.3827.0\"\n        },\n        \"Cylance\": {\n          \"result\": \"Unsafe\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"2.3.1.101\"\n        },\n        \"BitDefender\": {\n          \"result\": \"Trojan.Ransom.WannaCryptor.H\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"7.2\"\n        },\n        \"TrendMicro\": {\n          \"result\": \"WORM_WCRY.A\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"9.862.0.1074\"\n        },\n        \"Zillya\": {\n          \"result\": \"Trojan.WannaCryptGen.Win32.2\",\n          \"update\": \"20180302\",\n          \"detected\": true,\n          \"version\": \"2.0.0.3504\"\n        },\n        \"ViRobot\": {\n          \"result\": \"Trojan.Win32.S.WannaCry.3723264.S\",\n          \"update\": \"20180304\",\n          \"detected\": true,\n          \"version\": \"2014.3.20.0\"\n        },\n        \"Webroot\": {\n          \"result\": \"W32.Ransom.Wannacry\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"1.0.0.400\"\n        },\n        \"Avira\": {\n          \"result\": \"TR\/Ransom.IZ\",\n          \"update\": \"20180301\",\n          \"detected\": true,\n          \"version\": \"8.3.3.6\"\n        },\n        \"Bkav\": {\n          \"result\": \"W32.PusakaDHI.Trojan\",\n          \"update\": \"20180303\",\n          \"detected\": true,\n          \"version\": \"1.3.0.9466\"\n        },\n        \"eGambit\": {\n          \"result\": \"Trojan.Generic\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"v4.3.5\"\n        },\n        \"WhiteArmor\": {\n          \"result\": null,\n          \"update\": \"20180223\",\n          \"detected\": false,\n          \"version\": null\n        },\n        \"Zoner\": {\n          \"result\": \"Trojan.Wannacry\",\n          \"update\": \"20180305\",\n          \"detected\": true,\n          \"version\": \"1.0\"\n        }\n      },\n      \"positives\": 63,\n      \"scan_date\": \"2018-03-05 03:21:43\",\n      \"verbose_msg\": \"Scan finished, information embedded\",\n      \"sha256\": \"24d004a104d4d54034dbcffc2a4b19a11f39008a575aa614ea04703480b1022c\",\n      \"permalink\": \"https:\/\/www.virustotal.com\/file\/24d004a104d4d54034dbcffc2a4b19a11f39008a575aa614ea04703480b1022c\/analysis\/1520220103\/\",\n      \"resource\": \"db349b97c37d22f5ea1d1841e3c89eb4\",\n      \"aggregate\": 94\n    }\n}",
+                "operationTitle": "Get File Reputation",
+                "step_variables": {
+                    "scan_score": "{{vars.result.data.aggregate}}"
+                }
+            },
+            "status": null,
+            "top": "440",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "c827b12a-fc24-4fca-9b24-fafa964242a3",
+            "id": 3439
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "fa30f8e4-defa-4d06-ba27-3d90c165d276",
+                "title": "Investigate Sysmon event",
+                "resources": [
+                    "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                    "input": {
+                        "records": "{{vars.input.records}}"
+                    },
+                    "rawdata": "{{vars.input.records[0].sourcedata}}"
+                },
+                "_promptexpanded": true,
+                "displayConditions": {
+                    "alerts": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": [
+                            {
+                                "type": "primitive",
+                                "field": "source",
+                                "value": "Elastic",
+                                "operator": "eq",
+                                "_operator": "eq"
+                            }
+                        ]
+                    }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": false,
+                "singleRecordExecution": false
+            },
+            "status": null,
+            "top": "30",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "uuid": "41cab359-3c1e-4d05-a867-36b41fef10f0",
+            "id": 3440
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Escalating to Incident",
+            "description": null,
+            "arguments": {
+                "message": {
+                    "tenant": "{{vars.input.records[0].tenant['@id']}}",
+                    "content": "<p><span style=\"font-size: 15px; color: yellow;\" class=\"fa fa-exclamation-triangle\"><\/span>&nbsp; This alert will be <strong><span style=\"color: #ff0000;\">escalated<\/span><\/strong>&nbsp;for further remedial and containment actions.<\/p>",
+                    "records": ""
+                },
+                "resource": {
+                    "name": "Malware detected on  {{vars.host_name}}",
+                    "phase": {
+                        "id": 82,
+                        "@id": "\/api\/3\/picklists\/bb740542-f699-11e7-8c3f-9a214cf093ae",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Detection",
+                        "listName": "\/api\/3\/picklist_names\/b862eb1f-b385-40ca-baa7-5a1b1f91a651",
+                        "itemValue": "Detection",
+                        "orderIndex": 20
+                    },
+                    "alerts": "['{{vars.alert_id}}']",
+                    "resSla": {
+                        "id": 331,
+                        "@id": "\/api\/3\/picklists\/72979f64-e8b9-4888-a965-957e0ec24818",
+                        "icon": null,
+                        "uuid": "72979f64-e8b9-4888-a965-957e0ec24818",
+                        "@type": "Picklist",
+                        "color": "#808080",
+                        "display": "Awaiting Action",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/fe36a8f2-fcba-4221-b4ab-1081f596b153",
+                        "itemValue": "Awaiting Action",
+                        "orderIndex": 2
+                    },
+                    "source": "{{vars.host_name}}",
+                    "status": {
+                        "id": 224,
+                        "@id": "\/api\/3\/picklists\/bb73fe9e-f699-11e7-8c3f-9a214cf093ae",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Open",
+                        "listName": "\/api\/3\/picklist_names\/a549e41c-31ca-406d-89ae-eab3de5c06c4",
+                        "itemValue": "Open",
+                        "orderIndex": 0
+                    },
+                    "category": {
+                        "id": 6795,
+                        "@id": "\/api\/3\/picklists\/703218fc-f69a-11e7-8c3f-9a214cf093ae",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Malware",
+                        "listName": "\/api\/3\/picklist_names\/f3938848-6220-4b27-af2d-a5329cf63656",
+                        "itemValue": "Malware",
+                        "orderIndex": 9
+                    },
+                    "severity": {
+                        "id": 90,
+                        "@id": "\/api\/3\/picklists\/7efa2220-39bb-44e4-961f-ac368776e3b0",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#A51516",
+                        "display": "Critical",
+                        "listName": "\/api\/3\/picklist_names\/4e80cba3-032f-48b4-ac03-17e3ec247aac",
+                        "itemValue": "Critical",
+                        "orderIndex": 4
+                    },
+                    "slaState": {
+                        "id": 331,
+                        "@id": "\/api\/3\/picklists\/72979f64-e8b9-4888-a965-957e0ec24818",
+                        "icon": null,
+                        "uuid": "72979f64-e8b9-4888-a965-957e0ec24818",
+                        "@type": "Picklist",
+                        "color": "#808080",
+                        "display": "Awaiting Action",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/fe36a8f2-fcba-4221-b4ab-1081f596b153",
+                        "itemValue": "Awaiting Action",
+                        "orderIndex": 2
+                    },
+                    "__replace": "true",
+                    "description": "<p>Check <a href=\"modules\/alerts\/{{vars.alert_id | basename}}\">Alert<\/a> for details&nbsp;<\/p>",
+                    "slaPercentage": 0,
+                    "dateOfIncident": "{{@Current_Date}}"
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/upsert\/incidents",
+                "__recommend": [],
+                "fieldOperation": {
+                    "category": "Overwrite",
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "840",
+            "left": "480",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "0940c66b-95ac-499f-8e83-91a8a78ae1c1",
+            "id": 3441
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Start Investigation",
+            "targetStep": "\/api\/3\/workflow_steps\/b05a201d-d2cc-4a7d-b64f-bb92dd956604",
+            "sourceStep": "\/api\/3\/workflow_steps\/f7fceb39-c784-47c7-aac8-7470c76105bf",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "54d0db4b-25c8-442b-aef1-7d7c9a00b11f"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Declare Malware -> Declare False Alarm",
+            "targetStep": "\/api\/3\/workflow_steps\/8830c629-fe6d-4631-b3bb-d7397ba90acb",
+            "sourceStep": "\/api\/3\/workflow_steps\/bf39d616-06f3-4453-9743-f6c3ccbc805a",
+            "label": "No",
+            "isExecuted": false,
+            "uuid": "e2520499-1fa6-41ee-8984-53f63ceede3c"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/f7fceb39-c784-47c7-aac8-7470c76105bf",
+            "sourceStep": "\/api\/3\/workflow_steps\/41cab359-3c1e-4d05-a867-36b41fef10f0",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "b0939106-a9f0-41ad-81b2-891beee21b5c"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Declare Malware -> Declare Malware Alaram",
+            "targetStep": "\/api\/3\/workflow_steps\/f58fe50f-6dd7-4290-8f0c-c4acb90c77fb",
+            "sourceStep": "\/api\/3\/workflow_steps\/bf39d616-06f3-4453-9743-f6c3ccbc805a",
+            "label": "Yes",
+            "isExecuted": false,
+            "uuid": "740d37f2-76b7-47d8-8420-889679ea3977"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Declare Malware Alarm -> Escalating to Incident",
+            "targetStep": "\/api\/3\/workflow_steps\/0940c66b-95ac-499f-8e83-91a8a78ae1c1",
+            "sourceStep": "\/api\/3\/workflow_steps\/f58fe50f-6dd7-4290-8f0c-c4acb90c77fb",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "05b906ea-da0a-46b1-84d4-8946535e0cfd"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start Investigation -> Get File Reputation",
+            "targetStep": "\/api\/3\/workflow_steps\/c827b12a-fc24-4fca-9b24-fafa964242a3",
+            "sourceStep": "\/api\/3\/workflow_steps\/b05a201d-d2cc-4a7d-b64f-bb92dd956604",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "a0745444-e3e1-4845-baec-9854335eb412"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Escalating to Incident -> Update Alert Status",
+            "targetStep": "\/api\/3\/workflow_steps\/ff6e6477-e0e4-4d84-97b7-a16bee7947e0",
+            "sourceStep": "\/api\/3\/workflow_steps\/0940c66b-95ac-499f-8e83-91a8a78ae1c1",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "aeabcd50-e536-41c9-a93c-759d7ea29777"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get VT scan on File hash -> Declare Malware",
+            "targetStep": "\/api\/3\/workflow_steps\/bf39d616-06f3-4453-9743-f6c3ccbc805a",
+            "sourceStep": "\/api\/3\/workflow_steps\/c827b12a-fc24-4fca-9b24-fafa964242a3",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "fabe52fd-f464-46a7-a312-68693ce7c5a4"
+        }
+    ],
+    "priority": null,
+    "uuid": "42b26a4c-d28c-4c72-8248-187f27e50699",
+    "recordTags": [
+        "ManualAction"
+    ],
+    "id": 994,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433427,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433427,
+    "owners": [],
+    "isPrivate": false
+}

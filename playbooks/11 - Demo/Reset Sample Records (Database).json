@@ -1,0 +1,209 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Reset Sample Records (Database)",
+    "aliasName": null,
+    "tag": null,
+    "description": "Clears all records from different modules by directly connecting to the database using a Python script.",
+    "isActive": false,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/a41c4bc4-5b29-4701-96e7-e62e21e8763e",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/9222bb10-f985-4e97-9a18-8d853d87bb1e",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "User Confirmation",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Do not Delete",
+                        "default": true,
+                        "step_iri": "\/api\/3\/workflow_steps\/b80c302e-8de2-46ac-aedd-d912b6f39319"
+                    },
+                    {
+                        "option": "Delete",
+                        "step_iri": "\/api\/3\/workflow_steps\/2cc7ce12-3f28-473c-8c22-75b8a9d0bbf2",
+                        "condition": "{{ vars.input.params.confirmDeletion }}"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "260",
+            "left": "492",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "360db351-7ac6-4f40-9d90-0457ae472301",
+            "id": 4300
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "table_list": "['alerts','incidents','indicators','tasks','campaigns','comments','hunt','emails','sla_template']"
+            },
+            "status": null,
+            "top": "128",
+            "left": "200",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "cc7a6ab3-3bbc-4514-88be-7e0a7fbf536f",
+            "id": 4301
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Delete Data",
+            "description": null,
+            "arguments": {
+                "config": "532cb0c1-3a36-4324-b1d2-a6bc3754b984",
+                "params": {
+                    "python_function": "import psycopg2\n\nhostname = '127.0.0.1'\nusername = 'cyberpgsql'\npassword = ''\ndatabase = 'venom'\ntable_list = {{vars.table_list}}\n\n\ndef doQuery(conn):\n    curr = conn.cursor()\n    try:\n        for tables in table_list:\n            curr.execute(\"delete from {}\".format(tables))\n            conn.commit()\n    except (Exception, psycopg2.DatabaseError) as error:\n\n        print (error)\n\n\nmyConnection = psycopg2.connect(host=hostname, user=username,\n                                password=password, dbname=database)\ndoQuery(myConnection)\nmyConnection.close()"
+                },
+                "version": "1.2.1",
+                "connector": "code-snippet",
+                "operation": "python_inline",
+                "operationTitle": "Execute Python Code",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "360",
+            "left": "840",
+            "stepType": "\/api\/3\/workflow_step_types\/1fdd14cc-d6b4-4335-a3af-ab49c8ed2fd8",
+            "uuid": "2cc7ce12-3f28-473c-8c22-75b8a9d0bbf2",
+            "id": 4302
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": "This playbook will delete all records from database",
+            "arguments": {
+                "route": "5029ad7a-94a3-478b-a4d7-9e63cc186a8e",
+                "title": "Sample > Reset Environment (DB)",
+                "resources": [
+                    "alerts"
+                ],
+                "inputVariables": [
+                    {
+                        "name": "confirmDeletion",
+                        "type": "boolean",
+                        "label": "Confirm Deletion",
+                        "title": "Checkbox",
+                        "usable": true,
+                        "tooltip": "This will reset all data in this environment",
+                        "dataType": "checkbox",
+                        "formType": "checkbox",
+                        "required": false,
+                        "_expanded": true,
+                        "collection": false,
+                        "searchable": true,
+                        "templateUrl": "app\/components\/form\/fields\/checkbox.html",
+                        "defaultValue": false,
+                        "allowedEncryption": false,
+                        "allowedGridColumn": true,
+                        "useRecordFieldDefault": false
+                    }
+                ],
+                "step_variables": {
+                    "input": {
+                        "params": {
+                            "confirmDeletion": "{{vars.request.data[\"confirmDeletion\"]}}"
+                        },
+                        "records": "{{vars.input.records}}"
+                    }
+                },
+                "_promptexpanded": true,
+                "displayConditions": {
+                    "alerts": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    }
+                },
+                "executeButtonText": "Reset",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+            },
+            "status": null,
+            "top": "20",
+            "left": "20",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "uuid": "9222bb10-f985-4e97-9a18-8d853d87bb1e",
+            "id": 4303
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "End",
+            "description": null,
+            "arguments": {
+                "params": [],
+                "version": "2.6.0",
+                "connector": "cyops_utilities",
+                "operation": "no_op",
+                "operationTitle": "Utils: No Operation",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "188",
+            "left": "840",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "b80c302e-8de2-46ac-aedd-d912b6f39319",
+            "id": 4304
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/cc7a6ab3-3bbc-4514-88be-7e0a7fbf536f",
+            "sourceStep": "\/api\/3\/workflow_steps\/9222bb10-f985-4e97-9a18-8d853d87bb1e",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "9638bb57-fdf7-4a92-9f41-80d8b28da454"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> User Confirmation",
+            "targetStep": "\/api\/3\/workflow_steps\/360db351-7ac6-4f40-9d90-0457ae472301",
+            "sourceStep": "\/api\/3\/workflow_steps\/cc7a6ab3-3bbc-4514-88be-7e0a7fbf536f",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "12c6e3c9-6a8d-4bdc-973e-8598f92362f1"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "User Confirmation -> Delete Data",
+            "targetStep": "\/api\/3\/workflow_steps\/2cc7ce12-3f28-473c-8c22-75b8a9d0bbf2",
+            "sourceStep": "\/api\/3\/workflow_steps\/360db351-7ac6-4f40-9d90-0457ae472301",
+            "label": "Delete",
+            "isExecuted": false,
+            "uuid": "0e148813-6bbb-4220-89a8-86117089fd68"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "User Confirmation -> End",
+            "targetStep": "\/api\/3\/workflow_steps\/b80c302e-8de2-46ac-aedd-d912b6f39319",
+            "sourceStep": "\/api\/3\/workflow_steps\/360db351-7ac6-4f40-9d90-0457ae472301",
+            "label": "Do not Delete",
+            "isExecuted": false,
+            "uuid": "55d602a0-6646-4236-83cf-60b1ed0fd683"
+        }
+    ],
+    "priority": null,
+    "uuid": "9954af09-1beb-4dd0-b36f-c740d28aa7f9",
+    "recordTags": [
+        "ManualAction"
+    ],
+    "id": 1124,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433436,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433436,
+    "owners": [],
+    "isPrivate": false
+}

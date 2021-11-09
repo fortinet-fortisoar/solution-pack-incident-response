@@ -1,0 +1,91 @@
+{
+    "@context": "\/api\/3\/contexts\/SystemViewTemplate",
+    "@type": "SystemViewTemplate",
+    "type": "form",
+    "config": {
+        "rows": [
+            {
+                "columns": [
+                    {
+                        "widgets": [
+                            {
+                                "config": {
+                                    "rows": [
+                                        {
+                                            "columns": [
+                                                {
+                                                    "fields": [
+                                                        "name"
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "size": "large"
+                                },
+                                "type": "formGroup"
+                            },
+                            {
+                                "config": {
+                                    "rows": [
+                                        {
+                                            "columns": [
+                                                {
+                                                    "fields": [
+                                                        "description"
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                "type": "formGroup"
+                            },
+                            {
+                                "config": {
+                                    "rows": [
+                                        {
+                                            "columns": [
+                                                {
+                                                    "fields": [
+                                                        "status",
+                                                        "type",
+                                                        "industry"
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "title": "Summary"
+                                },
+                                "type": "formGroup"
+                            },
+                            {
+                                "config": {
+                                    "rows": [
+                                        {
+                                            "columns": [
+                                                {
+                                                    "fields": [
+                                                        "url",
+                                                        "phoneMain",
+                                                        "phoneFax",
+                                                        "phoneTollFree",
+                                                        "address"
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "title": "Contact"
+                                },
+                                "type": "formGroup"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "uuid": "modules-companies-form"
+}

@@ -1,0 +1,34 @@
+{
+    "@context": "\/api\/3\/contexts\/Role",
+    "@id": "\/api\/3\/roles\/c5ff8174-b3fa-41c5-b781-2b890b426a80",
+    "@type": "Role",
+    "description": "Full access to general application-wide features for system configuration",
+    "name": "Application Administrator",
+    "modulePermissions": [
+        {
+            "@id": "\/api\/3\/module_permissions\/1ba207f5-6fa1-4252-9b6a-cb0b4143669d",
+            "@type": "ModulePermission",
+            "canCreate": true,
+            "canExecute": null,
+            "canRead": true,
+            "canUpdate": true,
+            "canDelete": true,
+            "fieldPermissions": [],
+            "module": "security",
+            "uuid": "1ba207f5-6fa1-4252-9b6a-cb0b4143669d"
+        },
+        {
+            "@id": "\/api\/3\/module_permissions\/d46f3816-7a08-4057-bddd-cda61907fc19",
+            "@type": "ModulePermission",
+            "canCreate": true,
+            "canExecute": null,
+            "canRead": true,
+            "canUpdate": true,
+            "canDelete": true,
+            "fieldPermissions": [],
+            "module": "application",
+            "uuid": "d46f3816-7a08-4057-bddd-cda61907fc19"
+        }
+    ],
+    "uuid": "c5ff8174-b3fa-41c5-b781-2b890b426a80"
+}

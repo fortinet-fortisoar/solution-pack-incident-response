@@ -1,0 +1,218 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Action - File MD5 - Block (Specified by User)",
+    "aliasName": null,
+    "tag": null,
+    "description": "Creates indicators for the filehash specified by the user, blocks the indicator on the firewall, and also marks the status of the indicator as blocked. The indicator is also linked to the record on which the playbook is triggered.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1636433420,
+    "collection": "\/api\/3\/workflow_collections\/2d150b7b-ee6b-4686-a249-3c2cfa99f657",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/dc9a665b-223f-4200-a4c2-c862fea002fa",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Create File MD5 Indicator _ Deduplicated",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "value": "{{vars.input.params.fileMD5}}",
+                    "__replace": "true",
+                    "typeofindicator": {
+                        "id": 74,
+                        "@id": "\/api\/3\/picklists\/0ca054f2-d923-4992-a4a7-c516e6df281e",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "FileHash-MD5",
+                        "listName": "\/api\/3\/picklist_names\/50ee5bfa-e18f-49ba-8af9-dcca25b0f9c0",
+                        "itemValue": "FileHash-MD5",
+                        "orderIndex": 4
+                    }
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/upsert\/indicators",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "9eae0217-c6ad-47e7-9f0c-228d035dbe86",
+            "id": 3594
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "64b68319-8fb6-42d7-85e5-fc6c35d01ea0",
+                "title": "Block Specified File MD5",
+                "resources": [
+                    "incidents"
+                ],
+                "inputVariables": [
+                    {
+                        "name": "fileMD5",
+                        "type": "string",
+                        "label": "File MD5",
+                        "tooltip": "Given File MD5 will also be created as indicator, and linked to this record",
+                        "dataType": "text",
+                        "formType": "text",
+                        "required": true,
+                        "_expanded": true,
+                        "_nameTouched": true,
+                        "useRecordFieldDefault": false
+                    },
+                    {
+                        "name": "reasonsToUnblock",
+                        "type": "string",
+                        "label": "Reasons to unblock",
+                        "tooltip": "Specify reasons for unblocking the domain . The reason would be added in Indicator Record for future reference",
+                        "dataType": "text",
+                        "formType": "text",
+                        "required": false,
+                        "_expanded": true,
+                        "_nameTouched": true,
+                        "defaultValue": "Asked by User:",
+                        "useRecordFieldDefault": false
+                    }
+                ],
+                "step_variables": {
+                    "input": {
+                        "params": {
+                            "fileMD5": "{{vars.request.data[\"fileMD5\"]}}",
+                            "reasonsToUnblock": "{{vars.request.data[\"reasonsToUnblock\"]}}"
+                        },
+                        "records": "{{vars.input.records}}"
+                    }
+                },
+                "_promptexpanded": true,
+                "displayConditions": {
+                    "alerts": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    },
+                    "assets": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    },
+                    "incidents": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    }
+                },
+                "executeButtonText": "Block",
+                "noRecordExecution": false,
+                "singleRecordExecution": false
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "uuid": "dc9a665b-223f-4200-a4c2-c862fea002fa",
+            "id": 3595
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Block File MD5",
+            "description": null,
+            "arguments": {
+                "arguments": {
+                    "inputActionReasons": "{{vars.input.params.reasonsToUnblock}}",
+                    "inputIndicatorValue": "{{vars.input.params.fileMD5}}",
+                    "inputIndicatorRecordIRI": "{{vars.steps.Create_File_MD5_Indicator___Deduplicated['@id']}}"
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "workflowReference": "\/api\/3\/workflows\/f43bb47f-a473-4ea2-bc1e-b6a3767960ba"
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "f58b0e76-e5b6-4216-b87d-9357bbf4e3d4",
+            "id": 3596
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Link Indicator On Triggered Record",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "{{vars.input.records[0]['@id']}}",
+                    "body": "{\"__link\":{\"indicators\":[\"{{vars.result['@id']}}\"]}}"
+                },
+                "version": "3.0.4",
+                "connector": "cyops_utilities",
+                "operation": "update_cyops_resource",
+                "operationTitle": "CyOPs: Update Record",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "440",
+            "left": "120",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "1cbc9007-ba06-4a0d-b00d-7b01a4b9f58f",
+            "id": 3597
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create IP Indicator _ Deduplicated -> Unblock IP Address",
+            "targetStep": "\/api\/3\/workflow_steps\/f58b0e76-e5b6-4216-b87d-9357bbf4e3d4",
+            "sourceStep": "\/api\/3\/workflow_steps\/9eae0217-c6ad-47e7-9f0c-228d035dbe86",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "2ab33e50-7fdd-4311-ae48-2d0ccb084a32"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Create IP Indicator _ Deduplicated",
+            "targetStep": "\/api\/3\/workflow_steps\/9eae0217-c6ad-47e7-9f0c-228d035dbe86",
+            "sourceStep": "\/api\/3\/workflow_steps\/dc9a665b-223f-4200-a4c2-c862fea002fa",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "d0ab1e1e-f458-4f67-9b24-130b876b3e1b"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Block IP Address -> Link Indicator On Triggered Record",
+            "targetStep": "\/api\/3\/workflow_steps\/1cbc9007-ba06-4a0d-b00d-7b01a4b9f58f",
+            "sourceStep": "\/api\/3\/workflow_steps\/f58b0e76-e5b6-4216-b87d-9357bbf4e3d4",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "06bb8121-7079-475d-b2a6-ea4b034b7df6"
+        }
+    ],
+    "priority": null,
+    "uuid": "f7c9f17b-d24f-4902-ae72-334eea0508b9",
+    "recordTags": [
+        "ManualAction",
+        "Mitigation"
+    ],
+    "id": 1016,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1636433431,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1636433431,
+    "owners": [],
+    "isPrivate": false
+}
