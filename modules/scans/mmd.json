@@ -9,14 +9,14 @@
     "userOwnable": false,
     "trackable": true,
     "taggable": true,
-    "peerReplicable": false,
+    "peerReplicable": true,
     "defaultSort": [],
     "uniqueConstraint": [],
     "indexable": true,
     "writable": true,
     "attributes": [
         {
-            "@id": "\/api\/3\/attribute_metadatas\/57e4e9f6-e1f8-45ed-b5a4-ee474b075e5d",
+            "@id": "\/api\/3\/attribute_metadatas\/1151be30-65c7-4239-946a-4cdc66d27395",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "name",
@@ -50,14 +50,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/2590eca7-3b1a-4283-9686-392319d5952d",
-            "uuid": "57e4e9f6-e1f8-45ed-b5a4-ee474b075e5d",
+            "uuid": "1151be30-65c7-4239-946a-4cdc66d27395",
             "displayName": "{{ name }}",
             "descriptions": {
                 "singular": "Scan Name"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/59016279-add8-4d3d-a512-cae7396ba679",
+            "@id": "\/api\/3\/attribute_metadatas\/6f46f34f-fa9e-4c0c-b51b-41455f8aa571",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "uuid",
@@ -91,14 +91,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/2590eca7-3b1a-4283-9686-392319d5952d",
-            "uuid": "59016279-add8-4d3d-a512-cae7396ba679",
+            "uuid": "6f46f34f-fa9e-4c0c-b51b-41455f8aa571",
             "displayName": "{{ uuid }}",
             "descriptions": {
                 "singular": "UUID"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/8a1878eb-583d-45e8-b5e6-fa930f94bd5f",
+            "@id": "\/api\/3\/attribute_metadatas\/578ccdfc-a941-4a52-b3c1-59c47d6f0710",
             "@type": "AttributeMetadata",
             "type": "assets",
             "name": "assets",
@@ -134,14 +134,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/2590eca7-3b1a-4283-9686-392319d5952d",
-            "uuid": "8a1878eb-583d-45e8-b5e6-fa930f94bd5f",
+            "uuid": "578ccdfc-a941-4a52-b3c1-59c47d6f0710",
             "displayName": "{{ assets }}",
             "descriptions": {
                 "singular": "Assets"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/d8167be2-f9a4-4672-8e47-1ae229a28439",
+            "@id": "\/api\/3\/attribute_metadatas\/0b548d96-97be-49cb-a6c0-b19643ea7409",
             "@type": "AttributeMetadata",
             "type": "comments",
             "name": "comments",
@@ -177,14 +177,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/2590eca7-3b1a-4283-9686-392319d5952d",
-            "uuid": "d8167be2-f9a4-4672-8e47-1ae229a28439",
+            "uuid": "0b548d96-97be-49cb-a6c0-b19643ea7409",
             "displayName": "{{ comments }}",
             "descriptions": {
                 "singular": "Comments"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/db053012-f947-482c-b714-966b008c3bbd",
+            "@id": "\/api\/3\/attribute_metadatas\/7287d8f1-13be-432c-944a-577b103b488f",
             "@type": "AttributeMetadata",
             "type": "integer",
             "name": "duration",
@@ -218,14 +218,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/2590eca7-3b1a-4283-9686-392319d5952d",
-            "uuid": "db053012-f947-482c-b714-966b008c3bbd",
+            "uuid": "7287d8f1-13be-432c-944a-577b103b488f",
             "displayName": "{{ duration }}",
             "descriptions": {
                 "singular": "Duration (seconds)"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/2196e93b-d3f8-4cdd-aaf6-22a4730038b5",
+            "@id": "\/api\/3\/attribute_metadatas\/28becd2f-ab9d-4105-b12a-9163abe56897",
             "@type": "AttributeMetadata",
             "type": "integer",
             "name": "launchDateTime",
@@ -259,14 +259,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/2590eca7-3b1a-4283-9686-392319d5952d",
-            "uuid": "2196e93b-d3f8-4cdd-aaf6-22a4730038b5",
+            "uuid": "28becd2f-ab9d-4105-b12a-9163abe56897",
             "displayName": "{{ launchDateTime }}",
             "descriptions": {
                 "singular": "Launch Date-Time"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/1aa25853-0f50-4d24-be87-b7e3bf9cab50",
+            "@id": "\/api\/3\/attribute_metadatas\/c13b4b96-57ac-43ba-a939-4fba459aa0a9",
             "@type": "AttributeMetadata",
             "type": "integer",
             "name": "processed",
@@ -300,14 +300,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/2590eca7-3b1a-4283-9686-392319d5952d",
-            "uuid": "1aa25853-0f50-4d24-be87-b7e3bf9cab50",
+            "uuid": "c13b4b96-57ac-43ba-a939-4fba459aa0a9",
             "displayName": "{{ processed }}",
             "descriptions": {
                 "singular": "Processed"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/e190ecee-b630-43ad-86b8-93cd73b2c227",
+            "@id": "\/api\/3\/attribute_metadatas\/8c801588-fd86-4104-a787-2505db1c8625",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "scanId",
@@ -341,14 +341,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/2590eca7-3b1a-4283-9686-392319d5952d",
-            "uuid": "e190ecee-b630-43ad-86b8-93cd73b2c227",
+            "uuid": "8c801588-fd86-4104-a787-2505db1c8625",
             "displayName": "{{ scanId }}",
             "descriptions": {
                 "singular": "Scan ID"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/1e0e7aa5-6535-4a25-b5cd-c2a0bd94dff0",
+            "@id": "\/api\/3\/attribute_metadatas\/362a3c75-15a3-429c-a294-b2e0eb99c4f0",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "state",
@@ -382,14 +382,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/2590eca7-3b1a-4283-9686-392319d5952d",
-            "uuid": "1e0e7aa5-6535-4a25-b5cd-c2a0bd94dff0",
+            "uuid": "362a3c75-15a3-429c-a294-b2e0eb99c4f0",
             "displayName": "{{ state }}",
             "descriptions": {
                 "singular": "State"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/9f3fa147-37bd-422e-b915-4adb9c8e37f1",
+            "@id": "\/api\/3\/attribute_metadatas\/fab34840-004b-4dc5-9b06-3414febeb685",
             "@type": "AttributeMetadata",
             "type": "vulnerabilities",
             "name": "vulnerabilities",
@@ -425,14 +425,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/2590eca7-3b1a-4283-9686-392319d5952d",
-            "uuid": "9f3fa147-37bd-422e-b915-4adb9c8e37f1",
+            "uuid": "fab34840-004b-4dc5-9b06-3414febeb685",
             "displayName": "{{ vulnerabilities }}",
             "descriptions": {
                 "singular": "Vulnerabilities"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/6ac01ad0-37ec-4517-9978-1b958bb349c2",
+            "@id": "\/api\/3\/attribute_metadatas\/4e4409a6-6a33-49ba-88a6-bb927c1d7356",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "userId",
@@ -466,7 +466,7 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/2590eca7-3b1a-4283-9686-392319d5952d",
-            "uuid": "6ac01ad0-37ec-4517-9978-1b958bb349c2",
+            "uuid": "4e4409a6-6a33-49ba-88a6-bb927c1d7356",
             "displayName": "{{ userId }}",
             "descriptions": {
                 "singular": "User"

@@ -9,14 +9,14 @@
     "userOwnable": true,
     "trackable": true,
     "taggable": true,
-    "peerReplicable": false,
+    "peerReplicable": true,
     "defaultSort": [],
     "uniqueConstraint": [],
     "indexable": true,
     "writable": true,
     "attributes": [
         {
-            "@id": "\/api\/3\/attribute_metadatas\/a8b3a8be-3bc7-4d7a-9f61-b699d8db8a4b",
+            "@id": "\/api\/3\/attribute_metadatas\/b5ce898c-d6f7-4119-a64a-c38d2cd36497",
             "@type": "AttributeMetadata",
             "type": "incidents",
             "name": "incidents",
@@ -54,14 +54,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/6380dbb2-cc58-4803-8fb6-eb1ba46d4979",
-            "uuid": "a8b3a8be-3bc7-4d7a-9f61-b699d8db8a4b",
+            "uuid": "b5ce898c-d6f7-4119-a64a-c38d2cd36497",
             "displayName": "{{ incidents }}",
             "descriptions": {
                 "singular": "Incidents"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/65e8e3d5-8b72-4e67-bcf8-8097b7e55170",
+            "@id": "\/api\/3\/attribute_metadatas\/1ef2e314-b3fb-4475-b980-700f4a1cd5fa",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "name",
@@ -97,14 +97,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/6380dbb2-cc58-4803-8fb6-eb1ba46d4979",
-            "uuid": "65e8e3d5-8b72-4e67-bcf8-8097b7e55170",
+            "uuid": "1ef2e314-b3fb-4475-b980-700f4a1cd5fa",
             "displayName": "{{ name }}",
             "descriptions": {
                 "singular": "Name"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/907d9e59-71bd-4ec4-947e-a45c89dbf0ef",
+            "@id": "\/api\/3\/attribute_metadatas\/7c44869d-09ee-4fda-8bd7-3c0e8ed0ea44",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "description",
@@ -140,14 +140,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/6380dbb2-cc58-4803-8fb6-eb1ba46d4979",
-            "uuid": "907d9e59-71bd-4ec4-947e-a45c89dbf0ef",
+            "uuid": "7c44869d-09ee-4fda-8bd7-3c0e8ed0ea44",
             "displayName": "{{ description }}",
             "descriptions": {
                 "singular": "Description"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/ad51ba85-f532-49db-9779-b0d9d4bf0ccd",
+            "@id": "\/api\/3\/attribute_metadatas\/10bddcdc-adb2-4b89-9e6a-a9ab90ffcee5",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "file",
@@ -185,14 +185,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/6380dbb2-cc58-4803-8fb6-eb1ba46d4979",
-            "uuid": "ad51ba85-f532-49db-9779-b0d9d4bf0ccd",
+            "uuid": "10bddcdc-adb2-4b89-9e6a-a9ab90ffcee5",
             "displayName": "{{ file }}",
             "descriptions": {
                 "singular": "File"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/0bd64a3e-cbd8-400a-affb-d607ec28f7c6",
+            "@id": "\/api\/3\/attribute_metadatas\/92362a32-6d48-40ba-a915-06aee9925ab7",
             "@type": "AttributeMetadata",
             "type": "picklists",
             "name": "type",
@@ -246,14 +246,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/6380dbb2-cc58-4803-8fb6-eb1ba46d4979",
-            "uuid": "0bd64a3e-cbd8-400a-affb-d607ec28f7c6",
+            "uuid": "92362a32-6d48-40ba-a915-06aee9925ab7",
             "displayName": "{{ type }}",
             "descriptions": {
                 "singular": "Type"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/b03f4322-50df-439b-b174-d5e8a6321716",
+            "@id": "\/api\/3\/attribute_metadatas\/2a5fff10-9b80-47d3-8980-bd349cb8f0d5",
             "@type": "AttributeMetadata",
             "type": "alerts",
             "name": "alerts",
@@ -291,14 +291,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/6380dbb2-cc58-4803-8fb6-eb1ba46d4979",
-            "uuid": "b03f4322-50df-439b-b174-d5e8a6321716",
+            "uuid": "2a5fff10-9b80-47d3-8980-bd349cb8f0d5",
             "displayName": "{{ alerts }}",
             "descriptions": {
                 "singular": "Alerts"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/9d8c37d7-7714-467f-b8d3-bebfccdc2cac",
+            "@id": "\/api\/3\/attribute_metadatas\/fdba0cc7-8727-4475-8581-d309d06506df",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "uuid",
@@ -334,14 +334,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/6380dbb2-cc58-4803-8fb6-eb1ba46d4979",
-            "uuid": "9d8c37d7-7714-467f-b8d3-bebfccdc2cac",
+            "uuid": "fdba0cc7-8727-4475-8581-d309d06506df",
             "displayName": "{{ uuid }}",
             "descriptions": {
                 "singular": "UUID"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/f247462d-a84a-437b-afe3-3285bc954206",
+            "@id": "\/api\/3\/attribute_metadatas\/c12fa030-c9a6-4af8-8caf-b6fa764930a0",
             "@type": "AttributeMetadata",
             "type": "assets",
             "name": "assets",
@@ -379,14 +379,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/6380dbb2-cc58-4803-8fb6-eb1ba46d4979",
-            "uuid": "f247462d-a84a-437b-afe3-3285bc954206",
+            "uuid": "c12fa030-c9a6-4af8-8caf-b6fa764930a0",
             "displayName": "{{ assets }}",
             "descriptions": {
                 "singular": "Assets"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/80c591c7-6089-433b-8f21-2ac7360ee929",
+            "@id": "\/api\/3\/attribute_metadatas\/053c38a8-5ae1-4620-80ca-857ec2b19072",
             "@type": "AttributeMetadata",
             "type": "companies",
             "name": "companies",
@@ -424,14 +424,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/6380dbb2-cc58-4803-8fb6-eb1ba46d4979",
-            "uuid": "80c591c7-6089-433b-8f21-2ac7360ee929",
+            "uuid": "053c38a8-5ae1-4620-80ca-857ec2b19072",
             "displayName": "{{ companies }}",
             "descriptions": {
                 "singular": "Companies"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/26a15f9b-a8c7-46e7-8b6c-b419ca4ab965",
+            "@id": "\/api\/3\/attribute_metadatas\/5ab0aa31-c0f4-4ebf-81c4-96d93e921966",
             "@type": "AttributeMetadata",
             "type": "tasks",
             "name": "tasks",
@@ -469,14 +469,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/6380dbb2-cc58-4803-8fb6-eb1ba46d4979",
-            "uuid": "26a15f9b-a8c7-46e7-8b6c-b419ca4ab965",
+            "uuid": "5ab0aa31-c0f4-4ebf-81c4-96d93e921966",
             "displayName": "{{ tasks }}",
             "descriptions": {
                 "singular": "Tasks"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/07f6af74-d49f-48cb-8cf8-1e2615a8a932",
+            "@id": "\/api\/3\/attribute_metadatas\/79caf3aa-c90a-421e-8d64-c982111b23de",
             "@type": "AttributeMetadata",
             "type": "vulnerabilities",
             "name": "vulnerabilities",
@@ -514,14 +514,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/6380dbb2-cc58-4803-8fb6-eb1ba46d4979",
-            "uuid": "07f6af74-d49f-48cb-8cf8-1e2615a8a932",
+            "uuid": "79caf3aa-c90a-421e-8d64-c982111b23de",
             "displayName": "{{ vulnerabilities }}",
             "descriptions": {
                 "singular": "Vulnerabilities"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/5dc7f458-75c8-48a1-a59e-d062aa925719",
+            "@id": "\/api\/3\/attribute_metadatas\/6b35c503-ad0a-4e85-9f37-127e04ff0a2d",
             "@type": "AttributeMetadata",
             "type": "comments",
             "name": "comments",
@@ -559,14 +559,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/6380dbb2-cc58-4803-8fb6-eb1ba46d4979",
-            "uuid": "5dc7f458-75c8-48a1-a59e-d062aa925719",
+            "uuid": "6b35c503-ad0a-4e85-9f37-127e04ff0a2d",
             "displayName": "{{ comments }}",
             "descriptions": {
                 "singular": "Comments"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/9dd55052-efaa-464d-bfc2-cd62c951b2bb",
+            "@id": "\/api\/3\/attribute_metadatas\/481c8ec1-451c-4f3b-96ea-91965e7f4996",
             "@type": "AttributeMetadata",
             "type": "indicators",
             "name": "indicators",
@@ -604,14 +604,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/6380dbb2-cc58-4803-8fb6-eb1ba46d4979",
-            "uuid": "9dd55052-efaa-464d-bfc2-cd62c951b2bb",
+            "uuid": "481c8ec1-451c-4f3b-96ea-91965e7f4996",
             "displayName": "{{ indicators }}",
             "descriptions": {
                 "singular": "Indicators"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/d3a3b166-0047-40e7-92d4-efe2af15743f",
+            "@id": "\/api\/3\/attribute_metadatas\/8cc4d347-7f64-4ff7-96b0-4c93405b9227",
             "@type": "AttributeMetadata",
             "type": "people",
             "name": "people",
@@ -648,14 +648,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/6380dbb2-cc58-4803-8fb6-eb1ba46d4979",
-            "uuid": "d3a3b166-0047-40e7-92d4-efe2af15743f",
+            "uuid": "8cc4d347-7f64-4ff7-96b0-4c93405b9227",
             "displayName": "{{ people }}",
             "descriptions": {
                 "singular": "People"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/9282d8ee-7993-44f3-9909-e84f07eb2c63",
+            "@id": "\/api\/3\/attribute_metadatas\/318df48e-49a2-4442-bb45-8a998734baab",
             "@type": "AttributeMetadata",
             "type": "warrooms",
             "name": "warrooms",
@@ -697,7 +697,7 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/6380dbb2-cc58-4803-8fb6-eb1ba46d4979",
-            "uuid": "9282d8ee-7993-44f3-9909-e84f07eb2c63",
+            "uuid": "318df48e-49a2-4442-bb45-8a998734baab",
             "displayName": "{{ warrooms }}",
             "descriptions": {
                 "singular": "War Rooms"

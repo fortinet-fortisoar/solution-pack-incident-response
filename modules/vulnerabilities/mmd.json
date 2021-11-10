@@ -9,14 +9,149 @@
     "userOwnable": false,
     "trackable": true,
     "taggable": true,
-    "peerReplicable": false,
+    "peerReplicable": true,
     "defaultSort": [],
     "uniqueConstraint": [],
     "indexable": true,
     "writable": true,
     "attributes": [
         {
-            "@id": "\/api\/3\/attribute_metadatas\/997f0579-fb56-42dd-9d5f-d5931c1a1307",
+            "@id": "\/api\/3\/attribute_metadatas\/d294ea92-02be-4b3f-a10a-7d38008b5f72",
+            "@type": "AttributeMetadata",
+            "type": "string",
+            "name": "sourceData",
+            "length": 0,
+            "orderIndex": 1,
+            "formType": "text",
+            "dataSource": [],
+            "searchable": true,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "maxlength": 10485761,
+                "minlength": 0,
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false,
+                "buttonClass": "btn btn-default btn-sm",
+                "buttonIcon": "",
+                "buttonText": ""
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": false,
+            "orphanRemoval": false,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
+            "uuid": "d294ea92-02be-4b3f-a10a-7d38008b5f72",
+            "displayName": "{{ sourceData }}",
+            "descriptions": {
+                "singular": "Source Data"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/456e818e-bbb8-4290-960f-b837c485e308",
+            "@type": "AttributeMetadata",
+            "type": "string",
+            "name": "riskScore",
+            "length": 0,
+            "orderIndex": 2,
+            "formType": "text",
+            "dataSource": [],
+            "searchable": true,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": true,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "maxlength": 10485761,
+                "minlength": 0,
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false,
+                "buttonClass": "btn btn-default btn-sm",
+                "buttonIcon": "",
+                "buttonText": ""
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": false,
+            "orphanRemoval": false,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
+            "uuid": "456e818e-bbb8-4290-960f-b837c485e308",
+            "displayName": "{{ riskScore }}",
+            "descriptions": {
+                "singular": "Risk Score"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/25bdd85a-4d79-4b11-b86f-da7dabd33202",
+            "@type": "AttributeMetadata",
+            "type": "string",
+            "name": "uuid",
+            "length": 36,
+            "orderIndex": 31,
+            "formType": null,
+            "dataSource": [],
+            "searchable": false,
+            "peerReplicable": true,
+            "system": true,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "maxlength": 255,
+                "minlength": 0,
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": false,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": true,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
+            "uuid": "25bdd85a-4d79-4b11-b86f-da7dabd33202",
+            "displayName": "{{ uuid }}",
+            "descriptions": {
+                "singular": "UUID"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/90972f2b-187f-49bb-8238-7bc4448c9685",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "pluginPublicationDate",
@@ -55,14 +190,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "997f0579-fb56-42dd-9d5f-d5931c1a1307",
+            "uuid": "90972f2b-187f-49bb-8238-7bc4448c9685",
             "displayName": "{{ pluginPublicationDate }}",
             "descriptions": {
                 "singular": "Plugin Publication Date"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/ac37feb5-bb31-40a8-b9e0-b77bbdfa10ac",
+            "@id": "\/api\/3\/attribute_metadatas\/fd7bab06-15b4-42a5-9694-1f0aaa5fd4b3",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "description",
@@ -102,14 +237,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "ac37feb5-bb31-40a8-b9e0-b77bbdfa10ac",
+            "uuid": "fd7bab06-15b4-42a5-9694-1f0aaa5fd4b3",
             "displayName": "{{ description }}",
             "descriptions": {
                 "singular": "Description"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/3e4f3b09-2333-44ca-86c2-ddac635b8619",
+            "@id": "\/api\/3\/attribute_metadatas\/d1901d33-5e1f-4eee-abac-34e481a28914",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "cvssVector",
@@ -148,14 +283,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "3e4f3b09-2333-44ca-86c2-ddac635b8619",
+            "uuid": "d1901d33-5e1f-4eee-abac-34e481a28914",
             "displayName": "{{ cvssVector }}",
             "descriptions": {
                 "singular": "CVSS Vector"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/60d4cba8-dff6-44ea-97f5-721d1f1ccd23",
+            "@id": "\/api\/3\/attribute_metadatas\/b7092d7b-52ae-485d-8576-58a58a657ba2",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "cvss3TemporalVector",
@@ -194,14 +329,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "60d4cba8-dff6-44ea-97f5-721d1f1ccd23",
+            "uuid": "b7092d7b-52ae-485d-8576-58a58a657ba2",
             "displayName": "{{ cvss3TemporalVector }}",
             "descriptions": {
                 "singular": "CVSS3 Temporal Vector"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/b4e3a5bf-83c8-4ba8-9df6-310085a14661",
+            "@id": "\/api\/3\/attribute_metadatas\/d6514513-d1b2-4ec4-a7c7-be66804b5714",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "cvssTemporalVector",
@@ -240,14 +375,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "b4e3a5bf-83c8-4ba8-9df6-310085a14661",
+            "uuid": "d6514513-d1b2-4ec4-a7c7-be66804b5714",
             "displayName": "{{ cvssTemporalVector }}",
             "descriptions": {
                 "singular": "CVSS Temporal Vector"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/0b37f2b4-98ba-482c-b9a0-ef8e3a9977c8",
+            "@id": "\/api\/3\/attribute_metadatas\/9eef36d3-1770-4fb7-b6a8-be52500932ed",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "cvss3TemporalScore",
@@ -286,14 +421,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "0b37f2b4-98ba-482c-b9a0-ef8e3a9977c8",
+            "uuid": "9eef36d3-1770-4fb7-b6a8-be52500932ed",
             "displayName": "{{ cvss3TemporalScore }}",
             "descriptions": {
                 "singular": "CVSS3 Temporal Score"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/bbe6e13a-e10a-4077-a587-87fefcd177af",
+            "@id": "\/api\/3\/attribute_metadatas\/5c1c3c1b-713c-4f85-a6f2-eb8ad39b6615",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "cvssTemporalScore",
@@ -332,14 +467,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "bbe6e13a-e10a-4077-a587-87fefcd177af",
+            "uuid": "5c1c3c1b-713c-4f85-a6f2-eb8ad39b6615",
             "displayName": "{{ cvssTemporalScore }}",
             "descriptions": {
                 "singular": "CVSS Temporal Score"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/3db62bdc-3713-434b-9cfd-6804242e0547",
+            "@id": "\/api\/3\/attribute_metadatas\/665a954c-807b-4eb6-a7a5-af5cf617f853",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "cvss3BaseScore",
@@ -378,14 +513,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "3db62bdc-3713-434b-9cfd-6804242e0547",
+            "uuid": "665a954c-807b-4eb6-a7a5-af5cf617f853",
             "displayName": "{{ cvss3BaseScore }}",
             "descriptions": {
                 "singular": "CVSS3 Base Score"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/e4a2e02e-c971-401f-92b1-28bb02b924b4",
+            "@id": "\/api\/3\/attribute_metadatas\/8d3dd99d-129b-4a2a-8f10-70e53e950654",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "vulnerabilityId",
@@ -421,14 +556,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "e4a2e02e-c971-401f-92b1-28bb02b924b4",
+            "uuid": "8d3dd99d-129b-4a2a-8f10-70e53e950654",
             "displayName": "{{ vulnerabilityId }}",
             "descriptions": {
                 "singular": "Vulnerability ID"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/441acadf-9963-4200-aca1-7f2e5f91e375",
+            "@id": "\/api\/3\/attribute_metadatas\/b1fc44d6-c18d-4a0a-8796-508fbf26f24d",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "name",
@@ -464,14 +599,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "441acadf-9963-4200-aca1-7f2e5f91e375",
+            "uuid": "b1fc44d6-c18d-4a0a-8796-508fbf26f24d",
             "displayName": "{{ name }}",
             "descriptions": {
                 "singular": "Vulnerability Name"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/b6727270-3df7-4128-8a85-6c2e7a65dbd0",
+            "@id": "\/api\/3\/attribute_metadatas\/ccf8f8ff-76e2-415d-beca-89e4edd45098",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "risk",
@@ -507,14 +642,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "b6727270-3df7-4128-8a85-6c2e7a65dbd0",
+            "uuid": "ccf8f8ff-76e2-415d-beca-89e4edd45098",
             "displayName": "{{ risk }}",
             "descriptions": {
                 "singular": "Risk"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/6d66d5f2-0c78-483d-a3de-b21425fa2ad2",
+            "@id": "\/api\/3\/attribute_metadatas\/ea8b2e50-d851-4aa6-8abf-8aa4bd4bdac0",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "cvss",
@@ -550,14 +685,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "6d66d5f2-0c78-483d-a3de-b21425fa2ad2",
+            "uuid": "ea8b2e50-d851-4aa6-8abf-8aa4bd4bdac0",
             "displayName": "{{ cvss }}",
             "descriptions": {
                 "singular": "CVSS"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/ac664a11-185b-4d08-8cd0-ccf2805581d7",
+            "@id": "\/api\/3\/attribute_metadatas\/bde860be-c3e6-4be4-9bbb-c15a72893957",
             "@type": "AttributeMetadata",
             "type": "integer",
             "name": "impactedAssets",
@@ -593,14 +728,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "ac664a11-185b-4d08-8cd0-ccf2805581d7",
+            "uuid": "bde860be-c3e6-4be4-9bbb-c15a72893957",
             "displayName": "{{ impactedAssets }}",
             "descriptions": {
                 "singular": "Impacted Assets"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/25da12d5-ad01-489b-aafb-4e192aa74863",
+            "@id": "\/api\/3\/attribute_metadatas\/259530ab-40fd-4494-84ad-64198582bf8f",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "lastSeenScan",
@@ -636,14 +771,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "25da12d5-ad01-489b-aafb-4e192aa74863",
+            "uuid": "259530ab-40fd-4494-84ad-64198582bf8f",
             "displayName": "{{ lastSeenScan }}",
             "descriptions": {
                 "singular": "Last Seen Scan"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/9c13061f-2a72-4184-bf3b-3ba26ef59319",
+            "@id": "\/api\/3\/attribute_metadatas\/adeda1f1-1fc8-4124-88a5-55419504cc48",
             "@type": "AttributeMetadata",
             "type": "integer",
             "name": "lastSeenDate",
@@ -679,14 +814,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "9c13061f-2a72-4184-bf3b-3ba26ef59319",
+            "uuid": "adeda1f1-1fc8-4124-88a5-55419504cc48",
             "displayName": "{{ lastSeenDate }}",
             "descriptions": {
                 "singular": "Last Seen Date"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/3c54304f-e7a7-4980-902b-c00f1f326345",
+            "@id": "\/api\/3\/attribute_metadatas\/a6ea2464-901b-4cbd-a103-5c2419db5006",
             "@type": "AttributeMetadata",
             "type": "integer",
             "name": "publishedDate",
@@ -722,14 +857,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "3c54304f-e7a7-4980-902b-c00f1f326345",
+            "uuid": "a6ea2464-901b-4cbd-a103-5c2419db5006",
             "displayName": "{{ publishedDate }}",
             "descriptions": {
                 "singular": "Published"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/29c30481-324c-43a2-8234-82a05a3f32fd",
+            "@id": "\/api\/3\/attribute_metadatas\/9289cbf7-d0d0-49f5-88aa-52ec7b63efba",
             "@type": "AttributeMetadata",
             "type": "integer",
             "name": "firstSeenDate",
@@ -765,14 +900,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "29c30481-324c-43a2-8234-82a05a3f32fd",
+            "uuid": "9289cbf7-d0d0-49f5-88aa-52ec7b63efba",
             "displayName": "{{ firstSeenDate }}",
             "descriptions": {
                 "singular": "First Seen Date"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/60f344a9-f9dc-40ed-a252-f0a05b6727f6",
+            "@id": "\/api\/3\/attribute_metadatas\/a93a934d-0728-460a-9779-1abf68b42b8d",
             "@type": "AttributeMetadata",
             "type": "integer",
             "name": "exploits",
@@ -808,14 +943,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "60f344a9-f9dc-40ed-a252-f0a05b6727f6",
+            "uuid": "a93a934d-0728-460a-9779-1abf68b42b8d",
             "displayName": "{{ exploits }}",
             "descriptions": {
                 "singular": "Exploits"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/2a5c7c25-39ce-46e8-8b48-87909069137e",
+            "@id": "\/api\/3\/attribute_metadatas\/a12f957e-b790-45dd-8e98-00c8c582a493",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "exploitSkills",
@@ -851,14 +986,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "2a5c7c25-39ce-46e8-8b48-87909069137e",
+            "uuid": "a12f957e-b790-45dd-8e98-00c8c582a493",
             "displayName": "{{ exploitSkills }}",
             "descriptions": {
                 "singular": "Exploit Skills"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/c2039b44-3f80-46cb-a81a-2104d36fce12",
+            "@id": "\/api\/3\/attribute_metadatas\/9f65e188-2f34-43a0-8b94-5ebe6e5e18ed",
             "@type": "AttributeMetadata",
             "type": "picklists",
             "name": "status",
@@ -912,14 +1047,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "c2039b44-3f80-46cb-a81a-2104d36fce12",
+            "uuid": "9f65e188-2f34-43a0-8b94-5ebe6e5e18ed",
             "displayName": "{{ status }}",
             "descriptions": {
                 "singular": "Status"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/5a154be1-b74c-48ba-a00e-2abf833c3e02",
+            "@id": "\/api\/3\/attribute_metadatas\/0b6b2442-d0bf-4d35-99b7-f7c17e2451f8",
             "@type": "AttributeMetadata",
             "type": "assets",
             "name": "assets",
@@ -957,14 +1092,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "5a154be1-b74c-48ba-a00e-2abf833c3e02",
+            "uuid": "0b6b2442-d0bf-4d35-99b7-f7c17e2451f8",
             "displayName": "{{ assets }}",
             "descriptions": {
                 "singular": "Assets"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/ab9b3bf2-c789-48b8-aec6-422c7bc95ae5",
+            "@id": "\/api\/3\/attribute_metadatas\/1c3073fd-fd61-407b-a423-2fd89828344e",
             "@type": "AttributeMetadata",
             "type": "tasks",
             "name": "tasks",
@@ -1002,14 +1137,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "ab9b3bf2-c789-48b8-aec6-422c7bc95ae5",
+            "uuid": "1c3073fd-fd61-407b-a423-2fd89828344e",
             "displayName": "{{ tasks }}",
             "descriptions": {
                 "singular": "Tasks"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/4c15ffba-15d8-42aa-bbeb-c60c4e7f89f6",
+            "@id": "\/api\/3\/attribute_metadatas\/ec22bf34-da22-4002-a46f-ad9b64232d6c",
             "@type": "AttributeMetadata",
             "type": "alerts",
             "name": "alerts",
@@ -1047,14 +1182,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "4c15ffba-15d8-42aa-bbeb-c60c4e7f89f6",
+            "uuid": "ec22bf34-da22-4002-a46f-ad9b64232d6c",
             "displayName": "{{ alerts }}",
             "descriptions": {
                 "singular": "Alerts"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/96e48385-c6c1-4ef2-80f3-4a883f575503",
+            "@id": "\/api\/3\/attribute_metadatas\/0f509f45-efcc-49ac-a6a5-75024c3ccdad",
             "@type": "AttributeMetadata",
             "type": "incidents",
             "name": "incidents",
@@ -1092,14 +1227,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "96e48385-c6c1-4ef2-80f3-4a883f575503",
+            "uuid": "0f509f45-efcc-49ac-a6a5-75024c3ccdad",
             "displayName": "{{ incidents }}",
             "descriptions": {
                 "singular": "Incidents"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/54f2e4d1-2c66-4846-892e-c5afb98d9f86",
+            "@id": "\/api\/3\/attribute_metadatas\/ee315717-e309-4281-918e-ef2264fe51b5",
             "@type": "AttributeMetadata",
             "type": "attachments",
             "name": "attachments",
@@ -1137,14 +1272,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "54f2e4d1-2c66-4846-892e-c5afb98d9f86",
+            "uuid": "ee315717-e309-4281-918e-ef2264fe51b5",
             "displayName": "{{ attachments }}",
             "descriptions": {
                 "singular": "Attachments"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/0d42e365-98e2-4ed2-8256-bd874b0eefd8",
+            "@id": "\/api\/3\/attribute_metadatas\/925d7c48-a90d-4306-84ee-73edf87b9d82",
             "@type": "AttributeMetadata",
             "type": "notes",
             "name": "notes",
@@ -1182,14 +1317,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "0d42e365-98e2-4ed2-8256-bd874b0eefd8",
+            "uuid": "925d7c48-a90d-4306-84ee-73edf87b9d82",
             "displayName": "{{ notes }}",
             "descriptions": {
                 "singular": "Notes"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/a522e3d8-3f9b-4509-ad49-ae3fdc094623",
+            "@id": "\/api\/3\/attribute_metadatas\/53fba277-a0aa-4de8-aace-8ffbedbfbbea",
             "@type": "AttributeMetadata",
             "type": "comments",
             "name": "comments",
@@ -1227,14 +1362,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "a522e3d8-3f9b-4509-ad49-ae3fdc094623",
+            "uuid": "53fba277-a0aa-4de8-aace-8ffbedbfbbea",
             "displayName": "{{ comments }}",
             "descriptions": {
                 "singular": "Comments"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/71c26d48-5db3-46d2-b647-72bfaf0dc404",
+            "@id": "\/api\/3\/attribute_metadatas\/de383269-a16a-4fca-a9a8-30923dc705cd",
             "@type": "AttributeMetadata",
             "type": "indicators",
             "name": "indicators",
@@ -1272,14 +1407,59 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "71c26d48-5db3-46d2-b647-72bfaf0dc404",
+            "uuid": "de383269-a16a-4fca-a9a8-30923dc705cd",
             "displayName": "{{ indicators }}",
             "descriptions": {
                 "singular": "Indicators"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/2c88a858-b357-4413-bdaa-9a7c1651bd3a",
+            "@id": "\/api\/3\/attribute_metadatas\/9cb86a87-aded-4474-b698-2878a5406f04",
+            "@type": "AttributeMetadata",
+            "type": "scans",
+            "name": "scans",
+            "length": null,
+            "orderIndex": 33,
+            "formType": "manyToMany",
+            "dataSource": {
+                "model": "scans"
+            },
+            "searchable": false,
+            "peerReplicable": false,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": true,
+            "inversedField": "vulnerabilities",
+            "ownsRelationship": true,
+            "validation": {
+                "maxlength": -1,
+                "minlength": 0,
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": false,
+            "orphanRemoval": false,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
+            "uuid": "9cb86a87-aded-4474-b698-2878a5406f04",
+            "displayName": "{{ scans }}",
+            "descriptions": {
+                "singular": "Scans"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/2a5e3063-d534-4368-9e11-613da65f113c",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "cveId",
@@ -1318,14 +1498,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "2c88a858-b357-4413-bdaa-9a7c1651bd3a",
+            "uuid": "2a5e3063-d534-4368-9e11-613da65f113c",
             "displayName": "{{ cveId }}",
             "descriptions": {
                 "singular": "CVE ID"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/1e3bb241-e0b7-4da7-acab-da779419d14a",
+            "@id": "\/api\/3\/attribute_metadatas\/1203e84f-91e5-4cfa-a886-12c82d314520",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "cvss3Vector",
@@ -1364,14 +1544,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "1e3bb241-e0b7-4da7-acab-da779419d14a",
+            "uuid": "1203e84f-91e5-4cfa-a886-12c82d314520",
             "displayName": "{{ cvss3Vector }}",
             "descriptions": {
                 "singular": "CVSS3 Vector"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/7ce51383-a7cc-4c24-9204-ba27199b2c79",
+            "@id": "\/api\/3\/attribute_metadatas\/45112141-a78e-47dd-8ba4-fc953617fe82",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "pluginName",
@@ -1410,14 +1590,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "7ce51383-a7cc-4c24-9204-ba27199b2c79",
+            "uuid": "45112141-a78e-47dd-8ba4-fc953617fe82",
             "displayName": "{{ pluginName }}",
             "descriptions": {
                 "singular": "Plugin Name"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/d89b5688-effb-4371-98f7-87e634674b76",
+            "@id": "\/api\/3\/attribute_metadatas\/8e323c6e-df35-40ef-b725-92b75da701e9",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "pluginModificationDate",
@@ -1456,14 +1636,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "d89b5688-effb-4371-98f7-87e634674b76",
+            "uuid": "8e323c6e-df35-40ef-b725-92b75da701e9",
             "displayName": "{{ pluginModificationDate }}",
             "descriptions": {
                 "singular": "Plugin Modification Date"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/51225cbb-280a-42d6-b5f1-ceb432b9f1d1",
+            "@id": "\/api\/3\/attribute_metadatas\/9e590218-b819-4061-9c46-81a89ffcc6db",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "pluginFamily",
@@ -1502,14 +1682,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "51225cbb-280a-42d6-b5f1-ceb432b9f1d1",
+            "uuid": "9e590218-b819-4061-9c46-81a89ffcc6db",
             "displayName": "{{ pluginFamily }}",
             "descriptions": {
                 "singular": "Plugin Family"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/33f60c04-856f-4d11-b0e9-52a0a08464cd",
+            "@id": "\/api\/3\/attribute_metadatas\/46ebc1c3-8d73-4896-be04-2af1b2cab04b",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "pluginVersion",
@@ -1548,14 +1728,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "33f60c04-856f-4d11-b0e9-52a0a08464cd",
+            "uuid": "46ebc1c3-8d73-4896-be04-2af1b2cab04b",
             "displayName": "{{ pluginVersion }}",
             "descriptions": {
                 "singular": "Plugin Version"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/eb19c08d-203a-46da-9e1a-0964483ab9b3",
+            "@id": "\/api\/3\/attribute_metadatas\/5e665122-bf32-4ec7-82ee-def8cc791b42",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "pluginType",
@@ -1594,14 +1774,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "eb19c08d-203a-46da-9e1a-0964483ab9b3",
+            "uuid": "5e665122-bf32-4ec7-82ee-def8cc791b42",
             "displayName": "{{ pluginType }}",
             "descriptions": {
                 "singular": "Plugin Type"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/8847e192-c588-453c-ae1a-fd61f9d1bbe3",
+            "@id": "\/api\/3\/attribute_metadatas\/ce0a6693-62e8-4f1e-b33a-970145dd0e17",
             "@type": "AttributeMetadata",
             "type": "picklists",
             "name": "severity",
@@ -1658,190 +1838,10 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "8847e192-c588-453c-ae1a-fd61f9d1bbe3",
+            "uuid": "ce0a6693-62e8-4f1e-b33a-970145dd0e17",
             "displayName": "{{ severity }}",
             "descriptions": {
                 "singular": "Severity"
-            }
-        },
-        {
-            "@id": "\/api\/3\/attribute_metadatas\/e14de2ff-e767-46d9-ae17-95102e19ef32",
-            "@type": "AttributeMetadata",
-            "type": "string",
-            "name": "sourceData",
-            "length": 0,
-            "orderIndex": 1,
-            "formType": "text",
-            "dataSource": [],
-            "searchable": true,
-            "peerReplicable": false,
-            "system": false,
-            "encrypted": false,
-            "gridColumn": false,
-            "collection": false,
-            "inversedField": null,
-            "ownsRelationship": false,
-            "validation": {
-                "maxlength": 10485761,
-                "minlength": 0,
-                "required": false
-            },
-            "bulkAction": {
-                "allow": false,
-                "buttonClass": "btn btn-default btn-sm",
-                "buttonIcon": "",
-                "buttonText": ""
-            },
-            "dataSourceFilters": [],
-            "defaultValue": "",
-            "tooltip": "",
-            "visibility": true,
-            "htmlEscape": false,
-            "orphanRemoval": false,
-            "readable": true,
-            "writeable": true,
-            "identifier": false,
-            "unique": false,
-            "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "e14de2ff-e767-46d9-ae17-95102e19ef32",
-            "displayName": "{{ sourceData }}",
-            "descriptions": {
-                "singular": "Source Data"
-            }
-        },
-        {
-            "@id": "\/api\/3\/attribute_metadatas\/b4758c88-7e85-4779-b51d-265a0e2e6858",
-            "@type": "AttributeMetadata",
-            "type": "string",
-            "name": "riskScore",
-            "length": 0,
-            "orderIndex": 2,
-            "formType": "text",
-            "dataSource": [],
-            "searchable": true,
-            "peerReplicable": false,
-            "system": false,
-            "encrypted": false,
-            "gridColumn": true,
-            "collection": false,
-            "inversedField": null,
-            "ownsRelationship": false,
-            "validation": {
-                "maxlength": 10485761,
-                "minlength": 0,
-                "required": false
-            },
-            "bulkAction": {
-                "allow": false,
-                "buttonClass": "btn btn-default btn-sm",
-                "buttonIcon": "",
-                "buttonText": ""
-            },
-            "dataSourceFilters": [],
-            "defaultValue": "",
-            "tooltip": "",
-            "visibility": true,
-            "htmlEscape": false,
-            "orphanRemoval": false,
-            "readable": true,
-            "writeable": true,
-            "identifier": false,
-            "unique": false,
-            "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "b4758c88-7e85-4779-b51d-265a0e2e6858",
-            "displayName": "{{ riskScore }}",
-            "descriptions": {
-                "singular": "Risk Score"
-            }
-        },
-        {
-            "@id": "\/api\/3\/attribute_metadatas\/0c8429f9-a808-400f-aaa8-57793f34ae21",
-            "@type": "AttributeMetadata",
-            "type": "string",
-            "name": "uuid",
-            "length": 36,
-            "orderIndex": 31,
-            "formType": null,
-            "dataSource": [],
-            "searchable": false,
-            "peerReplicable": true,
-            "system": true,
-            "encrypted": false,
-            "gridColumn": false,
-            "collection": false,
-            "inversedField": null,
-            "ownsRelationship": false,
-            "validation": {
-                "maxlength": 255,
-                "minlength": 0,
-                "required": false
-            },
-            "bulkAction": {
-                "allow": false
-            },
-            "dataSourceFilters": [],
-            "defaultValue": "",
-            "tooltip": "",
-            "visibility": true,
-            "htmlEscape": false,
-            "orphanRemoval": null,
-            "readable": true,
-            "writeable": true,
-            "identifier": true,
-            "unique": false,
-            "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "0c8429f9-a808-400f-aaa8-57793f34ae21",
-            "displayName": "{{ uuid }}",
-            "descriptions": {
-                "singular": "UUID"
-            }
-        },
-        {
-            "@id": "\/api\/3\/attribute_metadatas\/0f3f4d0c-6d23-4791-9567-a52840ed4617",
-            "@type": "AttributeMetadata",
-            "type": "scans",
-            "name": "scans",
-            "length": null,
-            "orderIndex": 33,
-            "formType": "manyToMany",
-            "dataSource": {
-                "model": "scans"
-            },
-            "searchable": false,
-            "peerReplicable": false,
-            "system": false,
-            "encrypted": false,
-            "gridColumn": false,
-            "collection": true,
-            "inversedField": "vulnerabilities",
-            "ownsRelationship": true,
-            "validation": {
-                "maxlength": -1,
-                "minlength": 0,
-                "required": false
-            },
-            "bulkAction": {
-                "allow": false
-            },
-            "dataSourceFilters": [],
-            "defaultValue": "",
-            "tooltip": "",
-            "visibility": true,
-            "htmlEscape": false,
-            "orphanRemoval": false,
-            "readable": true,
-            "writeable": true,
-            "identifier": false,
-            "unique": false,
-            "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/89d17171-2158-4355-89e5-79eef4f5da8a",
-            "uuid": "0f3f4d0c-6d23-4791-9567-a52840ed4617",
-            "displayName": "{{ scans }}",
-            "descriptions": {
-                "singular": "Scans"
             }
         }
     ],

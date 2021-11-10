@@ -9,13 +9,14 @@
     "userOwnable": false,
     "trackable": true,
     "taggable": true,
-    "peerReplicable": false,
+    "peerReplicable": true,
     "defaultSort": [],
     "uniqueConstraint": [
         {
             "sla_template_unique": {
                 "columns": [
-                    "incSeverity"
+                    "incSeverity",
+                    "tenant"
                 ]
             }
         }
@@ -24,7 +25,7 @@
     "writable": true,
     "attributes": [
         {
-            "@id": "\/api\/3\/attribute_metadatas\/5c467112-2bb3-4866-8424-ba09d00eacc0",
+            "@id": "\/api\/3\/attribute_metadatas\/87e9ce78-cbea-4721-bbcf-e397934b37bb",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "ackSlaTime",
@@ -64,14 +65,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/c258db4f-f1cd-4f07-9b04-3ea10d308a8d",
-            "uuid": "5c467112-2bb3-4866-8424-ba09d00eacc0",
+            "uuid": "87e9ce78-cbea-4721-bbcf-e397934b37bb",
             "displayName": "{{ ackSlaTime }}",
             "descriptions": {
                 "singular": "Incident Ack Time"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/05c7127d-9092-4c4b-a686-f7dde708491c",
+            "@id": "\/api\/3\/attribute_metadatas\/17654f70-a0c6-41f5-8944-2d83fd4093fe",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "resTime",
@@ -111,14 +112,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/c258db4f-f1cd-4f07-9b04-3ea10d308a8d",
-            "uuid": "05c7127d-9092-4c4b-a686-f7dde708491c",
+            "uuid": "17654f70-a0c6-41f5-8944-2d83fd4093fe",
             "displayName": "{{ resTime }}",
             "descriptions": {
                 "singular": "Incident Response Time"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/96e6ee8d-8596-47d1-898f-e855ed30a188",
+            "@id": "\/api\/3\/attribute_metadatas\/0ad307f2-d6d3-41f8-839b-f71680a3b518",
             "@type": "AttributeMetadata",
             "type": "picklists",
             "name": "incPauseSLAOn",
@@ -198,14 +199,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/c258db4f-f1cd-4f07-9b04-3ea10d308a8d",
-            "uuid": "96e6ee8d-8596-47d1-898f-e855ed30a188",
+            "uuid": "0ad307f2-d6d3-41f8-839b-f71680a3b518",
             "displayName": "{{ incPauseSLAOn }}",
             "descriptions": {
                 "singular": "Pause Incident SLA On"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/8f34630d-968f-45d9-bac5-31aa41476946",
+            "@id": "\/api\/3\/attribute_metadatas\/1336b262-6306-4ca3-a71d-c3c69c8faadb",
             "@type": "AttributeMetadata",
             "type": "picklists",
             "name": "altPauseSLAOn",
@@ -285,14 +286,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/c258db4f-f1cd-4f07-9b04-3ea10d308a8d",
-            "uuid": "8f34630d-968f-45d9-bac5-31aa41476946",
+            "uuid": "1336b262-6306-4ca3-a71d-c3c69c8faadb",
             "displayName": "{{ altPauseSLAOn }}",
             "descriptions": {
                 "singular": "Pause Alert SLA On"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/579df913-7081-462b-a85b-e95d0768e20a",
+            "@id": "\/api\/3\/attribute_metadatas\/cf6d5f3a-1543-47c2-b37a-c6e2f0150457",
             "@type": "AttributeMetadata",
             "type": "picklists",
             "name": "incSeverity",
@@ -372,14 +373,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/c258db4f-f1cd-4f07-9b04-3ea10d308a8d",
-            "uuid": "579df913-7081-462b-a85b-e95d0768e20a",
+            "uuid": "cf6d5f3a-1543-47c2-b37a-c6e2f0150457",
             "displayName": "{{ incSeverity }}",
             "descriptions": {
                 "singular": "Severity"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/19379837-8722-4cdc-9358-9485034120e5",
+            "@id": "\/api\/3\/attribute_metadatas\/e5fdfda0-a51f-45e7-a1cf-cd8c0bad2b9b",
             "@type": "AttributeMetadata",
             "type": "picklists",
             "name": "slaTrackedOn",
@@ -459,14 +460,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/c258db4f-f1cd-4f07-9b04-3ea10d308a8d",
-            "uuid": "19379837-8722-4cdc-9358-9485034120e5",
+            "uuid": "e5fdfda0-a51f-45e7-a1cf-cd8c0bad2b9b",
             "displayName": "{{ slaTrackedOn }}",
             "descriptions": {
                 "singular": "Incident Ack SLA Tracked on"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/397d20a4-4059-4d49-aced-4bde5622f91a",
+            "@id": "\/api\/3\/attribute_metadatas\/0cf6c8ba-b105-41dc-aa52-3f77572eb373",
             "@type": "AttributeMetadata",
             "type": "picklists",
             "name": "resSlaTrackedOn",
@@ -546,14 +547,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/c258db4f-f1cd-4f07-9b04-3ea10d308a8d",
-            "uuid": "397d20a4-4059-4d49-aced-4bde5622f91a",
+            "uuid": "0cf6c8ba-b105-41dc-aa52-3f77572eb373",
             "displayName": "{{ resSlaTrackedOn }}",
             "descriptions": {
                 "singular": "Incident Response SLA Tracked on"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/eda337a5-5f6d-43c1-a32f-f68b1c80e44e",
+            "@id": "\/api\/3\/attribute_metadatas\/4d66999a-df0b-4e7d-8c5a-f871397a713d",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "alertAckTime",
@@ -593,14 +594,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/c258db4f-f1cd-4f07-9b04-3ea10d308a8d",
-            "uuid": "eda337a5-5f6d-43c1-a32f-f68b1c80e44e",
+            "uuid": "4d66999a-df0b-4e7d-8c5a-f871397a713d",
             "displayName": "{{ alertAckTime }}",
             "descriptions": {
                 "singular": "Alert Ack Time"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/4d9b9aea-6c8a-494f-9b9e-1d09771b5a78",
+            "@id": "\/api\/3\/attribute_metadatas\/2cb60ecd-9f0d-44f5-8d78-bb350b2394d5",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "alertResTime",
@@ -640,14 +641,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/c258db4f-f1cd-4f07-9b04-3ea10d308a8d",
-            "uuid": "4d9b9aea-6c8a-494f-9b9e-1d09771b5a78",
+            "uuid": "2cb60ecd-9f0d-44f5-8d78-bb350b2394d5",
             "displayName": "{{ alertResTime }}",
             "descriptions": {
                 "singular": "Alert Response Time"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/f98b9fd2-298a-4421-b577-418fba61ac87",
+            "@id": "\/api\/3\/attribute_metadatas\/1263f3ef-6535-4fa1-9dcb-ccb46c3e5b77",
             "@type": "AttributeMetadata",
             "type": "picklists",
             "name": "alertAckTrackedOn",
@@ -731,14 +732,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/c258db4f-f1cd-4f07-9b04-3ea10d308a8d",
-            "uuid": "f98b9fd2-298a-4421-b577-418fba61ac87",
+            "uuid": "1263f3ef-6535-4fa1-9dcb-ccb46c3e5b77",
             "displayName": "{{ alertAckTrackedOn }}",
             "descriptions": {
                 "singular": "Alert Ack Tracked On"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/a0b83106-658c-46c2-a372-d06856329796",
+            "@id": "\/api\/3\/attribute_metadatas\/ce6703e3-c7f8-4b5f-9d2f-228ed513c675",
             "@type": "AttributeMetadata",
             "type": "picklists",
             "name": "alertResTrackedOn",
@@ -822,7 +823,7 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/c258db4f-f1cd-4f07-9b04-3ea10d308a8d",
-            "uuid": "a0b83106-658c-46c2-a372-d06856329796",
+            "uuid": "ce6703e3-c7f8-4b5f-9d2f-228ed513c675",
             "displayName": "{{ alertResTrackedOn }}",
             "descriptions": {
                 "singular": "Alert Response Tracked On"

@@ -1,6 +1,6 @@
 {
     "@context": "\/api\/3\/contexts\/StagingModelMetadata",
-    "@id": "\/api\/3\/staging_model_metadatas\/fad0fef3-95b8-4601-8be3-5599ea8ca7b6",
+    "@id": "\/api\/3\/staging_model_metadatas\/e1419626-30a1-4a3d-b1e1-806e59439243",
     "@type": "StagingModelMetadata",
     "type": "communication",
     "parentType": null,
@@ -16,7 +16,7 @@
     "writable": true,
     "attributes": [
         {
-            "@id": "\/api\/3\/attribute_metadatas\/c9593012-b0f4-4763-b693-ce7d0b3514ce",
+            "@id": "\/api\/3\/attribute_metadatas\/f0a9ff03-bcb8-4e1a-aeb7-9e52b108552e",
             "@type": "AttributeMetadata",
             "type": "alerts",
             "name": "alerts",
@@ -52,15 +52,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/fad0fef3-95b8-4601-8be3-5599ea8ca7b6",
-            "uuid": "c9593012-b0f4-4763-b693-ce7d0b3514ce",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/e1419626-30a1-4a3d-b1e1-806e59439243",
+            "uuid": "f0a9ff03-bcb8-4e1a-aeb7-9e52b108552e",
             "displayName": "{{ alerts }}",
             "descriptions": {
                 "singular": "Alerts"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/4a31428f-9bde-4bb6-b4c2-c196bb11e7b8",
+            "@id": "\/api\/3\/attribute_metadatas\/05846549-fedd-4f4f-8156-5d47a0d5e78a",
             "@type": "AttributeMetadata",
             "type": "incidents",
             "name": "incidents",
@@ -96,15 +96,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/fad0fef3-95b8-4601-8be3-5599ea8ca7b6",
-            "uuid": "4a31428f-9bde-4bb6-b4c2-c196bb11e7b8",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/e1419626-30a1-4a3d-b1e1-806e59439243",
+            "uuid": "05846549-fedd-4f4f-8156-5d47a0d5e78a",
             "displayName": "{{ incidents }}",
             "descriptions": {
                 "singular": "Incidents"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/e1e75c0d-366a-403a-ae8c-d522ed026d2b",
+            "@id": "\/api\/3\/attribute_metadatas\/b1aaebb2-00d1-48d5-b3fc-8655e2bdc583",
             "@type": "AttributeMetadata",
             "type": "communication",
             "name": "communications",
@@ -140,15 +140,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/fad0fef3-95b8-4601-8be3-5599ea8ca7b6",
-            "uuid": "e1e75c0d-366a-403a-ae8c-d522ed026d2b",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/e1419626-30a1-4a3d-b1e1-806e59439243",
+            "uuid": "b1aaebb2-00d1-48d5-b3fc-8655e2bdc583",
             "displayName": "{{ communications }}",
             "descriptions": {
                 "singular": "Communications"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/e1b9b881-21c4-4f65-960b-bdaeb963ed31",
+            "@id": "\/api\/3\/attribute_metadatas\/a2998f79-cb13-4566-9707-109ad3023cc1",
             "@type": "AttributeMetadata",
             "type": "hunt",
             "name": "hunts",
@@ -183,15 +183,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/fad0fef3-95b8-4601-8be3-5599ea8ca7b6",
-            "uuid": "e1b9b881-21c4-4f65-960b-bdaeb963ed31",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/e1419626-30a1-4a3d-b1e1-806e59439243",
+            "uuid": "a2998f79-cb13-4566-9707-109ad3023cc1",
             "displayName": "{{ hunts }}",
             "descriptions": {
                 "singular": "Hunts"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/5b4b5129-956c-4545-b67e-e96276e715a9",
+            "@id": "\/api\/3\/attribute_metadatas\/da2454c9-83d9-487f-9bc5-311e341a81be",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "file",
@@ -232,15 +232,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/fad0fef3-95b8-4601-8be3-5599ea8ca7b6",
-            "uuid": "5b4b5129-956c-4545-b67e-e96276e715a9",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/e1419626-30a1-4a3d-b1e1-806e59439243",
+            "uuid": "da2454c9-83d9-487f-9bc5-311e341a81be",
             "displayName": "{{ file }}",
             "descriptions": {
                 "singular": "File"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/433f735f-cb86-4b7a-a217-738b277231ee",
+            "@id": "\/api\/3\/attribute_metadatas\/86aa5cca-304e-4733-9134-14fc5b5f6ca9",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "to",
@@ -279,15 +279,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/fad0fef3-95b8-4601-8be3-5599ea8ca7b6",
-            "uuid": "433f735f-cb86-4b7a-a217-738b277231ee",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/e1419626-30a1-4a3d-b1e1-806e59439243",
+            "uuid": "86aa5cca-304e-4733-9134-14fc5b5f6ca9",
             "displayName": "{{ to }}",
             "descriptions": {
                 "singular": "To"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/4b73784c-533f-47ef-9cda-f00d1ccf6956",
+            "@id": "\/api\/3\/attribute_metadatas\/ed9988af-30fe-4f5d-8c61-ed9d81c8985d",
             "@type": "AttributeMetadata",
             "type": "warrooms",
             "name": "warrooms",
@@ -322,15 +322,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/fad0fef3-95b8-4601-8be3-5599ea8ca7b6",
-            "uuid": "4b73784c-533f-47ef-9cda-f00d1ccf6956",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/e1419626-30a1-4a3d-b1e1-806e59439243",
+            "uuid": "ed9988af-30fe-4f5d-8c61-ed9d81c8985d",
             "displayName": "{{ warrooms }}",
             "descriptions": {
                 "singular": "War Room"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/54327c24-4e65-40e7-bd93-6761e99c1a84",
+            "@id": "\/api\/3\/attribute_metadatas\/95ffe5ac-0467-45e9-8b18-4a4b3b2e39a3",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "from",
@@ -369,15 +369,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/fad0fef3-95b8-4601-8be3-5599ea8ca7b6",
-            "uuid": "54327c24-4e65-40e7-bd93-6761e99c1a84",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/e1419626-30a1-4a3d-b1e1-806e59439243",
+            "uuid": "95ffe5ac-0467-45e9-8b18-4a4b3b2e39a3",
             "displayName": "{{ from }}",
             "descriptions": {
                 "singular": "From"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/e271696a-f8a2-4012-b793-c45aaf1373e7",
+            "@id": "\/api\/3\/attribute_metadatas\/d40a95db-fff1-4a2f-beab-aeec7f393c59",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "bcc",
@@ -415,15 +415,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/fad0fef3-95b8-4601-8be3-5599ea8ca7b6",
-            "uuid": "e271696a-f8a2-4012-b793-c45aaf1373e7",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/e1419626-30a1-4a3d-b1e1-806e59439243",
+            "uuid": "d40a95db-fff1-4a2f-beab-aeec7f393c59",
             "displayName": "{{ bcc }}",
             "descriptions": {
                 "singular": "Bcc"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/6c64dfd2-760b-4487-b8e9-f92cbe3d1ff1",
+            "@id": "\/api\/3\/attribute_metadatas\/edf8e932-4717-481c-b6ab-2d1c5ef1c2e2",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "cc",
@@ -461,15 +461,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/fad0fef3-95b8-4601-8be3-5599ea8ca7b6",
-            "uuid": "6c64dfd2-760b-4487-b8e9-f92cbe3d1ff1",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/e1419626-30a1-4a3d-b1e1-806e59439243",
+            "uuid": "edf8e932-4717-481c-b6ab-2d1c5ef1c2e2",
             "displayName": "{{ cc }}",
             "descriptions": {
                 "singular": "CC"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/f1786bb0-0467-4aad-a6c4-892ad9f64f91",
+            "@id": "\/api\/3\/attribute_metadatas\/b8fc582b-4257-4be6-9dfa-ea8bf3df1bcc",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "subject",
@@ -508,15 +508,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/fad0fef3-95b8-4601-8be3-5599ea8ca7b6",
-            "uuid": "f1786bb0-0467-4aad-a6c4-892ad9f64f91",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/e1419626-30a1-4a3d-b1e1-806e59439243",
+            "uuid": "b8fc582b-4257-4be6-9dfa-ea8bf3df1bcc",
             "displayName": "{{ subject }}",
             "descriptions": {
                 "singular": "Subject"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/a17a25a2-aec8-455b-b35c-9653ec107ca5",
+            "@id": "\/api\/3\/attribute_metadatas\/9f1970ab-bc93-494e-a5c6-628f1341f594",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "body",
@@ -555,15 +555,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/fad0fef3-95b8-4601-8be3-5599ea8ca7b6",
-            "uuid": "a17a25a2-aec8-455b-b35c-9653ec107ca5",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/e1419626-30a1-4a3d-b1e1-806e59439243",
+            "uuid": "9f1970ab-bc93-494e-a5c6-628f1341f594",
             "displayName": "{{ body }}",
             "descriptions": {
                 "singular": "Body"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/52d4c32a-e252-473b-8887-447eaf2b3d06",
+            "@id": "\/api\/3\/attribute_metadatas\/21ae524b-c49c-4dd5-941e-9a45dba5cabd",
             "@type": "AttributeMetadata",
             "type": "picklists",
             "name": "msgDirection",
@@ -674,15 +674,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/fad0fef3-95b8-4601-8be3-5599ea8ca7b6",
-            "uuid": "52d4c32a-e252-473b-8887-447eaf2b3d06",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/e1419626-30a1-4a3d-b1e1-806e59439243",
+            "uuid": "21ae524b-c49c-4dd5-941e-9a45dba5cabd",
             "displayName": "{{ msgDirection }}",
             "descriptions": {
                 "singular": "State"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/37031e91-f5a6-4df0-bf6b-62e86f445080",
+            "@id": "\/api\/3\/attribute_metadatas\/ca1371b4-8925-49c0-9e32-d03ae1af554e",
             "@type": "AttributeMetadata",
             "type": "picklists",
             "name": "type",
@@ -749,15 +749,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/fad0fef3-95b8-4601-8be3-5599ea8ca7b6",
-            "uuid": "37031e91-f5a6-4df0-bf6b-62e86f445080",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/e1419626-30a1-4a3d-b1e1-806e59439243",
+            "uuid": "ca1371b4-8925-49c0-9e32-d03ae1af554e",
             "displayName": "{{ type }}",
             "descriptions": {
                 "singular": "Type"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/9ae6b5c7-e58a-4658-975b-6634314b4bb8",
+            "@id": "\/api\/3\/attribute_metadatas\/42436636-d1b8-4dfe-b44d-71ad0dd42ceb",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "header",
@@ -796,15 +796,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/fad0fef3-95b8-4601-8be3-5599ea8ca7b6",
-            "uuid": "9ae6b5c7-e58a-4658-975b-6634314b4bb8",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/e1419626-30a1-4a3d-b1e1-806e59439243",
+            "uuid": "42436636-d1b8-4dfe-b44d-71ad0dd42ceb",
             "displayName": "{{ header }}",
             "descriptions": {
                 "singular": "Header"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/1aea27a7-3e4d-4f07-80df-d2f1a0e5141e",
+            "@id": "\/api\/3\/attribute_metadatas\/3d3efc5f-e8a7-4ede-a228-ee32a0c2754d",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "emailRefId",
@@ -843,15 +843,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/fad0fef3-95b8-4601-8be3-5599ea8ca7b6",
-            "uuid": "1aea27a7-3e4d-4f07-80df-d2f1a0e5141e",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/e1419626-30a1-4a3d-b1e1-806e59439243",
+            "uuid": "3d3efc5f-e8a7-4ede-a228-ee32a0c2754d",
             "displayName": "{{ emailRefId }}",
             "descriptions": {
                 "singular": "Email Reference ID"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/fcc2405a-8382-45a4-8859-92ea508732e7",
+            "@id": "\/api\/3\/attribute_metadatas\/2ef368cb-325a-4f2d-8357-81ba61ad1712",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "replyEmailRefID",
@@ -889,8 +889,8 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/fad0fef3-95b8-4601-8be3-5599ea8ca7b6",
-            "uuid": "fcc2405a-8382-45a4-8859-92ea508732e7",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/e1419626-30a1-4a3d-b1e1-806e59439243",
+            "uuid": "2ef368cb-325a-4f2d-8357-81ba61ad1712",
             "displayName": "{{ replyEmailRefID }}",
             "descriptions": {
                 "singular": "Reply Email Reference ID"
@@ -899,7 +899,7 @@
     ],
     "system": false,
     "module": "communication",
-    "uuid": "fad0fef3-95b8-4601-8be3-5599ea8ca7b6",
+    "uuid": "e1419626-30a1-4a3d-b1e1-806e59439243",
     "displayName": "Communication",
     "descriptions": {
         "singular": "Communication",

@@ -11,10 +11,10 @@
     "remoteExecutableFlag": false,
     "parameters": [],
     "synchronous": false,
-    "lastModifyDate": 1636433420,
+    "lastModifyDate": 1636537406,
     "collection": "\/api\/3\/workflow_collections\/59667fcc-7feb-4ba4-a5a2-e03a9287f857",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/c504a259-b7fd-42ef-8205-d6cbc4918bf5",
+    "triggerStep": "\/api\/3\/workflow_steps\/6693e473-13d9-45e1-b879-c7c9609cb523",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -55,8 +55,8 @@
             "top": "680",
             "left": "2020",
             "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
-            "uuid": "629fb360-0c78-4328-bc29-97fe510836d0",
-            "id": 3112
+            "uuid": "e391ea02-7696-438e-bd2e-28f173928cd0",
+            "id": 915
         },
         {
             "@type": "WorkflowStep",
@@ -98,8 +98,8 @@
             "top": "420",
             "left": "1020",
             "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
-            "uuid": "0a4fe508-464f-4640-9959-f1f0fb87052e",
-            "id": 3113
+            "uuid": "7282706e-419b-4ef5-9752-bc091f87c427",
+            "id": 916
         },
         {
             "@type": "WorkflowStep",
@@ -120,8 +120,8 @@
             "top": "127",
             "left": "20",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "15b3735a-cf00-43e7-996e-73a04712abbf",
-            "id": 3114
+            "uuid": "2350069b-3e34-4c78-aea2-db525ae9b230",
+            "id": 917
         },
         {
             "@type": "WorkflowStep",
@@ -146,11 +146,11 @@
                         {
                             "option": "Yes",
                             "primary": true,
-                            "step_iri": "\/api\/3\/workflow_steps\/9b71e879-0020-4846-afea-72f44f860329"
+                            "step_iri": "\/api\/3\/workflow_steps\/f54754e3-15cd-4084-8191-e2a8d86f5ebc"
                         },
                         {
                             "option": "No",
-                            "step_iri": "\/api\/3\/workflow_steps\/629fb360-0c78-4328-bc29-97fe510836d0"
+                            "step_iri": "\/api\/3\/workflow_steps\/e391ea02-7696-438e-bd2e-28f173928cd0"
                         }
                     ],
                     "duplicateOption": false
@@ -160,8 +160,8 @@
             "top": "626",
             "left": "1660",
             "stepType": "\/api\/3\/workflow_step_types\/fc04082a-d7dc-4299-96fb-6837b1baa0fe",
-            "uuid": "9ebb21e3-1130-42a7-a106-d47fcb43376a",
-            "id": 3115
+            "uuid": "0a07f15d-6c71-4ad2-8ca7-43f3488410c3",
+            "id": 918
         },
         {
             "@type": "WorkflowStep",
@@ -193,8 +193,8 @@
             "top": "440",
             "left": "640",
             "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
-            "uuid": "d3d17330-39f6-4b4f-a450-4540e132132f",
-            "id": 3116
+            "uuid": "1c6dc08b-1258-4209-bdd6-9c1e1be42b6c",
+            "id": 919
         },
         {
             "@type": "WorkflowStep",
@@ -225,8 +225,8 @@
             "top": "620",
             "left": "1340",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
-            "uuid": "d7f291a4-0e4a-42db-bada-1e736b290559",
-            "id": 3117
+            "uuid": "4908871a-b597-4e35-a93e-2d0386d6277e",
+            "id": 920
         },
         {
             "@type": "WorkflowStep",
@@ -268,8 +268,8 @@
             "top": "626",
             "left": "1020",
             "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
-            "uuid": "809d4089-e72a-47bd-a142-11f96664ab1c",
-            "id": 3118
+            "uuid": "5f864351-f865-4417-b7c5-e99eb1302db3",
+            "id": 921
         },
         {
             "@type": "WorkflowStep",
@@ -323,8 +323,8 @@
             "top": "13",
             "left": "20",
             "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-            "uuid": "c504a259-b7fd-42ef-8205-d6cbc4918bf5",
-            "id": 3119
+            "uuid": "6693e473-13d9-45e1-b879-c7c9609cb523",
+            "id": 922
         },
         {
             "@type": "WorkflowStep",
@@ -365,8 +365,8 @@
             "top": "234",
             "left": "20",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
-            "uuid": "ec5cc748-3542-4645-9e05-910769987668",
-            "id": 3120
+            "uuid": "d74b25c1-7b1b-4c7a-866f-2b8122e88b40",
+            "id": 923
         },
         {
             "@type": "WorkflowStep",
@@ -376,13 +376,13 @@
                 "conditions": [
                     {
                         "option": "Internal",
-                        "step_iri": "\/api\/3\/workflow_steps\/7c7ad7da-afb3-4d82-9340-91a1f1e05815",
+                        "step_iri": "\/api\/3\/workflow_steps\/743f23b2-8979-403e-bbc4-151b2eee2096",
                         "condition": "{{ vars.steps.Match_Source_IP_in_Internal_CIDR.data['matched_cidr_ip']  |  length > 0 }}"
                     },
                     {
                         "option": "External",
                         "default": true,
-                        "step_iri": "\/api\/3\/workflow_steps\/bde79c87-e100-477c-9019-75b98f1d28b8"
+                        "step_iri": "\/api\/3\/workflow_steps\/ef578418-9cd6-45ee-abd7-91d59fde1996"
                     }
                 ]
             },
@@ -390,8 +390,8 @@
             "top": "260",
             "left": "320",
             "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
-            "uuid": "bf625d5d-6181-4bf5-97f6-04b0c3f3fca6",
-            "id": 3121
+            "uuid": "95d25125-989c-46e3-b9eb-2d3ca02bde3a",
+            "id": 924
         },
         {
             "@type": "WorkflowStep",
@@ -412,8 +412,8 @@
             "top": "560",
             "left": "2320",
             "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
-            "uuid": "aac98c62-bd8f-46e2-b064-af851b856bdc",
-            "id": 3122
+            "uuid": "a92ee223-541e-40b8-88af-e5b7676a6dee",
+            "id": 925
         },
         {
             "@type": "WorkflowStep",
@@ -455,8 +455,8 @@
             "top": "180",
             "left": "640",
             "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
-            "uuid": "7c7ad7da-afb3-4d82-9340-91a1f1e05815",
-            "id": 3123
+            "uuid": "743f23b2-8979-403e-bbc4-151b2eee2096",
+            "id": 926
         },
         {
             "@type": "WorkflowStep",
@@ -498,8 +498,8 @@
             "top": "331",
             "left": "640",
             "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
-            "uuid": "bde79c87-e100-477c-9019-75b98f1d28b8",
-            "id": 3124
+            "uuid": "ef578418-9cd6-45ee-abd7-91d59fde1996",
+            "id": 927
         },
         {
             "@type": "WorkflowStep",
@@ -525,8 +525,8 @@
             "top": "140",
             "left": "320",
             "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
-            "uuid": "4866a6b9-017f-42e9-8950-70ccc484a3d3",
-            "id": 3125
+            "uuid": "531823bf-ddb9-40e6-9ff4-0529ec015109",
+            "id": 928
         },
         {
             "@type": "WorkflowStep",
@@ -536,13 +536,13 @@
                 "conditions": [
                     {
                         "option": "Malicious",
-                        "step_iri": "\/api\/3\/workflow_steps\/809d4089-e72a-47bd-a142-11f96664ab1c",
+                        "step_iri": "\/api\/3\/workflow_steps\/5f864351-f865-4417-b7c5-e99eb1302db3",
                         "condition": "{{ vars.steps.Get_Source_IP_Reputation.data.aggregate >= vars.reputation_threshold }}"
                     },
                     {
                         "option": "Safe",
                         "default": true,
-                        "step_iri": "\/api\/3\/workflow_steps\/0a4fe508-464f-4640-9959-f1f0fb87052e"
+                        "step_iri": "\/api\/3\/workflow_steps\/7282706e-419b-4ef5-9752-bc091f87c427"
                     }
                 ]
             },
@@ -550,8 +550,8 @@
             "top": "553",
             "left": "640",
             "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
-            "uuid": "c59001ab-f17d-4662-9e96-7b7c40940151",
-            "id": 3126
+            "uuid": "6f8f37b8-f17e-46d9-a041-93a4c70f8254",
+            "id": 929
         },
         {
             "@type": "WorkflowStep",
@@ -595,145 +595,145 @@
             "top": "560",
             "left": "2000",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
-            "uuid": "9b71e879-0020-4846-afea-72f44f860329",
-            "id": 3127
+            "uuid": "f54754e3-15cd-4084-8191-e2a8d86f5ebc",
+            "id": 930
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Is Source IP internal -> Copy  of Create Note for Internal IP",
-            "targetStep": "\/api\/3\/workflow_steps\/bde79c87-e100-477c-9019-75b98f1d28b8",
-            "sourceStep": "\/api\/3\/workflow_steps\/bf625d5d-6181-4bf5-97f6-04b0c3f3fca6",
+            "targetStep": "\/api\/3\/workflow_steps\/ef578418-9cd6-45ee-abd7-91d59fde1996",
+            "sourceStep": "\/api\/3\/workflow_steps\/95d25125-989c-46e3-b9eb-2d3ca02bde3a",
             "label": "External",
             "isExecuted": false,
-            "uuid": "9d2d9fa4-46f4-4840-bb44-b06ace476c04"
+            "uuid": "2a963701-696b-4ed5-a7be-3554eaefc7e7"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Update Severity to Critical -> Block External IP",
-            "targetStep": "\/api\/3\/workflow_steps\/9ebb21e3-1130-42a7-a106-d47fcb43376a",
-            "sourceStep": "\/api\/3\/workflow_steps\/d7f291a4-0e4a-42db-bada-1e736b290559",
+            "targetStep": "\/api\/3\/workflow_steps\/0a07f15d-6c71-4ad2-8ca7-43f3488410c3",
+            "sourceStep": "\/api\/3\/workflow_steps\/4908871a-b597-4e35-a93e-2d0386d6277e",
             "label": null,
             "isExecuted": false,
-            "uuid": "9231de4f-82df-4025-8a8a-fa8689c3492c"
+            "uuid": "80e28b3e-35b5-45ee-9ba2-01c0349c3248"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Is Source IP internal -> Copy 1 of Create Note for Safe IP",
-            "targetStep": "\/api\/3\/workflow_steps\/7c7ad7da-afb3-4d82-9340-91a1f1e05815",
-            "sourceStep": "\/api\/3\/workflow_steps\/bf625d5d-6181-4bf5-97f6-04b0c3f3fca6",
+            "targetStep": "\/api\/3\/workflow_steps\/743f23b2-8979-403e-bbc4-151b2eee2096",
+            "sourceStep": "\/api\/3\/workflow_steps\/95d25125-989c-46e3-b9eb-2d3ca02bde3a",
             "label": "Internal",
             "isExecuted": false,
-            "uuid": "2974702b-97c7-4286-9d3a-9aa4f7616349"
+            "uuid": "34c2f000-886e-405c-8553-4df13282d602"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Create Note for Malicious IP -> Update Severity to High",
-            "targetStep": "\/api\/3\/workflow_steps\/d7f291a4-0e4a-42db-bada-1e736b290559",
-            "sourceStep": "\/api\/3\/workflow_steps\/809d4089-e72a-47bd-a142-11f96664ab1c",
+            "targetStep": "\/api\/3\/workflow_steps\/4908871a-b597-4e35-a93e-2d0386d6277e",
+            "sourceStep": "\/api\/3\/workflow_steps\/5f864351-f865-4417-b7c5-e99eb1302db3",
             "label": null,
             "isExecuted": false,
-            "uuid": "dafdd6c3-1be4-42c6-a80a-4c69c9454f58"
+            "uuid": "39aac38c-1bc6-4665-9145-bf8a11e00163"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Block External IP -> Create Note Not Blocking IP",
-            "targetStep": "\/api\/3\/workflow_steps\/629fb360-0c78-4328-bc29-97fe510836d0",
-            "sourceStep": "\/api\/3\/workflow_steps\/9ebb21e3-1130-42a7-a106-d47fcb43376a",
+            "targetStep": "\/api\/3\/workflow_steps\/e391ea02-7696-438e-bd2e-28f173928cd0",
+            "sourceStep": "\/api\/3\/workflow_steps\/0a07f15d-6c71-4ad2-8ca7-43f3488410c3",
             "label": "No",
             "isExecuted": false,
-            "uuid": "ad11b042-ee5a-4355-812d-4634bc597c4e"
+            "uuid": "88f52ef6-2d3e-482f-8448-6667366360af"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Configuration -> Start Investigation",
-            "targetStep": "\/api\/3\/workflow_steps\/ec5cc748-3542-4645-9e05-910769987668",
-            "sourceStep": "\/api\/3\/workflow_steps\/15b3735a-cf00-43e7-996e-73a04712abbf",
+            "targetStep": "\/api\/3\/workflow_steps\/d74b25c1-7b1b-4c7a-866f-2b8122e88b40",
+            "sourceStep": "\/api\/3\/workflow_steps\/2350069b-3e34-4c78-aea2-db525ae9b230",
             "label": null,
             "isExecuted": false,
-            "uuid": "cab5dba3-f6e8-4565-8913-91c299272a5e"
+            "uuid": "5e72bfba-d670-4cfa-aef0-146e6f4b78de"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Attacker Metadata",
-            "targetStep": "\/api\/3\/workflow_steps\/15b3735a-cf00-43e7-996e-73a04712abbf",
-            "sourceStep": "\/api\/3\/workflow_steps\/c504a259-b7fd-42ef-8205-d6cbc4918bf5",
+            "targetStep": "\/api\/3\/workflow_steps\/2350069b-3e34-4c78-aea2-db525ae9b230",
+            "sourceStep": "\/api\/3\/workflow_steps\/6693e473-13d9-45e1-b879-c7c9609cb523",
             "label": null,
             "isExecuted": false,
-            "uuid": "28dac798-fa66-4522-acc1-412372a8af1f"
+            "uuid": "bf6203fa-15bb-4157-a670-0f059adb30ad"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Match Source IP in Internal CIDR -> Is Source IP internal",
-            "targetStep": "\/api\/3\/workflow_steps\/bf625d5d-6181-4bf5-97f6-04b0c3f3fca6",
-            "sourceStep": "\/api\/3\/workflow_steps\/4866a6b9-017f-42e9-8950-70ccc484a3d3",
+            "targetStep": "\/api\/3\/workflow_steps\/95d25125-989c-46e3-b9eb-2d3ca02bde3a",
+            "sourceStep": "\/api\/3\/workflow_steps\/531823bf-ddb9-40e6-9ff4-0529ec015109",
             "label": null,
             "isExecuted": false,
-            "uuid": "8777c360-74a3-4032-9bb9-1d005829b57c"
+            "uuid": "106a0679-ae64-4f7c-9a14-8a8cc4767b2f"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Block External IP -> Get Indicator Detail",
-            "targetStep": "\/api\/3\/workflow_steps\/9b71e879-0020-4846-afea-72f44f860329",
-            "sourceStep": "\/api\/3\/workflow_steps\/9ebb21e3-1130-42a7-a106-d47fcb43376a",
+            "targetStep": "\/api\/3\/workflow_steps\/f54754e3-15cd-4084-8191-e2a8d86f5ebc",
+            "sourceStep": "\/api\/3\/workflow_steps\/0a07f15d-6c71-4ad2-8ca7-43f3488410c3",
             "label": "Yes",
             "isExecuted": false,
-            "uuid": "fbad738e-0c56-4aae-9da9-7aa4cce8fa0e"
+            "uuid": "4ac43d63-3fb2-4de4-9be7-5f682b4884be"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Start Investigation -> Match Source IP in Internal CIDR",
-            "targetStep": "\/api\/3\/workflow_steps\/4866a6b9-017f-42e9-8950-70ccc484a3d3",
-            "sourceStep": "\/api\/3\/workflow_steps\/ec5cc748-3542-4645-9e05-910769987668",
+            "targetStep": "\/api\/3\/workflow_steps\/531823bf-ddb9-40e6-9ff4-0529ec015109",
+            "sourceStep": "\/api\/3\/workflow_steps\/d74b25c1-7b1b-4c7a-866f-2b8122e88b40",
             "label": null,
             "isExecuted": false,
-            "uuid": "ab402963-f00f-4ec3-8ebb-df7fa7fd5de3"
+            "uuid": "eadc5264-9fc6-4403-bbc9-0302b70da894"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Get Indicator Detail -> Block Indicator",
-            "targetStep": "\/api\/3\/workflow_steps\/aac98c62-bd8f-46e2-b064-af851b856bdc",
-            "sourceStep": "\/api\/3\/workflow_steps\/9b71e879-0020-4846-afea-72f44f860329",
+            "targetStep": "\/api\/3\/workflow_steps\/a92ee223-541e-40b8-88af-e5b7676a6dee",
+            "sourceStep": "\/api\/3\/workflow_steps\/f54754e3-15cd-4084-8191-e2a8d86f5ebc",
             "label": null,
             "isExecuted": false,
-            "uuid": "e7bda3d0-c29b-44fa-98d3-6b6d14bf235f"
+            "uuid": "967ab1ae-2d32-4f46-9cdc-76e4419b6419"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Is Malicious IP -> Create Note for Safe IP",
-            "targetStep": "\/api\/3\/workflow_steps\/0a4fe508-464f-4640-9959-f1f0fb87052e",
-            "sourceStep": "\/api\/3\/workflow_steps\/c59001ab-f17d-4662-9e96-7b7c40940151",
+            "targetStep": "\/api\/3\/workflow_steps\/7282706e-419b-4ef5-9752-bc091f87c427",
+            "sourceStep": "\/api\/3\/workflow_steps\/6f8f37b8-f17e-46d9-a041-93a4c70f8254",
             "label": "Safe",
             "isExecuted": false,
-            "uuid": "3e69a016-21c0-471e-97b2-014cbc522331"
+            "uuid": "bc618386-b4af-4e13-9454-7e6b21084edd"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Create Note for External IP -> Get Source IP Reputation",
-            "targetStep": "\/api\/3\/workflow_steps\/d3d17330-39f6-4b4f-a450-4540e132132f",
-            "sourceStep": "\/api\/3\/workflow_steps\/bde79c87-e100-477c-9019-75b98f1d28b8",
+            "targetStep": "\/api\/3\/workflow_steps\/1c6dc08b-1258-4209-bdd6-9c1e1be42b6c",
+            "sourceStep": "\/api\/3\/workflow_steps\/ef578418-9cd6-45ee-abd7-91d59fde1996",
             "label": null,
             "isExecuted": false,
-            "uuid": "aaec533a-7b72-42ee-9d7c-574205508aad"
+            "uuid": "060bce10-be0b-4c59-82c9-7aed3cd20ff4"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Is Malicious IP -> Create Note for Malicious IP",
-            "targetStep": "\/api\/3\/workflow_steps\/809d4089-e72a-47bd-a142-11f96664ab1c",
-            "sourceStep": "\/api\/3\/workflow_steps\/c59001ab-f17d-4662-9e96-7b7c40940151",
+            "targetStep": "\/api\/3\/workflow_steps\/5f864351-f865-4417-b7c5-e99eb1302db3",
+            "sourceStep": "\/api\/3\/workflow_steps\/6f8f37b8-f17e-46d9-a041-93a4c70f8254",
             "label": "Malicious",
             "isExecuted": false,
-            "uuid": "c811e5b8-6ca2-4a5f-979d-e38303fb3c4d"
+            "uuid": "47478b9d-6f97-4c85-91db-ac584d2d5631"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Get Source IP Reputation -> Is Malicious IP",
-            "targetStep": "\/api\/3\/workflow_steps\/c59001ab-f17d-4662-9e96-7b7c40940151",
-            "sourceStep": "\/api\/3\/workflow_steps\/d3d17330-39f6-4b4f-a450-4540e132132f",
+            "targetStep": "\/api\/3\/workflow_steps\/6f8f37b8-f17e-46d9-a041-93a4c70f8254",
+            "sourceStep": "\/api\/3\/workflow_steps\/1c6dc08b-1258-4209-bdd6-9c1e1be42b6c",
             "label": null,
             "isExecuted": false,
-            "uuid": "2c3fd913-43d3-4a08-8ba7-6ebcd7a6414d"
+            "uuid": "df0d97fa-d932-466c-a3b9-b7b6d0da43b9"
         }
     ],
     "priority": null,
@@ -741,11 +741,11 @@
     "recordTags": [
         "ManualAction"
     ],
-    "id": 976,
-    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "createDate": 1636433427,
-    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "modifyDate": 1636433427,
+    "id": 139,
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1636537415,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1636537415,
     "owners": [],
     "isPrivate": false
 }

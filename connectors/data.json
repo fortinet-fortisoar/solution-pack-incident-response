@@ -5,7 +5,7 @@
         "category": "Directory Service",
         "description": "Active Directory (AD) is a directory service that Microsoft developed for Windows domain networks. You can directly query AD to retrieve information about users, groups, and computers, in an organization, by using the Lightweight Directory Access Protocol (LDAP) to directly query the AD.",
         "publisher": null,
-        "version": "2.2.0",
+        "version": "2.1.1",
         "operation_roles": {
             "add_object": [],
             "get_all_object_details": [],
@@ -18,23 +18,21 @@
             "global_search": [],
             "enable_user_account": [],
             "disable_user_account": [],
-            "enable_computer": [],
-            "disable_computer": [],
             "reset_password": []
         },
         "configurations": [],
         "dataImports": [],
-        "rpm_name": "cyops-connector-activedirectory-2.2.0",
+        "rpm_name": "cyops-connector-activedirectory-2.1.1",
         "install_mode": "rpm",
-        "installer_path": "cyops-connector-activedirectory-2.2.0"
+        "installer_path": "cyops-connector-activedirectory-2.1.1"
     },
     {
         "name": "alienvault-otx",
         "label": "AlienVault-OTX",
         "category": "Threat Intelligence",
-        "description": "AlienVault-OTX is an open source of Indicators of Compromise (IOCs) supported by the community.This connector provides actions Get IP Reputation, Create Pulse, Get Domain Reputation, etc",
+        "description": "AlienVault-OTX Connector",
         "publisher": null,
-        "version": "1.0.1",
+        "version": "1.0.0",
         "operation_roles": {
             "create_pulse": [],
             "get_ip_reputation": [],
@@ -55,9 +53,9 @@
         },
         "configurations": [],
         "dataImports": [],
-        "rpm_name": "cyops-connector-alienvault-otx-1.0.1",
+        "rpm_name": "cyops-connector-alienvault-otx-1.0.0",
         "install_mode": "rpm",
-        "installer_path": "cyops-connector-alienvault-otx-1.0.1"
+        "installer_path": "cyops-connector-alienvault-otx-1.0.0"
     },
     {
         "name": "alienvault-usm-anywhere",
@@ -584,7 +582,7 @@
         "category": "SIEM",
         "description": "FortiSIEM provides integrations that allow you to query and make changes to the CMDB, query events, and send incident notifications. Provide actions like get incidents, comment incident, cleared incident, get device details, get monitored organizations, report related actions and get all associated events for an incident from FortiSIEM.",
         "publisher": null,
-        "version": "4.3.0",
+        "version": "4.1.1",
         "operation_roles": {
             "get_incidents": [],
             "get_incident_details": [],
@@ -604,21 +602,13 @@
             "get_org_name_by_org_id": [],
             "run_report": [],
             "get_incident_attributes": [],
-            "get_events_by_query_id": [],
-            "create_watchlist_group": [],
-            "get_watch_lists": [],
-            "get_watch_list_entries_count": [],
-            "get_watch_list_entry": [],
-            "add_watch_list_entries_to_watch_list_groups": [],
-            "update_watch_list_entry": [],
-            "delete_watch_list_entry": [],
-            "delete_watch_list": []
+            "get_events_by_query_id": []
         },
         "configurations": [],
         "dataImports": [],
-        "rpm_name": "cyops-connector-fortinet-fortisiem-4.3.0",
+        "rpm_name": "cyops-connector-fortinet-fortisiem-4.1.1",
         "install_mode": "rpm",
-        "installer_path": "cyops-connector-fortinet-fortisiem-4.3.0"
+        "installer_path": "cyops-connector-fortinet-fortisiem-4.1.1"
     },
     {
         "name": "fortinet-web-filter-lookup",
@@ -1375,7 +1365,7 @@
         "name": "symantec-cas",
         "label": "Symantec CAS",
         "category": "sandbox",
-        "description": "Symantec MAS(Malware Analysis Service) is a part of Symantec CAS(Content Analysis Service), provides protectsion against advanced threats through file reputation, multiple antimalware techniques, and sophisticated sandbox detonation. This connector facilitates automated operations like submit file\/URL, create task, get status, get report and detonate file",
+        "description": "Symantec CAS(Content Analysis Service) provides protection against advanced threats through file reputation, multiple antimalware techniques and sophisticated sandbox detonation",
         "publisher": null,
         "version": "1.0.0",
         "operation_roles": {
@@ -1471,7 +1461,7 @@
         "category": "Network Visibility",
         "description": "Symantec DLP provide actions like get incident attachments, get incident details, get incident status, update incident etc.",
         "publisher": null,
-        "version": "2.2.0",
+        "version": "2.1.0",
         "operation_roles": {
             "get_incident_status": [],
             "get_incident_attachment": [],
@@ -1480,15 +1470,13 @@
             "get_custom_attributes": [],
             "get_incident_violations": [],
             "update_incident": [],
-            "download_eml": [],
-            "get_sender_recipient_pattern": [],
-            "update_sender_recipient_pattern": []
+            "download_eml": []
         },
         "configurations": [],
         "dataImports": [],
-        "rpm_name": "cyops-connector-symantec-dlp-2.2.0",
+        "rpm_name": "cyops-connector-symantec-dlp-2.1.0",
         "install_mode": "rpm",
-        "installer_path": "cyops-connector-symantec-dlp-2.2.0"
+        "installer_path": "cyops-connector-symantec-dlp-2.1.0"
     },
     {
         "name": "symantec-edr",
@@ -1936,7 +1924,7 @@
         "category": "Sandbox",
         "description": "VirusTotal provides a service that analyzes suspicious files and URLs and facilitates the quick detection of viruses, worms, trojans, and all kinds of malware. This connector facilitates automated operations such as scanning and analyzing suspicious files and URLs and retrieving reports from VirusTotal for files, IP addresses, and domains.",
         "publisher": null,
-        "version": "2.1.0",
+        "version": "2.0.0",
         "operation_roles": {
             "upload_sample": [],
             "scan_url": [],
@@ -1944,14 +1932,13 @@
             "query_domain": [],
             "query_url": [],
             "file_reputation": [],
-            "analysis_file": [],
-            "custom_endpoint": []
+            "analysis_file": []
         },
         "configurations": [],
         "dataImports": [],
-        "rpm_name": "cyops-connector-virustotal-2.1.0",
+        "rpm_name": "cyops-connector-virustotal-2.0.0",
         "install_mode": "rpm",
-        "installer_path": "cyops-connector-virustotal-2.1.0"
+        "installer_path": "cyops-connector-virustotal-2.0.0"
     },
     {
         "name": "vmware-vsphere",

@@ -17,10 +17,10 @@
         "camp_iri"
     ],
     "synchronous": false,
-    "lastModifyDate": 1636433420,
+    "lastModifyDate": 1636537406,
     "collection": "\/api\/3\/workflow_collections\/3c3b049e-5ecb-464a-83f6-5af6a230c0ed",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/d5789d43-482b-47bc-aebe-88091143cfba",
+    "triggerStep": "\/api\/3\/workflow_steps\/ceae87c0-c48c-411d-814f-f1adf32fe4c4",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -37,8 +37,8 @@
             "top": "30",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
-            "uuid": "d5789d43-482b-47bc-aebe-88091143cfba",
-            "id": 4009
+            "uuid": "ceae87c0-c48c-411d-814f-f1adf32fe4c4",
+            "id": 1900
         },
         {
             "@type": "WorkflowStep",
@@ -63,7 +63,7 @@
                     "options": [
                         {
                             "option": "Ok",
-                            "step_iri": "\/api\/3\/workflow_steps\/fd1f27f4-c34e-41a3-ac7d-67b787efa765"
+                            "step_iri": "\/api\/3\/workflow_steps\/08aa0224-1bb6-40aa-adad-66dc92a00e89"
                         }
                     ],
                     "duplicateOption": false
@@ -77,8 +77,8 @@
             "top": "165",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/fc04082a-d7dc-4299-96fb-6837b1baa0fe",
-            "uuid": "658f8fe1-0642-4ad1-90d8-51b42491f54c",
-            "id": 4010
+            "uuid": "c852eb5b-e3f1-4537-92df-2ed70343dfcf",
+            "id": 1901
         },
         {
             "@type": "WorkflowStep",
@@ -113,28 +113,28 @@
             "top": "300",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
-            "uuid": "fd1f27f4-c34e-41a3-ac7d-67b787efa765",
-            "id": 4011
+            "uuid": "08aa0224-1bb6-40aa-adad-66dc92a00e89",
+            "id": 1902
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Prompt -> Add Note and Link Campaign",
-            "targetStep": "\/api\/3\/workflow_steps\/fd1f27f4-c34e-41a3-ac7d-67b787efa765",
-            "sourceStep": "\/api\/3\/workflow_steps\/658f8fe1-0642-4ad1-90d8-51b42491f54c",
+            "targetStep": "\/api\/3\/workflow_steps\/08aa0224-1bb6-40aa-adad-66dc92a00e89",
+            "sourceStep": "\/api\/3\/workflow_steps\/c852eb5b-e3f1-4537-92df-2ed70343dfcf",
             "label": "Ok",
             "isExecuted": false,
-            "uuid": "ec27e40c-3549-4b06-a0c6-57677541ecbb"
+            "uuid": "9d24ee40-a7a9-4c7f-96e5-040daf4736ff"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Prompt",
-            "targetStep": "\/api\/3\/workflow_steps\/658f8fe1-0642-4ad1-90d8-51b42491f54c",
-            "sourceStep": "\/api\/3\/workflow_steps\/d5789d43-482b-47bc-aebe-88091143cfba",
+            "targetStep": "\/api\/3\/workflow_steps\/c852eb5b-e3f1-4537-92df-2ed70343dfcf",
+            "sourceStep": "\/api\/3\/workflow_steps\/ceae87c0-c48c-411d-814f-f1adf32fe4c4",
             "label": null,
             "isExecuted": false,
-            "uuid": "cefde7c3-5fa5-45e8-b560-1efe5982c3ea"
+            "uuid": "d7d0b49a-1494-4dfb-9c25-8a2e43be014b"
         }
     ],
     "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
@@ -143,11 +143,11 @@
         "system",
         "Subroutine"
     ],
-    "id": 1090,
-    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "createDate": 1636433433,
-    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "modifyDate": 1636433433,
+    "id": 271,
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1636537429,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1636537429,
     "owners": [],
     "isPrivate": false
 }

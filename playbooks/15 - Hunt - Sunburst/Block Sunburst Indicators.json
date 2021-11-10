@@ -11,10 +11,10 @@
     "remoteExecutableFlag": false,
     "parameters": [],
     "synchronous": false,
-    "lastModifyDate": 1636433420,
+    "lastModifyDate": 1636537406,
     "collection": "\/api\/3\/workflow_collections\/e2c1a8f3-00dc-4e82-a9f0-5e9957529407",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/084b388f-df64-40d2-a87b-675f97a4df6c",
+    "triggerStep": "\/api\/3\/workflow_steps\/f4b1a9fc-4ff9-4bed-9f97-7fd021f1dfd0",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -41,8 +41,8 @@
             "top": "435",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
-            "uuid": "6d50febf-2c22-4815-9e72-6549f5c1dd7e",
-            "id": 4430
+            "uuid": "b347fe47-ef7d-4945-83fb-5d6bbf057d9f",
+            "id": 2321
         },
         {
             "@type": "WorkflowStep",
@@ -72,8 +72,8 @@
             "top": "570",
             "left": "475",
             "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
-            "uuid": "7e65bd3c-ca6b-4017-9ca8-a61c6740355e",
-            "id": 4431
+            "uuid": "42952801-1889-483f-8fe8-cf781895597f",
+            "id": 2322
         },
         {
             "@type": "WorkflowStep",
@@ -97,8 +97,8 @@
             "top": "435",
             "left": "475",
             "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
-            "uuid": "25747436-66e8-4b54-be7d-847c414f9ff7",
-            "id": 4432
+            "uuid": "041ae7b7-7afc-4d25-acb2-f8c1e11a4a80",
+            "id": 2323
         },
         {
             "@type": "WorkflowStep",
@@ -122,8 +122,8 @@
             "top": "435",
             "left": "825",
             "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
-            "uuid": "0570c2af-344d-4358-bb33-c394a41ce1df",
-            "id": 4433
+            "uuid": "df43bd97-f5c0-4a8a-a52e-cd2ec9a68ba8",
+            "id": 2324
         },
         {
             "@type": "WorkflowStep",
@@ -157,8 +157,8 @@
             "top": "30",
             "left": "475",
             "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-            "uuid": "084b388f-df64-40d2-a87b-675f97a4df6c",
-            "id": 4434
+            "uuid": "f4b1a9fc-4ff9-4bed-9f97-7fd021f1dfd0",
+            "id": 2325
         },
         {
             "@type": "WorkflowStep",
@@ -171,8 +171,8 @@
             "top": "165",
             "left": "475",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "81287f4d-1192-4f2d-a738-2eee2c4d246b",
-            "id": 4435
+            "uuid": "7a956696-3c77-4f20-84b9-89f46d36d2f3",
+            "id": 2326
         },
         {
             "@type": "WorkflowStep",
@@ -182,20 +182,20 @@
                 "conditions": [
                     {
                         "option": "Block IP Address",
-                        "step_iri": "\/api\/3\/workflow_steps\/6d50febf-2c22-4815-9e72-6549f5c1dd7e",
+                        "step_iri": "\/api\/3\/workflow_steps\/b347fe47-ef7d-4945-83fb-5d6bbf057d9f",
                         "condition": "{{ vars.input.records[0].typeofindicator.itemValue == \"IP Address\" }}",
                         "step_name": "Block IPs on FortiGate"
                     },
                     {
                         "option": "Block Domain",
-                        "step_iri": "\/api\/3\/workflow_steps\/0570c2af-344d-4358-bb33-c394a41ce1df",
+                        "step_iri": "\/api\/3\/workflow_steps\/df43bd97-f5c0-4a8a-a52e-cd2ec9a68ba8",
                         "condition": "{{ vars.input.records[0].typeofindicator.itemValue == \"Domain\" }}",
                         "step_name": "Block URLs on FortiGate"
                     },
                     {
                         "option": "Block FileHash",
                         "default": true,
-                        "step_iri": "\/api\/3\/workflow_steps\/25747436-66e8-4b54-be7d-847c414f9ff7",
+                        "step_iri": "\/api\/3\/workflow_steps\/041ae7b7-7afc-4d25-acb2-f8c1e11a4a80",
                         "step_name": "Search FileHash On Devices"
                     }
                 ]
@@ -204,64 +204,64 @@
             "top": "300",
             "left": "475",
             "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
-            "uuid": "928b6d60-a516-44ec-8245-7d1920a335f7",
-            "id": 4436
+            "uuid": "9de8488b-51eb-4a49-8c5b-c6bc24490673",
+            "id": 2327
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Check Indicator Type -> Search FileHash On Devices",
-            "targetStep": "\/api\/3\/workflow_steps\/25747436-66e8-4b54-be7d-847c414f9ff7",
-            "sourceStep": "\/api\/3\/workflow_steps\/928b6d60-a516-44ec-8245-7d1920a335f7",
+            "targetStep": "\/api\/3\/workflow_steps\/041ae7b7-7afc-4d25-acb2-f8c1e11a4a80",
+            "sourceStep": "\/api\/3\/workflow_steps\/9de8488b-51eb-4a49-8c5b-c6bc24490673",
             "label": "Block FileHash",
             "isExecuted": false,
-            "uuid": "103bdbef-ca06-41c4-9fbe-e5451a05d9c6"
+            "uuid": "ae40dec5-f23f-4c1f-839e-c8f831df2510"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Configuration",
-            "targetStep": "\/api\/3\/workflow_steps\/81287f4d-1192-4f2d-a738-2eee2c4d246b",
-            "sourceStep": "\/api\/3\/workflow_steps\/084b388f-df64-40d2-a87b-675f97a4df6c",
+            "targetStep": "\/api\/3\/workflow_steps\/7a956696-3c77-4f20-84b9-89f46d36d2f3",
+            "sourceStep": "\/api\/3\/workflow_steps\/f4b1a9fc-4ff9-4bed-9f97-7fd021f1dfd0",
             "label": null,
             "isExecuted": false,
-            "uuid": "05c80ead-cbdb-4c34-806a-bb09bd2d4ae8"
+            "uuid": "6cd84110-ac9e-46f2-8d3b-2f9288e5a1b0"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Check Indicator Type -> Block URLs on FortiGate",
-            "targetStep": "\/api\/3\/workflow_steps\/0570c2af-344d-4358-bb33-c394a41ce1df",
-            "sourceStep": "\/api\/3\/workflow_steps\/928b6d60-a516-44ec-8245-7d1920a335f7",
+            "targetStep": "\/api\/3\/workflow_steps\/df43bd97-f5c0-4a8a-a52e-cd2ec9a68ba8",
+            "sourceStep": "\/api\/3\/workflow_steps\/9de8488b-51eb-4a49-8c5b-c6bc24490673",
             "label": "Block Domain",
             "isExecuted": false,
-            "uuid": "c34cca9c-82dc-476a-9b23-5973c9325972"
+            "uuid": "0ef19c7c-37bd-42cf-86bd-27527293f972"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Search FileHash On Devices -> Copy  of Search FileHash On Devices",
-            "targetStep": "\/api\/3\/workflow_steps\/7e65bd3c-ca6b-4017-9ca8-a61c6740355e",
-            "sourceStep": "\/api\/3\/workflow_steps\/25747436-66e8-4b54-be7d-847c414f9ff7",
+            "targetStep": "\/api\/3\/workflow_steps\/42952801-1889-483f-8fe8-cf781895597f",
+            "sourceStep": "\/api\/3\/workflow_steps\/041ae7b7-7afc-4d25-acb2-f8c1e11a4a80",
             "label": null,
             "isExecuted": false,
-            "uuid": "6e9aa5a0-fc92-44ee-830f-b6ec43b05035"
+            "uuid": "2e708b7e-1fa0-4cba-94e0-b312079aed91"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Check Indicator Type -> Block IPs on FortiGate",
-            "targetStep": "\/api\/3\/workflow_steps\/6d50febf-2c22-4815-9e72-6549f5c1dd7e",
-            "sourceStep": "\/api\/3\/workflow_steps\/928b6d60-a516-44ec-8245-7d1920a335f7",
+            "targetStep": "\/api\/3\/workflow_steps\/b347fe47-ef7d-4945-83fb-5d6bbf057d9f",
+            "sourceStep": "\/api\/3\/workflow_steps\/9de8488b-51eb-4a49-8c5b-c6bc24490673",
             "label": "Block IP Address",
             "isExecuted": false,
-            "uuid": "32f6be2d-698c-48ff-a2bd-048d880ddb10"
+            "uuid": "5604dfee-78fb-489e-8892-ecd5887dab31"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Configuration -> Check Indicator Type",
-            "targetStep": "\/api\/3\/workflow_steps\/928b6d60-a516-44ec-8245-7d1920a335f7",
-            "sourceStep": "\/api\/3\/workflow_steps\/81287f4d-1192-4f2d-a738-2eee2c4d246b",
+            "targetStep": "\/api\/3\/workflow_steps\/9de8488b-51eb-4a49-8c5b-c6bc24490673",
+            "sourceStep": "\/api\/3\/workflow_steps\/7a956696-3c77-4f20-84b9-89f46d36d2f3",
             "label": null,
             "isExecuted": false,
-            "uuid": "812f82b9-38fb-43a9-9e44-155e8fb446b2"
+            "uuid": "24faeb46-360b-4825-a916-098ce751ada4"
         }
     ],
     "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
@@ -271,11 +271,11 @@
         "response",
         "block"
     ],
-    "id": 1144,
-    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "createDate": 1636433438,
-    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "modifyDate": 1636433438,
+    "id": 325,
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1636537437,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1636537437,
     "owners": [],
     "isPrivate": false
 }

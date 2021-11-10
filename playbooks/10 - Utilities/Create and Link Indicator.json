@@ -20,10 +20,10 @@
         "description"
     ],
     "synchronous": false,
-    "lastModifyDate": 1636433420,
+    "lastModifyDate": 1636537406,
     "collection": "\/api\/3\/workflow_collections\/20289298-cdd6-4052-8fa0-11e2603dca00",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/59ff82d9-915e-4b08-9d6b-0ac8a4cd01d5",
+    "triggerStep": "\/api\/3\/workflow_steps\/3a9e79a6-6cc6-45c8-9be8-a48db7dea3e6",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -85,8 +85,8 @@
             "top": "560",
             "left": "480",
             "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
-            "uuid": "a16ba5c4-444a-40c8-95cd-6a8d41b127e5",
-            "id": 4103
+            "uuid": "7840ce5b-6192-473a-af0a-ccaf10294077",
+            "id": 1994
         },
         {
             "@type": "WorkflowStep",
@@ -97,8 +97,8 @@
             "top": "165",
             "left": "300",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "71aa17e5-8b41-4388-a7b2-e9b43d2d7588",
-            "id": 4104
+            "uuid": "d8bf0de6-be9c-4ed4-b822-2d84ffba11fb",
+            "id": 1995
         },
         {
             "@type": "WorkflowStep",
@@ -120,8 +120,8 @@
             "top": "560",
             "left": "120",
             "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
-            "uuid": "8db41a2c-7dbd-4e9b-b111-11b52eabb527",
-            "id": 4105
+            "uuid": "b87b70b9-1605-40a8-85de-225c94c9ec3f",
+            "id": 1996
         },
         {
             "@type": "WorkflowStep",
@@ -147,8 +147,8 @@
             "top": "30",
             "left": "300",
             "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
-            "uuid": "59ff82d9-915e-4b08-9d6b-0ac8a4cd01d5",
-            "id": 4106
+            "uuid": "3a9e79a6-6cc6-45c8-9be8-a48db7dea3e6",
+            "id": 1997
         },
         {
             "@type": "WorkflowStep",
@@ -176,8 +176,8 @@
             "top": "300",
             "left": "300",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
-            "uuid": "fd1b0dcc-aae3-4356-92ee-159e33e5f6d2",
-            "id": 4107
+            "uuid": "03842445-ced4-4ff4-8178-c0cd5ee8c827",
+            "id": 1998
         },
         {
             "@type": "WorkflowStep",
@@ -187,14 +187,14 @@
                 "conditions": [
                     {
                         "option": "Yes",
-                        "step_iri": "\/api\/3\/workflow_steps\/8db41a2c-7dbd-4e9b-b111-11b52eabb527",
+                        "step_iri": "\/api\/3\/workflow_steps\/b87b70b9-1605-40a8-85de-225c94c9ec3f",
                         "condition": "{{ vars.steps.Is_Indicator_Exist | length > 0 }}",
                         "step_name": "Enrich Indicator"
                     },
                     {
                         "option": "No",
                         "default": true,
-                        "step_iri": "\/api\/3\/workflow_steps\/a16ba5c4-444a-40c8-95cd-6a8d41b127e5",
+                        "step_iri": "\/api\/3\/workflow_steps\/7840ce5b-6192-473a-af0a-ccaf10294077",
                         "step_name": "Create New Indicator"
                     }
                 ]
@@ -203,64 +203,64 @@
             "top": "435",
             "left": "300",
             "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
-            "uuid": "ca393605-8b71-4d2f-99c8-44f412db9763",
-            "id": 4108
+            "uuid": "4104b73d-77ac-4a36-9754-3818947d06c5",
+            "id": 1999
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Configuration",
-            "targetStep": "\/api\/3\/workflow_steps\/71aa17e5-8b41-4388-a7b2-e9b43d2d7588",
-            "sourceStep": "\/api\/3\/workflow_steps\/59ff82d9-915e-4b08-9d6b-0ac8a4cd01d5",
+            "targetStep": "\/api\/3\/workflow_steps\/d8bf0de6-be9c-4ed4-b822-2d84ffba11fb",
+            "sourceStep": "\/api\/3\/workflow_steps\/3a9e79a6-6cc6-45c8-9be8-a48db7dea3e6",
             "label": null,
             "isExecuted": false,
-            "uuid": "ede4b654-20d6-4a2a-b2a5-6162920cad2a"
+            "uuid": "84100f5a-9c19-4775-bb00-eb421f5833bd"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Configuration -> Is Indicator Exist",
-            "targetStep": "\/api\/3\/workflow_steps\/fd1b0dcc-aae3-4356-92ee-159e33e5f6d2",
-            "sourceStep": "\/api\/3\/workflow_steps\/71aa17e5-8b41-4388-a7b2-e9b43d2d7588",
+            "targetStep": "\/api\/3\/workflow_steps\/03842445-ced4-4ff4-8178-c0cd5ee8c827",
+            "sourceStep": "\/api\/3\/workflow_steps\/d8bf0de6-be9c-4ed4-b822-2d84ffba11fb",
             "label": null,
             "isExecuted": false,
-            "uuid": "a0649e04-3d68-4bd8-809b-b8a95b450d97"
+            "uuid": "85713f9a-3762-4a3b-99ae-a9d95f7334c3"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Is Indicator Exist -> Is indicator Found",
-            "targetStep": "\/api\/3\/workflow_steps\/ca393605-8b71-4d2f-99c8-44f412db9763",
-            "sourceStep": "\/api\/3\/workflow_steps\/fd1b0dcc-aae3-4356-92ee-159e33e5f6d2",
+            "targetStep": "\/api\/3\/workflow_steps\/4104b73d-77ac-4a36-9754-3818947d06c5",
+            "sourceStep": "\/api\/3\/workflow_steps\/03842445-ced4-4ff4-8178-c0cd5ee8c827",
             "label": null,
             "isExecuted": false,
-            "uuid": "98a5e631-c0f8-4891-8acc-be668937accd"
+            "uuid": "235d08be-e582-4784-b31b-b25b55104e41"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Is indicator Found -> Enrich Indicator",
-            "targetStep": "\/api\/3\/workflow_steps\/8db41a2c-7dbd-4e9b-b111-11b52eabb527",
-            "sourceStep": "\/api\/3\/workflow_steps\/ca393605-8b71-4d2f-99c8-44f412db9763",
+            "targetStep": "\/api\/3\/workflow_steps\/b87b70b9-1605-40a8-85de-225c94c9ec3f",
+            "sourceStep": "\/api\/3\/workflow_steps\/4104b73d-77ac-4a36-9754-3818947d06c5",
             "label": "Yes",
             "isExecuted": false,
-            "uuid": "101a7cb1-5834-49c5-855f-7e2eb46eed9f"
+            "uuid": "c6f3fbe7-4b3a-4b00-b5d7-b6342fb60e22"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Is indicator Found -> Create New Indicator",
-            "targetStep": "\/api\/3\/workflow_steps\/a16ba5c4-444a-40c8-95cd-6a8d41b127e5",
-            "sourceStep": "\/api\/3\/workflow_steps\/ca393605-8b71-4d2f-99c8-44f412db9763",
+            "targetStep": "\/api\/3\/workflow_steps\/7840ce5b-6192-473a-af0a-ccaf10294077",
+            "sourceStep": "\/api\/3\/workflow_steps\/4104b73d-77ac-4a36-9754-3818947d06c5",
             "label": "No",
             "isExecuted": false,
-            "uuid": "5a4d7efa-a160-4da7-8421-f9d71125d59b"
+            "uuid": "098117b7-c598-4462-999a-2ba4ac3c6a40"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Create New Indicator -> Enrich Indicator",
-            "targetStep": "\/api\/3\/workflow_steps\/8db41a2c-7dbd-4e9b-b111-11b52eabb527",
-            "sourceStep": "\/api\/3\/workflow_steps\/a16ba5c4-444a-40c8-95cd-6a8d41b127e5",
+            "targetStep": "\/api\/3\/workflow_steps\/b87b70b9-1605-40a8-85de-225c94c9ec3f",
+            "sourceStep": "\/api\/3\/workflow_steps\/7840ce5b-6192-473a-af0a-ccaf10294077",
             "label": null,
             "isExecuted": false,
-            "uuid": "d5ab2ef8-9c50-4dbf-bf71-b298a01cdf96"
+            "uuid": "6dbd8c4b-7294-4f96-a0dc-03c5d3646e4d"
         }
     ],
     "priority": null,
@@ -271,11 +271,11 @@
         "DeDuplicate",
         "Relate"
     ],
-    "id": 1101,
-    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "createDate": 1636433436,
-    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "modifyDate": 1636433436,
+    "id": 282,
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1636537432,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1636537432,
     "owners": [],
     "isPrivate": false
 }

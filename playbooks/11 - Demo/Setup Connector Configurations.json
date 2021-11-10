@@ -11,10 +11,10 @@
     "remoteExecutableFlag": false,
     "parameters": [],
     "synchronous": false,
-    "lastModifyDate": 1636433420,
+    "lastModifyDate": 1636537406,
     "collection": "\/api\/3\/workflow_collections\/a41c4bc4-5b29-4701-96e7-e62e21e8763e",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/f04aacd3-4afe-4aad-a679-d8b147f9c6f0",
+    "triggerStep": "\/api\/3\/workflow_steps\/dbf17c70-3e90-436f-ad2b-f17e839b98e7",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -36,8 +36,8 @@
             "top": "435",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
-            "uuid": "8f9268c6-a0be-4d0a-97b1-d9c4d3a14916",
-            "id": 4339
+            "uuid": "818d6a41-9cd3-4928-a93a-6edf2920e4d4",
+            "id": 2230
         },
         {
             "@type": "WorkflowStep",
@@ -57,8 +57,8 @@
             "top": "165",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
-            "uuid": "7e8be873-a512-4250-b862-fd1823d763b8",
-            "id": 4340
+            "uuid": "79e44091-8307-45f3-9175-3d5c6919d988",
+            "id": 2231
         },
         {
             "@type": "WorkflowStep",
@@ -71,8 +71,8 @@
             "top": "570",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "3819f651-1552-4f1d-823c-32f10ee4f734",
-            "id": 4341
+            "uuid": "0325ba45-f545-4ba8-bd2d-7839eb97fde4",
+            "id": 2232
         },
         {
             "@type": "WorkflowStep",
@@ -85,8 +85,8 @@
             "top": "300",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "bacecee8-5be0-477f-90d0-8a773a1aa6d8",
-            "id": 4342
+            "uuid": "900fc02e-6c50-4649-88f4-1b50c5220676",
+            "id": 2233
         },
         {
             "@type": "WorkflowStep",
@@ -156,8 +156,8 @@
             "top": "30",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-            "uuid": "f04aacd3-4afe-4aad-a679-d8b147f9c6f0",
-            "id": 4343
+            "uuid": "dbf17c70-3e90-436f-ad2b-f17e839b98e7",
+            "id": 2234
         },
         {
             "@type": "WorkflowStep",
@@ -182,55 +182,55 @@
             "top": "700",
             "left": "120",
             "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
-            "uuid": "c646b5a1-1670-4dfd-98bd-4bccd3857b5d",
-            "id": 4344
+            "uuid": "f8c1575d-a866-4ab4-a335-9c66b151342f",
+            "id": 2235
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Get Connector Details -> Config Var",
-            "targetStep": "\/api\/3\/workflow_steps\/3819f651-1552-4f1d-823c-32f10ee4f734",
-            "sourceStep": "\/api\/3\/workflow_steps\/8f9268c6-a0be-4d0a-97b1-d9c4d3a14916",
+            "targetStep": "\/api\/3\/workflow_steps\/0325ba45-f545-4ba8-bd2d-7839eb97fde4",
+            "sourceStep": "\/api\/3\/workflow_steps\/818d6a41-9cd3-4928-a93a-6edf2920e4d4",
             "label": null,
             "isExecuted": false,
-            "uuid": "963e219a-6ca7-40bc-a266-552e24df5e8b"
+            "uuid": "86139731-4afe-4587-82d1-8519fef57a80"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Get Data -> Select Connector",
-            "targetStep": "\/api\/3\/workflow_steps\/c646b5a1-1670-4dfd-98bd-4bccd3857b5d",
-            "sourceStep": "\/api\/3\/workflow_steps\/3819f651-1552-4f1d-823c-32f10ee4f734",
+            "targetStep": "\/api\/3\/workflow_steps\/f8c1575d-a866-4ab4-a335-9c66b151342f",
+            "sourceStep": "\/api\/3\/workflow_steps\/0325ba45-f545-4ba8-bd2d-7839eb97fde4",
             "label": null,
             "isExecuted": false,
-            "uuid": "3b11c0fa-c838-45b6-9a35-b17d9d448cfd"
+            "uuid": "2f2beed0-4b2f-4de2-a4e9-d2a5e63e5ba7"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Configuration -> Get Connector Details",
-            "targetStep": "\/api\/3\/workflow_steps\/8f9268c6-a0be-4d0a-97b1-d9c4d3a14916",
-            "sourceStep": "\/api\/3\/workflow_steps\/bacecee8-5be0-477f-90d0-8a773a1aa6d8",
+            "targetStep": "\/api\/3\/workflow_steps\/818d6a41-9cd3-4928-a93a-6edf2920e4d4",
+            "sourceStep": "\/api\/3\/workflow_steps\/900fc02e-6c50-4649-88f4-1b50c5220676",
             "label": null,
             "isExecuted": false,
-            "uuid": "ea50a3dc-1208-4bd0-8642-d016001e2fc1"
+            "uuid": "d11edb3f-5292-45fd-acc2-422428e255d1"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Get File Path",
-            "targetStep": "\/api\/3\/workflow_steps\/7e8be873-a512-4250-b862-fd1823d763b8",
-            "sourceStep": "\/api\/3\/workflow_steps\/f04aacd3-4afe-4aad-a679-d8b147f9c6f0",
+            "targetStep": "\/api\/3\/workflow_steps\/79e44091-8307-45f3-9175-3d5c6919d988",
+            "sourceStep": "\/api\/3\/workflow_steps\/dbf17c70-3e90-436f-ad2b-f17e839b98e7",
             "label": null,
             "isExecuted": false,
-            "uuid": "87631bd1-dc30-49b7-9a67-da9e9969a570"
+            "uuid": "05f8127c-9871-46cd-b286-9dcfc12a7da7"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Get File Path -> Configuration",
-            "targetStep": "\/api\/3\/workflow_steps\/bacecee8-5be0-477f-90d0-8a773a1aa6d8",
-            "sourceStep": "\/api\/3\/workflow_steps\/7e8be873-a512-4250-b862-fd1823d763b8",
+            "targetStep": "\/api\/3\/workflow_steps\/900fc02e-6c50-4649-88f4-1b50c5220676",
+            "sourceStep": "\/api\/3\/workflow_steps\/79e44091-8307-45f3-9175-3d5c6919d988",
             "label": null,
             "isExecuted": false,
-            "uuid": "bb77c189-cbb0-4bc0-bdad-f9fba657abbe"
+            "uuid": "d19a7f25-224f-427e-a3d6-6ce50e368eca"
         }
     ],
     "priority": null,
@@ -238,11 +238,11 @@
     "recordTags": [
         "ManualAction"
     ],
-    "id": 1128,
-    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "createDate": 1636433436,
-    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "modifyDate": 1636433436,
+    "id": 309,
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1636537433,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1636537433,
     "owners": [],
     "isPrivate": false
 }

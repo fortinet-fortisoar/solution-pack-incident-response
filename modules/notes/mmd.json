@@ -9,14 +9,14 @@
     "userOwnable": false,
     "trackable": true,
     "taggable": true,
-    "peerReplicable": false,
+    "peerReplicable": true,
     "defaultSort": [],
     "uniqueConstraint": [],
     "indexable": true,
     "writable": true,
     "attributes": [
         {
-            "@id": "\/api\/3\/attribute_metadatas\/49eb4028-f226-4f5d-91f8-9e394a5dc1de",
+            "@id": "\/api\/3\/attribute_metadatas\/12edada1-4409-4694-9752-ed7fc4923576",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "note",
@@ -52,14 +52,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/3bf592d5-1ed9-4add-9e49-11e3598a5688",
-            "uuid": "49eb4028-f226-4f5d-91f8-9e394a5dc1de",
+            "uuid": "12edada1-4409-4694-9752-ed7fc4923576",
             "displayName": "{{ note }}",
             "descriptions": {
                 "singular": "Note"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/bafc268d-90a3-40dc-b903-ddd554f5b812",
+            "@id": "\/api\/3\/attribute_metadatas\/d4c1c4a1-7024-4047-a9f4-190f0854d0dc",
             "@type": "AttributeMetadata",
             "type": "alerts",
             "name": "alerts",
@@ -97,14 +97,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/3bf592d5-1ed9-4add-9e49-11e3598a5688",
-            "uuid": "bafc268d-90a3-40dc-b903-ddd554f5b812",
+            "uuid": "d4c1c4a1-7024-4047-a9f4-190f0854d0dc",
             "displayName": "{{ alerts }}",
             "descriptions": {
                 "singular": "Alerts"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/925d691f-b338-4ab2-b1d7-38e976480b19",
+            "@id": "\/api\/3\/attribute_metadatas\/3e9b3bba-449a-4de8-99bb-07012f5a9f73",
             "@type": "AttributeMetadata",
             "type": "incidents",
             "name": "incidents",
@@ -142,14 +142,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/3bf592d5-1ed9-4add-9e49-11e3598a5688",
-            "uuid": "925d691f-b338-4ab2-b1d7-38e976480b19",
+            "uuid": "3e9b3bba-449a-4de8-99bb-07012f5a9f73",
             "displayName": "{{ incidents }}",
             "descriptions": {
                 "singular": "Incidents"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/e1d1236e-3146-476c-931c-e672046b818c",
+            "@id": "\/api\/3\/attribute_metadatas\/b389f926-104e-4dcf-8961-e14a346794cf",
             "@type": "AttributeMetadata",
             "type": "assets",
             "name": "assets",
@@ -187,14 +187,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/3bf592d5-1ed9-4add-9e49-11e3598a5688",
-            "uuid": "e1d1236e-3146-476c-931c-e672046b818c",
+            "uuid": "b389f926-104e-4dcf-8961-e14a346794cf",
             "displayName": "{{ assets }}",
             "descriptions": {
                 "singular": "Assets"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/23c0e8b7-326a-4285-88ca-528749973dc2",
+            "@id": "\/api\/3\/attribute_metadatas\/c071125d-65bb-42dc-954c-0a2e572321f9",
             "@type": "AttributeMetadata",
             "type": "companies",
             "name": "companies",
@@ -232,14 +232,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/3bf592d5-1ed9-4add-9e49-11e3598a5688",
-            "uuid": "23c0e8b7-326a-4285-88ca-528749973dc2",
+            "uuid": "c071125d-65bb-42dc-954c-0a2e572321f9",
             "displayName": "{{ companies }}",
             "descriptions": {
                 "singular": "Companies"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/10376c48-331c-4144-8f59-3e1ceaefbd13",
+            "@id": "\/api\/3\/attribute_metadatas\/ee1cd7ed-0488-4d29-9193-578427e4214f",
             "@type": "AttributeMetadata",
             "type": "tasks",
             "name": "tasks",
@@ -277,14 +277,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/3bf592d5-1ed9-4add-9e49-11e3598a5688",
-            "uuid": "10376c48-331c-4144-8f59-3e1ceaefbd13",
+            "uuid": "ee1cd7ed-0488-4d29-9193-578427e4214f",
             "displayName": "{{ tasks }}",
             "descriptions": {
                 "singular": "Tasks"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/abf3a1a5-9328-4569-8606-0fac3d41eb99",
+            "@id": "\/api\/3\/attribute_metadatas\/76e2ff68-fcbb-499a-a832-3d5a629b79f3",
             "@type": "AttributeMetadata",
             "type": "vulnerabilities",
             "name": "vulnerabilities",
@@ -322,14 +322,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/3bf592d5-1ed9-4add-9e49-11e3598a5688",
-            "uuid": "abf3a1a5-9328-4569-8606-0fac3d41eb99",
+            "uuid": "76e2ff68-fcbb-499a-a832-3d5a629b79f3",
             "displayName": "{{ vulnerabilities }}",
             "descriptions": {
                 "singular": "Vulnerabilities"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/1ebf55a1-04d8-4166-90d8-96a00ecea5b5",
+            "@id": "\/api\/3\/attribute_metadatas\/78b8e5b7-aa23-4b39-9963-ad09b373b20e",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "uuid",
@@ -365,14 +365,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/3bf592d5-1ed9-4add-9e49-11e3598a5688",
-            "uuid": "1ebf55a1-04d8-4166-90d8-96a00ecea5b5",
+            "uuid": "78b8e5b7-aa23-4b39-9963-ad09b373b20e",
             "displayName": "{{ uuid }}",
             "descriptions": {
                 "singular": "UUID"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/43ede32b-a8f9-45fb-a992-6b947f1e483a",
+            "@id": "\/api\/3\/attribute_metadatas\/57cef7db-557f-49e8-99bb-554ce0a307cc",
             "@type": "AttributeMetadata",
             "type": "indicators",
             "name": "indicators",
@@ -408,14 +408,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/3bf592d5-1ed9-4add-9e49-11e3598a5688",
-            "uuid": "43ede32b-a8f9-45fb-a992-6b947f1e483a",
+            "uuid": "57cef7db-557f-49e8-99bb-554ce0a307cc",
             "displayName": "{{ indicators }}",
             "descriptions": {
                 "singular": "Indicator"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/c11d60bb-e05f-4b41-95da-83e6183367d3",
+            "@id": "\/api\/3\/attribute_metadatas\/4ad1fce9-a885-4768-ad4d-c33b1c2b1319",
             "@type": "AttributeMetadata",
             "type": "people",
             "name": "people",
@@ -451,14 +451,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/3bf592d5-1ed9-4add-9e49-11e3598a5688",
-            "uuid": "c11d60bb-e05f-4b41-95da-83e6183367d3",
+            "uuid": "4ad1fce9-a885-4768-ad4d-c33b1c2b1319",
             "displayName": "{{ people }}",
             "descriptions": {
                 "singular": "People"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/b6862b3b-1968-4164-acaa-9418eb6fcdc0",
+            "@id": "\/api\/3\/attribute_metadatas\/1578f646-6365-44a7-9a7d-52603a50564b",
             "@type": "AttributeMetadata",
             "type": "campaigns",
             "name": "campaigns",
@@ -490,7 +490,7 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/3bf592d5-1ed9-4add-9e49-11e3598a5688",
-            "uuid": "b6862b3b-1968-4164-acaa-9418eb6fcdc0",
+            "uuid": "1578f646-6365-44a7-9a7d-52603a50564b",
             "displayName": "{{Campaign}}",
             "descriptions": {
                 "singular": "Campaign"

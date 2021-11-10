@@ -9,7 +9,7 @@
     "userOwnable": false,
     "trackable": true,
     "taggable": true,
-    "peerReplicable": false,
+    "peerReplicable": true,
     "defaultSort": [],
     "uniqueConstraint": [
         {
@@ -24,7 +24,7 @@
     "writable": true,
     "attributes": [
         {
-            "@id": "\/api\/3\/attribute_metadatas\/0c8787ea-a6f8-4e27-82b4-7016a13fd8a3",
+            "@id": "\/api\/3\/attribute_metadatas\/8ffe87bb-c3af-498c-aa5c-1b829695c65e",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "emailFrom",
@@ -63,14 +63,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/76c79374-7d54-46ca-9e00-7a920b45f86b",
-            "uuid": "0c8787ea-a6f8-4e27-82b4-7016a13fd8a3",
+            "uuid": "8ffe87bb-c3af-498c-aa5c-1b829695c65e",
             "displayName": "{{ emailFrom }}",
             "descriptions": {
                 "singular": "From"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/9c582b98-e329-414a-9db3-c4cb45b5499e",
+            "@id": "\/api\/3\/attribute_metadatas\/ca9f3abb-7ea8-43be-9fb3-25dfbcc6760f",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "emailTo",
@@ -109,14 +109,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/76c79374-7d54-46ca-9e00-7a920b45f86b",
-            "uuid": "9c582b98-e329-414a-9db3-c4cb45b5499e",
+            "uuid": "ca9f3abb-7ea8-43be-9fb3-25dfbcc6760f",
             "displayName": "{{ emailTo }}",
             "descriptions": {
                 "singular": "To"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/a7204e12-793c-4d94-9c14-21e32e5d7afe",
+            "@id": "\/api\/3\/attribute_metadatas\/213e5dfc-9f35-408c-8fb6-41783c4159be",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "emailBcc",
@@ -155,14 +155,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/76c79374-7d54-46ca-9e00-7a920b45f86b",
-            "uuid": "a7204e12-793c-4d94-9c14-21e32e5d7afe",
+            "uuid": "213e5dfc-9f35-408c-8fb6-41783c4159be",
             "displayName": "{{ emailBcc }}",
             "descriptions": {
                 "singular": "Bcc"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/0d3e15b5-dc20-4f49-b4ca-1ea2a5e085e5",
+            "@id": "\/api\/3\/attribute_metadatas\/6bebcae2-d9f8-445b-996c-573aa2ae0275",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "emailCc",
@@ -201,14 +201,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/76c79374-7d54-46ca-9e00-7a920b45f86b",
-            "uuid": "0d3e15b5-dc20-4f49-b4ca-1ea2a5e085e5",
+            "uuid": "6bebcae2-d9f8-445b-996c-573aa2ae0275",
             "displayName": "{{ emailCc }}",
             "descriptions": {
                 "singular": "CC"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/2c278c9e-db74-4a3b-82f4-4c07875f4e20",
+            "@id": "\/api\/3\/attribute_metadatas\/fb0ef3ef-cdf2-448f-b37e-a3e31708ece9",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "emailSubject",
@@ -247,14 +247,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/76c79374-7d54-46ca-9e00-7a920b45f86b",
-            "uuid": "2c278c9e-db74-4a3b-82f4-4c07875f4e20",
+            "uuid": "fb0ef3ef-cdf2-448f-b37e-a3e31708ece9",
             "displayName": "{{ emailSubject }}",
             "descriptions": {
                 "singular": "Subject"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/1f4cd2bb-f56a-4f3c-86fe-23e5da66be1a",
+            "@id": "\/api\/3\/attribute_metadatas\/942ce305-e8a6-4588-89d6-f9e5a80ccb9b",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "emailBody",
@@ -293,14 +293,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/76c79374-7d54-46ca-9e00-7a920b45f86b",
-            "uuid": "1f4cd2bb-f56a-4f3c-86fe-23e5da66be1a",
+            "uuid": "942ce305-e8a6-4588-89d6-f9e5a80ccb9b",
             "displayName": "{{ emailBody }}",
             "descriptions": {
                 "singular": "Body"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/23834bdc-36ea-4583-9103-c9b30ee7b065",
+            "@id": "\/api\/3\/attribute_metadatas\/bb16b320-f581-4a94-9728-f8ef65673b00",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "emailHeader",
@@ -339,14 +339,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/76c79374-7d54-46ca-9e00-7a920b45f86b",
-            "uuid": "23834bdc-36ea-4583-9103-c9b30ee7b065",
+            "uuid": "bb16b320-f581-4a94-9728-f8ef65673b00",
             "displayName": "{{ emailHeader }}",
             "descriptions": {
                 "singular": "Header"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/16ec93d0-6725-4bf3-b0e3-4eaf7b2b0bb7",
+            "@id": "\/api\/3\/attribute_metadatas\/fcf07053-3c65-44b7-866d-ea7ff07acb11",
             "@type": "AttributeMetadata",
             "type": "indicators",
             "name": "indicators",
@@ -382,14 +382,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/76c79374-7d54-46ca-9e00-7a920b45f86b",
-            "uuid": "16ec93d0-6725-4bf3-b0e3-4eaf7b2b0bb7",
+            "uuid": "fcf07053-3c65-44b7-866d-ea7ff07acb11",
             "displayName": "{{ indicators }}",
             "descriptions": {
                 "singular": "Indicators"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/66205161-73b4-46a7-a73c-9f58fcb2dd89",
+            "@id": "\/api\/3\/attribute_metadatas\/efeeaaa3-9794-4d20-a55c-b496b46ab1ea",
             "@type": "AttributeMetadata",
             "type": "incidents",
             "name": "incidents",
@@ -425,14 +425,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/76c79374-7d54-46ca-9e00-7a920b45f86b",
-            "uuid": "66205161-73b4-46a7-a73c-9f58fcb2dd89",
+            "uuid": "efeeaaa3-9794-4d20-a55c-b496b46ab1ea",
             "displayName": "{{ incidents }}",
             "descriptions": {
                 "singular": "Incident"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/798a1b5a-60c9-4907-b256-5af88a84741c",
+            "@id": "\/api\/3\/attribute_metadatas\/34bd7ceb-dd96-40ea-84f4-4ac22d7e9137",
             "@type": "AttributeMetadata",
             "type": "alerts",
             "name": "alerts",
@@ -468,14 +468,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/76c79374-7d54-46ca-9e00-7a920b45f86b",
-            "uuid": "798a1b5a-60c9-4907-b256-5af88a84741c",
+            "uuid": "34bd7ceb-dd96-40ea-84f4-4ac22d7e9137",
             "displayName": "{{ alerts }}",
             "descriptions": {
                 "singular": "Alert"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/cb5586d9-b2de-4d31-8664-9e6210998d29",
+            "@id": "\/api\/3\/attribute_metadatas\/44931b55-1f8f-4c57-a0a0-7faf79e2d05d",
             "@type": "AttributeMetadata",
             "type": "comments",
             "name": "comments",
@@ -511,14 +511,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/76c79374-7d54-46ca-9e00-7a920b45f86b",
-            "uuid": "cb5586d9-b2de-4d31-8664-9e6210998d29",
+            "uuid": "44931b55-1f8f-4c57-a0a0-7faf79e2d05d",
             "displayName": "{{ comments }}",
             "descriptions": {
                 "singular": "Comments"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/8e14d998-22cd-4e3e-b424-18337f3d3e56",
+            "@id": "\/api\/3\/attribute_metadatas\/7d83fc33-158c-4084-b5f9-9598de580b90",
             "@type": "AttributeMetadata",
             "type": "emails",
             "name": "emails",
@@ -554,14 +554,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/76c79374-7d54-46ca-9e00-7a920b45f86b",
-            "uuid": "8e14d998-22cd-4e3e-b424-18337f3d3e56",
+            "uuid": "7d83fc33-158c-4084-b5f9-9598de580b90",
             "displayName": "{{ emails }}",
             "descriptions": {
                 "singular": "Emails"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/c4fc0066-8595-43a1-ab6d-bddd488948d2",
+            "@id": "\/api\/3\/attribute_metadatas\/dce94586-604a-42ab-b562-209d16fe4ad2",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "sourceId",
@@ -600,7 +600,7 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/76c79374-7d54-46ca-9e00-7a920b45f86b",
-            "uuid": "c4fc0066-8595-43a1-ab6d-bddd488948d2",
+            "uuid": "dce94586-604a-42ab-b562-209d16fe4ad2",
             "displayName": "{{ sourceid }}",
             "descriptions": {
                 "singular": "Source ID"
