@@ -11,10 +11,10 @@
     "remoteExecutableFlag": false,
     "parameters": [],
     "synchronous": false,
-    "lastModifyDate": 1636433420,
+    "lastModifyDate": 1636537406,
     "collection": "\/api\/3\/workflow_collections\/3c3b049e-5ecb-464a-83f6-5af6a230c0ed",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/5b060ded-c2da-4420-bd31-f6033d37eb48",
+    "triggerStep": "\/api\/3\/workflow_steps\/4d0851b7-34d7-4919-8b46-56072041316d",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -39,8 +39,8 @@
             "top": "165",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
-            "uuid": "3bf7b088-19ca-493f-a103-d0ba92b499c7",
-            "id": 3935
+            "uuid": "78984e00-9ea4-4a5c-820a-6df08d9d5879",
+            "id": 1826
         },
         {
             "@type": "WorkflowStep",
@@ -80,19 +80,19 @@
             "top": "30",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/9300bf69-5063-486d-b3a6-47eb9da24872",
-            "uuid": "5b060ded-c2da-4420-bd31-f6033d37eb48",
-            "id": 3936
+            "uuid": "4d0851b7-34d7-4919-8b46-56072041316d",
+            "id": 1827
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Set Phase Dates",
-            "targetStep": "\/api\/3\/workflow_steps\/3bf7b088-19ca-493f-a103-d0ba92b499c7",
-            "sourceStep": "\/api\/3\/workflow_steps\/5b060ded-c2da-4420-bd31-f6033d37eb48",
+            "targetStep": "\/api\/3\/workflow_steps\/78984e00-9ea4-4a5c-820a-6df08d9d5879",
+            "sourceStep": "\/api\/3\/workflow_steps\/4d0851b7-34d7-4919-8b46-56072041316d",
             "label": null,
             "isExecuted": false,
-            "uuid": "74b7d41b-e75e-4032-9273-37821a99e3d3"
+            "uuid": "75e8d770-26a9-4569-bf13-702e8f3814b7"
         }
     ],
     "priority": null,
@@ -101,11 +101,11 @@
         "system",
         "PostUpdate"
     ],
-    "id": 1075,
-    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "createDate": 1636433433,
-    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "modifyDate": 1636433433,
+    "id": 256,
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1636537429,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1636537429,
     "owners": [],
     "isPrivate": false
 }

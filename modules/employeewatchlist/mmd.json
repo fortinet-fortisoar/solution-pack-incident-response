@@ -1,6 +1,6 @@
 {
     "@context": "\/api\/3\/contexts\/StagingModelMetadata",
-    "@id": "\/api\/3\/staging_model_metadatas\/3c09e3e6-5ac2-45a4-8d83-7d43d133e621",
+    "@id": "\/api\/3\/staging_model_metadatas\/6ae29f69-a1e7-43e8-9423-8e1a91651879",
     "@type": "StagingModelMetadata",
     "type": "employeewatchlist",
     "parentType": null,
@@ -16,7 +16,7 @@
     "writable": true,
     "attributes": [
         {
-            "@id": "\/api\/3\/attribute_metadatas\/1ca22150-94bc-464f-8dd3-bcb095fa749b",
+            "@id": "\/api\/3\/attribute_metadatas\/616bb255-2699-4c2d-8ae8-d06ddaf400a9",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "employeeName",
@@ -54,15 +54,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/3c09e3e6-5ac2-45a4-8d83-7d43d133e621",
-            "uuid": "1ca22150-94bc-464f-8dd3-bcb095fa749b",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/6ae29f69-a1e7-43e8-9423-8e1a91651879",
+            "uuid": "616bb255-2699-4c2d-8ae8-d06ddaf400a9",
             "displayName": "{{ employeeName }}",
             "descriptions": {
                 "singular": "Employee Name"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/8dd3571b-3cda-4fa5-befd-1607e35466d3",
+            "@id": "\/api\/3\/attribute_metadatas\/be03a3a0-2165-401b-b778-a595b45455d2",
             "@type": "AttributeMetadata",
             "type": "picklists",
             "name": "status",
@@ -118,8 +118,8 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/3c09e3e6-5ac2-45a4-8d83-7d43d133e621",
-            "uuid": "8dd3571b-3cda-4fa5-befd-1607e35466d3",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/6ae29f69-a1e7-43e8-9423-8e1a91651879",
+            "uuid": "be03a3a0-2165-401b-b778-a595b45455d2",
             "displayName": "{{ status }}",
             "descriptions": {
                 "singular": "Employee Status"
@@ -128,7 +128,7 @@
     ],
     "system": false,
     "module": "employeewatchlist",
-    "uuid": "3c09e3e6-5ac2-45a4-8d83-7d43d133e621",
+    "uuid": "6ae29f69-a1e7-43e8-9423-8e1a91651879",
     "displayName": "Employee Watchlist",
     "descriptions": {
         "plural": "Employee Watchlist",

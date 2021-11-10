@@ -9,7 +9,7 @@
     "userOwnable": true,
     "trackable": true,
     "taggable": true,
-    "peerReplicable": false,
+    "peerReplicable": true,
     "defaultSort": [],
     "uniqueConstraint": [
         {
@@ -25,7 +25,7 @@
     "writable": true,
     "attributes": [
         {
-            "@id": "\/api\/3\/attribute_metadatas\/1be280aa-8c93-4b4d-b5fe-12678f8ff600",
+            "@id": "\/api\/3\/attribute_metadatas\/37976d31-6959-4109-9601-d9959633cf38",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "uuid",
@@ -61,14 +61,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "1be280aa-8c93-4b4d-b5fe-12678f8ff600",
+            "uuid": "37976d31-6959-4109-9601-d9959633cf38",
             "displayName": "{{ uuid }}",
             "descriptions": {
                 "singular": "UUID"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/18b4ba62-c842-42fa-a44d-1abde9c632a0",
+            "@id": "\/api\/3\/attribute_metadatas\/f2aadcb6-281f-4ec0-97a4-e610ab8d000a",
             "@type": "AttributeMetadata",
             "type": "warrooms",
             "name": "warrooms",
@@ -104,14 +104,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "18b4ba62-c842-42fa-a44d-1abde9c632a0",
+            "uuid": "f2aadcb6-281f-4ec0-97a4-e610ab8d000a",
             "displayName": "{{ warrooms }}",
             "descriptions": {
                 "singular": "War Rooms"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/a496b7aa-3e9a-4b8b-abac-d383863b4628",
+            "@id": "\/api\/3\/attribute_metadatas\/5c46e901-8030-4702-a484-daca105a293a",
             "@type": "AttributeMetadata",
             "type": "users",
             "name": "users",
@@ -147,14 +147,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "a496b7aa-3e9a-4b8b-abac-d383863b4628",
+            "uuid": "5c46e901-8030-4702-a484-daca105a293a",
             "displayName": "{{ users }}",
             "descriptions": {
                 "singular": "Users"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/1ffa9221-e55f-4a4c-ab7a-09f7a4220af6",
+            "@id": "\/api\/3\/attribute_metadatas\/2c9c540d-3f4d-40b8-9e0f-ca1d9619dea9",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "emailId",
@@ -193,14 +193,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "1ffa9221-e55f-4a4c-ab7a-09f7a4220af6",
+            "uuid": "2c9c540d-3f4d-40b8-9e0f-ca1d9619dea9",
             "displayName": "{{ emailId }}",
             "descriptions": {
                 "singular": "Email ID"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/49a7f485-6f4e-4bdf-9487-46b7c5cebb29",
+            "@id": "\/api\/3\/attribute_metadatas\/e522bc5b-f6dc-44ad-957b-ba14a831e0d2",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "deviceUid",
@@ -239,14 +239,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "49a7f485-6f4e-4bdf-9487-46b7c5cebb29",
+            "uuid": "e522bc5b-f6dc-44ad-957b-ba14a831e0d2",
             "displayName": "{{ deviceUid }}",
             "descriptions": {
                 "singular": "Device UID"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/d0dc2444-9de3-49c3-9614-721d80879b46",
+            "@id": "\/api\/3\/attribute_metadatas\/c99159f9-aa4f-41d5-ba36-6cd7f3db6075",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "name",
@@ -282,14 +282,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "d0dc2444-9de3-49c3-9614-721d80879b46",
+            "uuid": "c99159f9-aa4f-41d5-ba36-6cd7f3db6075",
             "displayName": "{{ name }}",
             "descriptions": {
                 "singular": "Display Name"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/b3f7cdce-3b0c-45f1-8a73-71ea77b295e1",
+            "@id": "\/api\/3\/attribute_metadatas\/c0800ae8-4606-427d-8062-6fc62c2497b9",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "hostname",
@@ -325,14 +325,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "b3f7cdce-3b0c-45f1-8a73-71ea77b295e1",
+            "uuid": "c0800ae8-4606-427d-8062-6fc62c2497b9",
             "displayName": "{{ hostname }}",
             "descriptions": {
                 "singular": "Hostname"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/02899a91-37c3-461f-b4a2-60216081bb13",
+            "@id": "\/api\/3\/attribute_metadatas\/ee3ba599-265b-4b48-a63e-08b30d08c2aa",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "macAddress",
@@ -380,14 +380,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "02899a91-37c3-461f-b4a2-60216081bb13",
+            "uuid": "ee3ba599-265b-4b48-a63e-08b30d08c2aa",
             "displayName": "{{ macAddress }}",
             "descriptions": {
                 "singular": "MAC Address"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/8ae37d46-09c2-499f-9c4a-98a56d8da26d",
+            "@id": "\/api\/3\/attribute_metadatas\/53949853-e438-45ce-8dc5-5174b9e6a9c8",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "ip",
@@ -435,14 +435,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "8ae37d46-09c2-499f-9c4a-98a56d8da26d",
+            "uuid": "53949853-e438-45ce-8dc5-5174b9e6a9c8",
             "displayName": "{{ ip }}",
             "descriptions": {
                 "singular": "IP Address"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/012babc7-6516-4352-b22b-276ffcfff2dd",
+            "@id": "\/api\/3\/attribute_metadatas\/cbacbb09-3657-421d-a339-2d3327ff77ff",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "description",
@@ -478,14 +478,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "012babc7-6516-4352-b22b-276ffcfff2dd",
+            "uuid": "cbacbb09-3657-421d-a339-2d3327ff77ff",
             "displayName": "{{ description }}",
             "descriptions": {
                 "singular": "Description"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/85cc71d9-3ac9-475f-a821-ed8712ca98df",
+            "@id": "\/api\/3\/attribute_metadatas\/79096415-99e1-412f-8ff6-e4f544c2f7b4",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "tag",
@@ -521,14 +521,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "85cc71d9-3ac9-475f-a821-ed8712ca98df",
+            "uuid": "79096415-99e1-412f-8ff6-e4f544c2f7b4",
             "displayName": "{{ tag }}",
             "descriptions": {
                 "singular": "Asset Tag"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/b824e313-edc6-4e85-b223-e9e14b45a4a9",
+            "@id": "\/api\/3\/attribute_metadatas\/a47091e0-39e9-4fe2-8f64-6178c491c791",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "serialNumber",
@@ -564,14 +564,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "b824e313-edc6-4e85-b223-e9e14b45a4a9",
+            "uuid": "a47091e0-39e9-4fe2-8f64-6178c491c791",
             "displayName": "{{ serialNumber }}",
             "descriptions": {
                 "singular": "Serial No"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/8e6cb3b0-6ee2-497e-945d-f64d44589acb",
+            "@id": "\/api\/3\/attribute_metadatas\/fcdd759b-740b-4921-a19c-abd6ec7bd8ee",
             "@type": "AttributeMetadata",
             "type": "integer",
             "name": "registrationDate",
@@ -607,14 +607,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "8e6cb3b0-6ee2-497e-945d-f64d44589acb",
+            "uuid": "fcdd759b-740b-4921-a19c-abd6ec7bd8ee",
             "displayName": "{{ registrationDate }}",
             "descriptions": {
                 "singular": "Asset Registration Date"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/eb92a909-e60d-48da-918b-b0a9146a7ea2",
+            "@id": "\/api\/3\/attribute_metadatas\/2fc5f925-efb9-4c79-ab02-f75b0fcf1ee6",
             "@type": "AttributeMetadata",
             "type": "integer",
             "name": "dateScanned",
@@ -650,14 +650,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "eb92a909-e60d-48da-918b-b0a9146a7ea2",
+            "uuid": "2fc5f925-efb9-4c79-ab02-f75b0fcf1ee6",
             "displayName": "{{ dateScanned }}",
             "descriptions": {
                 "singular": "Last Scanned On"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/03eaea14-f02d-4bb9-a02d-6f5203ad4299",
+            "@id": "\/api\/3\/attribute_metadatas\/ce0bc6fc-3715-4a1a-9cdd-2e56fbb187b7",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "propertyOf",
@@ -693,14 +693,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "03eaea14-f02d-4bb9-a02d-6f5203ad4299",
+            "uuid": "ce0bc6fc-3715-4a1a-9cdd-2e56fbb187b7",
             "displayName": "{{ propertyOf }}",
             "descriptions": {
                 "singular": "Property Of"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/06b60a6b-3b5f-4ae6-bd99-65b1d85994ed",
+            "@id": "\/api\/3\/attribute_metadatas\/d4c7306a-f28e-410e-87ba-1ecae229e585",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "location",
@@ -736,14 +736,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "06b60a6b-3b5f-4ae6-bd99-65b1d85994ed",
+            "uuid": "d4c7306a-f28e-410e-87ba-1ecae229e585",
             "displayName": "{{ location }}",
             "descriptions": {
                 "singular": "Location"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/c4d9fe2b-2d91-4cea-b805-89b74758a6e1",
+            "@id": "\/api\/3\/attribute_metadatas\/4e12fddd-cb08-4ee3-923e-0350f38d1a50",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "managedBy",
@@ -779,14 +779,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "c4d9fe2b-2d91-4cea-b805-89b74758a6e1",
+            "uuid": "4e12fddd-cb08-4ee3-923e-0350f38d1a50",
             "displayName": "{{ managedBy }}",
             "descriptions": {
                 "singular": "Owner"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/5dc4ea49-18f6-4bab-a697-a702dd9532ad",
+            "@id": "\/api\/3\/attribute_metadatas\/ed7a9784-adcf-42e8-a600-0c102d89e7d0",
             "@type": "AttributeMetadata",
             "type": "picklists",
             "name": "criticality",
@@ -840,14 +840,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "5dc4ea49-18f6-4bab-a697-a702dd9532ad",
+            "uuid": "ed7a9784-adcf-42e8-a600-0c102d89e7d0",
             "displayName": "{{ criticality }}",
             "descriptions": {
                 "singular": "Asset Criticality"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/6bf86546-7674-46a1-b741-2c5271157ef0",
+            "@id": "\/api\/3\/attribute_metadatas\/de816f6b-b366-40f3-8970-4b43011f6211",
             "@type": "AttributeMetadata",
             "type": "picklists",
             "name": "assetClass",
@@ -901,14 +901,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "6bf86546-7674-46a1-b741-2c5271157ef0",
+            "uuid": "de816f6b-b366-40f3-8970-4b43011f6211",
             "displayName": "{{ assetClass }}",
             "descriptions": {
                 "singular": "Class"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/9284a72f-4b46-4b84-8df5-97481737a8b4",
+            "@id": "\/api\/3\/attribute_metadatas\/b1fba738-257e-40df-835e-678e3badcdf9",
             "@type": "AttributeMetadata",
             "type": "picklists",
             "name": "operatingSystem",
@@ -962,14 +962,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "9284a72f-4b46-4b84-8df5-97481737a8b4",
+            "uuid": "b1fba738-257e-40df-835e-678e3badcdf9",
             "displayName": "{{ operatingSystem }}",
             "descriptions": {
                 "singular": "Operating System"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/a77ac080-5501-477b-b65e-4fb09ebda3d2",
+            "@id": "\/api\/3\/attribute_metadatas\/1f9c3f6f-d1d2-4cd1-895a-38b3647c7d02",
             "@type": "AttributeMetadata",
             "type": "picklists",
             "name": "state",
@@ -1023,14 +1023,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "a77ac080-5501-477b-b65e-4fb09ebda3d2",
+            "uuid": "1f9c3f6f-d1d2-4cd1-895a-38b3647c7d02",
             "displayName": "{{ state }}",
             "descriptions": {
                 "singular": "Asset State"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/d078f7db-ce2a-48bc-90c9-aa1171ffa3b1",
+            "@id": "\/api\/3\/attribute_metadatas\/0bf7197a-b7e9-4749-973e-2611279d0911",
             "@type": "AttributeMetadata",
             "type": "picklists",
             "name": "status",
@@ -1084,14 +1084,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "d078f7db-ce2a-48bc-90c9-aa1171ffa3b1",
+            "uuid": "0bf7197a-b7e9-4749-973e-2611279d0911",
             "displayName": "{{ status }}",
             "descriptions": {
                 "singular": "Asset Status"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/58420e52-6655-47da-a9b1-af63755a7124",
+            "@id": "\/api\/3\/attribute_metadatas\/e4672512-e7c8-452b-9816-e70d0eb1060b",
             "@type": "AttributeMetadata",
             "type": "picklists",
             "name": "category",
@@ -1145,14 +1145,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "58420e52-6655-47da-a9b1-af63755a7124",
+            "uuid": "e4672512-e7c8-452b-9816-e70d0eb1060b",
             "displayName": "{{ category }}",
             "descriptions": {
                 "singular": "Category"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/fb8faf0e-b89f-435a-b2d9-b7425ba095cb",
+            "@id": "\/api\/3\/attribute_metadatas\/ac406dd5-23cf-47cc-b421-275ed37a27a5",
             "@type": "AttributeMetadata",
             "type": "alerts",
             "name": "alerts",
@@ -1190,14 +1190,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "fb8faf0e-b89f-435a-b2d9-b7425ba095cb",
+            "uuid": "ac406dd5-23cf-47cc-b421-275ed37a27a5",
             "displayName": "{{ alerts }}",
             "descriptions": {
                 "singular": "Alerts"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/b418fa74-5f64-49e6-9386-bea41ec9e9e8",
+            "@id": "\/api\/3\/attribute_metadatas\/9c6c030c-75bc-4009-91d4-8034c38f18a0",
             "@type": "AttributeMetadata",
             "type": "incidents",
             "name": "incidents",
@@ -1235,14 +1235,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "b418fa74-5f64-49e6-9386-bea41ec9e9e8",
+            "uuid": "9c6c030c-75bc-4009-91d4-8034c38f18a0",
             "displayName": "{{ incidents }}",
             "descriptions": {
                 "singular": "Incidents"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/6dac5db5-b380-44c9-91e8-77f92965cdcd",
+            "@id": "\/api\/3\/attribute_metadatas\/52d4697e-9fea-46bf-ba3e-b0063dcfc74c",
             "@type": "AttributeMetadata",
             "type": "tasks",
             "name": "tasks",
@@ -1280,14 +1280,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "6dac5db5-b380-44c9-91e8-77f92965cdcd",
+            "uuid": "52d4697e-9fea-46bf-ba3e-b0063dcfc74c",
             "displayName": "{{ tasks }}",
             "descriptions": {
                 "singular": "Tasks"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/7ac98f68-59e8-41b9-97c3-83dc4da23c5c",
+            "@id": "\/api\/3\/attribute_metadatas\/3ee7593d-00a4-4efd-a878-d0965e0d3d99",
             "@type": "AttributeMetadata",
             "type": "companies",
             "name": "companies",
@@ -1325,14 +1325,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "7ac98f68-59e8-41b9-97c3-83dc4da23c5c",
+            "uuid": "3ee7593d-00a4-4efd-a878-d0965e0d3d99",
             "displayName": "{{ companies }}",
             "descriptions": {
                 "singular": "Companies"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/0e5c29d5-a804-4337-bcf6-f10ff5458ff1",
+            "@id": "\/api\/3\/attribute_metadatas\/3cc70265-f961-48f7-91f7-2542c6ba4f94",
             "@type": "AttributeMetadata",
             "type": "attachments",
             "name": "attachments",
@@ -1370,14 +1370,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "0e5c29d5-a804-4337-bcf6-f10ff5458ff1",
+            "uuid": "3cc70265-f961-48f7-91f7-2542c6ba4f94",
             "displayName": "{{ attachments }}",
             "descriptions": {
                 "singular": "Attachments"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/adefd03e-b3f3-47a9-a0de-e23080d219a3",
+            "@id": "\/api\/3\/attribute_metadatas\/b10b8563-3367-43fc-8208-9a2f5522cb1e",
             "@type": "AttributeMetadata",
             "type": "notes",
             "name": "notes",
@@ -1415,14 +1415,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "adefd03e-b3f3-47a9-a0de-e23080d219a3",
+            "uuid": "b10b8563-3367-43fc-8208-9a2f5522cb1e",
             "displayName": "{{ notes }}",
             "descriptions": {
                 "singular": "Notes"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/9d86a814-59ab-4933-8106-77d0a24b7bf9",
+            "@id": "\/api\/3\/attribute_metadatas\/f1521495-8bb2-4bc0-bbb8-05ca0cb85a43",
             "@type": "AttributeMetadata",
             "type": "comments",
             "name": "comments",
@@ -1460,14 +1460,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "9d86a814-59ab-4933-8106-77d0a24b7bf9",
+            "uuid": "f1521495-8bb2-4bc0-bbb8-05ca0cb85a43",
             "displayName": "{{ comments }}",
             "descriptions": {
                 "singular": "Comments"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/89333666-dbca-452b-9579-8d12eef4301c",
+            "@id": "\/api\/3\/attribute_metadatas\/8ebba767-2cb7-499a-8ce6-bef0863ef305",
             "@type": "AttributeMetadata",
             "type": "vulnerabilities",
             "name": "vulnerabilities",
@@ -1505,14 +1505,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "89333666-dbca-452b-9579-8d12eef4301c",
+            "uuid": "8ebba767-2cb7-499a-8ce6-bef0863ef305",
             "displayName": "{{ vulnerabilities }}",
             "descriptions": {
                 "singular": "Vulnerabilities"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/6a122282-8d17-4f69-bfb7-9e10366653f5",
+            "@id": "\/api\/3\/attribute_metadatas\/0b327b0e-eb09-47e0-968f-7625a6e0c601",
             "@type": "AttributeMetadata",
             "type": "scans",
             "name": "scans",
@@ -1550,14 +1550,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "6a122282-8d17-4f69-bfb7-9e10366653f5",
+            "uuid": "0b327b0e-eb09-47e0-968f-7625a6e0c601",
             "displayName": "{{ scans }}",
             "descriptions": {
                 "singular": "Scans"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/f3489e62-41a1-4a0a-a788-40102a6680cf",
+            "@id": "\/api\/3\/attribute_metadatas\/8c5fba12-9cfd-4bbc-8194-64803d36f20e",
             "@type": "AttributeMetadata",
             "type": "indicators",
             "name": "indicators",
@@ -1593,7 +1593,7 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/d95e6caa-dad7-4c26-a64a-efba6dae8b2e",
-            "uuid": "f3489e62-41a1-4a0a-a788-40102a6680cf",
+            "uuid": "8c5fba12-9cfd-4bbc-8194-64803d36f20e",
             "displayName": "{{ indicators }}",
             "descriptions": {
                 "singular": "Indicator"

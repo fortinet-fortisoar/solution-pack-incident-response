@@ -11,10 +11,10 @@
     "remoteExecutableFlag": false,
     "parameters": [],
     "synchronous": false,
-    "lastModifyDate": 1636433420,
+    "lastModifyDate": 1636537406,
     "collection": "\/api\/3\/workflow_collections\/d98add27-83c9-4f73-a370-16454398e317",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/43441374-045d-4d0f-98b8-ca67266456ea",
+    "triggerStep": "\/api\/3\/workflow_steps\/2809e95c-cc0e-4650-b1e2-832d117bf34a",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -61,8 +61,8 @@
             "top": "40",
             "left": "40",
             "stepType": "\/api\/3\/workflow_step_types\/ea155646-3821-4542-9702-b246da430a8d",
-            "uuid": "43441374-045d-4d0f-98b8-ca67266456ea",
-            "id": 4408
+            "uuid": "2809e95c-cc0e-4650-b1e2-832d117bf34a",
+            "id": 2299
         },
         {
             "@type": "WorkflowStep",
@@ -94,8 +94,8 @@
             "top": "140",
             "left": "200",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
-            "uuid": "e191c5de-002d-4e4e-94f0-7881d53feb6e",
-            "id": 4409
+            "uuid": "1d3a03b8-f25c-4423-9348-c55a4d4c82b7",
+            "id": 2300
         },
         {
             "@type": "WorkflowStep",
@@ -129,28 +129,28 @@
             "top": "255",
             "left": "346",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
-            "uuid": "2a02e431-d591-4068-99ae-540d02fc4126",
-            "id": 4410
+            "uuid": "339d9dd7-139e-43a5-ad84-a842e6df538f",
+            "id": 2301
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Find Communications Records",
-            "targetStep": "\/api\/3\/workflow_steps\/e191c5de-002d-4e4e-94f0-7881d53feb6e",
-            "sourceStep": "\/api\/3\/workflow_steps\/43441374-045d-4d0f-98b8-ca67266456ea",
+            "targetStep": "\/api\/3\/workflow_steps\/1d3a03b8-f25c-4423-9348-c55a4d4c82b7",
+            "sourceStep": "\/api\/3\/workflow_steps\/2809e95c-cc0e-4650-b1e2-832d117bf34a",
             "label": null,
             "isExecuted": false,
-            "uuid": "e271064d-3df3-4f25-ba03-1960d64ba505"
+            "uuid": "b3e1803b-7a1e-4547-a905-8e91ffd8c25e"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Find Communications Records -> Link Communications Records",
-            "targetStep": "\/api\/3\/workflow_steps\/2a02e431-d591-4068-99ae-540d02fc4126",
-            "sourceStep": "\/api\/3\/workflow_steps\/e191c5de-002d-4e4e-94f0-7881d53feb6e",
+            "targetStep": "\/api\/3\/workflow_steps\/339d9dd7-139e-43a5-ad84-a842e6df538f",
+            "sourceStep": "\/api\/3\/workflow_steps\/1d3a03b8-f25c-4423-9348-c55a4d4c82b7",
             "label": null,
             "isExecuted": false,
-            "uuid": "d468caff-d574-4662-8bd4-11bd820515d8"
+            "uuid": "d4654932-15f5-4b49-b32a-d6d147e69730"
         }
     ],
     "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
@@ -159,11 +159,11 @@
         "system",
         "PostCreate"
     ],
-    "id": 1140,
-    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "createDate": 1636433438,
-    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "modifyDate": 1636433438,
+    "id": 321,
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1636537436,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1636537436,
     "owners": [],
     "isPrivate": false
 }
