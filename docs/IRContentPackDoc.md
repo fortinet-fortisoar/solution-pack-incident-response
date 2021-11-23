@@ -1,36 +1,41 @@
-## Incident Response Content Pack 7.0.2
+## Incident Response Solution Pack 7.0.2
 
-This article describes the FortiSOAR™ Incident Response Content Pack (FSR-IR-CONTENT-PACK) enables users to experience the power of FortiSOAR™ incident response. FortiSOAR™ is built using modular architecture and the FSR IR Content Pack is the implementation of best practices to configure and use FortiSOAR™ in an optimal manner. The FSR Content Pack also contains a lot of sample/simulation/training data that enables you to experience FortiSOAR™ without having all the devices.
+This article describes the FortiSOAR™ Incident Response Solution Pack (FSR-IR-SOLUTION-PACK) enables users to experience the power of FortiSOAR™ incident response. FortiSOAR™ is built using modular architecture and the FSR IR Solution Pack is the implementation of best practices to configure and use FortiSOAR™ in an optimal manner. The FSR Solution Pack also contains a lot of sample/simulation/training data that enables you to experience FortiSOAR™ without having all the devices.
 
 ## Overview
 
 This article covers the following:
 
-- Installing IR content pack
-- Configuring IR content pack
-- Contents of the IR content pack
-- Using IR content pack
-- Upgrading IR content pack
+- Deploying IR Solution Pack
+- Configuring IR Solution Pack
+- Contents of the IR Solution Pack
+- Using IR Solution Pack
+- Upgrading IR Solution Pack
 
-## Installing IR Content Pack
+## Deploying IR Solution Pack
 
-**Important**: Before you install the content pack, ensure that there are no records such as alerts, indicators, incidents, etc., in your FortiSOAR™ system.
+**Important**: Before you install the solution pack, ensure that you have installed FortiSOAR™ and there are no records such as alerts, indicators, incidents, etc., in your FortiSOAR™ system.
 
-Use the following procedure as a *root* user to deploy the content pack:
+Use the following procedure as a *root* user to deploy the solution pack:
 
-1. Deploy FortiSOAR™ using Enterprise OVA (or other supported mechanisms)
-   For more information on the deployment process, including license deployment, see the "Deployment Guide", which is part of the FortiSOAR™ product documentation.
-2. Perform VM configuration by running the FortiSOAR Configuration Wizard.  
-3. Deploy the license.
-4. Execute the following command:  
-   `yum install fsr-ir-content-pack -y`
-   The -y parameter is optional and can be used to run a no-prompt continuous installation. 
-   This command installs the content pack, MMD, SVT, dashboards, playbooks, connectors etc., required for creating the various scenarios.
-5. Once the content pack is installed, you must log out and log in again into FortiSOAR™.
+1. Log onto the IR Solution Pack GIT repo (https://github.com/fortinet-fortisoar/solution-pack-incident-response) using your credentials.
 
-## Configuring IR Content Pack
+2. Click the **Clone** button and select the **Download ZIP** option.
+   ![Fortinet-FortiSOAR GIT branch > Clone >Download the solution pack zip](media/SolutionPackZip.png)
 
-Before you begin using the content pack, you should configure connectors such as AlienVault, VirusTotal, and IP Stack, so that you can experience the default enrichments of records using these connectors. To configure these connectors all you need to do is create accounts for all the above products; which can be created for free and do not necessarily require a corporate account. Once you have created your account, enter the account details, such as the Server URL and API Key, in the respective connector’s configuration page.
+3. Log into your FortiSOAR instance, and on the left-navigation, click **Import Wizard**.
+   ![Import Wizard](media/importWizard.png)
+
+4. On the `Import Wizard` page, click **Import From File** and selected the solution pack zip that you have downloaded, and navigate through the Import Wizard.
+   ![Importing the IR Solution Pack zip file](media/importIRCP.png)
+
+
+   **Note**: It is recommended not the change any configurations or options of the imported solution pack zip file.
+   Once the import is successfully completed, you can use the IR solution pack.
+
+## Configuring IR Solution Pack
+
+Before you begin using the solution pack, you should configure connectors such as AlienVault, VirusTotal, and IP Stack, so that you can experience the default enrichments of records using these connectors. To configure these connectors all you need to do is create accounts for all the above products; which can be created for free and do not necessarily require a corporate account. Once you have created your account, enter the account details, such as the Server URL and API Key, in the respective connector’s configuration page.
 
 You should also configure the ElasticSearch, SSH, and FortiSOAR SOC Simulator connector.
 
@@ -70,13 +75,13 @@ The FortiSOAR SOC Simulator connector is used to create various scenarios. To co
 - **Import Scenarios**: Select this checkbox to import various scenarios. 
 - **Load Threat Intelligence**: Whenever records are recreated for a scenario, they include known malicious indicators, such as IP addresses, file hash, etc. Selecting this checkbox randomly assigns the malicious indicators to records every time a record is created. Therefore, the records get created with new indicators each time.
 
-Once you have configured the FortiSOAR SOC Simulator connector, sample scenarios get created in **Help** > **Scenario** and now, you are all set to start using the content pack and creating demo records. 
+Once you have configured the FortiSOAR SOC Simulator connector, sample scenarios get created in **Help** > **Scenario** and now, you are all set to start using the solution pack and creating demo records. 
 
 ![Sample Scenarios](media/SampleScenarios.png)
 
-## Contents of the IR Content Pack
+## Contents of the IR Solution Pack
 
-The content pack consists of the following:
+The solution pack consists of the following:
 
 - Default Modules
 - Collection of Playbooks
@@ -97,7 +102,7 @@ A brief about each module collection follows:
 
 - **Queue Management**: Queue Management provides you with an overview of work (records) that requires to be completed and enables you to assign pending work to users. You can also configure queue management to assign unassigned items to specific queues or users automatically. 
 
-- **Incident Response**: The Incident Response section is a collection of all modules typically related to Security Incidents. You might work on the entire Incident lifecycle from within this module. This module underpins the operational side of your  SOC. The standard flow starts within the Alerts module.
+- **Incident Response**: The Incident Response section is a collection of all modules typically related to Security Incidents. You might work on the entire Incident lifecycle from within this module. This module underpins the operational side of your SOC. The standard flow starts within the Alerts module.
 
 - - **Alerts**: Stores alerts that are ingested from SIEMs, Emails, and other configured data sources. The default schema of alerts is based on ElasticSearch Common Schema. You can add more fields as required.
   - **Incidents**: Stores incidents, which represent a collection of information discovered during an Incident Response investigation. Incidents are triggered based on the suspicion or confirmation of a security breach. Incidents can be cyber or physical security-related.Multiple alerts, indicators, and other artifacts can be linked to an incident.
@@ -139,7 +144,7 @@ A brief about each module collection follows:
 
 - **Help**: The Help module resources that help you effectively with FortiSOAR™. It contains Scenarios, which have been explained later in this document, the FortiSOAR™ product guides, knowledge center, and a FAQ section.
 
-## Using IR Content Pack
+## Using IR Solution Pack
 
 When you log on to your FortiSOAR™ instance you will notice that the instance does not contain any scenarios or demo records; you have to create the same by clicking **Incident Response** > **Alerts** in the left navigation and then clicking the **Demo IR Records** button. 
 
@@ -214,7 +219,7 @@ You can also click the **Run Selected** **Scenario** to create a specific scenar
 
 ### MITRE Attack Techniques 
 
-MITRE Attack Technique Module allows you to download MITRE techniques from [MITRE.org](https://www.mitre.org/). These techniques are stored with FortiSOAR™ for reference. A default playbook to download MITRE techniques is shipped with a content pack.
+MITRE Attack Technique Module allows you to download MITRE techniques from [MITRE.org](https://www.mitre.org/). These techniques are stored with FortiSOAR™ for reference. A default playbook to download MITRE techniques is shipped with a solution pack.
 
 ![Downloading MITRE Attack Techniques](media/MitreAttack.png)
 
@@ -222,11 +227,11 @@ These techniques are auto-related to specific alerts based on MITRE techniques t
 
 **Note**: For MITRE tech correlation to work, the ‘MITRE ATT&CK ID’ field in alerts requires to be populated by the ingestion playbooks. These IDs can then be added to the alert / event generation rules in SIEM or another log aggregator.    
 
-## Upgrading IR Content Pack
+## Upgrading IR Solution Pack
 
-If users have a content pack installed, then the rpm will upgrade to a new version to be in sync with the base product. However, the contents of the content pack will not be changed or upgraded. To update the contents, users can download the latest contents from the support portal, review the changes, and then manually update the contents. This is done to prevent overwriting changes that might be done by users.  
+If users have a solution pack installed, then the rpm will upgrade to a new version to be in sync with the base product. However, the contents of the solution pack will not be changed or upgraded. To update the contents, users can download the latest contents from the support portal, review the changes, and then manually update the contents. This is done to prevent overwriting changes that might be done by users.  
 
-Before you proceed to upgrade the contents of the content pack manually, you must take a backup of your current configuration using the “Configuration Manager”. You can export all the modules along with their MMDs, SVTs, and all the required playbooks.  
+Before you proceed to upgrade the contents of the solution pack manually, you must take a backup of your current configuration using the “Configuration Manager”. You can export all the modules along with their MMDs, SVTs, and all the required playbooks.  
 
 While importing MMDs/ SVTs using the configuration manager, you must take care that you do not delete any field that belongs to an existing module.    
 For example, in the following image, when you are importing the “Alerts” module using the configuration manager, you must ensure that "Custom Field 1" and retained and not deleted:  
@@ -237,5 +242,5 @@ For example, in the following image, when you are importing the “Alerts” mod
 
 After you have imported the MMDs and SVTs, you can import the desired playbooks. 
 
-**FortiSOAR IR Content Pack: Out-of-the-box use cases & playbook collections list can be found [here](https://fusecommunity.fortinet.com/groups/community-home/digestviewer/viewthread?GroupId=1345&MessageKey=045e34e1-467a-4d91-a28c-152e1351f614&CommunityKey=9f1420e8-e3c6-4535-8cae-3fa714da66d8&tab=digestviewer&ReturnUrl=%2fgroups%2fcommunity-home%2fdigestviewer%3fcommunitykey%3d9f1420e8-e3c6-4535-8cae-3fa714da66d8%26tab%3ddigestviewer)**
+**FortiSOAR IR Solution Pack: Out-of-the-box use cases & playbook collections list can be found [here](https://fusecommunity.fortinet.com/groups/community-home/digestviewer/viewthread?GroupId=1345&MessageKey=045e34e1-467a-4d91-a28c-152e1351f614&CommunityKey=9f1420e8-e3c6-4535-8cae-3fa714da66d8&tab=digestviewer&ReturnUrl=%2fgroups%2fcommunity-home%2fdigestviewer%3fcommunitykey%3d9f1420e8-e3c6-4535-8cae-3fa714da66d8%26tab%3ddigestviewer)**
 
