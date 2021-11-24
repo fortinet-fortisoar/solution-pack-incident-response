@@ -11,10 +11,10 @@
     "remoteExecutableFlag": false,
     "parameters": [],
     "synchronous": false,
-    "lastModifyDate": 1637679100,
+    "lastModifyDate": 1636537406,
     "collection": "\/api\/3\/workflow_collections\/59667fcc-7feb-4ba4-a5a2-e03a9287f857",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/62ab7c4f-668f-4f6a-bb77-48de6f09c8bb",
+    "triggerStep": "\/api\/3\/workflow_steps\/02e1ca35-70a8-4dca-991e-16dcf168c001",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -66,8 +66,8 @@
             "top": "30",
             "left": "300",
             "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-            "uuid": "62ab7c4f-668f-4f6a-bb77-48de6f09c8bb",
-            "id": 3273
+            "uuid": "02e1ca35-70a8-4dca-991e-16dcf168c001",
+            "id": 1076
         },
         {
             "@type": "WorkflowStep",
@@ -82,8 +82,8 @@
             "top": "165",
             "left": "300",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "71efb92b-a968-4fa3-a93d-065a2cf5a362",
-            "id": 3274
+            "uuid": "079a2095-ea43-4ce6-9cdd-f97db2075031",
+            "id": 1077
         },
         {
             "@type": "WorkflowStep",
@@ -124,8 +124,8 @@
             "top": "300",
             "left": "300",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
-            "uuid": "d170c0f7-b5eb-4430-a1c5-9a4bfdfce49c",
-            "id": 3275
+            "uuid": "bcd46a4d-2b1b-4757-a6ad-b6d98260b923",
+            "id": 1078
         },
         {
             "@type": "WorkflowStep",
@@ -177,8 +177,8 @@
             "top": "440",
             "left": "300",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
-            "uuid": "2dee43ef-3ffb-4b57-a168-feaaff574282",
-            "id": 3276
+            "uuid": "27eeaff8-058a-4b3e-8965-6ca28eaeb0b6",
+            "id": 1079
         },
         {
             "@type": "WorkflowStep",
@@ -188,14 +188,14 @@
                 "conditions": [
                     {
                         "option": "Yes",
-                        "step_iri": "\/api\/3\/workflow_steps\/a766a364-baf7-46eb-8f55-155ac61a9ffc",
+                        "step_iri": "\/api\/3\/workflow_steps\/d30193fe-1ea7-45db-a2d9-fced59b1867d",
                         "condition": "{{ vars.steps.Find_Related_Malicious_IP_Address | length > 0 }}",
                         "step_name": "Add Note For Malicious IOCs"
                     },
                     {
                         "option": "No",
                         "default": true,
-                        "step_iri": "\/api\/3\/workflow_steps\/769871da-34e2-4d7c-8845-88401221bd38",
+                        "step_iri": "\/api\/3\/workflow_steps\/a451ac3f-83b6-4413-9bfd-2595d5123b97",
                         "step_name": "Continue If Non Malicious Content Found"
                     }
                 ]
@@ -204,8 +204,8 @@
             "top": "840",
             "left": "300",
             "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
-            "uuid": "5ab7c495-6bf8-4815-a7a9-cff6db8fe409",
-            "id": 3277
+            "uuid": "5966f8ea-9d99-4d70-bca9-6c1fbaae5fee",
+            "id": 1080
         },
         {
             "@type": "WorkflowStep",
@@ -245,8 +245,8 @@
             "top": "975",
             "left": "475",
             "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
-            "uuid": "a766a364-baf7-46eb-8f55-155ac61a9ffc",
-            "id": 3278
+            "uuid": "d30193fe-1ea7-45db-a2d9-fced59b1867d",
+            "id": 1081
         },
         {
             "@type": "WorkflowStep",
@@ -299,8 +299,8 @@
             "top": "1110",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
-            "uuid": "467527f9-da40-4bc1-9935-192189be03da",
-            "id": 3279
+            "uuid": "0bfe399e-4d37-4852-b8b2-38e64ef3a38f",
+            "id": 1082
         },
         {
             "@type": "WorkflowStep",
@@ -335,8 +335,8 @@
             "top": "1380",
             "left": "300",
             "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
-            "uuid": "af225c83-3b7a-4575-a2e2-3cf6605a2edb",
-            "id": 3280
+            "uuid": "4822f84d-77e2-41fe-9466-6793d0a1bcf8",
+            "id": 1083
         },
         {
             "@type": "WorkflowStep",
@@ -365,7 +365,7 @@
                         },
                         {
                             "option": "No",
-                            "step_iri": "\/api\/3\/workflow_steps\/467527f9-da40-4bc1-9935-192189be03da"
+                            "step_iri": "\/api\/3\/workflow_steps\/0bfe399e-4d37-4852-b8b2-38e64ef3a38f"
                         }
                     ],
                     "duplicateOption": false
@@ -375,8 +375,8 @@
             "top": "975",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/fc04082a-d7dc-4299-96fb-6837b1baa0fe",
-            "uuid": "769871da-34e2-4d7c-8845-88401221bd38",
-            "id": 3281
+            "uuid": "a451ac3f-83b6-4413-9bfd-2595d5123b97",
+            "id": 1084
         },
         {
             "@type": "WorkflowStep",
@@ -404,8 +404,8 @@
             "top": "560",
             "left": "300",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
-            "uuid": "0cdda648-220d-4a9f-92d5-dc04d1621e8a",
-            "id": 3282
+            "uuid": "efd498c7-0781-4b9b-ab89-bb7e96c77003",
+            "id": 1085
         },
         {
             "@type": "WorkflowStep",
@@ -434,8 +434,8 @@
             "top": "705",
             "left": "300",
             "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
-            "uuid": "fca71027-f6e3-4979-8012-2c0809dc271b",
-            "id": 3283
+            "uuid": "9116877f-6c48-4c81-8398-9475d78a403b",
+            "id": 1086
         },
         {
             "@type": "WorkflowStep",
@@ -471,8 +471,8 @@
             "top": "1520",
             "left": "480",
             "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
-            "uuid": "8c6eaece-59df-40b0-bef3-a1f0aa4a2b56",
-            "id": 3284
+            "uuid": "05b0513e-8d1f-41dc-94f9-38d04e559305",
+            "id": 1087
         },
         {
             "@type": "WorkflowStep",
@@ -513,8 +513,8 @@
             "top": "1640",
             "left": "480",
             "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
-            "uuid": "d52fb628-fcf1-4ec2-bac7-370875f41eb3",
-            "id": 3285
+            "uuid": "e56834e5-99db-480f-bdd8-724fe0475fb4",
+            "id": 1088
         },
         {
             "@type": "WorkflowStep",
@@ -524,14 +524,14 @@
                 "conditions": [
                     {
                         "option": "Yes",
-                        "step_iri": "\/api\/3\/workflow_steps\/7e8dc964-2c55-44c8-b66d-12f770505891",
+                        "step_iri": "\/api\/3\/workflow_steps\/1f8230a5-6fc4-42b5-b9b4-c2181eb3cd75",
                         "condition": "{{ vars.steps.Get_Specific_User_Details.data.entries[0].attributes.name | length > 0 }}",
                         "step_name": "Disable User on Active Directory"
                     },
                     {
                         "option": "No",
                         "default": true,
-                        "step_iri": "\/api\/3\/workflow_steps\/f331481b-36e5-478e-80c2-c66bd3ab494c",
+                        "step_iri": "\/api\/3\/workflow_steps\/73664af6-d137-4595-a843-20c172ef3867",
                         "step_name": "Find User in Endpoint"
                     }
                 ]
@@ -540,8 +540,8 @@
             "top": "1780",
             "left": "480",
             "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
-            "uuid": "7d60ca03-2a53-4d84-9ca7-c590fb1bb436",
-            "id": 3286
+            "uuid": "24c76822-b3db-4a57-afaa-65b0d6e5e6b6",
+            "id": 1089
         },
         {
             "@type": "WorkflowStep",
@@ -559,8 +559,8 @@
             "top": "1920",
             "left": "300",
             "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
-            "uuid": "7e8dc964-2c55-44c8-b66d-12f770505891",
-            "id": 3287
+            "uuid": "1f8230a5-6fc4-42b5-b9b4-c2181eb3cd75",
+            "id": 1090
         },
         {
             "@type": "WorkflowStep",
@@ -570,14 +570,14 @@
                 "conditions": [
                     {
                         "option": "Yes",
-                        "step_iri": "\/api\/3\/workflow_steps\/a220ee31-7caf-4dcd-abda-b299d9fae439",
+                        "step_iri": "\/api\/3\/workflow_steps\/f69bfeb4-be1d-4f31-9be3-0d5cbf877550",
                         "condition": "{{ vars.input.records[0].sourceIp in vars.reservedRemotIpPool }}",
                         "step_name": "Copy  of Add Note for User Details"
                     },
                     {
                         "option": "No",
                         "default": true,
-                        "step_iri": "\/api\/3\/workflow_steps\/af225c83-3b7a-4575-a2e2-3cf6605a2edb",
+                        "step_iri": "\/api\/3\/workflow_steps\/4822f84d-77e2-41fe-9466-6793d0a1bcf8",
                         "step_name": "Block Malicious Content"
                     }
                 ]
@@ -586,8 +586,8 @@
             "top": "1110",
             "left": "475",
             "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
-            "uuid": "d4511047-c33e-401f-9de4-42369e6dab0e",
-            "id": 3288
+            "uuid": "231ab5a6-8ef1-4973-b526-879cb9d6b23b",
+            "id": 1091
         },
         {
             "@type": "WorkflowStep",
@@ -616,8 +616,8 @@
             "top": "1380",
             "left": "650",
             "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
-            "uuid": "6c35a058-6a8a-4701-b42d-c9b2581ad5b5",
-            "id": 3289
+            "uuid": "12c6295c-cda4-4595-afa3-2a71016ef257",
+            "id": 1092
         },
         {
             "@type": "WorkflowStep",
@@ -651,8 +651,8 @@
             "top": "1920",
             "left": "640",
             "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
-            "uuid": "f331481b-36e5-478e-80c2-c66bd3ab494c",
-            "id": 3290
+            "uuid": "73664af6-d137-4595-a843-20c172ef3867",
+            "id": 1093
         },
         {
             "@type": "WorkflowStep",
@@ -670,8 +670,8 @@
             "top": "2060",
             "left": "640",
             "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
-            "uuid": "7176e5ef-b47e-418d-9a50-ff34cdeb61b0",
-            "id": 3291
+            "uuid": "564f9f69-9b6e-41af-941f-ea21f80ddca2",
+            "id": 1094
         },
         {
             "@type": "WorkflowStep",
@@ -712,190 +712,190 @@
             "top": "1245",
             "left": "650",
             "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
-            "uuid": "a220ee31-7caf-4dcd-abda-b299d9fae439",
-            "id": 3292
+            "uuid": "f69bfeb4-be1d-4f31-9be3-0d5cbf877550",
+            "id": 1095
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Block Malicious Endpoint -> Get Specific User Details",
-            "targetStep": "\/api\/3\/workflow_steps\/8c6eaece-59df-40b0-bef3-a1f0aa4a2b56",
-            "sourceStep": "\/api\/3\/workflow_steps\/6c35a058-6a8a-4701-b42d-c9b2581ad5b5",
+            "targetStep": "\/api\/3\/workflow_steps\/05b0513e-8d1f-41dc-94f9-38d04e559305",
+            "sourceStep": "\/api\/3\/workflow_steps\/12c6295c-cda4-4595-afa3-2a71016ef257",
             "label": null,
             "isExecuted": false,
-            "uuid": "e7d2ec17-6ede-4d37-b6f0-f62556ad7770"
+            "uuid": "6c0a0311-27ec-4c32-81ee-1d40323bd42a"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Find Related Malicious IP Address -> Query Assets  with source IP address",
-            "targetStep": "\/api\/3\/workflow_steps\/0cdda648-220d-4a9f-92d5-dc04d1621e8a",
-            "sourceStep": "\/api\/3\/workflow_steps\/2dee43ef-3ffb-4b57-a168-feaaff574282",
+            "targetStep": "\/api\/3\/workflow_steps\/efd498c7-0781-4b9b-ab89-bb7e96c77003",
+            "sourceStep": "\/api\/3\/workflow_steps\/27eeaff8-058a-4b3e-8965-6ca28eaeb0b6",
             "label": null,
             "isExecuted": false,
-            "uuid": "7aedcbd5-ec1f-4f86-8cec-30cfa59be947"
+            "uuid": "9b156a70-86b5-431d-ac40-4d3ae3dd3884"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Add Note for User Details -> User Found in AD",
-            "targetStep": "\/api\/3\/workflow_steps\/7d60ca03-2a53-4d84-9ca7-c590fb1bb436",
-            "sourceStep": "\/api\/3\/workflow_steps\/d52fb628-fcf1-4ec2-bac7-370875f41eb3",
+            "targetStep": "\/api\/3\/workflow_steps\/24c76822-b3db-4a57-afaa-65b0d6e5e6b6",
+            "sourceStep": "\/api\/3\/workflow_steps\/e56834e5-99db-480f-bdd8-724fe0475fb4",
             "label": null,
             "isExecuted": false,
-            "uuid": "8c0338c8-c6e2-4454-8c02-971945c49115"
+            "uuid": "b58684b4-8ae6-42d6-9ccb-b51bfc01cc46"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Block Malicious Content -> Get Specific User Details",
-            "targetStep": "\/api\/3\/workflow_steps\/8c6eaece-59df-40b0-bef3-a1f0aa4a2b56",
-            "sourceStep": "\/api\/3\/workflow_steps\/af225c83-3b7a-4575-a2e2-3cf6605a2edb",
+            "targetStep": "\/api\/3\/workflow_steps\/05b0513e-8d1f-41dc-94f9-38d04e559305",
+            "sourceStep": "\/api\/3\/workflow_steps\/4822f84d-77e2-41fe-9466-6793d0a1bcf8",
             "label": null,
             "isExecuted": false,
-            "uuid": "57fc2e77-cecc-4519-8f78-b61ba26786f9"
+            "uuid": "ddf9331c-1c29-442b-bb1e-ba92325cbd16"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Add Note For Malicious IOCs -> Is IP Part of Remote IP Access Pool",
-            "targetStep": "\/api\/3\/workflow_steps\/d4511047-c33e-401f-9de4-42369e6dab0e",
-            "sourceStep": "\/api\/3\/workflow_steps\/a766a364-baf7-46eb-8f55-155ac61a9ffc",
+            "targetStep": "\/api\/3\/workflow_steps\/231ab5a6-8ef1-4973-b526-879cb9d6b23b",
+            "sourceStep": "\/api\/3\/workflow_steps\/d30193fe-1ea7-45db-a2d9-fced59b1867d",
             "label": null,
             "isExecuted": false,
-            "uuid": "580b1afa-3811-44a5-88fe-fdbfc3dd5b6f"
+            "uuid": "d7a21cb8-c3cf-4c72-ab0b-9888f24631b5"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Continue If Non Malicious Content Found -> Close Alert",
-            "targetStep": "\/api\/3\/workflow_steps\/467527f9-da40-4bc1-9935-192189be03da",
-            "sourceStep": "\/api\/3\/workflow_steps\/769871da-34e2-4d7c-8845-88401221bd38",
+            "targetStep": "\/api\/3\/workflow_steps\/0bfe399e-4d37-4852-b8b2-38e64ef3a38f",
+            "sourceStep": "\/api\/3\/workflow_steps\/a451ac3f-83b6-4413-9bfd-2595d5123b97",
             "label": "No",
             "isExecuted": false,
-            "uuid": "e221a4f6-0427-4e68-a638-b17c804a39a1"
+            "uuid": "b4779222-6a14-44d4-a711-592c5fea41b4"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Copy  of Add Note for User Details -> Block Malicious Endpoint",
-            "targetStep": "\/api\/3\/workflow_steps\/6c35a058-6a8a-4701-b42d-c9b2581ad5b5",
-            "sourceStep": "\/api\/3\/workflow_steps\/a220ee31-7caf-4dcd-abda-b299d9fae439",
+            "targetStep": "\/api\/3\/workflow_steps\/12c6295c-cda4-4595-afa3-2a71016ef257",
+            "sourceStep": "\/api\/3\/workflow_steps\/f69bfeb4-be1d-4f31-9be3-0d5cbf877550",
             "label": null,
             "isExecuted": false,
-            "uuid": "95d84578-7117-4e4c-8f09-097f9201d1c6"
+            "uuid": "9ceda73d-962c-48dd-84d1-b06a9f6465c1"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Create or Link Assets -> Malicious IOC Found",
-            "targetStep": "\/api\/3\/workflow_steps\/5ab7c495-6bf8-4815-a7a9-cff6db8fe409",
-            "sourceStep": "\/api\/3\/workflow_steps\/fca71027-f6e3-4979-8012-2c0809dc271b",
+            "targetStep": "\/api\/3\/workflow_steps\/5966f8ea-9d99-4d70-bca9-6c1fbaae5fee",
+            "sourceStep": "\/api\/3\/workflow_steps\/9116877f-6c48-4c81-8398-9475d78a403b",
             "label": null,
             "isExecuted": false,
-            "uuid": "fa3c70f9-a0fc-4644-adf3-6bd7552062d4"
+            "uuid": "fa13f6c8-6594-4f38-8305-1721b3c91843"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Configuration -> Start Investigation",
-            "targetStep": "\/api\/3\/workflow_steps\/d170c0f7-b5eb-4430-a1c5-9a4bfdfce49c",
-            "sourceStep": "\/api\/3\/workflow_steps\/71efb92b-a968-4fa3-a93d-065a2cf5a362",
+            "targetStep": "\/api\/3\/workflow_steps\/bcd46a4d-2b1b-4757-a6ad-b6d98260b923",
+            "sourceStep": "\/api\/3\/workflow_steps\/079a2095-ea43-4ce6-9cdd-f97db2075031",
             "label": null,
             "isExecuted": false,
-            "uuid": "5995e120-464c-4a6e-84d5-e83bd31a558b"
+            "uuid": "ae5a3995-8ce7-4042-8091-29d7811d19e7"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Malicious IOC Found -> Add Note For Malicious IOCs",
-            "targetStep": "\/api\/3\/workflow_steps\/a766a364-baf7-46eb-8f55-155ac61a9ffc",
-            "sourceStep": "\/api\/3\/workflow_steps\/5ab7c495-6bf8-4815-a7a9-cff6db8fe409",
+            "targetStep": "\/api\/3\/workflow_steps\/d30193fe-1ea7-45db-a2d9-fced59b1867d",
+            "sourceStep": "\/api\/3\/workflow_steps\/5966f8ea-9d99-4d70-bca9-6c1fbaae5fee",
             "label": "Yes",
             "isExecuted": false,
-            "uuid": "cf9f9b14-da22-45a8-8812-5a063be824e6"
+            "uuid": "b4e8501e-40eb-4665-8434-4ac841a4affa"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Is IP Part of Remote IP Access Pool -> Block Malicious Content",
-            "targetStep": "\/api\/3\/workflow_steps\/af225c83-3b7a-4575-a2e2-3cf6605a2edb",
-            "sourceStep": "\/api\/3\/workflow_steps\/d4511047-c33e-401f-9de4-42369e6dab0e",
+            "targetStep": "\/api\/3\/workflow_steps\/4822f84d-77e2-41fe-9466-6793d0a1bcf8",
+            "sourceStep": "\/api\/3\/workflow_steps\/231ab5a6-8ef1-4973-b526-879cb9d6b23b",
             "label": "No",
             "isExecuted": false,
-            "uuid": "44aac48d-fd14-4758-90eb-8e388cd36988"
+            "uuid": "23cfd449-2544-47ca-94d7-b9d2f8818546"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Is IP Part of Remote IP Access Pool -> Copy  of Add Note for User Details",
-            "targetStep": "\/api\/3\/workflow_steps\/a220ee31-7caf-4dcd-abda-b299d9fae439",
-            "sourceStep": "\/api\/3\/workflow_steps\/d4511047-c33e-401f-9de4-42369e6dab0e",
+            "targetStep": "\/api\/3\/workflow_steps\/f69bfeb4-be1d-4f31-9be3-0d5cbf877550",
+            "sourceStep": "\/api\/3\/workflow_steps\/231ab5a6-8ef1-4973-b526-879cb9d6b23b",
             "label": "Yes",
             "isExecuted": false,
-            "uuid": "1441dfe0-5d8e-4ac8-87d9-d1b4909dc570"
+            "uuid": "61dd6305-5d0d-451d-befc-51b2b48d89b1"
         },
         {
             "@type": "WorkflowRoute",
             "name": "User Found in AD -> Find User in Endpoint",
-            "targetStep": "\/api\/3\/workflow_steps\/f331481b-36e5-478e-80c2-c66bd3ab494c",
-            "sourceStep": "\/api\/3\/workflow_steps\/7d60ca03-2a53-4d84-9ca7-c590fb1bb436",
+            "targetStep": "\/api\/3\/workflow_steps\/73664af6-d137-4595-a843-20c172ef3867",
+            "sourceStep": "\/api\/3\/workflow_steps\/24c76822-b3db-4a57-afaa-65b0d6e5e6b6",
             "label": "No",
             "isExecuted": false,
-            "uuid": "037fd55d-0cce-4b39-862a-6d9b99ee0995"
+            "uuid": "45ed0db6-aa92-47f3-81a6-e6c5d5c92965"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Get Specific User Details -> Add Note for User Details",
-            "targetStep": "\/api\/3\/workflow_steps\/d52fb628-fcf1-4ec2-bac7-370875f41eb3",
-            "sourceStep": "\/api\/3\/workflow_steps\/8c6eaece-59df-40b0-bef3-a1f0aa4a2b56",
+            "targetStep": "\/api\/3\/workflow_steps\/e56834e5-99db-480f-bdd8-724fe0475fb4",
+            "sourceStep": "\/api\/3\/workflow_steps\/05b0513e-8d1f-41dc-94f9-38d04e559305",
             "label": null,
             "isExecuted": false,
-            "uuid": "80e9c088-a213-4ef6-8db9-274d3cad246d"
+            "uuid": "416753e1-cd9a-49d3-bed4-a4a099d1a53e"
         },
         {
             "@type": "WorkflowRoute",
             "name": "User Found in AD -> Disable User on Active Directory",
-            "targetStep": "\/api\/3\/workflow_steps\/7e8dc964-2c55-44c8-b66d-12f770505891",
-            "sourceStep": "\/api\/3\/workflow_steps\/7d60ca03-2a53-4d84-9ca7-c590fb1bb436",
+            "targetStep": "\/api\/3\/workflow_steps\/1f8230a5-6fc4-42b5-b9b4-c2181eb3cd75",
+            "sourceStep": "\/api\/3\/workflow_steps\/24c76822-b3db-4a57-afaa-65b0d6e5e6b6",
             "label": "Yes",
             "isExecuted": false,
-            "uuid": "a0eaffcb-6d75-4e69-a531-bb0b8f0c89c4"
+            "uuid": "5991a0ce-80e9-4ef6-b4f2-0b988defd9c4"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Configuration",
-            "targetStep": "\/api\/3\/workflow_steps\/71efb92b-a968-4fa3-a93d-065a2cf5a362",
-            "sourceStep": "\/api\/3\/workflow_steps\/62ab7c4f-668f-4f6a-bb77-48de6f09c8bb",
+            "targetStep": "\/api\/3\/workflow_steps\/079a2095-ea43-4ce6-9cdd-f97db2075031",
+            "sourceStep": "\/api\/3\/workflow_steps\/02e1ca35-70a8-4dca-991e-16dcf168c001",
             "label": null,
             "isExecuted": false,
-            "uuid": "4fc296d5-1e89-4551-b765-5c6407b40dac"
+            "uuid": "351c3a34-43b7-45f4-b120-fc123550d77c"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Malicious IOC Found -> Continue If Non Malicious Content Found",
-            "targetStep": "\/api\/3\/workflow_steps\/769871da-34e2-4d7c-8845-88401221bd38",
-            "sourceStep": "\/api\/3\/workflow_steps\/5ab7c495-6bf8-4815-a7a9-cff6db8fe409",
+            "targetStep": "\/api\/3\/workflow_steps\/a451ac3f-83b6-4413-9bfd-2595d5123b97",
+            "sourceStep": "\/api\/3\/workflow_steps\/5966f8ea-9d99-4d70-bca9-6c1fbaae5fee",
             "label": "No",
             "isExecuted": false,
-            "uuid": "9280597e-9c83-420c-a8d0-95324f99cf94"
+            "uuid": "287a6edd-1127-494d-bf7c-5a1b8a840f0b"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Start Investigation -> Find Related Malicious IP Address",
-            "targetStep": "\/api\/3\/workflow_steps\/2dee43ef-3ffb-4b57-a168-feaaff574282",
-            "sourceStep": "\/api\/3\/workflow_steps\/d170c0f7-b5eb-4430-a1c5-9a4bfdfce49c",
+            "targetStep": "\/api\/3\/workflow_steps\/27eeaff8-058a-4b3e-8965-6ca28eaeb0b6",
+            "sourceStep": "\/api\/3\/workflow_steps\/bcd46a4d-2b1b-4757-a6ad-b6d98260b923",
             "label": null,
             "isExecuted": false,
-            "uuid": "1570d138-7fa1-4726-a3ca-f8b9c6eff058"
+            "uuid": "4d5732c2-6ec2-46ec-9dd8-d95082cf4abf"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Find User in Endpoint -> adsa",
-            "targetStep": "\/api\/3\/workflow_steps\/7176e5ef-b47e-418d-9a50-ff34cdeb61b0",
-            "sourceStep": "\/api\/3\/workflow_steps\/f331481b-36e5-478e-80c2-c66bd3ab494c",
+            "targetStep": "\/api\/3\/workflow_steps\/564f9f69-9b6e-41af-941f-ea21f80ddca2",
+            "sourceStep": "\/api\/3\/workflow_steps\/73664af6-d137-4595-a843-20c172ef3867",
             "label": null,
             "isExecuted": false,
-            "uuid": "17167385-5bd4-4e71-b9a0-37f297f3c26b"
+            "uuid": "c18f4e7a-200a-4414-a0b5-267499b2b855"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Query Assets  with source IP address -> Create or Link Assets",
-            "targetStep": "\/api\/3\/workflow_steps\/fca71027-f6e3-4979-8012-2c0809dc271b",
-            "sourceStep": "\/api\/3\/workflow_steps\/0cdda648-220d-4a9f-92d5-dc04d1621e8a",
+            "targetStep": "\/api\/3\/workflow_steps\/9116877f-6c48-4c81-8398-9475d78a403b",
+            "sourceStep": "\/api\/3\/workflow_steps\/efd498c7-0781-4b9b-ab89-bb7e96c77003",
             "label": null,
             "isExecuted": false,
-            "uuid": "196b90dc-2e65-4a9b-bf12-0036f207342e"
+            "uuid": "acfadb90-ef2d-4c3c-8144-950650a93231"
         }
     ],
     "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
@@ -903,11 +903,11 @@
     "recordTags": [
         "ManualTrigger"
     ],
-    "id": 994,
-    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "createDate": 1637679107,
-    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "modifyDate": 1637679107,
+    "id": 148,
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1636537415,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1636537415,
     "owners": [],
     "isPrivate": false
 }

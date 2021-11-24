@@ -13,10 +13,10 @@
         "indicator_value"
     ],
     "synchronous": false,
-    "lastModifyDate": 1637679100,
+    "lastModifyDate": 1636537406,
     "collection": "\/api\/3\/workflow_collections\/b135c052-e170-4cff-8cc7-9a4bfe607ccb",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/b671db94-6adc-465e-b948-a183eb0741e6",
+    "triggerStep": "\/api\/3\/workflow_steps\/5f15125f-f26d-49c8-9282-651609d58cd6",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -30,8 +30,8 @@
             "top": "165",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "0105d733-6b61-4882-a17c-12cefea5caf9",
-            "id": 2814
+            "uuid": "2aa65cb4-281f-4b7b-be6d-428b9ec263b4",
+            "id": 617
         },
         {
             "@type": "WorkflowStep",
@@ -59,8 +59,8 @@
             "top": "300",
             "left": "126",
             "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
-            "uuid": "e140b999-7fcf-4ad2-97f9-7d208346e3f4",
-            "id": 2815
+            "uuid": "591931ae-eed7-4978-8ec7-d3a6bbbb31c5",
+            "id": 618
         },
         {
             "@type": "WorkflowStep",
@@ -77,8 +77,8 @@
             "top": "30",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
-            "uuid": "b671db94-6adc-465e-b948-a183eb0741e6",
-            "id": 2816
+            "uuid": "5f15125f-f26d-49c8-9282-651609d58cd6",
+            "id": 619
         },
         {
             "@type": "WorkflowStep",
@@ -98,8 +98,8 @@
             "top": "435",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
-            "uuid": "53ae41b0-2148-4a23-9bae-ebd8c27e6506",
-            "id": 2817
+            "uuid": "41323b1c-686f-43e8-8d9a-514e3161cf07",
+            "id": 620
         },
         {
             "@type": "WorkflowStep",
@@ -114,46 +114,46 @@
             "top": "570",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "38515af5-3478-4882-8516-4ceb3b31194b",
-            "id": 2818
+            "uuid": "c907b676-df7e-49c1-a6f6-0d0171e56f11",
+            "id": 621
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Configurations",
-            "targetStep": "\/api\/3\/workflow_steps\/0105d733-6b61-4882-a17c-12cefea5caf9",
-            "sourceStep": "\/api\/3\/workflow_steps\/b671db94-6adc-465e-b948-a183eb0741e6",
+            "targetStep": "\/api\/3\/workflow_steps\/2aa65cb4-281f-4b7b-be6d-428b9ec263b4",
+            "sourceStep": "\/api\/3\/workflow_steps\/5f15125f-f26d-49c8-9282-651609d58cd6",
             "label": null,
             "isExecuted": false,
-            "uuid": "4814c87a-95e3-4e72-9cd6-55e1ba05ce46"
+            "uuid": "7fdf36ce-ddd1-405f-89b8-446d903f42a7"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Configurations -> Geo Locate IP",
-            "targetStep": "\/api\/3\/workflow_steps\/e140b999-7fcf-4ad2-97f9-7d208346e3f4",
-            "sourceStep": "\/api\/3\/workflow_steps\/0105d733-6b61-4882-a17c-12cefea5caf9",
+            "targetStep": "\/api\/3\/workflow_steps\/591931ae-eed7-4978-8ec7-d3a6bbbb31c5",
+            "sourceStep": "\/api\/3\/workflow_steps\/2aa65cb4-281f-4b7b-be6d-428b9ec263b4",
             "label": null,
             "isExecuted": false,
-            "uuid": "b996e061-b7a4-4cbd-af51-781575b2a40a"
+            "uuid": "f76d9d38-d51a-4980-a28d-c45feac6a02f"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Compute IP Stack Summary -> enrichment_summary",
-            "targetStep": "\/api\/3\/workflow_steps\/38515af5-3478-4882-8516-4ceb3b31194b",
-            "sourceStep": "\/api\/3\/workflow_steps\/53ae41b0-2148-4a23-9bae-ebd8c27e6506",
+            "targetStep": "\/api\/3\/workflow_steps\/c907b676-df7e-49c1-a6f6-0d0171e56f11",
+            "sourceStep": "\/api\/3\/workflow_steps\/41323b1c-686f-43e8-8d9a-514e3161cf07",
             "label": null,
             "isExecuted": false,
-            "uuid": "709c2b49-931b-440b-aad1-c44225a5fc71"
+            "uuid": "a720392c-5f73-4a94-99eb-80cb7e9e43a2"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Geo Locate IP -> Compute IP Stack Summary",
-            "targetStep": "\/api\/3\/workflow_steps\/53ae41b0-2148-4a23-9bae-ebd8c27e6506",
-            "sourceStep": "\/api\/3\/workflow_steps\/e140b999-7fcf-4ad2-97f9-7d208346e3f4",
+            "targetStep": "\/api\/3\/workflow_steps\/41323b1c-686f-43e8-8d9a-514e3161cf07",
+            "sourceStep": "\/api\/3\/workflow_steps\/591931ae-eed7-4978-8ec7-d3a6bbbb31c5",
             "label": null,
             "isExecuted": false,
-            "uuid": "663559a3-3dcd-44d5-ae96-dcf5b7801c7a"
+            "uuid": "4cef8744-482a-45b8-9223-017038ccca3f"
         }
     ],
     "priority": null,
@@ -161,11 +161,11 @@
     "recordTags": [
         "Subroutine"
     ],
-    "id": 948,
-    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "createDate": 1637679104,
-    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "modifyDate": 1637679104,
+    "id": 102,
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1636537411,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1636537411,
     "owners": [],
     "isPrivate": false
 }

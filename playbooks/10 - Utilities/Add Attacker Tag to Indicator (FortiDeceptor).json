@@ -11,10 +11,10 @@
     "remoteExecutableFlag": false,
     "parameters": [],
     "synchronous": false,
-    "lastModifyDate": 1637679100,
+    "lastModifyDate": 1636537406,
     "collection": "\/api\/3\/workflow_collections\/20289298-cdd6-4052-8fa0-11e2603dca00",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/d78ad4cf-1f1e-4d62-bf37-2085f974a20f",
+    "triggerStep": "\/api\/3\/workflow_steps\/05b60abd-53e9-4be6-b233-057b069bbedf",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -49,8 +49,8 @@
             "top": "220",
             "left": "100",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
-            "uuid": "01728eba-64bb-4cea-a821-8eb1808261b2",
-            "id": 4095
+            "uuid": "4be7e835-e861-4fdf-b8ff-7df17febd85f",
+            "id": 1986
         },
         {
             "@type": "WorkflowStep",
@@ -102,8 +102,8 @@
             "top": "380",
             "left": "100",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
-            "uuid": "9e85aa1f-9ac3-450d-a86b-d7137755c931",
-            "id": 4096
+            "uuid": "5b210bc7-897e-46c1-8143-dc43bd62293a",
+            "id": 1987
         },
         {
             "@type": "WorkflowStep",
@@ -161,28 +161,28 @@
             "top": "40",
             "left": "100",
             "stepType": "\/api\/3\/workflow_step_types\/9300bf69-5063-486d-b3a6-47eb9da24872",
-            "uuid": "d78ad4cf-1f1e-4d62-bf37-2085f974a20f",
-            "id": 4097
+            "uuid": "05b60abd-53e9-4be6-b233-057b069bbedf",
+            "id": 1988
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Find -> Add Tag to Indicator and Update Reputation",
-            "targetStep": "\/api\/3\/workflow_steps\/9e85aa1f-9ac3-450d-a86b-d7137755c931",
-            "sourceStep": "\/api\/3\/workflow_steps\/01728eba-64bb-4cea-a821-8eb1808261b2",
+            "targetStep": "\/api\/3\/workflow_steps\/5b210bc7-897e-46c1-8143-dc43bd62293a",
+            "sourceStep": "\/api\/3\/workflow_steps\/4be7e835-e861-4fdf-b8ff-7df17febd85f",
             "label": null,
             "isExecuted": false,
-            "uuid": "13ee5fe0-c94f-4f6f-a2f6-e0e23ad2e1f7"
+            "uuid": "3789e7ea-a038-48f7-95a5-8dea93afd717"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Find",
-            "targetStep": "\/api\/3\/workflow_steps\/01728eba-64bb-4cea-a821-8eb1808261b2",
-            "sourceStep": "\/api\/3\/workflow_steps\/d78ad4cf-1f1e-4d62-bf37-2085f974a20f",
+            "targetStep": "\/api\/3\/workflow_steps\/4be7e835-e861-4fdf-b8ff-7df17febd85f",
+            "sourceStep": "\/api\/3\/workflow_steps\/05b60abd-53e9-4be6-b233-057b069bbedf",
             "label": null,
             "isExecuted": false,
-            "uuid": "6be3acc6-2ce5-4308-a6e5-e1faead731d3"
+            "uuid": "1c1bf8f7-8574-4012-b318-95ba16b670fa"
         }
     ],
     "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
@@ -190,11 +190,11 @@
     "recordTags": [
         "PostUpdate"
     ],
-    "id": 1108,
-    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "createDate": 1637679115,
-    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "modifyDate": 1637679115,
+    "id": 280,
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1636537432,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1636537432,
     "owners": [],
     "isPrivate": false
 }

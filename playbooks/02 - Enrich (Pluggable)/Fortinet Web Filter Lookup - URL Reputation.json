@@ -13,10 +13,10 @@
         "indicator_value"
     ],
     "synchronous": false,
-    "lastModifyDate": 1637679100,
+    "lastModifyDate": 1636537406,
     "collection": "\/api\/3\/workflow_collections\/b135c052-e170-4cff-8cc7-9a4bfe607ccb",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/f0df8628-b6c9-4b6d-b4fc-930727c8dc63",
+    "triggerStep": "\/api\/3\/workflow_steps\/96f11220-f655-44d4-8a73-39cd4c13a134",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -31,8 +31,8 @@
             "top": "570",
             "left": "120",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "d37010ed-f0b5-444d-a7c7-921561bc84be",
-            "id": 2804
+            "uuid": "6f2c0048-0158-4ef4-bbd1-1ce80a21e058",
+            "id": 607
         },
         {
             "@type": "WorkflowStep",
@@ -52,8 +52,8 @@
             "top": "30",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
-            "uuid": "f0df8628-b6c9-4b6d-b4fc-930727c8dc63",
-            "id": 2805
+            "uuid": "96f11220-f655-44d4-8a73-39cd4c13a134",
+            "id": 608
         },
         {
             "@type": "WorkflowStep",
@@ -74,8 +74,8 @@
             "top": "435",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
-            "uuid": "c3a1b170-1a9e-43c2-8c76-2e2ca09198a5",
-            "id": 2806
+            "uuid": "d57fc634-a169-41c6-8ceb-599f3f1d9403",
+            "id": 609
         },
         {
             "@type": "WorkflowStep",
@@ -100,8 +100,8 @@
             "top": "300",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
-            "uuid": "e08d3171-9502-4002-a7a2-2e3a9e188c16",
-            "id": 2807
+            "uuid": "1b128dc5-7cb1-4179-b375-24a491812c90",
+            "id": 610
         },
         {
             "@type": "WorkflowStep",
@@ -115,46 +115,46 @@
             "top": "165",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "3bc17bb6-daac-49ee-a7f7-903048ceb860",
-            "id": 2808
+            "uuid": "ffa2167a-df25-4922-a0fe-756577dd0dc7",
+            "id": 611
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Configurations -> Get Domain Reputation from Fortinet Web Filter",
-            "targetStep": "\/api\/3\/workflow_steps\/e08d3171-9502-4002-a7a2-2e3a9e188c16",
-            "sourceStep": "\/api\/3\/workflow_steps\/3bc17bb6-daac-49ee-a7f7-903048ceb860",
+            "targetStep": "\/api\/3\/workflow_steps\/1b128dc5-7cb1-4179-b375-24a491812c90",
+            "sourceStep": "\/api\/3\/workflow_steps\/ffa2167a-df25-4922-a0fe-756577dd0dc7",
             "label": null,
             "isExecuted": false,
-            "uuid": "e1038b89-1236-4fdb-be3a-2a10b10ca178"
+            "uuid": "960c79d7-f4b0-4830-828d-77393e78afcb"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Configurations",
-            "targetStep": "\/api\/3\/workflow_steps\/3bc17bb6-daac-49ee-a7f7-903048ceb860",
-            "sourceStep": "\/api\/3\/workflow_steps\/f0df8628-b6c9-4b6d-b4fc-930727c8dc63",
+            "targetStep": "\/api\/3\/workflow_steps\/ffa2167a-df25-4922-a0fe-756577dd0dc7",
+            "sourceStep": "\/api\/3\/workflow_steps\/96f11220-f655-44d4-8a73-39cd4c13a134",
             "label": null,
             "isExecuted": false,
-            "uuid": "c5e7e67c-b598-4f39-8b8e-d3345f366013"
+            "uuid": "30c140c5-4861-45c9-90f9-7633134f1c0b"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Compute Fortinet Web Filter Summary -> enrichment_summary",
-            "targetStep": "\/api\/3\/workflow_steps\/d37010ed-f0b5-444d-a7c7-921561bc84be",
-            "sourceStep": "\/api\/3\/workflow_steps\/c3a1b170-1a9e-43c2-8c76-2e2ca09198a5",
+            "targetStep": "\/api\/3\/workflow_steps\/6f2c0048-0158-4ef4-bbd1-1ce80a21e058",
+            "sourceStep": "\/api\/3\/workflow_steps\/d57fc634-a169-41c6-8ceb-599f3f1d9403",
             "label": null,
             "isExecuted": false,
-            "uuid": "2a972126-3f50-4dc9-9fcb-486a035d5efe"
+            "uuid": "2aa9b266-af00-46ae-95cf-09843587274f"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Get Domain Reputation from Fortinet Web Filter -> Compute Fortinet Web Filter Summary",
-            "targetStep": "\/api\/3\/workflow_steps\/c3a1b170-1a9e-43c2-8c76-2e2ca09198a5",
-            "sourceStep": "\/api\/3\/workflow_steps\/e08d3171-9502-4002-a7a2-2e3a9e188c16",
+            "targetStep": "\/api\/3\/workflow_steps\/d57fc634-a169-41c6-8ceb-599f3f1d9403",
+            "sourceStep": "\/api\/3\/workflow_steps\/1b128dc5-7cb1-4179-b375-24a491812c90",
             "label": null,
             "isExecuted": false,
-            "uuid": "2ea18158-4cd4-4693-a8ba-3cc6100fc97b"
+            "uuid": "2969ad4f-45bb-4181-ad41-1c9238662a75"
         }
     ],
     "priority": null,
@@ -162,11 +162,11 @@
     "recordTags": [
         "Subroutine"
     ],
-    "id": 946,
-    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "createDate": 1637679104,
-    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "modifyDate": 1637679104,
+    "id": 100,
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1636537411,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1636537411,
     "owners": [],
     "isPrivate": false
 }

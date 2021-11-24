@@ -11,10 +11,10 @@
     "remoteExecutableFlag": false,
     "parameters": [],
     "synchronous": false,
-    "lastModifyDate": 1637679100,
+    "lastModifyDate": 1636537406,
     "collection": "\/api\/3\/workflow_collections\/e2c1a8f3-00dc-4e82-a9f0-5e9957529407",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/b8b54416-b2ee-4c6a-8851-069bc6f983c1",
+    "triggerStep": "\/api\/3\/workflow_steps\/1d88a68a-c865-4d62-9e1d-c5e1b87e2591",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -54,8 +54,8 @@
             "top": "30",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-            "uuid": "b8b54416-b2ee-4c6a-8851-069bc6f983c1",
-            "id": 4437
+            "uuid": "1d88a68a-c865-4d62-9e1d-c5e1b87e2591",
+            "id": 2328
         },
         {
             "@type": "WorkflowStep",
@@ -71,8 +71,8 @@
             "top": "165",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "06f913c6-823f-4752-ac17-32ea76b339ac",
-            "id": 4438
+            "uuid": "182526de-8f46-4e62-a7fd-ec2d0e3795e8",
+            "id": 2329
         },
         {
             "@type": "WorkflowStep",
@@ -105,8 +105,8 @@
             "top": "705",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
-            "uuid": "6d8be91e-52dd-4ccd-b76d-878f622fda4d",
-            "id": 4439
+            "uuid": "c2dcd299-db00-40c7-bcba-7068ce37e7ee",
+            "id": 2330
         },
         {
             "@type": "WorkflowStep",
@@ -140,8 +140,8 @@
             "top": "300",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
-            "uuid": "ed7d1f88-f071-4ca9-bb11-9c202b8bc4f5",
-            "id": 4440
+            "uuid": "4032d19b-e2ff-4541-a9c6-d53dc207841c",
+            "id": 2331
         },
         {
             "@type": "WorkflowStep",
@@ -163,8 +163,8 @@
             "top": "435",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
-            "uuid": "dc628ff7-9195-4105-bee9-8cd689318299",
-            "id": 4441
+            "uuid": "da91461c-0bd3-4c90-9c66-ab67218e6530",
+            "id": 2332
         },
         {
             "@type": "WorkflowStep",
@@ -228,8 +228,8 @@
             "top": "560",
             "left": "120",
             "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
-            "uuid": "29052c18-05d9-4873-8fc5-b52ad8cd97f7",
-            "id": 4442
+            "uuid": "65dcb4f3-dd15-4931-978a-1c4e6eec27fb",
+            "id": 2333
         },
         {
             "@type": "WorkflowStep",
@@ -332,8 +332,8 @@
             "top": "840",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
-            "uuid": "4546f756-412a-457e-b966-42d6544c2190",
-            "id": 4443
+            "uuid": "a05be9a3-f456-4619-88c4-79d83ce5d92c",
+            "id": 2334
         },
         {
             "@type": "WorkflowStep",
@@ -383,73 +383,73 @@
             "top": "975",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
-            "uuid": "0bf590ea-c4aa-4a4d-a0c4-c15a104dbdfc",
-            "id": 4444
+            "uuid": "f01efd3c-2681-44d5-abc8-c2f7223cdff7",
+            "id": 2335
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Download IOCs File -> Parse IOC CSV File",
-            "targetStep": "\/api\/3\/workflow_steps\/dc628ff7-9195-4105-bee9-8cd689318299",
-            "sourceStep": "\/api\/3\/workflow_steps\/ed7d1f88-f071-4ca9-bb11-9c202b8bc4f5",
+            "targetStep": "\/api\/3\/workflow_steps\/da91461c-0bd3-4c90-9c66-ab67218e6530",
+            "sourceStep": "\/api\/3\/workflow_steps\/4032d19b-e2ff-4541-a9c6-d53dc207841c",
             "label": null,
             "isExecuted": false,
-            "uuid": "f88aa1e3-d7db-42cc-bfa1-15718b51f34e"
+            "uuid": "566ec121-51ca-4c25-8d46-961a9b6c20f5"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Create Indicators -> Hunt Sunburst IOCs",
-            "targetStep": "\/api\/3\/workflow_steps\/6d8be91e-52dd-4ccd-b76d-878f622fda4d",
-            "sourceStep": "\/api\/3\/workflow_steps\/29052c18-05d9-4873-8fc5-b52ad8cd97f7",
+            "targetStep": "\/api\/3\/workflow_steps\/c2dcd299-db00-40c7-bcba-7068ce37e7ee",
+            "sourceStep": "\/api\/3\/workflow_steps\/65dcb4f3-dd15-4931-978a-1c4e6eec27fb",
             "label": null,
             "isExecuted": false,
-            "uuid": "4e1bfae6-57e2-4a40-8cda-3c83f69ddf90"
+            "uuid": "bef5ba55-10b9-4487-887a-8a64acf44c14"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Parse IOC CSV File -> Create Indicators",
-            "targetStep": "\/api\/3\/workflow_steps\/29052c18-05d9-4873-8fc5-b52ad8cd97f7",
-            "sourceStep": "\/api\/3\/workflow_steps\/dc628ff7-9195-4105-bee9-8cd689318299",
+            "targetStep": "\/api\/3\/workflow_steps\/65dcb4f3-dd15-4931-978a-1c4e6eec27fb",
+            "sourceStep": "\/api\/3\/workflow_steps\/da91461c-0bd3-4c90-9c66-ab67218e6530",
             "label": null,
             "isExecuted": false,
-            "uuid": "e6cd334f-85f8-4c6f-ad9d-eced2029d651"
+            "uuid": "79117c8e-bb14-4684-bae8-5681ebffee26"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Configuration",
-            "targetStep": "\/api\/3\/workflow_steps\/06f913c6-823f-4752-ac17-32ea76b339ac",
-            "sourceStep": "\/api\/3\/workflow_steps\/b8b54416-b2ee-4c6a-8851-069bc6f983c1",
+            "targetStep": "\/api\/3\/workflow_steps\/182526de-8f46-4e62-a7fd-ec2d0e3795e8",
+            "sourceStep": "\/api\/3\/workflow_steps\/1d88a68a-c865-4d62-9e1d-c5e1b87e2591",
             "label": null,
             "isExecuted": false,
-            "uuid": "8491ce64-9351-4fd8-8e66-14fefc40f028"
+            "uuid": "afdc8b62-e4a5-48a6-a1d6-7106b1e0cde2"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Configuration -> Download IOCs File",
-            "targetStep": "\/api\/3\/workflow_steps\/ed7d1f88-f071-4ca9-bb11-9c202b8bc4f5",
-            "sourceStep": "\/api\/3\/workflow_steps\/06f913c6-823f-4752-ac17-32ea76b339ac",
+            "targetStep": "\/api\/3\/workflow_steps\/4032d19b-e2ff-4541-a9c6-d53dc207841c",
+            "sourceStep": "\/api\/3\/workflow_steps\/182526de-8f46-4e62-a7fd-ec2d0e3795e8",
             "label": null,
             "isExecuted": false,
-            "uuid": "acabd7c9-8ba0-4422-bccb-2b3427577d40"
+            "uuid": "e7287b93-6dcc-4fa2-8b4d-680cbcfe9177"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Hunt Sunburst IOCs -> Create Alert",
-            "targetStep": "\/api\/3\/workflow_steps\/4546f756-412a-457e-b966-42d6544c2190",
-            "sourceStep": "\/api\/3\/workflow_steps\/6d8be91e-52dd-4ccd-b76d-878f622fda4d",
+            "targetStep": "\/api\/3\/workflow_steps\/a05be9a3-f456-4619-88c4-79d83ce5d92c",
+            "sourceStep": "\/api\/3\/workflow_steps\/c2dcd299-db00-40c7-bcba-7068ce37e7ee",
             "label": null,
             "isExecuted": false,
-            "uuid": "4bdbdfcc-4271-4f07-bc28-c15401e409f4"
+            "uuid": "4362e5a6-bb83-46ac-951e-1ee25c8330ed"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Create Alert -> Create Communication Record",
-            "targetStep": "\/api\/3\/workflow_steps\/0bf590ea-c4aa-4a4d-a0c4-c15a104dbdfc",
-            "sourceStep": "\/api\/3\/workflow_steps\/4546f756-412a-457e-b966-42d6544c2190",
+            "targetStep": "\/api\/3\/workflow_steps\/f01efd3c-2681-44d5-abc8-c2f7223cdff7",
+            "sourceStep": "\/api\/3\/workflow_steps\/a05be9a3-f456-4619-88c4-79d83ce5d92c",
             "label": null,
             "isExecuted": false,
-            "uuid": "ff618dc6-810a-41e7-8d31-6fba51ab54dc"
+            "uuid": "c75c4169-e779-4905-b13c-2274507f1842"
         }
     ],
     "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
@@ -457,11 +457,11 @@
     "recordTags": [
         "sunburst"
     ],
-    "id": 1154,
-    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "createDate": 1637679117,
-    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "modifyDate": 1637679117,
+    "id": 326,
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1636537437,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1636537437,
     "owners": [],
     "isPrivate": false
 }

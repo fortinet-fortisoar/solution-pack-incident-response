@@ -11,10 +11,10 @@
     "remoteExecutableFlag": false,
     "parameters": [],
     "synchronous": false,
-    "lastModifyDate": 1637679100,
+    "lastModifyDate": 1636537406,
     "collection": "\/api\/3\/workflow_collections\/a41c4bc4-5b29-4701-96e7-e62e21e8763e",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/04c6360e-4dcc-4213-bca8-b2812a6bf41f",
+    "triggerStep": "\/api\/3\/workflow_steps\/712ad5cb-9d0e-4d2a-a542-b71a2941d4bf",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -43,8 +43,8 @@
             "top": "300",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
-            "uuid": "49bf86d5-8d56-4189-a65d-02a9c57733bb",
-            "id": 4281
+            "uuid": "1daa7099-5b8d-498e-af42-8a8b4c9ce445",
+            "id": 2172
         },
         {
             "@type": "WorkflowStep",
@@ -68,8 +68,8 @@
             "top": "435",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
-            "uuid": "495f3501-d166-4cd1-80c0-6ee89135a53f",
-            "id": 4282
+            "uuid": "18002d55-aa6d-4c84-9cd0-443ad8b9b9ee",
+            "id": 2173
         },
         {
             "@type": "WorkflowStep",
@@ -82,8 +82,8 @@
             "top": "165",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "9557904b-713f-4795-97ba-905cdb882f74",
-            "id": 4283
+            "uuid": "cbfa614a-efb3-44bc-be4b-f4734057da81",
+            "id": 2174
         },
         {
             "@type": "WorkflowStep",
@@ -109,37 +109,37 @@
             "top": "30",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-            "uuid": "04c6360e-4dcc-4213-bca8-b2812a6bf41f",
-            "id": 4284
+            "uuid": "712ad5cb-9d0e-4d2a-a542-b71a2941d4bf",
+            "id": 2175
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Configuration",
-            "targetStep": "\/api\/3\/workflow_steps\/9557904b-713f-4795-97ba-905cdb882f74",
-            "sourceStep": "\/api\/3\/workflow_steps\/04c6360e-4dcc-4213-bca8-b2812a6bf41f",
+            "targetStep": "\/api\/3\/workflow_steps\/cbfa614a-efb3-44bc-be4b-f4734057da81",
+            "sourceStep": "\/api\/3\/workflow_steps\/712ad5cb-9d0e-4d2a-a542-b71a2941d4bf",
             "label": null,
             "isExecuted": false,
-            "uuid": "8400ffc5-571d-4584-a31e-709eef3d5b84"
+            "uuid": "5828100b-169c-492b-8be3-114d8e74b10f"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Configuration -> Fetch SIEM Alert Notification",
-            "targetStep": "\/api\/3\/workflow_steps\/49bf86d5-8d56-4189-a65d-02a9c57733bb",
-            "sourceStep": "\/api\/3\/workflow_steps\/9557904b-713f-4795-97ba-905cdb882f74",
+            "targetStep": "\/api\/3\/workflow_steps\/1daa7099-5b8d-498e-af42-8a8b4c9ce445",
+            "sourceStep": "\/api\/3\/workflow_steps\/cbfa614a-efb3-44bc-be4b-f4734057da81",
             "label": null,
             "isExecuted": false,
-            "uuid": "362ebbbb-4b7e-4c1a-b4c9-befc206277e2"
+            "uuid": "0025cb4a-eb6a-4805-80c3-2b3dcbde31a0"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Fetch SIEM Alert Notification -> Create Alert",
-            "targetStep": "\/api\/3\/workflow_steps\/495f3501-d166-4cd1-80c0-6ee89135a53f",
-            "sourceStep": "\/api\/3\/workflow_steps\/49bf86d5-8d56-4189-a65d-02a9c57733bb",
+            "targetStep": "\/api\/3\/workflow_steps\/18002d55-aa6d-4c84-9cd0-443ad8b9b9ee",
+            "sourceStep": "\/api\/3\/workflow_steps\/1daa7099-5b8d-498e-af42-8a8b4c9ce445",
             "label": null,
             "isExecuted": false,
-            "uuid": "2320d506-9dac-4c79-be0d-1d772475f56b"
+            "uuid": "081aaab2-a00d-441f-bf2c-353321d788c9"
         }
     ],
     "priority": null,
@@ -148,11 +148,11 @@
         "ManualTrigger",
         "Demo"
     ],
-    "id": 1129,
-    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "createDate": 1637679116,
-    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "modifyDate": 1637679116,
+    "id": 301,
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1636537433,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1636537433,
     "owners": [],
     "isPrivate": false
 }

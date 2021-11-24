@@ -11,10 +11,10 @@
     "remoteExecutableFlag": false,
     "parameters": [],
     "synchronous": false,
-    "lastModifyDate": 1637679100,
+    "lastModifyDate": 1636537406,
     "collection": "\/api\/3\/workflow_collections\/d98add27-83c9-4f73-a370-16454398e317",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/2562b546-8f56-4c98-b592-80324bf60abd",
+    "triggerStep": "\/api\/3\/workflow_steps\/09ac5ad3-9231-43fe-bde9-83b1e7d16814",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -189,8 +189,8 @@
             "top": "30",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-            "uuid": "2562b546-8f56-4c98-b592-80324bf60abd",
-            "id": 4402
+            "uuid": "09ac5ad3-9231-43fe-bde9-83b1e7d16814",
+            "id": 2293
         },
         {
             "@type": "WorkflowStep",
@@ -208,8 +208,8 @@
             "top": "165",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "62716399-f748-47ba-b99e-ed9005cca378",
-            "id": 4403
+            "uuid": "66eea1ca-0724-45ed-9357-aaae63ec7278",
+            "id": 2294
         },
         {
             "@type": "WorkflowStep",
@@ -260,8 +260,8 @@
             "top": "435",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
-            "uuid": "2ed737ca-2987-4d9d-ab24-7849a4d5d1d1",
-            "id": 4404
+            "uuid": "a01172b2-8125-4307-b16c-27d42614f0c7",
+            "id": 2295
         },
         {
             "@type": "WorkflowStep",
@@ -293,8 +293,8 @@
             "top": "300",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
-            "uuid": "d79f7420-262b-4ee1-b02a-671378551ee5",
-            "id": 4405
+            "uuid": "37446ce9-d474-47f7-8b4a-f68c3fc3dcb7",
+            "id": 2296
         },
         {
             "@type": "WorkflowStep",
@@ -325,8 +325,8 @@
             "top": "705",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
-            "uuid": "4d3516df-9957-4b15-8bea-9c94e47364c0",
-            "id": 4406
+            "uuid": "c7cea8c4-ebc3-4088-a886-ec5269e20d5c",
+            "id": 2297
         },
         {
             "@type": "WorkflowStep",
@@ -351,55 +351,55 @@
             "top": "570",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
-            "uuid": "6fdb808d-3bf7-4dc9-96eb-1d656f67bb23",
-            "id": 4407
+            "uuid": "129c6a4d-2384-4ce2-9c15-9f051efbcad2",
+            "id": 2298
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Configuration -> Find Email Thread",
-            "targetStep": "\/api\/3\/workflow_steps\/d79f7420-262b-4ee1-b02a-671378551ee5",
-            "sourceStep": "\/api\/3\/workflow_steps\/62716399-f748-47ba-b99e-ed9005cca378",
+            "targetStep": "\/api\/3\/workflow_steps\/37446ce9-d474-47f7-8b4a-f68c3fc3dcb7",
+            "sourceStep": "\/api\/3\/workflow_steps\/66eea1ca-0724-45ed-9357-aaae63ec7278",
             "label": null,
             "isExecuted": false,
-            "uuid": "d4835702-c25e-440d-b461-c9ed68852c6e"
+            "uuid": "c3372b3d-1e92-4f31-863b-f7b25cbd60d8"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Create Communications Record -> Link Communication to Alert",
-            "targetStep": "\/api\/3\/workflow_steps\/6fdb808d-3bf7-4dc9-96eb-1d656f67bb23",
-            "sourceStep": "\/api\/3\/workflow_steps\/2ed737ca-2987-4d9d-ab24-7849a4d5d1d1",
+            "targetStep": "\/api\/3\/workflow_steps\/129c6a4d-2384-4ce2-9c15-9f051efbcad2",
+            "sourceStep": "\/api\/3\/workflow_steps\/a01172b2-8125-4307-b16c-27d42614f0c7",
             "label": null,
             "isExecuted": false,
-            "uuid": "02bcdccf-9a26-4fcd-a36c-0e03aaaaf955"
+            "uuid": "49836982-b820-403b-8693-d7b93e3dbabd"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Link Communication to Alert -> Add Reference",
-            "targetStep": "\/api\/3\/workflow_steps\/4d3516df-9957-4b15-8bea-9c94e47364c0",
-            "sourceStep": "\/api\/3\/workflow_steps\/6fdb808d-3bf7-4dc9-96eb-1d656f67bb23",
+            "targetStep": "\/api\/3\/workflow_steps\/c7cea8c4-ebc3-4088-a886-ec5269e20d5c",
+            "sourceStep": "\/api\/3\/workflow_steps\/129c6a4d-2384-4ce2-9c15-9f051efbcad2",
             "label": null,
             "isExecuted": false,
-            "uuid": "1631bee9-789d-4e80-9d00-079725bd54a0"
+            "uuid": "5bde45fd-26f0-4bd2-ac8e-ff852cb0c6f4"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Find Email Thread -> Create Communications Record",
-            "targetStep": "\/api\/3\/workflow_steps\/2ed737ca-2987-4d9d-ab24-7849a4d5d1d1",
-            "sourceStep": "\/api\/3\/workflow_steps\/d79f7420-262b-4ee1-b02a-671378551ee5",
+            "targetStep": "\/api\/3\/workflow_steps\/a01172b2-8125-4307-b16c-27d42614f0c7",
+            "sourceStep": "\/api\/3\/workflow_steps\/37446ce9-d474-47f7-8b4a-f68c3fc3dcb7",
             "label": null,
             "isExecuted": false,
-            "uuid": "134dfb21-7391-4adf-9f0e-ea8434f1f010"
+            "uuid": "a52cb6ed-f4a3-429c-9cef-9e4eb9b2145d"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Configuration",
-            "targetStep": "\/api\/3\/workflow_steps\/62716399-f748-47ba-b99e-ed9005cca378",
-            "sourceStep": "\/api\/3\/workflow_steps\/2562b546-8f56-4c98-b592-80324bf60abd",
+            "targetStep": "\/api\/3\/workflow_steps\/66eea1ca-0724-45ed-9357-aaae63ec7278",
+            "sourceStep": "\/api\/3\/workflow_steps\/09ac5ad3-9231-43fe-bde9-83b1e7d16814",
             "label": null,
             "isExecuted": false,
-            "uuid": "49de69f4-47c0-487c-83c4-4042daf51b24"
+            "uuid": "d3b08e8c-3e8e-4111-9630-c96b9f6e6b53"
         }
     ],
     "priority": null,
@@ -407,11 +407,11 @@
     "recordTags": [
         "ManualTrigger"
     ],
-    "id": 1148,
-    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "createDate": 1637679117,
-    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
-    "modifyDate": 1637679117,
+    "id": 320,
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1636537436,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1636537436,
     "owners": [],
     "isPrivate": false
 }

@@ -1,6 +1,6 @@
 {
     "@context": "\/api\/3\/contexts\/StagingModelMetadata",
-    "@id": "\/api\/3\/staging_model_metadatas\/ff3e2163-ee1d-47ad-b592-02466ebe7c43",
+    "@id": "\/api\/3\/staging_model_metadatas\/da520ec8-1282-4453-a7cd-9573fa49d524",
     "@type": "StagingModelMetadata",
     "type": "sensitivefile",
     "parentType": null,
@@ -16,7 +16,7 @@
     "writable": true,
     "attributes": [
         {
-            "@id": "\/api\/3\/attribute_metadatas\/e1f0b23d-43bb-4592-83da-f58c0e7ca382",
+            "@id": "\/api\/3\/attribute_metadatas\/fc613d93-d633-4c92-84bf-79bc75df38ec",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "fileName",
@@ -54,15 +54,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/ff3e2163-ee1d-47ad-b592-02466ebe7c43",
-            "uuid": "e1f0b23d-43bb-4592-83da-f58c0e7ca382",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/da520ec8-1282-4453-a7cd-9573fa49d524",
+            "uuid": "fc613d93-d633-4c92-84bf-79bc75df38ec",
             "displayName": "{{ fileName }}",
             "descriptions": {
                 "singular": "File Name"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/e682fd85-e4e9-4bbc-8b21-4cebed8bc707",
+            "@id": "\/api\/3\/attribute_metadatas\/236aa241-a2db-475b-a73d-46a32242e946",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "location",
@@ -100,15 +100,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/ff3e2163-ee1d-47ad-b592-02466ebe7c43",
-            "uuid": "e682fd85-e4e9-4bbc-8b21-4cebed8bc707",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/da520ec8-1282-4453-a7cd-9573fa49d524",
+            "uuid": "236aa241-a2db-475b-a73d-46a32242e946",
             "displayName": "{{ location }}",
             "descriptions": {
                 "singular": "File Location"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/26309412-4006-4674-96dd-11271f450a3f",
+            "@id": "\/api\/3\/attribute_metadatas\/aac301ac-4601-421b-a201-0da8c720e104",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "owner",
@@ -146,15 +146,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/ff3e2163-ee1d-47ad-b592-02466ebe7c43",
-            "uuid": "26309412-4006-4674-96dd-11271f450a3f",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/da520ec8-1282-4453-a7cd-9573fa49d524",
+            "uuid": "aac301ac-4601-421b-a201-0da8c720e104",
             "displayName": "{{ owner }}",
             "descriptions": {
                 "singular": "Owner"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/1550f7e3-f5fe-435b-9c9f-1762babdfb90",
+            "@id": "\/api\/3\/attribute_metadatas\/eb275016-25e6-47f0-9a39-d6dc388d7377",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "typeOfFile",
@@ -192,8 +192,8 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/ff3e2163-ee1d-47ad-b592-02466ebe7c43",
-            "uuid": "1550f7e3-f5fe-435b-9c9f-1762babdfb90",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/da520ec8-1282-4453-a7cd-9573fa49d524",
+            "uuid": "eb275016-25e6-47f0-9a39-d6dc388d7377",
             "displayName": "{{ typeOfFile }}",
             "descriptions": {
                 "singular": "Type Of File"
@@ -202,7 +202,7 @@
     ],
     "system": false,
     "module": "sensitivefile",
-    "uuid": "ff3e2163-ee1d-47ad-b592-02466ebe7c43",
+    "uuid": "da520ec8-1282-4453-a7cd-9573fa49d524",
     "displayName": "{{fileName}}",
     "descriptions": {
         "singular": "Sensitive File",
