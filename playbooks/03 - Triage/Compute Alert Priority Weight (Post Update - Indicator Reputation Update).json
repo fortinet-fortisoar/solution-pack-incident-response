@@ -11,10 +11,10 @@
     "remoteExecutableFlag": false,
     "parameters": [],
     "synchronous": false,
-    "lastModifyDate": 1636537406,
+    "lastModifyDate": 1637679100,
     "collection": "\/api\/3\/workflow_collections\/4a9adb3a-1a68-4b28-8096-ea12210dfeab",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/71f79214-6f38-493a-9c43-e1fad6b3e41c",
+    "triggerStep": "\/api\/3\/workflow_steps\/68353b85-86b2-4220-832e-2edc8811037f",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -82,8 +82,8 @@
             "top": "40",
             "left": "120",
             "stepType": "\/api\/3\/workflow_step_types\/9300bf69-5063-486d-b3a6-47eb9da24872",
-            "uuid": "71f79214-6f38-493a-9c43-e1fad6b3e41c",
-            "id": 810
+            "uuid": "68353b85-86b2-4220-832e-2edc8811037f",
+            "id": 3007
         },
         {
             "@type": "WorkflowStep",
@@ -122,8 +122,8 @@
             "top": "160",
             "left": "280",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
-            "uuid": "6a5ecb7f-107a-45d0-b0fc-a206afb46d2a",
-            "id": 811
+            "uuid": "ed7a06fd-35f9-4834-925e-1d7bb6148f0e",
+            "id": 3008
         },
         {
             "@type": "WorkflowStep",
@@ -148,28 +148,28 @@
             "top": "280",
             "left": "460",
             "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
-            "uuid": "3f36f73b-6080-4a2f-a110-0d1f39202fe0",
-            "id": 812
+            "uuid": "9172d87d-8ef4-4a65-a761-2f40b27ff877",
+            "id": 3009
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Find Related Alerts",
-            "targetStep": "\/api\/3\/workflow_steps\/6a5ecb7f-107a-45d0-b0fc-a206afb46d2a",
-            "sourceStep": "\/api\/3\/workflow_steps\/71f79214-6f38-493a-9c43-e1fad6b3e41c",
+            "targetStep": "\/api\/3\/workflow_steps\/ed7a06fd-35f9-4834-925e-1d7bb6148f0e",
+            "sourceStep": "\/api\/3\/workflow_steps\/68353b85-86b2-4220-832e-2edc8811037f",
             "label": null,
             "isExecuted": false,
-            "uuid": "db4836ca-14d9-4664-9d98-90071914efd0"
+            "uuid": "3dd9fe6f-4ab6-4d27-8959-7efdac0614bf"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Find Related Alerts -> Compute Priority Weight",
-            "targetStep": "\/api\/3\/workflow_steps\/3f36f73b-6080-4a2f-a110-0d1f39202fe0",
-            "sourceStep": "\/api\/3\/workflow_steps\/6a5ecb7f-107a-45d0-b0fc-a206afb46d2a",
+            "targetStep": "\/api\/3\/workflow_steps\/9172d87d-8ef4-4a65-a761-2f40b27ff877",
+            "sourceStep": "\/api\/3\/workflow_steps\/ed7a06fd-35f9-4834-925e-1d7bb6148f0e",
             "label": null,
             "isExecuted": false,
-            "uuid": "f3350936-d896-4639-8bba-5a22d956397d"
+            "uuid": "2aad3ec4-410d-4bbd-8628-598236711185"
         }
     ],
     "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
@@ -178,11 +178,11 @@
         "system",
         "PostUpdate"
     ],
-    "id": 127,
-    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "createDate": 1636537414,
-    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "modifyDate": 1636537414,
+    "id": 973,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1637679105,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1637679105,
     "owners": [],
     "isPrivate": false
 }

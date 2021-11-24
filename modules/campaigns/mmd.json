@@ -1,6 +1,6 @@
 {
     "@context": "\/api\/3\/contexts\/StagingModelMetadata",
-    "@id": "\/api\/3\/staging_model_metadatas\/e5e808d7-f573-4e75-9aec-19baa4519633",
+    "@id": "\/api\/3\/staging_model_metadatas\/f2bad3d6-71d0-460b-9281-6d540460688d",
     "@type": "StagingModelMetadata",
     "type": "campaigns",
     "parentType": null,
@@ -16,7 +16,7 @@
     "writable": true,
     "attributes": [
         {
-            "@id": "\/api\/3\/attribute_metadatas\/e0e5d078-da93-4725-a1a6-c7694a19ef74",
+            "@id": "\/api\/3\/attribute_metadatas\/53d16cee-81b1-42b1-81e6-94da05267483",
             "@type": "AttributeMetadata",
             "type": "integer",
             "name": "lastSeen",
@@ -52,15 +52,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/e5e808d7-f573-4e75-9aec-19baa4519633",
-            "uuid": "e0e5d078-da93-4725-a1a6-c7694a19ef74",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/f2bad3d6-71d0-460b-9281-6d540460688d",
+            "uuid": "53d16cee-81b1-42b1-81e6-94da05267483",
             "displayName": "{{ lastSeen }}",
             "descriptions": {
                 "singular": "Last Seen"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/2d31d5d1-a34c-4343-ab41-7a66730ff447",
+            "@id": "\/api\/3\/attribute_metadatas\/92702829-5a94-467d-be8a-27bace4f3db5",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "intendedEffect",
@@ -97,15 +97,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/e5e808d7-f573-4e75-9aec-19baa4519633",
-            "uuid": "2d31d5d1-a34c-4343-ab41-7a66730ff447",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/f2bad3d6-71d0-460b-9281-6d540460688d",
+            "uuid": "92702829-5a94-467d-be8a-27bace4f3db5",
             "displayName": "{{ intendedEffect }}",
             "descriptions": {
                 "singular": "Intended Effect"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/995d2f37-607a-4750-9237-0269e82b7ce1",
+            "@id": "\/api\/3\/attribute_metadatas\/259fbbd5-ba01-494e-82e8-16a05d3f8dad",
             "@type": "AttributeMetadata",
             "type": "alerts",
             "name": "alerts",
@@ -139,15 +139,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/e5e808d7-f573-4e75-9aec-19baa4519633",
-            "uuid": "995d2f37-607a-4750-9237-0269e82b7ce1",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/f2bad3d6-71d0-460b-9281-6d540460688d",
+            "uuid": "259fbbd5-ba01-494e-82e8-16a05d3f8dad",
             "displayName": "{{ alerts }}",
             "descriptions": {
                 "singular": "Alerts"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/14f5f6ec-02fa-49b8-a81e-4abd45adec1a",
+            "@id": "\/api\/3\/attribute_metadatas\/542760fb-c5d1-424a-b787-f0b2377483f8",
             "@type": "AttributeMetadata",
             "type": "picklists",
             "name": "attackVector",
@@ -215,15 +215,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/e5e808d7-f573-4e75-9aec-19baa4519633",
-            "uuid": "14f5f6ec-02fa-49b8-a81e-4abd45adec1a",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/f2bad3d6-71d0-460b-9281-6d540460688d",
+            "uuid": "542760fb-c5d1-424a-b787-f0b2377483f8",
             "displayName": "{{ attackVector }}",
             "descriptions": {
                 "singular": "Attack Vector"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/cb8ac826-defd-40d3-bafd-f1a3d418c531",
+            "@id": "\/api\/3\/attribute_metadatas\/df7512d8-b15a-4469-acc6-1dac06198384",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "name",
@@ -259,15 +259,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/e5e808d7-f573-4e75-9aec-19baa4519633",
-            "uuid": "cb8ac826-defd-40d3-bafd-f1a3d418c531",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/f2bad3d6-71d0-460b-9281-6d540460688d",
+            "uuid": "df7512d8-b15a-4469-acc6-1dac06198384",
             "displayName": "{{ name }}",
             "descriptions": {
                 "singular": "Campaign Name"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/5f1a1878-dd4d-4f3a-b8d8-d3c9f6dfe48e",
+            "@id": "\/api\/3\/attribute_metadatas\/c597d5bd-8238-4e81-b491-c2a0edbb531b",
             "@type": "AttributeMetadata",
             "type": "integer",
             "name": "campaignStart",
@@ -303,15 +303,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/e5e808d7-f573-4e75-9aec-19baa4519633",
-            "uuid": "5f1a1878-dd4d-4f3a-b8d8-d3c9f6dfe48e",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/f2bad3d6-71d0-460b-9281-6d540460688d",
+            "uuid": "c597d5bd-8238-4e81-b491-c2a0edbb531b",
             "displayName": "{{ campaignStart }}",
             "descriptions": {
                 "singular": "Campaign Start"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/5e988597-bb62-4e19-9bb6-afde3de2b57e",
+            "@id": "\/api\/3\/attribute_metadatas\/2ffeec8b-e038-4a10-bc7b-79b5857fb288",
             "@type": "AttributeMetadata",
             "type": "comments",
             "name": "comments",
@@ -345,15 +345,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/e5e808d7-f573-4e75-9aec-19baa4519633",
-            "uuid": "5e988597-bb62-4e19-9bb6-afde3de2b57e",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/f2bad3d6-71d0-460b-9281-6d540460688d",
+            "uuid": "2ffeec8b-e038-4a10-bc7b-79b5857fb288",
             "displayName": "{{ comments }}",
             "descriptions": {
                 "singular": "Comments"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/7f97c6ef-3416-45de-8b2a-2f9f27fc3247",
+            "@id": "\/api\/3\/attribute_metadatas\/ebb32006-089d-4ad3-bcd4-6577ecea569d",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "description",
@@ -390,15 +390,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/e5e808d7-f573-4e75-9aec-19baa4519633",
-            "uuid": "7f97c6ef-3416-45de-8b2a-2f9f27fc3247",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/f2bad3d6-71d0-460b-9281-6d540460688d",
+            "uuid": "ebb32006-089d-4ad3-bcd4-6577ecea569d",
             "displayName": "{{ description }}",
             "descriptions": {
                 "singular": "Description"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/c8f7854c-f78f-48f3-b6ea-0124baabbe27",
+            "@id": "\/api\/3\/attribute_metadatas\/999520fe-a429-47cd-a7bb-66d01d2e9aff",
             "@type": "AttributeMetadata",
             "type": "incidents",
             "name": "incidents",
@@ -432,15 +432,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/e5e808d7-f573-4e75-9aec-19baa4519633",
-            "uuid": "c8f7854c-f78f-48f3-b6ea-0124baabbe27",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/f2bad3d6-71d0-460b-9281-6d540460688d",
+            "uuid": "999520fe-a429-47cd-a7bb-66d01d2e9aff",
             "displayName": "{{ incidents }}",
             "descriptions": {
                 "singular": "Incidents"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/9c0223df-c8e6-469d-a3b2-983d425d89c5",
+            "@id": "\/api\/3\/attribute_metadatas\/c6b610c3-7445-409a-9e44-464fcd5ce359",
             "@type": "AttributeMetadata",
             "type": "indicators",
             "name": "indicators",
@@ -474,15 +474,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/e5e808d7-f573-4e75-9aec-19baa4519633",
-            "uuid": "9c0223df-c8e6-469d-a3b2-983d425d89c5",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/f2bad3d6-71d0-460b-9281-6d540460688d",
+            "uuid": "c6b610c3-7445-409a-9e44-464fcd5ce359",
             "displayName": "{{ indicators }}",
             "descriptions": {
                 "singular": "Indicators"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/5dff84e9-da7e-4ed6-9965-13b5f04be65b",
+            "@id": "\/api\/3\/attribute_metadatas\/1d3fcdf5-9e90-4e40-9bff-6ff2abd88c4c",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "malwareEmployed",
@@ -518,15 +518,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/e5e808d7-f573-4e75-9aec-19baa4519633",
-            "uuid": "5dff84e9-da7e-4ed6-9965-13b5f04be65b",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/f2bad3d6-71d0-460b-9281-6d540460688d",
+            "uuid": "1d3fcdf5-9e90-4e40-9bff-6ff2abd88c4c",
             "displayName": "{{ malwareEmployed }}",
             "descriptions": {
                 "singular": "Malware Employed"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/cea41a39-7d75-401c-afc4-fca48974bc28",
+            "@id": "\/api\/3\/attribute_metadatas\/9a8b121b-8dbb-4233-a7fc-5bbe1de35858",
             "@type": "AttributeMetadata",
             "type": "notes",
             "name": "notes",
@@ -560,15 +560,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/e5e808d7-f573-4e75-9aec-19baa4519633",
-            "uuid": "cea41a39-7d75-401c-afc4-fca48974bc28",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/f2bad3d6-71d0-460b-9281-6d540460688d",
+            "uuid": "9a8b121b-8dbb-4233-a7fc-5bbe1de35858",
             "displayName": "{{ notes }}",
             "descriptions": {
                 "singular": "Notes"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/6c758a8f-fa92-4a4d-8ef0-412e23b6cd04",
+            "@id": "\/api\/3\/attribute_metadatas\/7506de11-9fd2-478d-8d3d-48d978a5a6f3",
             "@type": "AttributeMetadata",
             "type": "picklists",
             "name": "status",
@@ -623,15 +623,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/e5e808d7-f573-4e75-9aec-19baa4519633",
-            "uuid": "6c758a8f-fa92-4a4d-8ef0-412e23b6cd04",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/f2bad3d6-71d0-460b-9281-6d540460688d",
+            "uuid": "7506de11-9fd2-478d-8d3d-48d978a5a6f3",
             "displayName": "{{ status }}",
             "descriptions": {
                 "singular": "Status"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/c0a12697-6752-40f1-8576-67df9b1dac84",
+            "@id": "\/api\/3\/attribute_metadatas\/714dc27c-6ffd-4f6e-b062-8cba1d1fd92f",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "phishingLure",
@@ -686,15 +686,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/e5e808d7-f573-4e75-9aec-19baa4519633",
-            "uuid": "c0a12697-6752-40f1-8576-67df9b1dac84",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/f2bad3d6-71d0-460b-9281-6d540460688d",
+            "uuid": "714dc27c-6ffd-4f6e-b062-8cba1d1fd92f",
             "displayName": "{{ phishingLure }}",
             "descriptions": {
                 "singular": "Phishing Lure"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/b2f31e2a-1060-44c3-9a85-8f2d3a6313ee",
+            "@id": "\/api\/3\/attribute_metadatas\/64d5973f-6f1c-47c7-974b-d79f7a70cd1b",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "targetedCves",
@@ -750,15 +750,15 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/e5e808d7-f573-4e75-9aec-19baa4519633",
-            "uuid": "b2f31e2a-1060-44c3-9a85-8f2d3a6313ee",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/f2bad3d6-71d0-460b-9281-6d540460688d",
+            "uuid": "64d5973f-6f1c-47c7-974b-d79f7a70cd1b",
             "displayName": "{{ targetedCves }}",
             "descriptions": {
                 "singular": "Targeted CVEs"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/d862f3a5-e8b1-44db-99ee-014930011797",
+            "@id": "\/api\/3\/attribute_metadatas\/354d80d6-dbee-4088-88ef-35c4338c37c8",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "threatActor",
@@ -794,8 +794,8 @@
             "identifier": false,
             "unique": false,
             "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/e5e808d7-f573-4e75-9aec-19baa4519633",
-            "uuid": "d862f3a5-e8b1-44db-99ee-014930011797",
+            "sattrib": "\/api\/3\/staging_model_metadatas\/f2bad3d6-71d0-460b-9281-6d540460688d",
+            "uuid": "354d80d6-dbee-4088-88ef-35c4338c37c8",
             "displayName": "{{ threatActor }}",
             "descriptions": {
                 "singular": "Threat Actor"
@@ -804,7 +804,7 @@
     ],
     "system": false,
     "module": "campaigns",
-    "uuid": "e5e808d7-f573-4e75-9aec-19baa4519633",
+    "uuid": "f2bad3d6-71d0-460b-9281-6d540460688d",
     "displayName": "{{ name }}",
     "descriptions": {
         "plural": "Campaigns",

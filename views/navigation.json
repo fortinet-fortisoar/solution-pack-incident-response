@@ -496,39 +496,6 @@
                 "openStatus": false
             },
             {
-                "title": "Simulations",
-                "require": {
-                    "module": "scenario",
-                    "action": "read"
-                },
-                "state": {
-                    "name": "main.modules.list",
-                    "parameters": {
-                        "module": "scenario"
-                    }
-                },
-                "icon": "fa fa-play",
-                "editMode": false,
-                "open": false,
-                "isEnabled": false,
-                "openStatus": false
-            },
-            {
-                "title": "Knowledge Base",
-                "require": {
-                    "module": "knowledge_base",
-                    "action": "read"
-                },
-                "state": {
-                    "name": "main.modules.list",
-                    "parameters": {
-                        "module": "knowledge_base"
-                    }
-                },
-                "icon": "fa fa-question-circle",
-                "editMode": false
-            },
-            {
                 "title": "Help",
                 "state": {
                     "name": "main.pages",
