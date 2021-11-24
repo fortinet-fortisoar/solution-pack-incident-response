@@ -11,10 +11,10 @@
     "remoteExecutableFlag": false,
     "parameters": [],
     "synchronous": false,
-    "lastModifyDate": 1636537406,
+    "lastModifyDate": 1637679100,
     "collection": "\/api\/3\/workflow_collections\/59667fcc-7feb-4ba4-a5a2-e03a9287f857",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/4fc72bb2-2996-49ba-8959-d3b7b050ad63",
+    "triggerStep": "\/api\/3\/workflow_steps\/33b7f8e2-143f-4277-9b97-697633b80d3c",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -55,8 +55,8 @@
             "top": "300",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
-            "uuid": "e53a59af-fd82-4a45-adac-0c7e127914a0",
-            "id": 1230
+            "uuid": "a8bea90d-ae75-4edb-9005-47de5954e577",
+            "id": 3427
         },
         {
             "@type": "WorkflowStep",
@@ -71,8 +71,8 @@
             "top": "165",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "94520d48-2a5a-4a9f-85f2-5d1260e2bd5b",
-            "id": 1231
+            "uuid": "084feb5a-b3ee-4c03-baac-48c6f58e5ef2",
+            "id": 3428
         },
         {
             "@type": "WorkflowStep",
@@ -97,8 +97,8 @@
             "top": "705",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
-            "uuid": "27ca5ef1-8070-49c3-bcc9-f8f257d55657",
-            "id": 1232
+            "uuid": "6e88357b-2898-4da2-8a75-3ce04103244c",
+            "id": 3429
         },
         {
             "@type": "WorkflowStep",
@@ -127,8 +127,8 @@
             "top": "435",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
-            "uuid": "345739d9-933f-4e32-838f-731c2869b475",
-            "id": 1233
+            "uuid": "0d1425dd-c6c4-474f-a1c1-036543830635",
+            "id": 3430
         },
         {
             "@type": "WorkflowStep",
@@ -157,8 +157,8 @@
             "top": "570",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
-            "uuid": "26dbf769-ff03-4836-8df5-857886993ab4",
-            "id": 1234
+            "uuid": "113d68ae-59d8-427a-b009-15cd262c4868",
+            "id": 3431
         },
         {
             "@type": "WorkflowStep",
@@ -205,55 +205,55 @@
             "top": "30",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/ea155646-3821-4542-9702-b246da430a8d",
-            "uuid": "4fc72bb2-2996-49ba-8959-d3b7b050ad63",
-            "id": 1235
+            "uuid": "33b7f8e2-143f-4277-9b97-697633b80d3c",
+            "id": 3432
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Create Indicator for File MD5 -> Copy  of Create Indicator for File MD5",
-            "targetStep": "\/api\/3\/workflow_steps\/26dbf769-ff03-4836-8df5-857886993ab4",
-            "sourceStep": "\/api\/3\/workflow_steps\/345739d9-933f-4e32-838f-731c2869b475",
+            "targetStep": "\/api\/3\/workflow_steps\/113d68ae-59d8-427a-b009-15cd262c4868",
+            "sourceStep": "\/api\/3\/workflow_steps\/0d1425dd-c6c4-474f-a1c1-036543830635",
             "label": null,
             "isExecuted": false,
-            "uuid": "e2a0546c-3b57-4352-9b36-a4e3433605ed"
+            "uuid": "ffe968dd-3341-4779-9768-e4ed5f3673d0"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Configuration -> Start Investigation",
-            "targetStep": "\/api\/3\/workflow_steps\/e53a59af-fd82-4a45-adac-0c7e127914a0",
-            "sourceStep": "\/api\/3\/workflow_steps\/94520d48-2a5a-4a9f-85f2-5d1260e2bd5b",
+            "targetStep": "\/api\/3\/workflow_steps\/a8bea90d-ae75-4edb-9005-47de5954e577",
+            "sourceStep": "\/api\/3\/workflow_steps\/084feb5a-b3ee-4c03-baac-48c6f58e5ef2",
             "label": null,
             "isExecuted": false,
-            "uuid": "2f66469d-bb8d-4db5-be70-995b878ad810"
+            "uuid": "aa7e4361-8c34-403b-9d31-4ef3f4421c70"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Configuration",
-            "targetStep": "\/api\/3\/workflow_steps\/94520d48-2a5a-4a9f-85f2-5d1260e2bd5b",
-            "sourceStep": "\/api\/3\/workflow_steps\/4fc72bb2-2996-49ba-8959-d3b7b050ad63",
+            "targetStep": "\/api\/3\/workflow_steps\/084feb5a-b3ee-4c03-baac-48c6f58e5ef2",
+            "sourceStep": "\/api\/3\/workflow_steps\/33b7f8e2-143f-4277-9b97-697633b80d3c",
             "label": null,
             "isExecuted": false,
-            "uuid": "0bc838a3-ec0b-4506-ba3e-40cb7d5ee7da"
+            "uuid": "b37b445b-be8f-4371-b40c-42b4185e0457"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Create Indicator for URL -> Copy  of Create Indicator for URL",
-            "targetStep": "\/api\/3\/workflow_steps\/27ca5ef1-8070-49c3-bcc9-f8f257d55657",
-            "sourceStep": "\/api\/3\/workflow_steps\/26dbf769-ff03-4836-8df5-857886993ab4",
+            "targetStep": "\/api\/3\/workflow_steps\/6e88357b-2898-4da2-8a75-3ce04103244c",
+            "sourceStep": "\/api\/3\/workflow_steps\/113d68ae-59d8-427a-b009-15cd262c4868",
             "label": null,
             "isExecuted": false,
-            "uuid": "6ec94cf2-d79d-49f3-9d94-c2f88a9e25ac"
+            "uuid": "22c48c43-a121-42e2-a79c-d7e7a21e486f"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Start Investigation -> Create Indicator for File MD5",
-            "targetStep": "\/api\/3\/workflow_steps\/345739d9-933f-4e32-838f-731c2869b475",
-            "sourceStep": "\/api\/3\/workflow_steps\/e53a59af-fd82-4a45-adac-0c7e127914a0",
+            "targetStep": "\/api\/3\/workflow_steps\/0d1425dd-c6c4-474f-a1c1-036543830635",
+            "sourceStep": "\/api\/3\/workflow_steps\/a8bea90d-ae75-4edb-9005-47de5954e577",
             "label": null,
             "isExecuted": false,
-            "uuid": "8f7278c1-a916-4d98-9b10-2d8751e5c348"
+            "uuid": "430f321a-ea3d-49e3-96ab-50bc30ffedcd"
         }
     ],
     "priority": null,
@@ -262,11 +262,11 @@
         "PostCreate",
         "Alerts"
     ],
-    "id": 156,
-    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "createDate": 1636537416,
-    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "modifyDate": 1636537416,
+    "id": 1002,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1637679107,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1637679107,
     "owners": [],
     "isPrivate": false
 }

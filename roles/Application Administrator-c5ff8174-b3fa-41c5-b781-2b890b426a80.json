@@ -6,19 +6,7 @@
     "name": "Application Administrator",
     "modulePermissions": [
         {
-            "@id": "\/api\/3\/module_permissions\/42f8ae20-1b32-45ee-a6b3-6cfec50250fd",
-            "@type": "ModulePermission",
-            "canCreate": true,
-            "canExecute": null,
-            "canRead": true,
-            "canUpdate": true,
-            "canDelete": true,
-            "fieldPermissions": [],
-            "module": "security",
-            "uuid": "42f8ae20-1b32-45ee-a6b3-6cfec50250fd"
-        },
-        {
-            "@id": "\/api\/3\/module_permissions\/e1044997-8b56-44c8-ab70-f94c3ec52256",
+            "@id": "\/api\/3\/module_permissions\/41cfd523-e16d-47a1-b33b-508f45b52f8e",
             "@type": "ModulePermission",
             "canCreate": true,
             "canExecute": null,
@@ -27,7 +15,19 @@
             "canDelete": true,
             "fieldPermissions": [],
             "module": "application",
-            "uuid": "e1044997-8b56-44c8-ab70-f94c3ec52256"
+            "uuid": "41cfd523-e16d-47a1-b33b-508f45b52f8e"
+        },
+        {
+            "@id": "\/api\/3\/module_permissions\/f96a2faa-a539-4ab0-be85-6bce421bd278",
+            "@type": "ModulePermission",
+            "canCreate": true,
+            "canExecute": null,
+            "canRead": true,
+            "canUpdate": true,
+            "canDelete": true,
+            "fieldPermissions": [],
+            "module": "security",
+            "uuid": "f96a2faa-a539-4ab0-be85-6bce421bd278"
         }
     ],
     "uuid": "c5ff8174-b3fa-41c5-b781-2b890b426a80"

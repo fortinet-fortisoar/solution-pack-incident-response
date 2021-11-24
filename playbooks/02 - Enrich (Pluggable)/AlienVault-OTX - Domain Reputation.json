@@ -13,10 +13,10 @@
         "indicator_value"
     ],
     "synchronous": false,
-    "lastModifyDate": 1636537406,
+    "lastModifyDate": 1637679100,
     "collection": "\/api\/3\/workflow_collections\/b135c052-e170-4cff-8cc7-9a4bfe607ccb",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/6bafa828-e139-43d4-bf1d-87940bb6d436",
+    "triggerStep": "\/api\/3\/workflow_steps\/c90da41b-8fcf-4ccd-a538-aba5cbd54ce6",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -43,8 +43,8 @@
             "top": "300",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
-            "uuid": "8126c408-3e71-4297-91c9-6a589ea72490",
-            "id": 564
+            "uuid": "00d04d2d-b886-406e-9466-f1d0918cf983",
+            "id": 2761
         },
         {
             "@type": "WorkflowStep",
@@ -59,8 +59,8 @@
             "top": "568",
             "left": "120",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "958dc898-7011-41d2-bb53-e0439afc4ec8",
-            "id": 565
+            "uuid": "9d677b2c-fa8b-410f-b62e-8cf5bce073fe",
+            "id": 2762
         },
         {
             "@type": "WorkflowStep",
@@ -79,8 +79,8 @@
             "top": "30",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
-            "uuid": "6bafa828-e139-43d4-bf1d-87940bb6d436",
-            "id": 566
+            "uuid": "c90da41b-8fcf-4ccd-a538-aba5cbd54ce6",
+            "id": 2763
         },
         {
             "@type": "WorkflowStep",
@@ -93,8 +93,8 @@
             "top": "165",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "837e8a04-f442-4d2e-b752-56b9ced295a9",
-            "id": 567
+            "uuid": "e52b30e7-1bfd-438a-8a6e-35360504731c",
+            "id": 2764
         },
         {
             "@type": "WorkflowStep",
@@ -115,46 +115,46 @@
             "top": "435",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
-            "uuid": "48ad5ea8-3b5b-4742-84a3-47b38d6618cc",
-            "id": 568
+            "uuid": "f2c01d63-8c18-47b9-b05f-ab5db9deacbd",
+            "id": 2765
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Configurations",
-            "targetStep": "\/api\/3\/workflow_steps\/837e8a04-f442-4d2e-b752-56b9ced295a9",
-            "sourceStep": "\/api\/3\/workflow_steps\/6bafa828-e139-43d4-bf1d-87940bb6d436",
+            "targetStep": "\/api\/3\/workflow_steps\/e52b30e7-1bfd-438a-8a6e-35360504731c",
+            "sourceStep": "\/api\/3\/workflow_steps\/c90da41b-8fcf-4ccd-a538-aba5cbd54ce6",
             "label": null,
             "isExecuted": false,
-            "uuid": "37f4b37e-b4fc-454b-ad9e-db5e7002ad97"
+            "uuid": "dc50ef24-4780-44c1-8956-1ce90788c664"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Configurations -> Get Reputation from AlienVault OTX",
-            "targetStep": "\/api\/3\/workflow_steps\/8126c408-3e71-4297-91c9-6a589ea72490",
-            "sourceStep": "\/api\/3\/workflow_steps\/837e8a04-f442-4d2e-b752-56b9ced295a9",
+            "targetStep": "\/api\/3\/workflow_steps\/00d04d2d-b886-406e-9466-f1d0918cf983",
+            "sourceStep": "\/api\/3\/workflow_steps\/e52b30e7-1bfd-438a-8a6e-35360504731c",
             "label": null,
             "isExecuted": false,
-            "uuid": "e1684eed-b42b-4c63-a34d-cd8cbe6264d8"
+            "uuid": "8f88552c-900e-43f5-9b78-52352af6112e"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Get Reputation from AlienVault OTX -> Compute AV OTX Summary",
-            "targetStep": "\/api\/3\/workflow_steps\/48ad5ea8-3b5b-4742-84a3-47b38d6618cc",
-            "sourceStep": "\/api\/3\/workflow_steps\/8126c408-3e71-4297-91c9-6a589ea72490",
+            "targetStep": "\/api\/3\/workflow_steps\/f2c01d63-8c18-47b9-b05f-ab5db9deacbd",
+            "sourceStep": "\/api\/3\/workflow_steps\/00d04d2d-b886-406e-9466-f1d0918cf983",
             "label": null,
             "isExecuted": false,
-            "uuid": "77abf96e-a00c-4cef-8bf0-7533dfc26837"
+            "uuid": "15972972-9f47-4ede-b2ca-ce31d4450a40"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Compute AV OTX Summary -> enrichment_summary",
-            "targetStep": "\/api\/3\/workflow_steps\/958dc898-7011-41d2-bb53-e0439afc4ec8",
-            "sourceStep": "\/api\/3\/workflow_steps\/48ad5ea8-3b5b-4742-84a3-47b38d6618cc",
+            "targetStep": "\/api\/3\/workflow_steps\/9d677b2c-fa8b-410f-b62e-8cf5bce073fe",
+            "sourceStep": "\/api\/3\/workflow_steps\/f2c01d63-8c18-47b9-b05f-ab5db9deacbd",
             "label": null,
             "isExecuted": false,
-            "uuid": "033fbacc-8dd2-4c12-bd0d-d0d70fc43ba5"
+            "uuid": "0e165105-6947-41ac-a932-33997ed1c569"
         }
     ],
     "priority": null,
@@ -162,11 +162,11 @@
     "recordTags": [
         "Subroutine"
     ],
-    "id": 92,
-    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "createDate": 1636537411,
-    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "modifyDate": 1636537411,
+    "id": 938,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1637679104,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1637679104,
     "owners": [],
     "isPrivate": false
 }

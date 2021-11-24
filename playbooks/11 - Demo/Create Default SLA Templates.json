@@ -11,10 +11,10 @@
     "remoteExecutableFlag": false,
     "parameters": [],
     "synchronous": false,
-    "lastModifyDate": 1636537406,
+    "lastModifyDate": 1637679100,
     "collection": "\/api\/3\/workflow_collections\/a41c4bc4-5b29-4701-96e7-e62e21e8763e",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/a63f2880-70eb-4220-ac43-7d84d124a823",
+    "triggerStep": "\/api\/3\/workflow_steps\/d8a4dfe4-a387-4227-9269-e43f48961bbf",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -122,8 +122,8 @@
             "top": "435",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
-            "uuid": "56b9c6ff-099a-4b37-8357-3b652c2d0470",
-            "id": 2071
+            "uuid": "b84294e4-905b-4403-91b3-c5ff1d718a28",
+            "id": 4180
         },
         {
             "@type": "WorkflowStep",
@@ -148,8 +148,8 @@
             "top": "30",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-            "uuid": "a63f2880-70eb-4220-ac43-7d84d124a823",
-            "id": 2072
+            "uuid": "d8a4dfe4-a387-4227-9269-e43f48961bbf",
+            "id": 4181
         },
         {
             "@type": "WorkflowStep",
@@ -257,8 +257,8 @@
             "top": "705",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
-            "uuid": "cb035a4c-3f8b-4898-a4c1-745ddecb3f56",
-            "id": 2073
+            "uuid": "6d6ed250-8fff-4d12-9de2-c64bafc749fd",
+            "id": 4182
         },
         {
             "@type": "WorkflowStep",
@@ -366,8 +366,8 @@
             "top": "165",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
-            "uuid": "9812469f-44a1-43b9-be46-a648db1f7c42",
-            "id": 2074
+            "uuid": "91fe42f0-c8eb-437d-8d72-040ba0f5b18d",
+            "id": 4183
         },
         {
             "@type": "WorkflowStep",
@@ -475,8 +475,8 @@
             "top": "300",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
-            "uuid": "f42f4d50-fdf8-471a-a7c5-f604fc2a9e87",
-            "id": 2075
+            "uuid": "2d63303d-8d3f-4ae9-a87e-806b573ca39a",
+            "id": 4184
         },
         {
             "@type": "WorkflowStep",
@@ -584,55 +584,55 @@
             "top": "570",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
-            "uuid": "e5444fcf-538d-4b37-a8a3-b6addaeb84b8",
-            "id": 2076
+            "uuid": "ba691ba8-0527-43b0-8243-47917c845ed7",
+            "id": 4185
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Critical Severity SLA Template",
-            "targetStep": "\/api\/3\/workflow_steps\/9812469f-44a1-43b9-be46-a648db1f7c42",
-            "sourceStep": "\/api\/3\/workflow_steps\/a63f2880-70eb-4220-ac43-7d84d124a823",
+            "targetStep": "\/api\/3\/workflow_steps\/91fe42f0-c8eb-437d-8d72-040ba0f5b18d",
+            "sourceStep": "\/api\/3\/workflow_steps\/d8a4dfe4-a387-4227-9269-e43f48961bbf",
             "label": null,
             "isExecuted": false,
-            "uuid": "408a66f1-673e-4596-a6d6-e688b648939e"
+            "uuid": "ad225854-aaca-4991-a4ff-e25686c149a1"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Medium Severity SLA Template -> Low Severity SLA Template",
-            "targetStep": "\/api\/3\/workflow_steps\/e5444fcf-538d-4b37-a8a3-b6addaeb84b8",
-            "sourceStep": "\/api\/3\/workflow_steps\/56b9c6ff-099a-4b37-8357-3b652c2d0470",
+            "targetStep": "\/api\/3\/workflow_steps\/ba691ba8-0527-43b0-8243-47917c845ed7",
+            "sourceStep": "\/api\/3\/workflow_steps\/b84294e4-905b-4403-91b3-c5ff1d718a28",
             "label": null,
             "isExecuted": false,
-            "uuid": "11a52963-e34c-4102-ba30-b423fa40b1c4"
+            "uuid": "6db99421-40d3-4381-b9d8-8596f14bab2f"
         },
         {
             "@type": "WorkflowRoute",
             "name": "High Severity SLA Template -> Medium Severity SLA Template",
-            "targetStep": "\/api\/3\/workflow_steps\/56b9c6ff-099a-4b37-8357-3b652c2d0470",
-            "sourceStep": "\/api\/3\/workflow_steps\/f42f4d50-fdf8-471a-a7c5-f604fc2a9e87",
+            "targetStep": "\/api\/3\/workflow_steps\/b84294e4-905b-4403-91b3-c5ff1d718a28",
+            "sourceStep": "\/api\/3\/workflow_steps\/2d63303d-8d3f-4ae9-a87e-806b573ca39a",
             "label": null,
             "isExecuted": false,
-            "uuid": "f4a72e76-ae75-4681-a603-941bec1cdaa3"
+            "uuid": "cffcbce1-2df2-4270-87ac-e77bb9674336"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Critical Severity SLA Template -> High Severity SLA Template",
-            "targetStep": "\/api\/3\/workflow_steps\/f42f4d50-fdf8-471a-a7c5-f604fc2a9e87",
-            "sourceStep": "\/api\/3\/workflow_steps\/9812469f-44a1-43b9-be46-a648db1f7c42",
+            "targetStep": "\/api\/3\/workflow_steps\/2d63303d-8d3f-4ae9-a87e-806b573ca39a",
+            "sourceStep": "\/api\/3\/workflow_steps\/91fe42f0-c8eb-437d-8d72-040ba0f5b18d",
             "label": null,
             "isExecuted": false,
-            "uuid": "6fdc6714-0916-4889-b348-831b20b8068a"
+            "uuid": "8f690e8f-54ec-48a6-bd01-db372c2801b2"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Low Severity SLA Template -> Minimal Severity SLA Template",
-            "targetStep": "\/api\/3\/workflow_steps\/cb035a4c-3f8b-4898-a4c1-745ddecb3f56",
-            "sourceStep": "\/api\/3\/workflow_steps\/e5444fcf-538d-4b37-a8a3-b6addaeb84b8",
+            "targetStep": "\/api\/3\/workflow_steps\/6d6ed250-8fff-4d12-9de2-c64bafc749fd",
+            "sourceStep": "\/api\/3\/workflow_steps\/ba691ba8-0527-43b0-8243-47917c845ed7",
             "label": null,
             "isExecuted": false,
-            "uuid": "97e4833e-23e8-44c3-8697-1d4ad30b0e45"
+            "uuid": "0f1fff91-b9e5-4982-a6db-492278034e39"
         }
     ],
     "priority": null,
@@ -640,11 +640,11 @@
     "recordTags": [
         "ManualAction"
     ],
-    "id": 294,
-    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "createDate": 1636537433,
-    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "modifyDate": 1636537433,
+    "id": 1122,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1637679116,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1637679116,
     "owners": [],
     "isPrivate": false
 }

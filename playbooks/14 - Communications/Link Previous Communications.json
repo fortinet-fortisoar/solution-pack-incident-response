@@ -11,10 +11,10 @@
     "remoteExecutableFlag": false,
     "parameters": [],
     "synchronous": false,
-    "lastModifyDate": 1636537406,
+    "lastModifyDate": 1637679100,
     "collection": "\/api\/3\/workflow_collections\/d98add27-83c9-4f73-a370-16454398e317",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/5cd2bd95-6ac3-4506-9d78-eb8277fd32f8",
+    "triggerStep": "\/api\/3\/workflow_steps\/393dbf7c-4324-49b0-a592-d4df13433ce5",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -43,8 +43,8 @@
             "top": "30",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/ea155646-3821-4542-9702-b246da430a8d",
-            "uuid": "5cd2bd95-6ac3-4506-9d78-eb8277fd32f8",
-            "id": 2302
+            "uuid": "393dbf7c-4324-49b0-a592-d4df13433ce5",
+            "id": 4411
         },
         {
             "@type": "WorkflowStep",
@@ -102,8 +102,8 @@
             "top": "165",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
-            "uuid": "12c68c40-ffc5-436f-8b9a-efec16e22289",
-            "id": 2303
+            "uuid": "28ca25af-8104-4e27-bb58-48c5a8a00fc7",
+            "id": 4412
         },
         {
             "@type": "WorkflowStep",
@@ -128,28 +128,28 @@
             "top": "300",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
-            "uuid": "9d3b162e-b8e9-442b-80bd-318a56b1054b",
-            "id": 2304
+            "uuid": "b23904be-ddd5-43ce-828e-34b4031b1b47",
+            "id": 4413
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Find Email Thread",
-            "targetStep": "\/api\/3\/workflow_steps\/12c68c40-ffc5-436f-8b9a-efec16e22289",
-            "sourceStep": "\/api\/3\/workflow_steps\/5cd2bd95-6ac3-4506-9d78-eb8277fd32f8",
+            "targetStep": "\/api\/3\/workflow_steps\/28ca25af-8104-4e27-bb58-48c5a8a00fc7",
+            "sourceStep": "\/api\/3\/workflow_steps\/393dbf7c-4324-49b0-a592-d4df13433ce5",
             "label": null,
             "isExecuted": false,
-            "uuid": "a41a7367-c659-435a-bda7-3b069ff7c089"
+            "uuid": "3f2219dc-db21-4ce6-9879-cf9dd6e911a0"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Find Email Thread -> Create Email Thread",
-            "targetStep": "\/api\/3\/workflow_steps\/9d3b162e-b8e9-442b-80bd-318a56b1054b",
-            "sourceStep": "\/api\/3\/workflow_steps\/12c68c40-ffc5-436f-8b9a-efec16e22289",
+            "targetStep": "\/api\/3\/workflow_steps\/b23904be-ddd5-43ce-828e-34b4031b1b47",
+            "sourceStep": "\/api\/3\/workflow_steps\/28ca25af-8104-4e27-bb58-48c5a8a00fc7",
             "label": null,
             "isExecuted": false,
-            "uuid": "03343a2b-e89d-4749-885b-23c3c41976b9"
+            "uuid": "56e9eb47-f0f5-4829-a616-b5fdc1317896"
         }
     ],
     "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
@@ -158,11 +158,11 @@
         "system",
         "PostCreate"
     ],
-    "id": 322,
-    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "createDate": 1636537436,
-    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "modifyDate": 1636537436,
+    "id": 1150,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1637679117,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1637679117,
     "owners": [],
     "isPrivate": false
 }

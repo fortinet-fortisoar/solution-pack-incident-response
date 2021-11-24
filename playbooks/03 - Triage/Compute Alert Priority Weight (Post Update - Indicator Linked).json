@@ -11,10 +11,10 @@
     "remoteExecutableFlag": false,
     "parameters": [],
     "synchronous": false,
-    "lastModifyDate": 1636537406,
+    "lastModifyDate": 1637679100,
     "collection": "\/api\/3\/workflow_collections\/4a9adb3a-1a68-4b28-8096-ea12210dfeab",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/8dd1a65b-8cad-4cf7-bb3d-64648fbc7e8e",
+    "triggerStep": "\/api\/3\/workflow_steps\/dc443c9c-e036-456c-91aa-b788d3323ddf",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -62,8 +62,8 @@
             "top": "30",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/9300bf69-5063-486d-b3a6-47eb9da24872",
-            "uuid": "8dd1a65b-8cad-4cf7-bb3d-64648fbc7e8e",
-            "id": 802
+            "uuid": "dc443c9c-e036-456c-91aa-b788d3323ddf",
+            "id": 2999
         },
         {
             "@type": "WorkflowStep",
@@ -76,8 +76,8 @@
             "top": "300",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "16468da8-5fe9-4466-8fcc-9d1e3d890d06",
-            "id": 803
+            "uuid": "d52457a7-9339-4499-ac46-82c581519efe",
+            "id": 3000
         },
         {
             "@type": "WorkflowStep",
@@ -93,8 +93,8 @@
             "top": "435",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "2a774e0d-ab7f-4e7e-9a0f-88eb0c856dcd",
-            "id": 804
+            "uuid": "4a6e0326-554d-4262-b1f1-dd64d9c77005",
+            "id": 3001
         },
         {
             "@type": "WorkflowStep",
@@ -108,8 +108,8 @@
             "top": "165",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "191d43b1-4e03-4672-9715-3b195e72568f",
-            "id": 805
+            "uuid": "80820f2d-acc0-48ad-93ef-7af8cdae0bf1",
+            "id": 3002
         },
         {
             "@type": "WorkflowStep",
@@ -122,8 +122,8 @@
             "top": "570",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "9f2b08a0-a9e4-4e55-9748-d328809f9913",
-            "id": 806
+            "uuid": "4defd3ac-8911-4bc5-95b8-262fcd1201a9",
+            "id": 3003
         },
         {
             "@type": "WorkflowStep",
@@ -146,8 +146,8 @@
             "top": "705",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
-            "uuid": "6befb301-daaa-4b9e-8f25-2308e2b7b6fe",
-            "id": 807
+            "uuid": "554fb19e-25bd-4b08-b0c5-f8eff6f9c6ec",
+            "id": 3004
         },
         {
             "@type": "WorkflowStep",
@@ -188,8 +188,8 @@
             "top": "840",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
-            "uuid": "85bc3db6-4331-4af0-9df8-2f67e7563d63",
-            "id": 808
+            "uuid": "fbdf45e8-d4e1-4926-a772-a2d01068287e",
+            "id": 3005
         },
         {
             "@type": "WorkflowStep",
@@ -213,73 +213,73 @@
             "top": "974",
             "left": "126",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
-            "uuid": "5d8602a7-e1f2-42d2-8ed0-38d824b299d5",
-            "id": 809
+            "uuid": "b8312f29-b41a-417c-a6e8-63440f5704c7",
+            "id": 3006
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Get Related Records -> Configuration",
-            "targetStep": "\/api\/3\/workflow_steps\/2a774e0d-ab7f-4e7e-9a0f-88eb0c856dcd",
-            "sourceStep": "\/api\/3\/workflow_steps\/16468da8-5fe9-4466-8fcc-9d1e3d890d06",
+            "targetStep": "\/api\/3\/workflow_steps\/4a6e0326-554d-4262-b1f1-dd64d9c77005",
+            "sourceStep": "\/api\/3\/workflow_steps\/d52457a7-9339-4499-ac46-82c581519efe",
             "label": null,
             "isExecuted": false,
-            "uuid": "68732991-9cc6-4645-916c-4647c0368057"
+            "uuid": "245705c1-3758-492f-9b62-1e2e2d505bc8"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Configuration",
-            "targetStep": "\/api\/3\/workflow_steps\/191d43b1-4e03-4672-9715-3b195e72568f",
-            "sourceStep": "\/api\/3\/workflow_steps\/8dd1a65b-8cad-4cf7-bb3d-64648fbc7e8e",
+            "targetStep": "\/api\/3\/workflow_steps\/80820f2d-acc0-48ad-93ef-7af8cdae0bf1",
+            "sourceStep": "\/api\/3\/workflow_steps\/dc443c9c-e036-456c-91aa-b788d3323ddf",
             "label": null,
             "isExecuted": false,
-            "uuid": "0174f954-7f33-4e59-b819-65da1fde7847"
+            "uuid": "2b425428-a232-409c-a741-0e23be2e7380"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Configuration -> Get Related Records",
-            "targetStep": "\/api\/3\/workflow_steps\/16468da8-5fe9-4466-8fcc-9d1e3d890d06",
-            "sourceStep": "\/api\/3\/workflow_steps\/191d43b1-4e03-4672-9715-3b195e72568f",
+            "targetStep": "\/api\/3\/workflow_steps\/d52457a7-9339-4499-ac46-82c581519efe",
+            "sourceStep": "\/api\/3\/workflow_steps\/80820f2d-acc0-48ad-93ef-7af8cdae0bf1",
             "label": null,
             "isExecuted": false,
-            "uuid": "08f83a2a-02f3-4a2b-8b24-0ba7f0ad4853"
+            "uuid": "2aff793f-efbf-428e-ae9e-e4b7aa9d2e0a"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Alert Indicator Data -> Calculate Priority Weight",
-            "targetStep": "\/api\/3\/workflow_steps\/9f2b08a0-a9e4-4e55-9748-d328809f9913",
-            "sourceStep": "\/api\/3\/workflow_steps\/2a774e0d-ab7f-4e7e-9a0f-88eb0c856dcd",
+            "targetStep": "\/api\/3\/workflow_steps\/4defd3ac-8911-4bc5-95b8-262fcd1201a9",
+            "sourceStep": "\/api\/3\/workflow_steps\/4a6e0326-554d-4262-b1f1-dd64d9c77005",
             "label": null,
             "isExecuted": false,
-            "uuid": "13e06fd0-6c08-4e46-8a31-ec9289b15c95"
+            "uuid": "24664f3c-a14b-4f9f-aaa3-34b84a51b442"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Calculate Priority Weight -> Update Priority Weight",
-            "targetStep": "\/api\/3\/workflow_steps\/6befb301-daaa-4b9e-8f25-2308e2b7b6fe",
-            "sourceStep": "\/api\/3\/workflow_steps\/9f2b08a0-a9e4-4e55-9748-d328809f9913",
+            "targetStep": "\/api\/3\/workflow_steps\/554fb19e-25bd-4b08-b0c5-f8eff6f9c6ec",
+            "sourceStep": "\/api\/3\/workflow_steps\/4defd3ac-8911-4bc5-95b8-262fcd1201a9",
             "label": null,
             "isExecuted": false,
-            "uuid": "9ef0bca0-c195-4831-bb90-7fa2859be21a"
+            "uuid": "6c970a43-c277-4dc3-b001-2c75557e253c"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Update Priority Weight -> Update Severity if Malicious",
-            "targetStep": "\/api\/3\/workflow_steps\/85bc3db6-4331-4af0-9df8-2f67e7563d63",
-            "sourceStep": "\/api\/3\/workflow_steps\/6befb301-daaa-4b9e-8f25-2308e2b7b6fe",
+            "targetStep": "\/api\/3\/workflow_steps\/fbdf45e8-d4e1-4926-a772-a2d01068287e",
+            "sourceStep": "\/api\/3\/workflow_steps\/554fb19e-25bd-4b08-b0c5-f8eff6f9c6ec",
             "label": null,
             "isExecuted": false,
-            "uuid": "9a926a4d-1980-47ca-ab19-21840588d359"
+            "uuid": "1ac394c8-a095-4489-85f8-5f5798454c64"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Update Severity if Malicious -> Reset Priority Weight",
-            "targetStep": "\/api\/3\/workflow_steps\/5d8602a7-e1f2-42d2-8ed0-38d824b299d5",
-            "sourceStep": "\/api\/3\/workflow_steps\/85bc3db6-4331-4af0-9df8-2f67e7563d63",
+            "targetStep": "\/api\/3\/workflow_steps\/b8312f29-b41a-417c-a6e8-63440f5704c7",
+            "sourceStep": "\/api\/3\/workflow_steps\/fbdf45e8-d4e1-4926-a772-a2d01068287e",
             "label": null,
             "isExecuted": false,
-            "uuid": "066a7d0e-a3e4-4d8e-8b96-3f4ddc31788d"
+            "uuid": "0c956662-eb60-4a58-a0c4-9aed994ebb43"
         }
     ],
     "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
@@ -288,11 +288,11 @@
         "system",
         "PostUpdate"
     ],
-    "id": 126,
-    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "createDate": 1636537414,
-    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "modifyDate": 1636537414,
+    "id": 972,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1637679105,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1637679105,
     "owners": [],
     "isPrivate": false
 }

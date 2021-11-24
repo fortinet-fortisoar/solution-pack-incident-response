@@ -17,10 +17,10 @@
         "indicatorIRI"
     ],
     "synchronous": false,
-    "lastModifyDate": 1636537406,
+    "lastModifyDate": 1637679100,
     "collection": "\/api\/3\/workflow_collections\/20289298-cdd6-4052-8fa0-11e2603dca00",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/79b7766c-97ed-42da-a1e7-52582a84ee67",
+    "triggerStep": "\/api\/3\/workflow_steps\/ee5d4bb6-99e5-4caf-8c5a-da0b4bc27c3c",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -30,13 +30,13 @@
                 "conditions": [
                     {
                         "option": "No",
-                        "step_iri": "\/api\/3\/workflow_steps\/f5f6ab79-e848-46e2-a311-a16cdefe5a69",
+                        "step_iri": "\/api\/3\/workflow_steps\/e2d1fd67-904b-44da-8fb0-2c7742c6a327",
                         "condition": "{{ vars.resultRecordscount != 0 }}"
                     },
                     {
                         "option": "Yes",
                         "default": true,
-                        "step_iri": "\/api\/3\/workflow_steps\/11b8ad26-31a1-49b0-b638-c3d87a24a6aa"
+                        "step_iri": "\/api\/3\/workflow_steps\/47fe9b13-4f4a-4077-8773-77399f6493e0"
                     }
                 ]
             },
@@ -44,8 +44,8 @@
             "top": "110",
             "left": "775",
             "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
-            "uuid": "f34209c0-6eb4-4712-8a31-4cfe75108ab9",
-            "id": 1989
+            "uuid": "a220e773-7f35-4e98-996a-fac92f8185d9",
+            "id": 4098
         },
         {
             "@type": "WorkflowStep",
@@ -102,8 +102,8 @@
             "top": "110",
             "left": "450",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
-            "uuid": "ba47145e-b640-48b9-be4a-2fea9dc2cc29",
-            "id": 1990
+            "uuid": "7034e055-5790-4488-9d31-a15a17bf3673",
+            "id": 4099
         },
         {
             "@type": "WorkflowStep",
@@ -129,8 +129,8 @@
             "top": "110",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
-            "uuid": "79b7766c-97ed-42da-a1e7-52582a84ee67",
-            "id": 1991
+            "uuid": "ee5d4bb6-99e5-4caf-8c5a-da0b4bc27c3c",
+            "id": 4100
         },
         {
             "@type": "WorkflowStep",
@@ -159,8 +159,8 @@
             "top": "20",
             "left": "1100",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
-            "uuid": "f5f6ab79-e848-46e2-a311-a16cdefe5a69",
-            "id": 1992
+            "uuid": "e2d1fd67-904b-44da-8fb0-2c7742c6a327",
+            "id": 4101
         },
         {
             "@type": "WorkflowStep",
@@ -213,46 +213,46 @@
             "top": "190",
             "left": "1100",
             "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
-            "uuid": "11b8ad26-31a1-49b0-b638-c3d87a24a6aa",
-            "id": 1993
+            "uuid": "47fe9b13-4f4a-4077-8773-77399f6493e0",
+            "id": 4102
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Do Records Exist -> Create New Asset",
-            "targetStep": "\/api\/3\/workflow_steps\/11b8ad26-31a1-49b0-b638-c3d87a24a6aa",
-            "sourceStep": "\/api\/3\/workflow_steps\/f34209c0-6eb4-4712-8a31-4cfe75108ab9",
+            "targetStep": "\/api\/3\/workflow_steps\/47fe9b13-4f4a-4077-8773-77399f6493e0",
+            "sourceStep": "\/api\/3\/workflow_steps\/a220e773-7f35-4e98-996a-fac92f8185d9",
             "label": "Yes",
             "isExecuted": false,
-            "uuid": "fd056866-08c0-4860-ba5c-7c35e3942408"
+            "uuid": "c0174329-5dc5-48a1-99c1-af62b6b1048b"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Check if indicator already exists",
-            "targetStep": "\/api\/3\/workflow_steps\/ba47145e-b640-48b9-be4a-2fea9dc2cc29",
-            "sourceStep": "\/api\/3\/workflow_steps\/79b7766c-97ed-42da-a1e7-52582a84ee67",
+            "targetStep": "\/api\/3\/workflow_steps\/7034e055-5790-4488-9d31-a15a17bf3673",
+            "sourceStep": "\/api\/3\/workflow_steps\/ee5d4bb6-99e5-4caf-8c5a-da0b4bc27c3c",
             "label": null,
             "isExecuted": false,
-            "uuid": "f0f620d3-a21a-4388-a949-5137835a0137"
+            "uuid": "54b48884-ba82-4bd8-81c7-4a300a6a5992"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Retrieve Existing Records -> Do Records Exist",
-            "targetStep": "\/api\/3\/workflow_steps\/f34209c0-6eb4-4712-8a31-4cfe75108ab9",
-            "sourceStep": "\/api\/3\/workflow_steps\/ba47145e-b640-48b9-be4a-2fea9dc2cc29",
+            "targetStep": "\/api\/3\/workflow_steps\/a220e773-7f35-4e98-996a-fac92f8185d9",
+            "sourceStep": "\/api\/3\/workflow_steps\/7034e055-5790-4488-9d31-a15a17bf3673",
             "label": null,
             "isExecuted": false,
-            "uuid": "8739842e-67a3-4bef-a3f8-769020c3543d"
+            "uuid": "456a1e01-8817-421f-a803-5f9395e4210b"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Do Records Exist -> Link Asset",
-            "targetStep": "\/api\/3\/workflow_steps\/f5f6ab79-e848-46e2-a311-a16cdefe5a69",
-            "sourceStep": "\/api\/3\/workflow_steps\/f34209c0-6eb4-4712-8a31-4cfe75108ab9",
+            "targetStep": "\/api\/3\/workflow_steps\/e2d1fd67-904b-44da-8fb0-2c7742c6a327",
+            "sourceStep": "\/api\/3\/workflow_steps\/a220e773-7f35-4e98-996a-fac92f8185d9",
             "label": "No",
             "isExecuted": false,
-            "uuid": "380f1a51-5673-4b4e-b730-5823fa44a947"
+            "uuid": "e13e0241-b7b8-47c3-9a1a-61165212f1d6"
         }
     ],
     "priority": null,
@@ -263,11 +263,11 @@
         "DeDuplicate",
         "Relate"
     ],
-    "id": 281,
-    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "createDate": 1636537432,
-    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "modifyDate": 1636537432,
+    "id": 1109,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1637679115,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1637679115,
     "owners": [],
     "isPrivate": false
 }
