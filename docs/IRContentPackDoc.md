@@ -1,6 +1,6 @@
 ## Incident Response Solution Pack 7.0.2
 
-This article describes the FortiSOAR™ Incident Response Solution Pack (FSR-IR-SOLUTION-PACK) enables users to experience the power of FortiSOAR™ incident response. FortiSOAR™ is built using modular architecture and the FSR IR Solution Pack is the implementation of best practices to configure and use FortiSOAR™ in an optimal manner. The FSR Solution Pack also contains a lot of sample/simulation/training data that enables you to experience FortiSOAR™ without having all the devices.
+This article describes the FortiSOAR™ Incident Response Solution Pack (solution-pack-incident-response) enables users to experience the power of FortiSOAR™ incident response. FortiSOAR™ is built using modular architecture and the solution pack is the implementation of best practices to configure and use FortiSOAR™ in an optimal manner. The solution pack also contains a lot of sample/simulation/training data that enables you to experience FortiSOAR™ without having all the devices.
 
 ## Overview
 
@@ -18,7 +18,7 @@ This article covers the following:
 
 Use the following procedure as a *root* user to deploy the solution pack:
 
-1. Log onto the IR Solution Pack GIT repo (https://github.com/fortinet-fortisoar/solution-pack-incident-response) using your credentials.
+1. Log onto the Solution Pack GIT repo (https://github.com/fortinet-fortisoar/solution-pack-incident-response) using your credentials.
 
 2. Click the **Clone** button and select the **Download ZIP** option.
    ![Fortinet-FortiSOAR GIT branch > Clone >Download the solution pack zip](media/SolutionPackZip.png)
