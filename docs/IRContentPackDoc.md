@@ -14,7 +14,7 @@ This article covers the following:
 
 ## Deploying IR Solution Pack
 
-**Important**: Before you install the solution pack, ensure that you have installed FortiSOAR™ and there are no records such as alerts, indicators, incidents, etc., in your FortiSOAR™ system.
+**Important**: Before you deploy the solution pack, ensure that you have installed FortiSOAR™ and there are no records such as alerts, indicators, incidents, etc., in your FortiSOAR™ system.
 
 Use the following procedure as a *root* user to deploy the solution pack:
 
@@ -107,7 +107,6 @@ A brief about each module collection follows:
 - - **Alerts**: Stores alerts that are ingested from SIEMs, Emails, and other configured data sources. The default schema of alerts is based on ElasticSearch Common Schema. You can add more fields as required.
   - **Incidents**: Stores incidents, which represent a collection of information discovered during an Incident Response investigation. Incidents are triggered based on the suspicion or confirmation of a security breach. Incidents can be cyber or physical security-related.Multiple alerts, indicators, and other artifacts can be linked to an incident.
   - **Hunts**: Stores hunt information.
-  - **MITRE ATT&CK Techniques**: Displays MITRE ATT&CK Techniques. FortiSOAR™ contains some playbooks that pull these techniques and some playbooks that can classify alerts into the relevant MITRE ATT&CK Techniques.
   - **Tasks**: Stores Tasks, which represent a discrete action taken by either an individual or an automated response. Tasks might link to outside systems, such as ticketing systems, to track specific actions beyond that of your SOC team.
   - **Emails**: Stores emails, which can contain potentially malicious emails, such as phishing emails. Once an email is added to this module, FortiSOAR™ extracts, and stores the Email Headers for further investigation. FortiSOAR™ also creates an alert with a link to the email. 
 
