@@ -1,0 +1,165 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Escalated Alert - Related Asset Records to Incidents",
+    "aliasName": null,
+    "tag": "#system",
+    "description": "Links related assets from the alert to the incident, when an alert is escalated.",
+    "isActive": false,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1638438715,
+    "collection": "\/api\/3\/workflow_collections\/3c3b049e-5ecb-464a-83f6-5af6a230c0ed",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/dde99556-ab1f-41ea-9e25-9811d680cf4f",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "escalatedIncident": "{{vars.alertdata.incidents[0]}}"
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "ef1b317f-8152-450b-89ef-fb90bb754605",
+            "id": 3919
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "resource": "alerts",
+                "resources": [
+                    "assets",
+                    "alerts"
+                ],
+                "step_variables": {
+                    "input": {
+                        "records": [
+                            "{{vars.request.data}}"
+                        ]
+                    }
+                },
+                "fieldbasedtrigger": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "type": "object",
+                            "field": "escalatedtoincident",
+                            "value": "\/api\/3\/picklists\/fa12313b-66af-4a2e-864e-a5f19241b734",
+                            "_value": {
+                                "display": "Yes",
+                                "itemValue": "Yes"
+                            },
+                            "operator": "eq"
+                        }
+                    ]
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/9300bf69-5063-486d-b3a6-47eb9da24872",
+            "uuid": "dde99556-ab1f-41ea-9e25-9811d680cf4f",
+            "id": 3920
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Related Records",
+            "description": null,
+            "arguments": {
+                "alertdata": "{{ (vars.input.records[0]['@id'] + \"?$relationships=true\") | fromIRI }}"
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "e57e2bf0-63b2-4834-9030-db41f8732e24",
+            "id": 3921
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Link Assets to Escalated Incident",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "phase": {
+                        "id": 82,
+                        "@id": "\/api\/3\/picklists\/bb740542-f699-11e7-8c3f-9a214cf093ae",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Detection",
+                        "listName": "\/api\/3\/picklist_names\/b862eb1f-b385-40ca-baa7-5a1b1f91a651",
+                        "itemValue": "Detection",
+                        "orderIndex": 0
+                    },
+                    "__link": {
+                        "assets": "{{ vars.alertdata | json_query( \"assets[*].\\\"@id\\\"\" )}}"
+                    }
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "{{vars.escalatedIncident['@id']}}",
+                "collectionType": "\/api\/3\/incidents",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "d1fc3eb4-c774-42ae-9f7d-c7ee7328033f",
+            "id": 3922
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Get Related Records",
+            "targetStep": "\/api\/3\/workflow_steps\/e57e2bf0-63b2-4834-9030-db41f8732e24",
+            "sourceStep": "\/api\/3\/workflow_steps\/dde99556-ab1f-41ea-9e25-9811d680cf4f",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "4c10c43e-acdb-4230-9fd9-d1154d7c1b00"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Related Records -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/ef1b317f-8152-450b-89ef-fb90bb754605",
+            "sourceStep": "\/api\/3\/workflow_steps\/e57e2bf0-63b2-4834-9030-db41f8732e24",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "a5a9d905-08c4-4bbf-911d-34218b2311c5"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Link Assets to Escalated Incident",
+            "targetStep": "\/api\/3\/workflow_steps\/d1fc3eb4-c774-42ae-9f7d-c7ee7328033f",
+            "sourceStep": "\/api\/3\/workflow_steps\/ef1b317f-8152-450b-89ef-fb90bb754605",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "cb59d70d-3559-48cc-b22f-f8fa925b8eca"
+        }
+    ],
+    "priority": null,
+    "uuid": "5bdfe2be-2d50-4ed6-b0c2-f7812839ce6c",
+    "recordTags": [
+        "system"
+    ],
+    "id": 1080,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1638352100,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1638438714,
+    "owners": [],
+    "isPrivate": false
+}

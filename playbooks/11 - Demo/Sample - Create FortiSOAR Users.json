@@ -1,0 +1,125 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Sample - Create FortiSOAR Users",
+    "aliasName": null,
+    "tag": null,
+    "description": "Creates FortiSOAR users for demo purposes.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1638439530,
+    "collection": "\/api\/3\/workflow_collections\/a41c4bc4-5b29-4701-96e7-e62e21e8763e",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/2dfdfec7-e189-4146-9968-6242024a8733",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "dfe9e7cc-d713-4690-bf37-b89c028eb80d",
+                "title": "Sample > Create Sample FortiSOAR Users",
+                "resources": [
+                    "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                    "input": {
+                        "records": "{{vars.input.records}}"
+                    }
+                },
+                "displayConditions": {
+                    "alerts": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "uuid": "2dfdfec7-e189-4146-9968-6242024a8733",
+            "id": 4305
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "users": "{\n\"data\":[\n          {\n\t\t\"LoginID\": \"John\",\n\t\t\"firstname\": \"John\",\n\t\t\"lastname\": \"Doe\",\n\t\t\"email\": \"john.doe@cybersponse.com\",\n\t\t\"phonework\": \"2345678909\",\n\t\t\"roles\": \"\/api\/3\/roles\/17562d60-b841-4ed7-912b-1ebaf063c8c9,\/api\/3\/roles\/a501c11e-15af-49a6-a3a4-88605f32f016,\/api\/3\/roles\/21d7a7c6-9d68-438f-b732-e8950c5f745b\",\n\t\t\"password\": \"Demo@123\"\n\t},\n      {\n\t\t\"LoginID\": \"Aria\",\n\t\t\"firstname\": \"Aria\",\n\t\t\"lastname\": \"Smith\",\n\t\t\"email\": \"aria.smith@cybersponse.com\",\n\t\t\"phonework\": \"2345678909\",\n\t\t\"roles\": \"\/api\/3\/roles\/7b56d139-7ee6-455e-8658-35727e202b8a\",\n\t\t\"password\": \"Demo@123\"\n\t},\n\t {\n\t\t\"LoginID\": \"Mary\",\n\t\t\"firstname\": \"Mary\",\n\t\t\"lastname\": \"Konlu\",\n\t\t\"email\": \"mary.konlu@cybersponse.com\",\n\t\t\"phonework\": \"2345678909\",\n\t\t\"roles\": \"\/api\/3\/roles\/aada6692-fbf4-4a02-a580-f8a200962365\",\n\t\t\"password\": \"Demo@123\"\n\t} \n   ]\n}"
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "7312196e-e894-4aa8-9d76-1a96cb6d1f0d",
+            "id": 4306
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Users",
+            "description": null,
+            "arguments": {
+                "for_each": {
+                    "item": "{{vars.users.data}}",
+                    "condition": ""
+                },
+                "arguments": {
+                    "Data": "{{vars.item}}",
+                    "Domain": "{{globalVars.Server_fqhn}}"
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "workflowReference": "\/api\/3\/workflows\/fa87039f-15fc-4c38-9710-e3eb1e17aa5c"
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "e64e72e3-34c4-4673-851b-036cd2180b95",
+            "id": 4307
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/7312196e-e894-4aa8-9d76-1a96cb6d1f0d",
+            "sourceStep": "\/api\/3\/workflow_steps\/2dfdfec7-e189-4146-9968-6242024a8733",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "9c9dd82d-8959-4f74-9506-fcdcf72aaba0"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Create Users",
+            "targetStep": "\/api\/3\/workflow_steps\/e64e72e3-34c4-4673-851b-036cd2180b95",
+            "sourceStep": "\/api\/3\/workflow_steps\/7312196e-e894-4aa8-9d76-1a96cb6d1f0d",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "86ee19ae-d519-4370-9f08-f266b5095640"
+        }
+    ],
+    "priority": null,
+    "uuid": "93f4ab82-1feb-4dfa-83a1-14da12b325a9",
+    "recordTags": [
+        "ManualAction"
+    ],
+    "id": 1134,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1638352103,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1638439529,
+    "owners": [],
+    "isPrivate": false
+}

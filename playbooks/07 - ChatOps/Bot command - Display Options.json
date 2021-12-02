@@ -1,0 +1,99 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Bot command - Display Options",
+    "aliasName": null,
+    "tag": null,
+    "description": "Displays a list of all the Bot commands.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "AlertID",
+        "commentID",
+        "commentIRI",
+        "content"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1638438187,
+    "collection": "\/api\/3\/workflow_collections\/73f87b6d-26fe-4c47-80cb-bc671717c5eb",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/61b32e1a-c3c5-4689-8eed-8b37cc1e0c6c",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": {
+                            "AlertID": "{{ vars.AlertID }}",
+                            "content": "{{ vars.content }}",
+                            "commentID": "{{ vars.commentID }}",
+                            "commentIRI": "{{ vars.commentIRI }}"
+                        }
+                    }
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "61b32e1a-c3c5-4689-8eed-8b37cc1e0c6c",
+            "id": 3764
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Display BOT Options",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "alerts": "{{vars.input.params.AlertID}}",
+                    "content": "<p><span style=\"color: #ffffff;\">{{vars.input.params.content}}<\/span><\/p>\n<p>&nbsp;<\/p>\n<p><span style=\"color: #33cccc;\"><strong><em><span style=\"background-color: #333333;\">Enter Any of Below Option with $ sign:<\/span><\/em><\/strong><\/span><\/p>\n<p>Get Reputation<\/p>\n<p>Get GeoLocation<\/p>\n<p>Get Alert<\/p>\n<p>Get Incident<\/p>\n<p>&nbsp;<\/p>\n<p><span style=\"font-size: 8pt;\"><em><br \/>Note: Commands are Case Sensitive<\/em><\/span><\/p>"
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "{{vars.input.params.commentIRI}}",
+                "tagsOperation": "OverwriteTags",
+                "collectionType": "\/api\/3\/comments",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "7e371b8b-88b0-424d-aef8-99de7c33f397",
+            "id": 3765
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Display BOT Options",
+            "targetStep": "\/api\/3\/workflow_steps\/7e371b8b-88b0-424d-aef8-99de7c33f397",
+            "sourceStep": "\/api\/3\/workflow_steps\/61b32e1a-c3c5-4689-8eed-8b37cc1e0c6c",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "e9c2e896-0d1d-4cdf-9b5c-5fdc663903a0"
+        }
+    ],
+    "priority": null,
+    "uuid": "69ea8cef-cf45-414a-ad78-12f26b097a0d",
+    "recordTags": [
+        "system",
+        "Subroutine",
+        "Bot - Execute commands"
+    ],
+    "id": 1054,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1638352099,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1638438186,
+    "owners": [],
+    "isPrivate": false
+}

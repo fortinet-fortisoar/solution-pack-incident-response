@@ -1,0 +1,164 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Approval - On Email Receipt (Exchange)",
+    "aliasName": null,
+    "tag": null,
+    "description": "This playbook is triggered whenever an email is received via Exchange; the playbook  and it checks determines whether the received email is an approval mail, and, if yes, along with checks its approval status.",
+    "isActive": false,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1638438624,
+    "collection": "\/api\/3\/workflow_collections\/3c3b049e-5ecb-464a-83f6-5af6a230c0ed",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/73dde387-2bef-47f2-86d4-03c645ca9668",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Mark Approval Email as Read",
+            "description": null,
+            "arguments": {
+                "name": "Exchange",
+                "params": {
+                    "message_id": "{{ vars.item.messageID }}",
+                    "folder_name": ""
+                },
+                "version": "3.4.0",
+                "for_each": {
+                    "item": "{{vars.steps.Process_Each_Email}}",
+                    "condition": "{{{{ vars.item.isApproval }}}}"
+                },
+                "connector": "exchange",
+                "operation": "mark_as_read",
+                "operationTitle": "Mark Email as Read",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "270",
+            "left": "549",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "afef9ae2-4816-45e6-8d1b-b3922b9b76c9",
+            "id": 3881
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "approval_listener_exchange",
+                "step_variables": {
+                    "input": {
+                        "params": {
+                            "api_body": "{{vars.request.data}}"
+                        }
+                    }
+                },
+                "authentication_methods": [
+                    ""
+                ]
+            },
+            "status": null,
+            "top": "40",
+            "left": "40",
+            "stepType": "\/api\/3\/workflow_step_types\/df26c7a2-4166-4ca5-91e5-548e24c01b5f",
+            "uuid": "73dde387-2bef-47f2-86d4-03c645ca9668",
+            "id": 3882
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Unread Emails",
+            "description": null,
+            "arguments": {
+                "name": "Exchange",
+                "config": "1e4d9b3f-8c63-4c7e-a756-de3250f79de4",
+                "params": {
+                    "limit": "",
+                    "source": "Inbox",
+                    "mark_read": false,
+                    "pull_oldest": false,
+                    "parse_inline": "",
+                    "save_as_attachment": false,
+                    "extract_attach_data": false
+                },
+                "version": "3.4.0",
+                "connector": "exchange",
+                "operation": "get_email_new",
+                "operationTitle": "Get Unread Emails",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "120",
+            "left": "208",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "1701a593-10f5-4761-a7bd-7d4dcbb49716",
+            "id": 3883
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Process Each Email",
+            "description": null,
+            "arguments": {
+                "for_each": {
+                    "item": "{{vars.steps.Get_Unread_Emails.data}}",
+                    "__bulk": false,
+                    "parallel": false,
+                    "condition": ""
+                },
+                "arguments": {
+                    "approvalEmail": "{{ vars.item }}"
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "workflowReference": "\/api\/3\/workflows\/8d909e25-6142-4df1-85a5-9036e1c1b037"
+            },
+            "status": null,
+            "top": "200",
+            "left": "380",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "43cea0b9-d574-47d8-8abe-51b2e6d0d049",
+            "id": 3884
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Process Each Email -> Mark Approval Email as Read",
+            "targetStep": "\/api\/3\/workflow_steps\/afef9ae2-4816-45e6-8d1b-b3922b9b76c9",
+            "sourceStep": "\/api\/3\/workflow_steps\/43cea0b9-d574-47d8-8abe-51b2e6d0d049",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "7eca42c7-0492-4534-8c9d-9f7bd3bb792e"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Get Unread Emails",
+            "targetStep": "\/api\/3\/workflow_steps\/1701a593-10f5-4761-a7bd-7d4dcbb49716",
+            "sourceStep": "\/api\/3\/workflow_steps\/73dde387-2bef-47f2-86d4-03c645ca9668",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "0a550fa2-4601-4af7-a354-b0507c8d06a6"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Unread Emails -> Process Each Email",
+            "targetStep": "\/api\/3\/workflow_steps\/43cea0b9-d574-47d8-8abe-51b2e6d0d049",
+            "sourceStep": "\/api\/3\/workflow_steps\/1701a593-10f5-4761-a7bd-7d4dcbb49716",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "2a5c9593-6d92-48fc-88fa-47230fa5f977"
+        }
+    ],
+    "priority": null,
+    "uuid": "64127b91-0d5b-4778-89b5-d1267d8f164b",
+    "recordTags": [],
+    "id": 1074,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1638352100,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1638438623,
+    "owners": [],
+    "isPrivate": false
+}

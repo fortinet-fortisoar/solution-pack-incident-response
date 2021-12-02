@@ -1,0 +1,116 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Get Similar Alerts - Fetch Similar Alerts",
+    "aliasName": null,
+    "tag": null,
+    "description": "Retrieves a list of alerts related to the specified indicator.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "ListOfIndicators"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1638439487,
+    "collection": "\/api\/3\/workflow_collections\/a41c4bc4-5b29-4701-96e7-e62e21e8763e",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/fdcd50db-f968-4cf9-9dca-afca2fb14897",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Find Indicator Related Alerts",
+            "description": null,
+            "arguments": {
+                "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "type": "primitive",
+                            "field": "id",
+                            "value": "{{vars.input.params.ListOfIndicators}}",
+                            "operator": "eq"
+                        }
+                    ]
+                },
+                "module": "indicators?$limit=30&$relationships=true",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
+            "uuid": "df5ff575-1bb1-4217-8458-4c94051320c5",
+            "id": 4157
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Set Alert Data",
+            "description": null,
+            "arguments": {
+                "related_alerts": "{%set alert_list = []%}\n{%for alert in vars.steps.Find_Indicator_Related_Alerts[0].alerts%}\n{%set dummy=alert_list.append({\"name\": alert.name, \"id\": alert.id}) %}\n{%endfor%}\n{{alert_list}}"
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "8dc94173-0fe9-4146-9551-a8613c140be3",
+            "id": 4158
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": {
+                            "ListOfIndicators": "{{ vars.ListOfIndicators }}"
+                        }
+                    }
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "fdcd50db-f968-4cf9-9dca-afca2fb14897",
+            "id": 4159
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> a",
+            "targetStep": "\/api\/3\/workflow_steps\/df5ff575-1bb1-4217-8458-4c94051320c5",
+            "sourceStep": "\/api\/3\/workflow_steps\/fdcd50db-f968-4cf9-9dca-afca2fb14897",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "92baed1a-c718-4422-ace6-c2b032551312"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Find Indicator Related Alerts -> Set Alert Data",
+            "targetStep": "\/api\/3\/workflow_steps\/8dc94173-0fe9-4146-9551-a8613c140be3",
+            "sourceStep": "\/api\/3\/workflow_steps\/df5ff575-1bb1-4217-8458-4c94051320c5",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "7d73720b-0954-4cd3-873c-ee48615f80e4"
+        }
+    ],
+    "priority": null,
+    "uuid": "b306d5d6-df38-4869-8040-e0df9ea7d879",
+    "recordTags": [
+        "Subroutine"
+    ],
+    "id": 1119,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1638352103,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1638439486,
+    "owners": [],
+    "isPrivate": false
+}

@@ -1,0 +1,397 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Indicator (Domain) - Get Latest Reputation",
+    "aliasName": null,
+    "tag": null,
+    "description": "Retrieves the reputation of indicators of type 'Domain' using configured threat intelligence playbooks.",
+    "isActive": false,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "indicator_value",
+        "VT_Reputation"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1638431214,
+    "collection": "\/api\/3\/workflow_collections\/b135c052-e170-4cff-8cc7-9a4bfe607ccb",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/0abc0338-faef-4f4f-9aa4-253ecbb36a15",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "resource": "indicators",
+                "resources": [
+                    "indicators"
+                ],
+                "step_variables": {
+                    "input": {
+                        "params": {
+                            "VT_Reputation": "{{ vars.VT_Reputation }}",
+                            "indicator_value": "{{ vars.indicator_value }}"
+                        },
+                        "records": [
+                            "{{vars.input.records[0]}}"
+                        ]
+                    }
+                },
+                "fieldbasedtrigger": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "type": "object",
+                            "field": "typeofindicator",
+                            "value": "\/api\/3\/picklists\/5a5a7d42-be27-4903-858a-19909ebfa1eb",
+                            "_value": {
+                                "@id": "\/api\/3\/picklists\/5a5a7d42-be27-4903-858a-19909ebfa1eb",
+                                "display": "Domain",
+                                "itemValue": "Domain"
+                            },
+                            "operator": "eq"
+                        }
+                    ]
+                }
+            },
+            "status": null,
+            "top": "270",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/ea155646-3821-4542-9702-b246da430a8d",
+            "uuid": "0abc0338-faef-4f4f-9aa4-253ecbb36a15",
+            "id": 2819
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Summary",
+            "description": null,
+            "arguments": {
+                "reputation": "{{vars.Reputation_Type_Text}}",
+                "reputation_iri": "{{vars.Reputation_Type_IRI}}",
+                "enrichment_summary": "{{vars.Enrichment_Summary}}"
+            },
+            "status": null,
+            "top": "270",
+            "left": "2400",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "6960644a-33c2-402f-8e87-474d84d1f2ab",
+            "id": 2820
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Set Good",
+            "description": null,
+            "arguments": {
+                "Reputation_Type_IRI": "{{(\"IndicatorReputation\" | picklist(\"Good\"))[\"@id\"]}}",
+                "Reputation_Type_Text": "Good"
+            },
+            "status": null,
+            "top": "350",
+            "left": "1750",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "c5fcf2f9-3364-44ca-b302-489537580328",
+            "id": 2821
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configurations",
+            "description": null,
+            "arguments": {
+                "Playbook_IRI": "[\"\/api\/3\/workflows\/3578816d-6e1a-45e7-be8d-0d555be8f49c\" ,\"\/api\/3\/workflows\/fb37b592-8a1a-4072-889f-a16419bdd99b\",\"\/api\/3\/workflows\/9ef72cf7-efbc-4672-bb25-1ef1595abc83\",\"\/api\/3\/workflows\/85cc32d8-154e-4b2d-a084-55c5800daa28\",\"\/api\/3\/workflows\/8512ec13-a9d2-4872-a178-020874ae1dfd\"]",
+                "indicator_value": "{{vars.input.params['indicator_value'] | ternary(vars.input.params['indicator_value'],vars.input.records[0].value) }}",
+                "VT_reputation_threshold": "5"
+            },
+            "status": null,
+            "top": "270",
+            "left": "450",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "e0998a9a-efb4-4720-afbb-7234773058ce",
+            "id": 2822
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Does anybody says its Malicious",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Malicious",
+                        "step_iri": "\/api\/3\/workflow_steps\/21ec44f7-9952-4a24-933c-4d275716b7d6",
+                        "condition": "{{ 'Malicious' in vars.reputation }}"
+                    },
+                    {
+                        "option": "Suspicious",
+                        "step_iri": "\/api\/3\/workflow_steps\/2dbb1de4-afb9-40c6-be8a-461ea3397c58",
+                        "condition": "{{ 'Suspicious' in vars.reputation }}"
+                    },
+                    {
+                        "option": "Good",
+                        "default": true,
+                        "step_iri": "\/api\/3\/workflow_steps\/c5fcf2f9-3364-44ca-b302-489537580328"
+                    },
+                    {
+                        "option": "No Reputation",
+                        "step_iri": "\/api\/3\/workflow_steps\/9849fa60-2b4c-429a-a0b1-53eea2e21e70",
+                        "condition": "{{ 'No Reputation Available' in vars.reputation }}"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "270",
+            "left": "1425",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "9d9a2675-2494-43ec-aec2-be595246070c",
+            "id": 2823
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Update Record",
+            "description": null,
+            "arguments": {
+                "when": "{{vars.input.params['indicator_value'] | length == 0}}",
+                "resource": {
+                    "__link": {
+                        "recordTags": "{%if vars.tags %}{{vars.tags[0].replace(\"[\",\"\").replace(\"]\",\"\").replace(\"?\",\"\").replace(\"\\'\",\"\").replace(\"#\",\"\").replace(\"\\\"\",\"\").replace(\"\/\",\"\").replace(\"*\",\"\")}}{%endif%}"
+                    },
+                    "reputation": "{{vars.Reputation_Type_IRI}}",
+                    "description": "{{vars.enrichmentSummary}}"
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "collectionType": "\/api\/3\/indicators",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "270",
+            "left": "2075",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "95e9a0ba-0500-4ba3-bea1-bdae7d3807ca",
+            "id": 2824
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Set Malicious",
+            "description": null,
+            "arguments": {
+                "Reputation_Type_IRI": "{{(\"IndicatorReputation\" | picklist(\"Malicious\"))[\"@id\"]}}",
+                "Reputation_Type_Text": "Malicious"
+            },
+            "status": null,
+            "top": "190",
+            "left": "1750",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "21ec44f7-9952-4a24-933c-4d275716b7d6",
+            "id": 2825
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Enrich Domain Reputation",
+            "description": null,
+            "arguments": {
+                "for_each": {
+                    "item": "{{vars.Playbook_IRI}}",
+                    "__bulk": false,
+                    "parallel": true,
+                    "condition": ""
+                },
+                "arguments": {
+                    "indicator_value": "{{vars.indicator_value}}"
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "workflowReference": "{{vars.item}}"
+            },
+            "status": null,
+            "top": "270",
+            "left": "775",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "a9aa5101-1eb6-4504-88e5-a932731b6ab9",
+            "id": 2826
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Set No Reputation",
+            "description": null,
+            "arguments": {
+                "Reputation_Type_IRI": "{{(\"IndicatorReputation\" | picklist(\"No Reputation Available\"))[\"@id\"]}}",
+                "Reputation_Type_Text": "No Reputation Available"
+            },
+            "status": null,
+            "top": "30",
+            "left": "1750",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "9849fa60-2b4c-429a-a0b1-53eea2e21e70",
+            "id": 2827
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Enrichment Summary",
+            "description": null,
+            "arguments": {
+                "tags": "{{vars.steps.Enrich_Domain_Reputation | json_query(\"[*].tags[]\")}}",
+                "reputation": "{{vars.steps.Enrich_Domain_Reputation | json_query(\"[*].reputation\") | list}}",
+                "enrichmentSummary": "{% for data in vars.steps.Enrich_Domain_Reputation| json_query(\"[*].enrichmentSummary\")%}{{data}}{% endfor%}"
+            },
+            "status": null,
+            "top": "270",
+            "left": "1100",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "6317c1e5-8ac0-4776-8c8c-1db5c1064dec",
+            "id": 2828
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Set Suspicious",
+            "description": null,
+            "arguments": {
+                "Reputation_Type_IRI": "{{(\"IndicatorReputation\" | picklist(\"Suspicious\"))[\"@id\"]}}",
+                "Reputation_Type_Text": "Suspicious"
+            },
+            "status": null,
+            "top": "510",
+            "left": "1750",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "2dbb1de4-afb9-40c6-be8a-461ea3397c58",
+            "id": 2829
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Set Good -> Update Record",
+            "targetStep": "\/api\/3\/workflow_steps\/95e9a0ba-0500-4ba3-bea1-bdae7d3807ca",
+            "sourceStep": "\/api\/3\/workflow_steps\/c5fcf2f9-3364-44ca-b302-489537580328",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "6b9ae1c1-9d4a-4c15-853e-b61bcf156838"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Set No Reputation -> Update Record",
+            "targetStep": "\/api\/3\/workflow_steps\/95e9a0ba-0500-4ba3-bea1-bdae7d3807ca",
+            "sourceStep": "\/api\/3\/workflow_steps\/9849fa60-2b4c-429a-a0b1-53eea2e21e70",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "57140cea-1358-4ced-92c6-24c343f27c53"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Update Record -> Summary",
+            "targetStep": "\/api\/3\/workflow_steps\/6960644a-33c2-402f-8e87-474d84d1f2ab",
+            "sourceStep": "\/api\/3\/workflow_steps\/95e9a0ba-0500-4ba3-bea1-bdae7d3807ca",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "9413f467-806e-4887-afe8-e839d3dee09b"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Configurations",
+            "targetStep": "\/api\/3\/workflow_steps\/e0998a9a-efb4-4720-afbb-7234773058ce",
+            "sourceStep": "\/api\/3\/workflow_steps\/0abc0338-faef-4f4f-9aa4-253ecbb36a15",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "ff147fff-76fc-4e8a-a435-2ba4030d9f80"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is Malicious -> Set Malicious",
+            "targetStep": "\/api\/3\/workflow_steps\/21ec44f7-9952-4a24-933c-4d275716b7d6",
+            "sourceStep": "\/api\/3\/workflow_steps\/9d9a2675-2494-43ec-aec2-be595246070c",
+            "label": "Malicious",
+            "isExecuted": false,
+            "uuid": "dd4c68ad-791b-4a3a-ab23-93509768ebeb"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Set Malicious -> Update Record",
+            "targetStep": "\/api\/3\/workflow_steps\/95e9a0ba-0500-4ba3-bea1-bdae7d3807ca",
+            "sourceStep": "\/api\/3\/workflow_steps\/21ec44f7-9952-4a24-933c-4d275716b7d6",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "2865ec3b-a27c-4d5c-80ca-a9a07465efb4"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Playbooks -> Stored data",
+            "targetStep": "\/api\/3\/workflow_steps\/6317c1e5-8ac0-4776-8c8c-1db5c1064dec",
+            "sourceStep": "\/api\/3\/workflow_steps\/a9aa5101-1eb6-4504-88e5-a932731b6ab9",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "da8b9aed-74a8-40bd-8b4f-918ff1e2e02d"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Set Suspicious -> Update Record",
+            "targetStep": "\/api\/3\/workflow_steps\/95e9a0ba-0500-4ba3-bea1-bdae7d3807ca",
+            "sourceStep": "\/api\/3\/workflow_steps\/2dbb1de4-afb9-40c6-be8a-461ea3397c58",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "b169b18e-1cda-4518-bf8d-225ebcaaff78"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Enrichment Summary -> Does anybody says its Malicious",
+            "targetStep": "\/api\/3\/workflow_steps\/9d9a2675-2494-43ec-aec2-be595246070c",
+            "sourceStep": "\/api\/3\/workflow_steps\/6317c1e5-8ac0-4776-8c8c-1db5c1064dec",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "8eef8bf4-8e86-4c86-9f10-f9f640e53dc8"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configurations -> Playbooks",
+            "targetStep": "\/api\/3\/workflow_steps\/a9aa5101-1eb6-4504-88e5-a932731b6ab9",
+            "sourceStep": "\/api\/3\/workflow_steps\/e0998a9a-efb4-4720-afbb-7234773058ce",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "55f2a091-8691-47ef-b8d5-dbc119b4d770"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is Malicious -> Set Good",
+            "targetStep": "\/api\/3\/workflow_steps\/c5fcf2f9-3364-44ca-b302-489537580328",
+            "sourceStep": "\/api\/3\/workflow_steps\/9d9a2675-2494-43ec-aec2-be595246070c",
+            "label": "Good",
+            "isExecuted": false,
+            "uuid": "3cf57633-10fc-4047-bada-fccb5184cfe8"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is Malicious -> Set No Reputation",
+            "targetStep": "\/api\/3\/workflow_steps\/9849fa60-2b4c-429a-a0b1-53eea2e21e70",
+            "sourceStep": "\/api\/3\/workflow_steps\/9d9a2675-2494-43ec-aec2-be595246070c",
+            "label": "No Reputation",
+            "isExecuted": false,
+            "uuid": "77c3120f-7839-407c-b0bd-9de744fdaaec"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Does anybody says its Malicious -> Set Suspicious",
+            "targetStep": "\/api\/3\/workflow_steps\/2dbb1de4-afb9-40c6-be8a-461ea3397c58",
+            "sourceStep": "\/api\/3\/workflow_steps\/9d9a2675-2494-43ec-aec2-be595246070c",
+            "label": "Suspicious",
+            "isExecuted": false,
+            "uuid": "273b386b-e4c3-4aba-bea0-df032f3d2ad2"
+        }
+    ],
+    "priority": null,
+    "uuid": "9bf00d2b-4bdd-4d49-8d7a-df255f5ffdc3",
+    "recordTags": [
+        "PostCreate"
+    ],
+    "id": 949,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1638352089,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1638431214,
+    "owners": [],
+    "isPrivate": false
+}

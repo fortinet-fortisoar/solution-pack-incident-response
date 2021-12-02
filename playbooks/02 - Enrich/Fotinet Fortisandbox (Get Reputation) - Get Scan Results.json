@@ -1,0 +1,94 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Fotinet Fortisandbox (Get Reputation) - Get Scan Results",
+    "aliasName": null,
+    "tag": null,
+    "description": "Retrieves the job verdict details for submitted samples based on the specified job ID.",
+    "isActive": false,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "job_id"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1638430898,
+    "collection": "\/api\/3\/workflow_collections\/deaa4d19-7444-4f3a-a80e-9577436f25ef",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/17bd9435-f256-4a81-934d-ff85db940d19",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Details of Submitted File",
+            "description": null,
+            "arguments": {
+                "name": "Fortinet FortiSandbox",
+                "config": "9e32387e-87bc-42b3-9bb8-02831dbeef3e",
+                "params": {
+                    "jid": "{{vars.input.params['job_id']}}"
+                },
+                "version": "1.0.1",
+                "do_until": {
+                    "delay": "60",
+                    "retries": "5",
+                    "condition": "{{(vars.result.data.result.data.finish_ts != 0)}}"
+                },
+                "connector": "fortinet-fortisandbox",
+                "operation": "get_scan_result_job",
+                "operationTitle": "Get Job Verdict Detail",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "160",
+            "left": "128",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "3d206406-c289-403d-9633-37e8859765b5",
+            "id": 2455
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": {
+                            "job_id": "{{ vars.job_id }}"
+                        }
+                    }
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "17bd9435-f256-4a81-934d-ff85db940d19",
+            "id": 2456
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Get Details of Submitted File",
+            "targetStep": "\/api\/3\/workflow_steps\/3d206406-c289-403d-9633-37e8859765b5",
+            "sourceStep": "\/api\/3\/workflow_steps\/17bd9435-f256-4a81-934d-ff85db940d19",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "572d7866-9fe7-4488-bf65-ee31fe6bb51e"
+        }
+    ],
+    "priority": null,
+    "uuid": "2ae1af2f-28ad-40b7-854b-841a81c65cec",
+    "recordTags": [
+        "Subroutine",
+        "Indicator (Type File) - Get Reputation (Fortinet Sandbox)"
+    ],
+    "id": 914,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1638352087,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1638430898,
+    "owners": [],
+    "isPrivate": false
+}

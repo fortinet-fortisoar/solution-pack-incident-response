@@ -1,11 +1,5 @@
 [
     {
-        "id": 8,
-        "name": "Default_Indicator_TTL_Days",
-        "value": "20",
-        "default_value": "20"
-    },
-    {
         "id": 9,
         "name": "Excludelist_IPs",
         "value": "8.8.8.8,10.1.1.2",
@@ -30,22 +24,28 @@
         "default_value": "{ \"attachmentNames\":\"File\",\"commandLine\": \"Process\",\"computerName\":\"Host\",\"decodedCommandLine\":\"Process\",\"destinationIp\": \"IP Address\",\"destinationPort\":\"Port\",\"domain\":\"Domain\",\"dllLoaded\": \"Process\",\"emailFrom\":\"Email Address\",\"emailCc\":\"Email Address\",\"emailTo\":\"Email Address\",\"fileHash\": \"FileHash-MD5\",\"parentProcessCmdLine\": \"Process\",\"parentProcessName\": \"Process\",\"recipientEmailAddress\":\"Email Address\",\"registryKey\": \"Registry\",\"registryKeyValue\": \"Registry\",\"reporter\":\"Email Address\",\"returnPath\":\"Email Address\",\"senderDomain\":\"Domain\",\"senderEmailAddress\": \"Email Address\",\"services\": \"Process\",\"sourceIp\": \"IP Address\",\"sourcePort\":\"Port\",\"sourceProcess\": \"Process\",\"targetAsset\":\"Host\",\"targetProcess\": \"Process\",\"url\": \"URL\",\"userName\": \"User\",\"userDetails\": \"User\",\"urlFull\": \"URL\",\"parentProcessName\": \"Process\",\"otherRecipients\": \"Email Address\"}"
     },
     {
+        "id": 8,
+        "name": "Default_Indicator_TTL_Days",
+        "value": "20",
+        "default_value": "20"
+    },
+    {
         "id": 13,
         "name": "Demo_mode",
         "value": "true",
         "default_value": "true"
     },
     {
-        "id": 14,
-        "name": "QRadarTimeZone",
-        "value": "Asia\/Kolkata",
-        "default_value": "Asia\/Kolkata"
-    },
-    {
         "id": 2,
         "name": "Default_Email",
         "value": "noreply@example.com",
         "default_value": null
+    },
+    {
+        "id": 14,
+        "name": "QRadarTimeZone",
+        "value": "Asia\/Kolkata",
+        "default_value": "Asia\/Kolkata"
     },
     {
         "id": 15,
@@ -62,7 +62,7 @@
     {
         "id": 7,
         "name": "Server_fqhn",
-        "value": "qa-env14.fortisoar.in",
+        "value": "qa-env12.fortisoar.in",
         "default_value": null
     }
 ]

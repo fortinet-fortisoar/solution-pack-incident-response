@@ -1,0 +1,297 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Fetch SLA Details",
+    "aliasName": null,
+    "tag": "#Subroutine  #system",
+    "description": "Fetches SLA Details for incidents as per Service, that is, for MSSP or Enterprise.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "inc_severity",
+        "tenant_iri"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1638438928,
+    "collection": "\/api\/3\/workflow_collections\/3c3b049e-5ecb-464a-83f6-5af6a230c0ed",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/cf18594c-6629-4160-a824-ee74cdb5067f",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Select SLA",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Return nothing",
+                        "default": true,
+                        "step_iri": "\/api\/3\/workflow_steps\/45cdf4dd-ad6a-44d6-b693-5fb600ae78d2"
+                    },
+                    {
+                        "option": "Return SLA",
+                        "step_iri": "\/api\/3\/workflow_steps\/79557767-0395-4b60-8dd5-28f7b8e4fdf7",
+                        "condition": "{{ vars.sla_data | length > 0 }}"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "435",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "89db490f-7c80-45c9-9ebd-171be7aa2dd4",
+            "id": 3807
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get SLA Details MSSP",
+            "description": null,
+            "arguments": {
+                "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "type": "object",
+                            "field": "incSeverity",
+                            "value": "{{(\"Severity\" | picklist(vars.input.params['inc_severity']))[\"@id\"]}}",
+                            "_value": {
+                                "@id": "{{(\"Severity\" | picklist(vars.input.params['inc_severity']))[\"@id\"]}}",
+                                "display": "",
+                                "itemValue": ""
+                            },
+                            "operator": "eq"
+                        },
+                        {
+                            "type": "object",
+                            "field": "tenant",
+                            "value": "{{vars.input.params['tenant_iri']}}",
+                            "_value": {
+                                "@id": "{{vars.input.params['tenant_iri']}}",
+                                "display": "",
+                                "itemValue": ""
+                            },
+                            "operator": "eq"
+                        }
+                    ]
+                },
+                "module": "sla_template?$limit=30",
+                "step_variables": {
+                    "sla_data": "{{vars.result}}"
+                }
+            },
+            "status": null,
+            "top": "300",
+            "left": "120",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
+            "uuid": "1b60b43e-dbbb-4d54-aaa1-ddc36eef8e1f",
+            "id": 3808
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Do Nothing",
+            "description": null,
+            "arguments": {
+                "params": [],
+                "version": "2.4.1",
+                "connector": "cyops_utilities",
+                "operation": "no_op",
+                "operationTitle": "Utils: No Operation",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "570",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "45cdf4dd-ad6a-44d6-b693-5fb600ae78d2",
+            "id": 3809
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": {
+                            "tenant_id": "{{ vars.tenant_id }}",
+                            "tenant_iri": "{{ vars.tenant_iri }}",
+                            "tenant_name": "{{ vars.tenant_name }}",
+                            "inc_severity": "{{ vars.inc_severity }}"
+                        }
+                    }
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "cf18594c-6629-4160-a824-ee74cdb5067f",
+            "id": 3810
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "SLA Time List",
+            "description": null,
+            "arguments": {
+                "sla_time_list": "{\n  \"incAckTime\" : \"{{vars.sla_data[0].ackSlaTime}}\",\n  \"incResTime\" : \"{{vars.sla_data[0].resTime}}\",\n  \"incAckTrackedOn\" : \"{{vars.sla_data[0].slaTrackedOn.itemValue}}\",\n  \"incResTrackedOn\" : \"{{vars.sla_data[0].resSlaTrackedOn.itemValue}}\",\n  \"alertAckTime\" : \"{{vars.sla_data[0].alertAckTime}}\",\n  \"alertResTime\" : \"{{vars.sla_data[0].alertResTime}}\",\n  \"alertAackTrackedOn\" : \"{{vars.sla_data[0].alertAckTrackedOn.itemValue}}\",\n  \"alertResTrackedOn\" : \"{{vars.sla_data[0].alertResTrackedOn.itemValue}}\",\n  \"altPauseSLAOn\" : \"{{vars.sla_data[0].altPauseSLAOn.itemValue}}\",\n  \"incPauseSLAOn\" : \"{{vars.sla_data[0].incPauseSLAOn.itemValue}}\"\n}"
+            },
+            "status": null,
+            "top": "570",
+            "left": "127",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "79557767-0395-4b60-8dd5-28f7b8e4fdf7",
+            "id": 3811
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Is MSSP",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "MSSP",
+                        "step_iri": "\/api\/3\/workflow_steps\/1b60b43e-dbbb-4d54-aaa1-ddc36eef8e1f",
+                        "condition": "{{ vars.input.params['tenant_iri'] is not none }}",
+                        "step_name": "Get SLA Details MSSP"
+                    },
+                    {
+                        "option": "Enterprise",
+                        "default": true,
+                        "step_iri": "\/api\/3\/workflow_steps\/cbb7b59c-afbc-4876-a2e9-b988b53ac739",
+                        "step_name": "Get SLA Details Enterprise"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "160",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "5ad0fc4d-d76e-48db-8eb8-c51eac75ade7",
+            "id": 3812
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get SLA Details Enterprise",
+            "description": null,
+            "arguments": {
+                "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "type": "object",
+                            "field": "incSeverity",
+                            "value": "{{(\"Severity\" | picklist(vars.input.params['inc_severity']))[\"@id\"]}}",
+                            "_value": {
+                                "@id": "{{(\"Severity\" | picklist(vars.input.params['inc_severity']))[\"@id\"]}}",
+                                "display": "",
+                                "itemValue": ""
+                            },
+                            "operator": "eq"
+                        }
+                    ]
+                },
+                "module": "sla_template?$limit=30",
+                "step_variables": {
+                    "sla_data": "{{vars.result}}"
+                }
+            },
+            "status": null,
+            "top": "300",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
+            "uuid": "cbb7b59c-afbc-4876-a2e9-b988b53ac739",
+            "id": 3813
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get SLA Details1 -> Select SLA",
+            "targetStep": "\/api\/3\/workflow_steps\/89db490f-7c80-45c9-9ebd-171be7aa2dd4",
+            "sourceStep": "\/api\/3\/workflow_steps\/cbb7b59c-afbc-4876-a2e9-b988b53ac739",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "944a171f-021d-4d59-b3a9-03e72aa9d45c"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Select SLA -> Do Nothing",
+            "targetStep": "\/api\/3\/workflow_steps\/45cdf4dd-ad6a-44d6-b693-5fb600ae78d2",
+            "sourceStep": "\/api\/3\/workflow_steps\/89db490f-7c80-45c9-9ebd-171be7aa2dd4",
+            "label": "Return nothing",
+            "isExecuted": false,
+            "uuid": "4432bfc0-db9a-420f-af59-455729f953d2"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get SLA Details -> Select SLA",
+            "targetStep": "\/api\/3\/workflow_steps\/89db490f-7c80-45c9-9ebd-171be7aa2dd4",
+            "sourceStep": "\/api\/3\/workflow_steps\/1b60b43e-dbbb-4d54-aaa1-ddc36eef8e1f",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "bc33110a-5c07-4f9a-9e42-f14bcdebd6a9"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is MSSP -> Get SLA Details1",
+            "targetStep": "\/api\/3\/workflow_steps\/cbb7b59c-afbc-4876-a2e9-b988b53ac739",
+            "sourceStep": "\/api\/3\/workflow_steps\/5ad0fc4d-d76e-48db-8eb8-c51eac75ade7",
+            "label": "Enterprise",
+            "isExecuted": false,
+            "uuid": "1abb3df4-dbc2-44d5-ad52-b82d0ee63cc1"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Is MSSP",
+            "targetStep": "\/api\/3\/workflow_steps\/5ad0fc4d-d76e-48db-8eb8-c51eac75ade7",
+            "sourceStep": "\/api\/3\/workflow_steps\/cf18594c-6629-4160-a824-ee74cdb5067f",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "f6869eab-2651-4049-8f51-1d0e238d730b"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Select SLA -> SLA Time List",
+            "targetStep": "\/api\/3\/workflow_steps\/79557767-0395-4b60-8dd5-28f7b8e4fdf7",
+            "sourceStep": "\/api\/3\/workflow_steps\/89db490f-7c80-45c9-9ebd-171be7aa2dd4",
+            "label": "Return SLA",
+            "isExecuted": false,
+            "uuid": "a96641a1-5c82-4a42-98ba-bb584204ce27"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is MSSP -> Get SLA Details",
+            "targetStep": "\/api\/3\/workflow_steps\/1b60b43e-dbbb-4d54-aaa1-ddc36eef8e1f",
+            "sourceStep": "\/api\/3\/workflow_steps\/5ad0fc4d-d76e-48db-8eb8-c51eac75ade7",
+            "label": "MSSP",
+            "isExecuted": false,
+            "uuid": "6b98ccc0-7d9f-4c3b-9616-48a388cd0b4a"
+        }
+    ],
+    "priority": null,
+    "uuid": "45096dd1-6f64-4f86-937f-711a1054d436",
+    "recordTags": [
+        "system",
+        "SLA",
+        "Subroutine",
+        "Alert - [02] Capture Ack SLA (Upon Update)",
+        "Alert - [03] Capture Response SLA (Upon Update)",
+        "Alert - [05] Update Ack and Response Due dates (Post Severity Change)",
+        "Incident - [02] Capture Ack SLA (Upon Update)",
+        "Incident - [03] Capture Response SLA (Upon Update)",
+        "Incident - [05] Update Response and Ack Due date (Post Severity Change)"
+    ],
+    "id": 1063,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1638352100,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1638438928,
+    "owners": [],
+    "isPrivate": false
+}

@@ -11,10 +11,10 @@
     "remoteExecutableFlag": false,
     "parameters": [],
     "synchronous": false,
-    "lastModifyDate": 1636537406,
+    "lastModifyDate": 1638352085,
     "collection": "\/api\/3\/workflow_collections\/a41c4bc4-5b29-4701-96e7-e62e21e8763e",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/3d92f3c8-6984-4e36-9bc1-962b53521cec",
+    "triggerStep": "\/api\/3\/workflow_steps\/da021021-7bb9-4f60-8c38-adcfe4aa3736",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -91,8 +91,8 @@
             "top": "30",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-            "uuid": "3d92f3c8-6984-4e36-9bc1-962b53521cec",
-            "id": 2227
+            "uuid": "da021021-7bb9-4f60-8c38-adcfe4aa3736",
+            "id": 4336
         },
         {
             "@type": "WorkflowStep",
@@ -114,8 +114,8 @@
             "top": "165",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
-            "uuid": "dd362eac-46c4-4858-b7eb-6e3913ad7bea",
-            "id": 2228
+            "uuid": "2c4febd6-9941-4a0f-9169-0762c4cd5a19",
+            "id": 4337
         },
         {
             "@type": "WorkflowStep",
@@ -156,38 +156,38 @@
             "top": "300",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
-            "uuid": "ca3813cc-658c-452a-b599-c6e14fc8ca5c",
-            "id": 2229
+            "uuid": "0ebd1fa9-13f8-41eb-9096-feebe263c4f7",
+            "id": 4338
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Get User Details",
-            "targetStep": "\/api\/3\/workflow_steps\/dd362eac-46c4-4858-b7eb-6e3913ad7bea",
-            "sourceStep": "\/api\/3\/workflow_steps\/3d92f3c8-6984-4e36-9bc1-962b53521cec",
+            "targetStep": "\/api\/3\/workflow_steps\/2c4febd6-9941-4a0f-9169-0762c4cd5a19",
+            "sourceStep": "\/api\/3\/workflow_steps\/da021021-7bb9-4f60-8c38-adcfe4aa3736",
             "label": null,
             "isExecuted": false,
-            "uuid": "f9f8f26c-95f6-4eb2-8927-f6ac8b0b07fa"
+            "uuid": "eae3be64-2ed6-4168-8be5-73371597be72"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Get User Details -> Send Counseling Email",
-            "targetStep": "\/api\/3\/workflow_steps\/ca3813cc-658c-452a-b599-c6e14fc8ca5c",
-            "sourceStep": "\/api\/3\/workflow_steps\/dd362eac-46c4-4858-b7eb-6e3913ad7bea",
+            "targetStep": "\/api\/3\/workflow_steps\/0ebd1fa9-13f8-41eb-9096-feebe263c4f7",
+            "sourceStep": "\/api\/3\/workflow_steps\/2c4febd6-9941-4a0f-9169-0762c4cd5a19",
             "label": null,
             "isExecuted": false,
-            "uuid": "68c7e315-e698-463d-8411-44e1ffd13a73"
+            "uuid": "9374e2f6-808d-4b11-8225-32ecaed5e26f"
         }
     ],
     "priority": null,
     "uuid": "a7af0031-3550-4d17-9ab6-eb4b8b1afc19",
     "recordTags": [],
-    "id": 308,
-    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "createDate": 1636537433,
-    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "modifyDate": 1636537433,
+    "id": 1136,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1638352103,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1638352103,
     "owners": [],
     "isPrivate": false
 }
