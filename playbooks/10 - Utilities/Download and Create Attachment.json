@@ -14,10 +14,10 @@
         "authorization"
     ],
     "synchronous": false,
-    "lastModifyDate": 1636537406,
+    "lastModifyDate": 1638439422,
     "collection": "\/api\/3\/workflow_collections\/20289298-cdd6-4052-8fa0-11e2603dca00",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/1c36f896-8fc6-4c82-af5f-834861a5a709",
+    "triggerStep": "\/api\/3\/workflow_steps\/f0bd8075-c79a-4c7f-8b94-d2de832a565c",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -37,8 +37,8 @@
             "top": "30",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
-            "uuid": "1c36f896-8fc6-4c82-af5f-834861a5a709",
-            "id": 2000
+            "uuid": "f0bd8075-c79a-4c7f-8b94-d2de832a565c",
+            "id": 4109
         },
         {
             "@type": "WorkflowStep",
@@ -64,8 +64,8 @@
             "top": "300",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
-            "uuid": "e74fe40a-183a-4eed-80a5-ce3879ee06fa",
-            "id": 2001
+            "uuid": "d9e2c57c-5dff-4e02-b766-280c6f6812c9",
+            "id": 4110
         },
         {
             "@type": "WorkflowStep",
@@ -90,8 +90,8 @@
             "top": "165",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
-            "uuid": "8ef03b77-6f45-4904-b6e2-afab71777e5a",
-            "id": 2002
+            "uuid": "eda266c3-de34-4488-a249-b4cd48ce8459",
+            "id": 4111
         },
         {
             "@type": "WorkflowStep",
@@ -122,50 +122,51 @@
             "top": "435",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
-            "uuid": "ecc9ab53-15f9-4b88-9958-866b9576799c",
-            "id": 2003
+            "uuid": "5f66d4c5-e2aa-42b3-a73c-ec3d829b533b",
+            "id": 4112
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Start -> File Download",
-            "targetStep": "\/api\/3\/workflow_steps\/8ef03b77-6f45-4904-b6e2-afab71777e5a",
-            "sourceStep": "\/api\/3\/workflow_steps\/1c36f896-8fc6-4c82-af5f-834861a5a709",
+            "targetStep": "\/api\/3\/workflow_steps\/eda266c3-de34-4488-a249-b4cd48ce8459",
+            "sourceStep": "\/api\/3\/workflow_steps\/f0bd8075-c79a-4c7f-8b94-d2de832a565c",
             "label": null,
             "isExecuted": false,
-            "uuid": "25193721-bffc-4792-a46e-cdd8516ffb95"
+            "uuid": "a0f0ed35-91ff-460b-92d0-ea905e85754d"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Create File Attachment in CyOPs1 -> Update Attachment Name",
-            "targetStep": "\/api\/3\/workflow_steps\/ecc9ab53-15f9-4b88-9958-866b9576799c",
-            "sourceStep": "\/api\/3\/workflow_steps\/e74fe40a-183a-4eed-80a5-ce3879ee06fa",
+            "targetStep": "\/api\/3\/workflow_steps\/5f66d4c5-e2aa-42b3-a73c-ec3d829b533b",
+            "sourceStep": "\/api\/3\/workflow_steps\/d9e2c57c-5dff-4e02-b766-280c6f6812c9",
             "label": null,
             "isExecuted": false,
-            "uuid": "224d2e3a-05dc-42ac-aa06-22372220f4bc"
+            "uuid": "1fb6bff4-32ce-4d8b-a57c-c2c52699ae22"
         },
         {
             "@type": "WorkflowRoute",
             "name": "File Download -> Create File Attachment in CyOPs1",
-            "targetStep": "\/api\/3\/workflow_steps\/e74fe40a-183a-4eed-80a5-ce3879ee06fa",
-            "sourceStep": "\/api\/3\/workflow_steps\/8ef03b77-6f45-4904-b6e2-afab71777e5a",
+            "targetStep": "\/api\/3\/workflow_steps\/d9e2c57c-5dff-4e02-b766-280c6f6812c9",
+            "sourceStep": "\/api\/3\/workflow_steps\/eda266c3-de34-4488-a249-b4cd48ce8459",
             "label": null,
             "isExecuted": false,
-            "uuid": "0ee7d981-e127-42a5-8d13-41952aac839c"
+            "uuid": "f34f1983-323b-41c9-bdb5-b9fe01385a7d"
         }
     ],
     "priority": null,
     "uuid": "6d8b867a-58b8-434b-af0e-c106d66fb1a6",
     "recordTags": [
         "system",
-        "Subroutine"
+        "Subroutine",
+        "Generate - Attachment Records"
     ],
-    "id": 283,
-    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "createDate": 1636537432,
+    "id": 1111,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1638352102,
     "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "modifyDate": 1636537432,
+    "modifyDate": 1638439421,
     "owners": [],
     "isPrivate": false
 }

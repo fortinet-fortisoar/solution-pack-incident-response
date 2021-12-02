@@ -1,0 +1,137 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Generate - Attachment Records",
+    "aliasName": null,
+    "tag": "#Subroutine",
+    "description": "Generates attachment records for the file downloaded from a specified URL.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "fileURL"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1638439410,
+    "collection": "\/api\/3\/workflow_collections\/a41c4bc4-5b29-4701-96e7-e62e21e8763e",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/3edba6bf-8360-492b-9f9d-520bddb7eedf",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "file_url_list": "[\"https:\/\/wildfire.paloaltonetworks.com\/publicapi\/test\/pe\"]"
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "fc36b13e-ffda-45ef-b79c-65170bdf4d38",
+            "id": 4285
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "a0091867-d510-43a9-a6e5-1b3dee36e3e3",
+                "title": "Generate > Attachment Records",
+                "resources": [
+                    "attachments"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                    "input": {
+                        "params": {
+                            "fileURL": "{{ vars.fileURL }}"
+                        },
+                        "records": "{{vars.input.records}}"
+                    }
+                },
+                "displayConditions": {
+                    "alerts": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    },
+                    "attachments": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "uuid": "3edba6bf-8360-492b-9f9d-520bddb7eedf",
+            "id": 4286
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Download File and Create Attachment",
+            "description": null,
+            "arguments": {
+                "for_each": {
+                    "item": "{{vars.file_url_list}}",
+                    "condition": ""
+                },
+                "arguments": {
+                    "file": "{{vars.item}}",
+                    "fileURL": "{{vars.item}}",
+                    "authorization": "{{vars.request.headers.authorization}}"
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "workflowReference": "\/api\/3\/workflows\/6d8b867a-58b8-434b-af0e-c106d66fb1a6"
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "00ffcdbf-712f-40f5-bd7f-ef1bc3492db2",
+            "id": 4287
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/fc36b13e-ffda-45ef-b79c-65170bdf4d38",
+            "sourceStep": "\/api\/3\/workflow_steps\/3edba6bf-8360-492b-9f9d-520bddb7eedf",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "a3c5c1d5-c439-4067-982e-37536c442db0"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "configuration -> Download File and Create Attachment",
+            "targetStep": "\/api\/3\/workflow_steps\/00ffcdbf-712f-40f5-bd7f-ef1bc3492db2",
+            "sourceStep": "\/api\/3\/workflow_steps\/fc36b13e-ffda-45ef-b79c-65170bdf4d38",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "e8163f26-d6a4-482f-a4c1-e0b4eaa56fcd"
+        }
+    ],
+    "priority": null,
+    "uuid": "c5e193f0-3a5e-4c59-b1ea-6ed0abbc4ddc",
+    "recordTags": [
+        "ManualAction"
+    ],
+    "id": 1130,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1638352103,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1638439409,
+    "owners": [],
+    "isPrivate": false
+}

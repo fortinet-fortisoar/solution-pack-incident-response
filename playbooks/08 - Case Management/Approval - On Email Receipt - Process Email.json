@@ -1,0 +1,528 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Approval - On Email Receipt - Process Email",
+    "aliasName": null,
+    "tag": null,
+    "description": "Checks if the email is an approval email and returns its approval status.",
+    "isActive": false,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "approvalEmail"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1638438674,
+    "collection": "\/api\/3\/workflow_collections\/3c3b049e-5ecb-464a-83f6-5af6a230c0ed",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/00870aea-0ed7-4cd4-90ac-3765a41f2db2",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Check if approver team matches",
+            "description": null,
+            "arguments": {
+                "teamMatch": "{% if vars.allTeams | intersect(vars.approverTeams) | length > 0 %}True{% else %}False{% endif %}",
+                "emailIdMatch": "False"
+            },
+            "status": null,
+            "top": "408",
+            "left": "940",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "84b54aad-5040-4344-9f57-1d6528c2fcc9",
+            "id": 3888
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": []
+                    }
+                }
+            },
+            "status": null,
+            "top": "60",
+            "left": "20",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "00870aea-0ed7-4cd4-90ac-3765a41f2db2",
+            "id": 3889
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Update Approval Record",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "{{vars.approvalRecord['@id']}}",
+                    "body": "{\"status\": \"{{vars.approvalStatus}}\", \"approvaldescription\": \"{{vars.input.params.approvalEmail.body.text}}\" }",
+                    "method": "PUT"
+                },
+                "version": "3.0.0",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "420",
+            "left": "2100",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "1c4bb269-c50d-4dc8-870e-54ceeeb538ee",
+            "id": 3890
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Is Approval",
+            "description": null,
+            "arguments": {
+                "messageID": "{{ vars.input.params.approvalEmail.headers['message-id'] }}",
+                "isApproval": "True"
+            },
+            "status": null,
+            "top": "474",
+            "left": "2400",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "a31aac13-c9f7-4780-b9cc-ce7ae1ac8285",
+            "id": 3891
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Approver Validated",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Yes",
+                        "step_iri": "\/api\/3\/workflow_steps\/8526ac8b-2339-49df-bf98-a089b94e6ece",
+                        "condition": "{{ vars.emailIdMatch or vars.teamMatch }}"
+                    },
+                    {
+                        "option": "No",
+                        "default": true,
+                        "step_iri": "\/api\/3\/workflow_steps\/ba740f14-4c8c-4d1e-a6b3-60cb3618c3dd"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "485",
+            "left": "1246",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "65cf9ce3-221c-4432-8e21-c86d32d28574",
+            "id": 3892
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Check If Approved",
+            "description": null,
+            "arguments": {
+                "isApproved": "{% if vars.approvalStatusInEmail == 'approved' %}true{% else %}false{% endif %}"
+            },
+            "status": null,
+            "top": "211",
+            "left": "620",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "26d4e9d0-58a2-4483-954c-cd9b4c2e49d6",
+            "id": 3893
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "No Action Required",
+            "description": null,
+            "arguments": {
+                "params": [],
+                "version": "3.0.0",
+                "connector": "cyops_utilities",
+                "operation": "no_op",
+                "operationTitle": "Utils: No Operation",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "10",
+            "left": "620",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "9d13a44f-fcce-46ef-acd0-5abea5dfe354",
+            "id": 3894
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Sender Not Authorized To Approve",
+            "description": null,
+            "arguments": {
+                "params": [],
+                "version": "3.0.0",
+                "connector": "cyops_utilities",
+                "operation": "no_op",
+                "operationTitle": "Utils: No Operation",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "549",
+            "left": "1540",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "ba740f14-4c8c-4d1e-a6b3-60cb3618c3dd",
+            "id": 3895
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Extract Info From Email",
+            "description": null,
+            "arguments": {
+                "approvalID": "{{ vars.input.params.approvalEmail.headers.subject  | regex_replace(\".*Action Required: Approval-([0-9]*).*\", \"\\\\1\") }}",
+                "approvalStatusInEmail": "{{ vars.input.params.approvalEmail.headers.subject  | regex_replace(\".*Approval-.*: (.*)\", \"\\\\1\") | lower }}"
+            },
+            "status": null,
+            "top": "120",
+            "left": "620",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "1ed7b1e1-c2c1-4057-abfd-8ce237b4c11b",
+            "id": 3896
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Set Approval Status",
+            "description": null,
+            "arguments": {
+                "approvalStatus": "{% if vars.isApproved %}{{\"Approval Status\" | picklist(\"Approved\", \"@id\")}}{% else %}{{\"Approval Status\" | picklist(\"Rejected\", \"@id\")}}{% endif %}"
+            },
+            "status": null,
+            "top": "420",
+            "left": "1820",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "1d041d91-2da5-4091-ad42-dff00645315c",
+            "id": 3897
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Check if approval email",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Yes",
+                        "step_iri": "\/api\/3\/workflow_steps\/1ed7b1e1-c2c1-4057-abfd-8ce237b4c11b",
+                        "condition": "{{ vars.input.params.approvalEmail.headers.subject | regex_findall(\"Approval-\") | length > 0 }}"
+                    },
+                    {
+                        "option": "No",
+                        "default": true,
+                        "step_iri": "\/api\/3\/workflow_steps\/9d13a44f-fcce-46ef-acd0-5abea5dfe354"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "60",
+            "left": "309",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "e2d7f31e-afc6-49be-9df7-d30190c787f9",
+            "id": 3898
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Check if approver email id matches",
+            "description": null,
+            "arguments": {
+                "teamMatch": "False",
+                "emailIdMatch": "{% if vars.approvalRecord.assignedTo.email == vars.input.params.approvalEmail.headers['return-path'] %}True{% else %}False{% endif %}"
+            },
+            "status": null,
+            "top": "566",
+            "left": "940",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "e0a56c12-a8c5-4188-9901-fc813ef1986c",
+            "id": 3899
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Find Approval Record",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "\/api\/3\/approvals?id={{vars.approvalID}}&$relationships=true",
+                    "body": "",
+                    "method": "GET"
+                },
+                "version": "3.0.0",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": {
+                    "approverTeams": "{{ vars.result.data['hydra:member'][0] | json_query('owners[*][\"@id\"][]')}}",
+                    "approvalRecord": "{{ vars.result.data[\"hydra:member\"][0] }}"
+                }
+            },
+            "status": null,
+            "top": "300",
+            "left": "620",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "a5846c49-744a-453c-9a83-422b7833fe8f",
+            "id": 3900
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Resume Playbook",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "\/api\/wf\/api\/workflows\/{{vars.approvalRecord.workflowid}}\/resume\/?format=json",
+                    "body": "{\"approved\":{{vars.isApproved}},\"message\":\"\",\"user\":\"{{vars.approvingUser}}\",\"step_id\": {{vars.approvalRecord.stepid}} }",
+                    "method": "POST"
+                },
+                "version": "3.0.0",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "420",
+            "left": "1540",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "8526ac8b-2339-49df-bf98-a089b94e6ece",
+            "id": 3901
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Was approval requested from user or team",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "User",
+                        "step_iri": "\/api\/3\/workflow_steps\/e0a56c12-a8c5-4188-9901-fc813ef1986c",
+                        "condition": "{{ vars.approvalRecord.assignedTo != None }}"
+                    },
+                    {
+                        "option": "Team",
+                        "default": true,
+                        "step_iri": "\/api\/3\/workflow_steps\/84b54aad-5040-4344-9f57-1d6528c2fcc9"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "489",
+            "left": "620",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "22abc1f8-74c1-4600-b35c-eb2dc67ee120",
+            "id": 3902
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Lookup User By EmailId",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "\/api\/3\/people?$relationships=true&$export=true&email={{vars.input.params.approvalEmail.headers['return-path'] | replace(\"<\", \"\") | replace(\">\", \"\")}}",
+                    "body": "",
+                    "method": "GET"
+                },
+                "version": "3.0.1",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": {
+                    "allTeams": "{{vars.result.data['hydra:member'] | json_query('[*].teams[]')}}",
+                    "approvingUser": "{% if vars.result.data['hydra:member'] | length == 1 %}{{vars.result.data['hydra:member'][0].firstname + vars.result.data['hydra:member'][0].lastname}}{% else %}{{vars.input.params.approvalEmail.headers.from}}{% endif %}"
+                }
+            },
+            "status": null,
+            "top": "391",
+            "left": "620",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "2e13f431-43db-447e-b393-ff313215183c",
+            "id": 3903
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Set Approval",
+            "description": null,
+            "arguments": {
+                "messageID": "{{ vars.input.params.approvalEmail.messageID }}",
+                "isApproval": "False"
+            },
+            "status": null,
+            "top": "10",
+            "left": "920",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "53790519-3c4e-40f9-af83-db9ba3b0e507",
+            "id": 3904
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Check if approval email -> No Action Required",
+            "targetStep": "\/api\/3\/workflow_steps\/9d13a44f-fcce-46ef-acd0-5abea5dfe354",
+            "sourceStep": "\/api\/3\/workflow_steps\/e2d7f31e-afc6-49be-9df7-d30190c787f9",
+            "label": "No",
+            "isExecuted": false,
+            "uuid": "10cbca6d-47b5-46a4-88ba-b72cc248175d"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "No Action Required -> Set Approval",
+            "targetStep": "\/api\/3\/workflow_steps\/53790519-3c4e-40f9-af83-db9ba3b0e507",
+            "sourceStep": "\/api\/3\/workflow_steps\/9d13a44f-fcce-46ef-acd0-5abea5dfe354",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "e60f9ec9-bbb2-4374-883f-413cbf5128a1"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Check If Approved",
+            "targetStep": "\/api\/3\/workflow_steps\/26d4e9d0-58a2-4483-954c-cd9b4c2e49d6",
+            "sourceStep": "\/api\/3\/workflow_steps\/1ed7b1e1-c2c1-4057-abfd-8ce237b4c11b",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "756166bf-105a-4429-8e67-34c0e30940e4"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Find Approval Record -> Copy  of Lookup Users By EmailId",
+            "targetStep": "\/api\/3\/workflow_steps\/2e13f431-43db-447e-b393-ff313215183c",
+            "sourceStep": "\/api\/3\/workflow_steps\/a5846c49-744a-453c-9a83-422b7833fe8f",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "62300934-10bc-4717-853a-a03ab7a239c4"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Was approval requested from user or team -> Check approver email id",
+            "targetStep": "\/api\/3\/workflow_steps\/e0a56c12-a8c5-4188-9901-fc813ef1986c",
+            "sourceStep": "\/api\/3\/workflow_steps\/22abc1f8-74c1-4600-b35c-eb2dc67ee120",
+            "label": "User",
+            "isExecuted": false,
+            "uuid": "bacfc47d-fd3f-40cf-aa6a-9a491d629938"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Sender Not Authorized To Approve -> Is Approval",
+            "targetStep": "\/api\/3\/workflow_steps\/a31aac13-c9f7-4780-b9cc-ce7ae1ac8285",
+            "sourceStep": "\/api\/3\/workflow_steps\/ba740f14-4c8c-4d1e-a6b3-60cb3618c3dd",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "3e51816a-8390-408e-9345-283f2cfdc04d"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "approverValidated -> Resume Playbook",
+            "targetStep": "\/api\/3\/workflow_steps\/8526ac8b-2339-49df-bf98-a089b94e6ece",
+            "sourceStep": "\/api\/3\/workflow_steps\/65cf9ce3-221c-4432-8e21-c86d32d28574",
+            "label": "Yes",
+            "isExecuted": false,
+            "uuid": "642962d1-5c1a-499f-bb5c-8217f5494893"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Update Approval Record -> Is Approval",
+            "targetStep": "\/api\/3\/workflow_steps\/a31aac13-c9f7-4780-b9cc-ce7ae1ac8285",
+            "sourceStep": "\/api\/3\/workflow_steps\/1c4bb269-c50d-4dc8-870e-54ceeeb538ee",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "ddc42ad7-a806-46c2-a3b8-8678be8e7891"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Check if approval email -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/1ed7b1e1-c2c1-4057-abfd-8ce237b4c11b",
+            "sourceStep": "\/api\/3\/workflow_steps\/e2d7f31e-afc6-49be-9df7-d30190c787f9",
+            "label": "Yes",
+            "isExecuted": false,
+            "uuid": "089fa9b9-fee0-48a8-81d0-3767c393d406"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Check If Approved -> Find Approval Record",
+            "targetStep": "\/api\/3\/workflow_steps\/a5846c49-744a-453c-9a83-422b7833fe8f",
+            "sourceStep": "\/api\/3\/workflow_steps\/26d4e9d0-58a2-4483-954c-cd9b4c2e49d6",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "378ff7a2-5847-4563-a7dd-555a43c52714"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Approver Validated -> Sender Not Authorized To Approve",
+            "targetStep": "\/api\/3\/workflow_steps\/ba740f14-4c8c-4d1e-a6b3-60cb3618c3dd",
+            "sourceStep": "\/api\/3\/workflow_steps\/65cf9ce3-221c-4432-8e21-c86d32d28574",
+            "label": "No",
+            "isExecuted": false,
+            "uuid": "3ae8fa2a-6646-4c2f-b9a6-94ab1ff98940"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Check if approver team matches -> approverValidated",
+            "targetStep": "\/api\/3\/workflow_steps\/65cf9ce3-221c-4432-8e21-c86d32d28574",
+            "sourceStep": "\/api\/3\/workflow_steps\/84b54aad-5040-4344-9f57-1d6528c2fcc9",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "7fc63c40-2a02-42fd-bd82-d9669e131207"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Set Approval State -> Update Approval Record",
+            "targetStep": "\/api\/3\/workflow_steps\/1c4bb269-c50d-4dc8-870e-54ceeeb538ee",
+            "sourceStep": "\/api\/3\/workflow_steps\/1d041d91-2da5-4091-ad42-dff00645315c",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "bd531449-27c1-41f2-a1f0-acc8644e2456"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Copy  of Lookup Users By EmailId -> Was approval requested from user or team",
+            "targetStep": "\/api\/3\/workflow_steps\/22abc1f8-74c1-4600-b35c-eb2dc67ee120",
+            "sourceStep": "\/api\/3\/workflow_steps\/2e13f431-43db-447e-b393-ff313215183c",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "98c0f19b-348d-48ae-a389-7a127b5e437d"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Was approval requested from user or team -> Check if approver team matches",
+            "targetStep": "\/api\/3\/workflow_steps\/84b54aad-5040-4344-9f57-1d6528c2fcc9",
+            "sourceStep": "\/api\/3\/workflow_steps\/22abc1f8-74c1-4600-b35c-eb2dc67ee120",
+            "label": "Team",
+            "isExecuted": false,
+            "uuid": "af4dcd8d-e83c-4641-850a-163590be243f"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Check if approval email",
+            "targetStep": "\/api\/3\/workflow_steps\/e2d7f31e-afc6-49be-9df7-d30190c787f9",
+            "sourceStep": "\/api\/3\/workflow_steps\/00870aea-0ed7-4cd4-90ac-3765a41f2db2",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "86af997e-6c2d-4b6d-bf01-6ad67301b68f"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Check if approver email id matches -> approverValidated",
+            "targetStep": "\/api\/3\/workflow_steps\/65cf9ce3-221c-4432-8e21-c86d32d28574",
+            "sourceStep": "\/api\/3\/workflow_steps\/e0a56c12-a8c5-4188-9901-fc813ef1986c",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "a91d83c4-1524-4fac-8c86-19c878dabd35"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Resume Playbook -> Set Approval State",
+            "targetStep": "\/api\/3\/workflow_steps\/1d041d91-2da5-4091-ad42-dff00645315c",
+            "sourceStep": "\/api\/3\/workflow_steps\/8526ac8b-2339-49df-bf98-a089b94e6ece",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "46ce4937-fa0d-48d3-b235-bec29b807915"
+        }
+    ],
+    "priority": null,
+    "uuid": "9695365d-0815-4552-8a43-cba0857a0e99",
+    "recordTags": [],
+    "id": 1076,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1638352100,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1638438673,
+    "owners": [],
+    "isPrivate": false
+}

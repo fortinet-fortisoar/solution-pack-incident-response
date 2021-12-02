@@ -11,10 +11,10 @@
     "remoteExecutableFlag": false,
     "parameters": [],
     "synchronous": false,
-    "lastModifyDate": 1636537406,
+    "lastModifyDate": 1638352085,
     "collection": "\/api\/3\/workflow_collections\/a41c4bc4-5b29-4701-96e7-e62e21e8763e",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/c6a6c7c5-8784-42bd-ae9e-df95f6c24928",
+    "triggerStep": "\/api\/3\/workflow_steps\/a021cb9f-8903-4660-867e-139046d0b9ef",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -79,8 +79,8 @@
             "top": "30",
             "left": "475",
             "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-            "uuid": "c6a6c7c5-8784-42bd-ae9e-df95f6c24928",
-            "id": 2051
+            "uuid": "a021cb9f-8903-4660-867e-139046d0b9ef",
+            "id": 4160
         },
         {
             "@type": "WorkflowStep",
@@ -90,19 +90,19 @@
                 "conditions": [
                     {
                         "option": "Domain",
-                        "step_iri": "\/api\/3\/workflow_steps\/cd42d7f2-ffba-493b-9e39-347179300497",
+                        "step_iri": "\/api\/3\/workflow_steps\/35b4e0ce-9827-4a67-ae13-c0a42fce202f",
                         "condition": "{{ vars.input.records[0].typeofindicator.itemValue == 'Domain' }}",
                         "step_name": "Add Domain to Whitelisted Domains List"
                     },
                     {
                         "option": "URL",
-                        "step_iri": "\/api\/3\/workflow_steps\/684df151-82f1-4c6c-a36a-8fe96d881767",
+                        "step_iri": "\/api\/3\/workflow_steps\/c8bf1c02-65b5-42a7-b796-ea18113937d5",
                         "condition": "{{ vars.input.records[0].typeofindicator.itemValue == 'URL' }}",
                         "step_name": "Add URL to Whitelisted URL List"
                     },
                     {
                         "option": "IP",
-                        "step_iri": "\/api\/3\/workflow_steps\/c3fbd641-7774-41ed-8759-db97fd66e87e",
+                        "step_iri": "\/api\/3\/workflow_steps\/25630e9d-dc15-4937-be6c-28ffdd94d6da",
                         "condition": "{{ vars.input.records[0].typeofindicator.itemValue == 'IP Address' }}",
                         "step_name": "Add IP to Whitelisted IP List"
                     }
@@ -112,8 +112,8 @@
             "top": "165",
             "left": "475",
             "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
-            "uuid": "3ed07563-5c34-43f1-b0ad-25aca86ccd9a",
-            "id": 2052
+            "uuid": "f565e897-4fa8-4070-9681-bbd12d541fba",
+            "id": 4161
         },
         {
             "@type": "WorkflowStep",
@@ -126,8 +126,8 @@
             "top": "300",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "c3fbd641-7774-41ed-8759-db97fd66e87e",
-            "id": 2053
+            "uuid": "25630e9d-dc15-4937-be6c-28ffdd94d6da",
+            "id": 4162
         },
         {
             "@type": "WorkflowStep",
@@ -140,8 +140,8 @@
             "top": "300",
             "left": "475",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "cd42d7f2-ffba-493b-9e39-347179300497",
-            "id": 2054
+            "uuid": "35b4e0ce-9827-4a67-ae13-c0a42fce202f",
+            "id": 4163
         },
         {
             "@type": "WorkflowStep",
@@ -162,8 +162,8 @@
             "top": "440",
             "left": "827",
             "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
-            "uuid": "ae9ed97d-b891-4738-b180-1e476c05e992",
-            "id": 2055
+            "uuid": "6e4f3741-fb77-4ac6-b907-eb16016ed82f",
+            "id": 4164
         },
         {
             "@type": "WorkflowStep",
@@ -184,8 +184,8 @@
             "top": "435",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
-            "uuid": "90f84c89-a7cb-43fe-a5e2-132387ef2cc8",
-            "id": 2056
+            "uuid": "c3f9ee27-389c-4697-b457-b8cdeb7efbd6",
+            "id": 4165
         },
         {
             "@type": "WorkflowStep",
@@ -198,8 +198,8 @@
             "top": "300",
             "left": "826",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "684df151-82f1-4c6c-a36a-8fe96d881767",
-            "id": 2057
+            "uuid": "c8bf1c02-65b5-42a7-b796-ea18113937d5",
+            "id": 4166
         },
         {
             "@type": "WorkflowStep",
@@ -232,8 +232,8 @@
             "top": "570",
             "left": "475",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
-            "uuid": "6b89e18a-478c-4457-873f-ad5f0c2c9396",
-            "id": 2058
+            "uuid": "5d31877f-5218-4785-b787-f81ab1656133",
+            "id": 4167
         },
         {
             "@type": "WorkflowStep",
@@ -254,100 +254,100 @@
             "top": "435",
             "left": "475",
             "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
-            "uuid": "8bc83533-0f62-4d40-8aed-09b8418710ca",
-            "id": 2059
+            "uuid": "6fc82368-4ccb-4592-afee-43ffbae77edc",
+            "id": 4168
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Add Domain to Whitelisted Domains List -> Update Whitelisted Domains",
-            "targetStep": "\/api\/3\/workflow_steps\/8bc83533-0f62-4d40-8aed-09b8418710ca",
-            "sourceStep": "\/api\/3\/workflow_steps\/cd42d7f2-ffba-493b-9e39-347179300497",
+            "targetStep": "\/api\/3\/workflow_steps\/6fc82368-4ccb-4592-afee-43ffbae77edc",
+            "sourceStep": "\/api\/3\/workflow_steps\/35b4e0ce-9827-4a67-ae13-c0a42fce202f",
             "label": null,
             "isExecuted": false,
-            "uuid": "333830f0-caea-40c6-a216-953178f33daa"
+            "uuid": "eadf9bd0-cde0-4804-9417-1a270b7d54c6"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Update Whitelisted Domains -> Uodate Indicator as Whitelisted",
-            "targetStep": "\/api\/3\/workflow_steps\/6b89e18a-478c-4457-873f-ad5f0c2c9396",
-            "sourceStep": "\/api\/3\/workflow_steps\/8bc83533-0f62-4d40-8aed-09b8418710ca",
+            "targetStep": "\/api\/3\/workflow_steps\/5d31877f-5218-4785-b787-f81ab1656133",
+            "sourceStep": "\/api\/3\/workflow_steps\/6fc82368-4ccb-4592-afee-43ffbae77edc",
             "label": null,
             "isExecuted": false,
-            "uuid": "c5b0b8f5-6bf9-48f0-8ae9-0578c94b5808"
+            "uuid": "ef2f3d6a-8694-4e3e-a734-fa66cfe02df5"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Check Type of Indicator -> Add Domain to Whitelisted Domains List",
-            "targetStep": "\/api\/3\/workflow_steps\/cd42d7f2-ffba-493b-9e39-347179300497",
-            "sourceStep": "\/api\/3\/workflow_steps\/3ed07563-5c34-43f1-b0ad-25aca86ccd9a",
+            "targetStep": "\/api\/3\/workflow_steps\/35b4e0ce-9827-4a67-ae13-c0a42fce202f",
+            "sourceStep": "\/api\/3\/workflow_steps\/f565e897-4fa8-4070-9681-bbd12d541fba",
             "label": "Domain",
             "isExecuted": false,
-            "uuid": "a12a0884-6f8b-4182-bfc2-8e61ac30eae8"
+            "uuid": "7109f6af-5ec8-48be-a18c-ef624b38952b"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Check Type of Indicator",
-            "targetStep": "\/api\/3\/workflow_steps\/3ed07563-5c34-43f1-b0ad-25aca86ccd9a",
-            "sourceStep": "\/api\/3\/workflow_steps\/c6a6c7c5-8784-42bd-ae9e-df95f6c24928",
+            "targetStep": "\/api\/3\/workflow_steps\/f565e897-4fa8-4070-9681-bbd12d541fba",
+            "sourceStep": "\/api\/3\/workflow_steps\/a021cb9f-8903-4660-867e-139046d0b9ef",
             "label": null,
             "isExecuted": false,
-            "uuid": "b91e0eea-660c-4daa-8544-2bae755a15cd"
+            "uuid": "6fd1dae0-90e3-417e-8818-08325dc9c96e"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Update Whitelisted Urls -> Uodate Indicator as Whitelisted",
-            "targetStep": "\/api\/3\/workflow_steps\/6b89e18a-478c-4457-873f-ad5f0c2c9396",
-            "sourceStep": "\/api\/3\/workflow_steps\/ae9ed97d-b891-4738-b180-1e476c05e992",
+            "targetStep": "\/api\/3\/workflow_steps\/5d31877f-5218-4785-b787-f81ab1656133",
+            "sourceStep": "\/api\/3\/workflow_steps\/6e4f3741-fb77-4ac6-b907-eb16016ed82f",
             "label": null,
             "isExecuted": false,
-            "uuid": "33245e3d-dca3-4282-bff6-fc5c164d93df"
+            "uuid": "94901203-990f-4521-9e15-3c209aa91b6b"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Check Type of Indicator -> Add IP to Whitelisted IP List",
-            "targetStep": "\/api\/3\/workflow_steps\/c3fbd641-7774-41ed-8759-db97fd66e87e",
-            "sourceStep": "\/api\/3\/workflow_steps\/3ed07563-5c34-43f1-b0ad-25aca86ccd9a",
+            "targetStep": "\/api\/3\/workflow_steps\/25630e9d-dc15-4937-be6c-28ffdd94d6da",
+            "sourceStep": "\/api\/3\/workflow_steps\/f565e897-4fa8-4070-9681-bbd12d541fba",
             "label": "IP",
             "isExecuted": false,
-            "uuid": "77f82837-9816-49f7-8ecd-952fec5199ee"
+            "uuid": "23456afd-0dc8-43a9-9555-020b341794a4"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Update Whitelisted IPs -> Uodate Indicator as Whitelisted",
-            "targetStep": "\/api\/3\/workflow_steps\/6b89e18a-478c-4457-873f-ad5f0c2c9396",
-            "sourceStep": "\/api\/3\/workflow_steps\/90f84c89-a7cb-43fe-a5e2-132387ef2cc8",
+            "targetStep": "\/api\/3\/workflow_steps\/5d31877f-5218-4785-b787-f81ab1656133",
+            "sourceStep": "\/api\/3\/workflow_steps\/c3f9ee27-389c-4697-b457-b8cdeb7efbd6",
             "label": null,
             "isExecuted": false,
-            "uuid": "1cf88337-6799-4039-ba9b-ed6030d121a5"
+            "uuid": "1be4248c-533b-45a8-969e-37c6f4168a1c"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Add IP to Whitelisted IP List -> Update Whitelisted IPs",
-            "targetStep": "\/api\/3\/workflow_steps\/90f84c89-a7cb-43fe-a5e2-132387ef2cc8",
-            "sourceStep": "\/api\/3\/workflow_steps\/c3fbd641-7774-41ed-8759-db97fd66e87e",
+            "targetStep": "\/api\/3\/workflow_steps\/c3f9ee27-389c-4697-b457-b8cdeb7efbd6",
+            "sourceStep": "\/api\/3\/workflow_steps\/25630e9d-dc15-4937-be6c-28ffdd94d6da",
             "label": null,
             "isExecuted": false,
-            "uuid": "867d32a6-a2f9-455f-9197-34a9b1a18963"
+            "uuid": "19c30754-d527-41cb-85fc-49712e4a53ef"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Add URL to Whitelisted URL List -> Update Whitelisted Urls",
-            "targetStep": "\/api\/3\/workflow_steps\/ae9ed97d-b891-4738-b180-1e476c05e992",
-            "sourceStep": "\/api\/3\/workflow_steps\/684df151-82f1-4c6c-a36a-8fe96d881767",
+            "targetStep": "\/api\/3\/workflow_steps\/6e4f3741-fb77-4ac6-b907-eb16016ed82f",
+            "sourceStep": "\/api\/3\/workflow_steps\/c8bf1c02-65b5-42a7-b796-ea18113937d5",
             "label": null,
             "isExecuted": false,
-            "uuid": "3e2a4b45-ec1a-4925-994f-820d7325d0df"
+            "uuid": "90104a95-ea94-488e-92e0-d904860fef31"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Check Type of Indicator -> Add URL to Whitelisted URL List",
-            "targetStep": "\/api\/3\/workflow_steps\/684df151-82f1-4c6c-a36a-8fe96d881767",
-            "sourceStep": "\/api\/3\/workflow_steps\/3ed07563-5c34-43f1-b0ad-25aca86ccd9a",
+            "targetStep": "\/api\/3\/workflow_steps\/c8bf1c02-65b5-42a7-b796-ea18113937d5",
+            "sourceStep": "\/api\/3\/workflow_steps\/f565e897-4fa8-4070-9681-bbd12d541fba",
             "label": "URL",
             "isExecuted": false,
-            "uuid": "cd0d56b5-a3db-43d8-8237-ba590e12ee97"
+            "uuid": "5f57dc51-fb7a-4072-a482-9f63d9fc3f3d"
         }
     ],
     "priority": null,
@@ -355,11 +355,11 @@
     "recordTags": [
         "ManualAction"
     ],
-    "id": 292,
-    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "createDate": 1636537433,
-    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "modifyDate": 1636537433,
+    "id": 1120,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1638352103,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1638352103,
     "owners": [],
     "isPrivate": false
 }

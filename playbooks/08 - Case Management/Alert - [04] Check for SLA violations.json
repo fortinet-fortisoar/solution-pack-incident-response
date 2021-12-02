@@ -1,0 +1,153 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Alert - [04] Check for SLA violations",
+    "aliasName": null,
+    "tag": null,
+    "description": "Checks periodically for violations of acknowledgement SLA of the open alerts.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1638438482,
+    "collection": "\/api\/3\/workflow_collections\/3c3b049e-5ecb-464a-83f6-5af6a230c0ed",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/3af28924-1da6-4647-88cc-f73ee0569153",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Fetch Open Alert",
+            "description": null,
+            "arguments": {
+                "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "OR",
+                    "filters": [
+                        {
+                            "type": "datetime",
+                            "field": "respDueDate",
+                            "value": "false",
+                            "operator": "isnull"
+                        },
+                        {
+                            "type": "datetime",
+                            "field": "dueBy",
+                            "value": "false",
+                            "operator": "isnull"
+                        },
+                        {
+                            "type": "object",
+                            "field": "ackSlaStatus",
+                            "value": "\/api\/3\/picklists\/72979f64-e8b9-4888-a965-957e0ec24818",
+                            "_value": {
+                                "@id": "\/api\/3\/picklists\/72979f64-e8b9-4888-a965-957e0ec24818",
+                                "display": "Awaiting Action",
+                                "itemValue": "Awaiting Action"
+                            },
+                            "operator": "eq"
+                        },
+                        {
+                            "type": "object",
+                            "field": "respSlaStatus",
+                            "value": "\/api\/3\/picklists\/72979f64-e8b9-4888-a965-957e0ec24818",
+                            "_value": {
+                                "@id": "\/api\/3\/picklists\/72979f64-e8b9-4888-a965-957e0ec24818",
+                                "display": "Awaiting Action",
+                                "itemValue": "Awaiting Action"
+                            },
+                            "operator": "eq"
+                        }
+                    ],
+                    "__selectFields": [
+                        "dueBy",
+                        "respDueDate"
+                    ]
+                },
+                "module": "alerts?$limit=30",
+                "checkboxFields": true,
+                "step_variables": []
+            },
+            "status": null,
+            "top": "160",
+            "left": "126",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
+            "uuid": "fee70192-eacf-4786-a733-0cad65042053",
+            "id": 3857
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Update SLA Status",
+            "description": null,
+            "arguments": {
+                "for_each": {
+                    "item": "{{vars.steps.Fetch_Open_Alert}}",
+                    "condition": ""
+                },
+                "arguments": {
+                    "alert_data": "{{vars.item}}",
+                    "alert_severity": "{{vars.item.severity.itemValue}}"
+                },
+                "apply_async": true,
+                "step_variables": [],
+                "workflowReference": "\/api\/3\/workflows\/a8496747-7349-4a27-9584-c3d9c6e628ec"
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "e1ecbf70-d290-4061-a0f4-4487c3cc0d3a",
+            "id": 3858
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": []
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "3af28924-1da6-4647-88cc-f73ee0569153",
+            "id": 3859
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Fetch Open Alert -> Update SLA Status",
+            "targetStep": "\/api\/3\/workflow_steps\/e1ecbf70-d290-4061-a0f4-4487c3cc0d3a",
+            "sourceStep": "\/api\/3\/workflow_steps\/fee70192-eacf-4786-a733-0cad65042053",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "a91d55e0-5c04-46b5-924b-fe924c99fbe7"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Fetch Open Alert",
+            "targetStep": "\/api\/3\/workflow_steps\/fee70192-eacf-4786-a733-0cad65042053",
+            "sourceStep": "\/api\/3\/workflow_steps\/3af28924-1da6-4647-88cc-f73ee0569153",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "8d5379a3-d0cc-4a9c-a17e-7ae9870193a1"
+        }
+    ],
+    "priority": null,
+    "uuid": "be0e2b56-664e-49b5-885f-ad345cf2dbbc",
+    "recordTags": [
+        "system",
+        "SLA",
+        "Scheduled"
+    ],
+    "id": 1071,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1638352100,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1638438481,
+    "owners": [],
+    "isPrivate": false
+}

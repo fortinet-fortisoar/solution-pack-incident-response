@@ -1,0 +1,302 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Alert - Set Metrics (Upon Close)",
+    "aliasName": null,
+    "tag": "#system",
+    "description": "Calculates queued and resolution time for a closed alert.",
+    "isActive": false,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1638438580,
+    "collection": "\/api\/3\/workflow_collections\/3c3b049e-5ecb-464a-83f6-5af6a230c0ed",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/c0a8d19e-576e-4fd6-993b-b0c6b8945eb4",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Format Queued time to Richtext",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "value": "<div class=\"card-container-body\" style=\"width: 230px;\">\n<div class=\"card-number\"><a target=\"&quot;_blank&quot;&quot;\"> <span class=\"card-count\">{{vars.queuedTime}}<\/span> <\/a>\n<div class=\"font-size-12 ng-binding\">{% if vars.ConvertedQueMinutes != 0%}Minute(s){%else%}Second(s){%endif%}<\/div>\n<div class=\"font-size-14 ng-binding\"><strong>Queued Time<\/strong><\/div>\n<\/div>\n<\/div>"
+                },
+                "version": "2.2.0",
+                "connector": "cyops_utilities",
+                "operation": "format_richtext",
+                "operationTitle": "Utils: Format as RichText",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "30",
+            "left": "1750",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "7d1073a5-e8d6-416d-b9e1-84366f70cce0",
+            "id": 3827
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Time Difference",
+            "description": null,
+            "arguments": {
+                "ConvertedQueMinutes": "{{(vars.steps.Get_Queued_Time.data.days*24*60+ vars.steps.Get_Queued_Time.data.hours*60 + vars.steps.Get_Queued_Time.data.minutes)}}",
+                "ConvertedResMinutes": "{{(vars.steps.Get_Resolution_Time.data.days*24*60+ vars.steps.Get_Resolution_Time.data.hours*60 + vars.steps.Get_Resolution_Time.data.minutes)}}"
+            },
+            "status": null,
+            "top": "110",
+            "left": "1100",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "32f1c030-849a-4e02-81ba-9950b625a9d3",
+            "id": 3828
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Update time",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "metrics": "<table>\n<tbody>\n<tr>\n<td>{{vars.steps.Format_Queued_time_to_Richtext.data['formatted_string']}}<\/td>\n<td>{{vars.steps.Format_Resolution_time__to_Richtext.data['formatted_string']}}<\/td>\n<\/tr>\n<\/tbody>\n<\/table>\n<p>&nbsp;<\/p>\n<p>&nbsp;<\/p>"
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "tagsOperation": "OverwriteTags",
+                "collectionType": "\/api\/3\/alerts",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "110",
+            "left": "2075",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "f9e88195-40cf-4b82-8487-20227b999165",
+            "id": 3829
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Resolution Time",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "time_stamp_1": "{{vars.input.records[0].resolveddate}}",
+                    "time_stamp_2": "{{vars.input.records[0].assigneddate}}"
+                },
+                "version": "2.7.0",
+                "connector": "cyops_utilities",
+                "operation": "arrow_timestamp_diff",
+                "operationTitle": "Utils: Compute Time Difference",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "110",
+            "left": "775",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "8d430c38-7527-4459-9758-11e98b5f0c1b",
+            "id": 3830
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Queued Time",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "time_stamp_1": "{{vars.input.records[0].assigneddate}}",
+                    "time_stamp_2": "{{vars.input.records[0].createDate}}"
+                },
+                "version": "2.7.0",
+                "connector": "cyops_utilities",
+                "operation": "arrow_timestamp_diff",
+                "operationTitle": "Utils: Compute Time Difference",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "110",
+            "left": "450",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "3c248512-4611-4d3f-a564-d19325e452ec",
+            "id": 3831
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Format Resolution time  to Richtext",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "value": "<div class=\"card-container-body\" style=\"width: 230px;\">\n<div class=\"card-number\"><a target=\"&quot;_blank&quot;&quot;\"> <span class=\"card-count\">{{vars.resolutionTime}}<\/span> <\/a>\n<div class=\"font-size-12 ng-binding\">{% if vars.ConvertedResMinutes != 0%}Minute(s){%else%}Second(s){%endif%}<\/div>\n<div class=\"font-size-14 ng-binding\"><strong>Resolution Time<\/strong><\/div>\n<\/div>\n<\/div>"
+                },
+                "version": "2.2.0",
+                "connector": "cyops_utilities",
+                "operation": "format_richtext",
+                "operationTitle": "Utils: Format as RichText",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "190",
+            "left": "1750",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "88c13528-b2c0-4700-bdc4-6e476247aa57",
+            "id": 3832
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Set Time",
+            "description": null,
+            "arguments": {
+                "queuedTime": "{% if vars.ConvertedQueMinutes > 0 %}{{\"%.2f\" | format(vars.ConvertedQueMinutes + vars.steps.Get_Queued_Time.data.seconds\/60)}}{%endif%}{% if vars.steps.Get_Queued_Time.data.seconds >= 0 %}{% if vars.ConvertedQueMinutes == 0 %}{{vars.steps.Get_Queued_Time.data.seconds | int}}{%endif%}{%endif%}",
+                "resolutionTime": "{% if vars.ConvertedResMinutes > 0 %}{{\"%.2f\" | format(vars.ConvertedResMinutes + vars.steps.Get_Resolution_Time.data.seconds\/60)}}{%endif%}{% if vars.steps.Get_Resolution_Time.data.seconds > 0 %}{% if vars.ConvertedResMinutes == 0 %}{{vars.steps.Get_Resolution_Time.data.seconds | int}}{%endif%}{%endif%}"
+            },
+            "status": null,
+            "top": "110",
+            "left": "1425",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "494ce371-6d97-4bc4-8d12-e498caa4d3d8",
+            "id": 3833
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "resource": "alerts",
+                "resources": [
+                    "alerts"
+                ],
+                "step_variables": {
+                    "input": {
+                        "records": [
+                            "{{vars.input.records[0]}}"
+                        ]
+                    }
+                },
+                "fieldbasedtrigger": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "type": "datetime",
+                            "field": "resolveddate",
+                            "value": null,
+                            "operator": "changed"
+                        },
+                        {
+                            "type": "object",
+                            "field": "assignedTo",
+                            "value": "false",
+                            "_value": [],
+                            "operator": "isnull"
+                        },
+                        {
+                            "type": "object",
+                            "field": "status",
+                            "value": "\/api\/3\/picklists\/fac53e73-8d16-4189-98d5-95fbd1555232",
+                            "_value": {
+                                "itemValue": "Closed"
+                            },
+                            "operator": "eq"
+                        }
+                    ]
+                }
+            },
+            "status": null,
+            "top": "110",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/9300bf69-5063-486d-b3a6-47eb9da24872",
+            "uuid": "c0a8d19e-576e-4fd6-993b-b0c6b8945eb4",
+            "id": 3834
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Get Queued Time",
+            "targetStep": "\/api\/3\/workflow_steps\/3c248512-4611-4d3f-a564-d19325e452ec",
+            "sourceStep": "\/api\/3\/workflow_steps\/c0a8d19e-576e-4fd6-993b-b0c6b8945eb4",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "a5b6e207-b8e6-421d-8662-0e4932cd9613"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Format Queued time to Richtext -> Update time",
+            "targetStep": "\/api\/3\/workflow_steps\/f9e88195-40cf-4b82-8487-20227b999165",
+            "sourceStep": "\/api\/3\/workflow_steps\/7d1073a5-e8d6-416d-b9e1-84366f70cce0",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "a17c5135-7f32-4a94-9c31-b9499b98e9a5"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Queued Time -> Get Resolution Time",
+            "targetStep": "\/api\/3\/workflow_steps\/8d430c38-7527-4459-9758-11e98b5f0c1b",
+            "sourceStep": "\/api\/3\/workflow_steps\/3c248512-4611-4d3f-a564-d19325e452ec",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "7c40a40c-35b0-45da-9078-19c3442eb800"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Save Time -> Format Resolution time  to Richtext",
+            "targetStep": "\/api\/3\/workflow_steps\/88c13528-b2c0-4700-bdc4-6e476247aa57",
+            "sourceStep": "\/api\/3\/workflow_steps\/494ce371-6d97-4bc4-8d12-e498caa4d3d8",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "8462c566-27fa-41f1-a478-86b2ebbaaee7"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Save Time -> Format Queued time to Richtext",
+            "targetStep": "\/api\/3\/workflow_steps\/7d1073a5-e8d6-416d-b9e1-84366f70cce0",
+            "sourceStep": "\/api\/3\/workflow_steps\/494ce371-6d97-4bc4-8d12-e498caa4d3d8",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "60d24f9a-369c-49b9-a567-a3907c61df5e"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Resolution Time -> time diff",
+            "targetStep": "\/api\/3\/workflow_steps\/32f1c030-849a-4e02-81ba-9950b625a9d3",
+            "sourceStep": "\/api\/3\/workflow_steps\/8d430c38-7527-4459-9758-11e98b5f0c1b",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "24088be7-cb7b-4b56-bf7b-853fe624f6e7"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Time Difference -> Save Time",
+            "targetStep": "\/api\/3\/workflow_steps\/494ce371-6d97-4bc4-8d12-e498caa4d3d8",
+            "sourceStep": "\/api\/3\/workflow_steps\/32f1c030-849a-4e02-81ba-9950b625a9d3",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "753500e6-840f-4236-b870-e9cc0640896e"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Copy  of Copy  of Format to Richtext -> Update time",
+            "targetStep": "\/api\/3\/workflow_steps\/f9e88195-40cf-4b82-8487-20227b999165",
+            "sourceStep": "\/api\/3\/workflow_steps\/88c13528-b2c0-4700-bdc4-6e476247aa57",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "b4e51d46-1dbc-4e4c-9fbe-f4715f22ce8e"
+        }
+    ],
+    "priority": null,
+    "uuid": "b1dd979e-9cca-4487-9b18-c181929d0570",
+    "recordTags": [
+        "system",
+        "PostUpdate",
+        "SLA"
+    ],
+    "id": 1067,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1638352100,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1638438580,
+    "owners": [],
+    "isPrivate": false
+}
