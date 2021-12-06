@@ -19,16 +19,13 @@ This article covers the following:
 Use the following procedure as a *root* user to deploy the solution pack:
 
 1. Log onto the Solution Pack GIT repo (https://github.com/fortinet-fortisoar/solution-pack-incident-response) using your credentials.
-
-2. Click the **Code** button and select the **Download ZIP** option.
+2. Click the **Code** button and select the **Download ZIP** option.  
    ![Fortinet-FortiSOAR GIT branch > Clone >Download the solution pack zip](media/SolutionPackZip.png)
-
-3. Log into your FortiSOAR instance, and on the left-navigation, click **Import Wizard**.
+3. Log into your FortiSOAR instance, and on the left-navigation, click **Import Wizard**.  
    ![Import Wizard](media/importWizard.png)
-
-4. On the `Import Wizard` page, click **Import From File** and selected the solution pack zip that you have downloaded, and navigate through the Import Wizard.
-   ![Importing the IR Solution Pack zip file](media/importIRCP.png)
-    **Note**: It is recommended not the change any configurations or options of the imported solution pack zip file.
+4. On the `Import Wizard` page, click **Import From File** and selected the solution pack zip that you have downloaded, and navigate through the Import Wizard.  
+   ![Importing the IR Solution Pack zip file](media/importIRCP.png)  
+    **Note**: It is recommended not the change any configurations or options of the imported solution pack zip file.  
    Once the import is successfully completed, you can use the IR solution pack.
 
 ## Configuring IR Solution Pack
@@ -42,18 +39,12 @@ You should also configure the ElasticSearch and SSH connectors.
 To configure this connector, open the ElasticSearch Connector and in its "Configuration Page" enter the following values for the configuration parameters: 
 
 - **Configuration Name**: Provide a name for this configuration and you can optionally mark this configuration as the “Default Configuration”. 
-
 - **Server URL**: localhost 
-
 - **Protocol**: https 
-
 - **Username**: elastic
-
 - **Password**: Enter the Device UUID of your FortiSOAR™ instance 
-
 - **Port**: 9200 
-
-- Verify SSL: Ensure that this checkbox is cleared
+- Verify SSL: Ensure that this checkbox is cleared  
   ![ElasticSearch Configuration](media/elasticSearchConfig.png)
 ### Configuring the SSH Connector
 
@@ -74,8 +65,7 @@ The solution pack consists of the following:
 - Collection of Dashboards
 - Collection of Roles
 
-Once you log on to FortiSOAR™, the FortiSOAR™ UI appears as a collection of modules, as shown in the following image:
-
+Once you log on to FortiSOAR™, the FortiSOAR™ UI appears as a collection of modules, as shown in the following image:  
 ![FortiSOAR Dashboard Page](media/fsrUI.png)
 
 Each module, such as "Incidents" provide access to individual data models within the FortiSOAR™ database.
@@ -83,50 +73,35 @@ Each module, such as "Incidents" provide access to individual data models within
 A brief about each module collection follows:
 
 - **Dashboards**: Dashboards are generally the users' default home page. Administrators create dashboards that are applicable throughout the application and are assigned to users based on their roles.
-
 - **User Community**: User community links to the FortiSOAR™ User Community page, which provides you with additional resources for FortiSOAR™, including forums, blogs, demos, use cases, etc.
-
 - **Queue Management**: Queue Management provides you with an overview of work (records) that requires to be completed and enables you to assign pending work to users. You can also configure queue management to assign unassigned items to specific queues or users automatically. 
-
 - **Incident Response**: The Incident Response section is a collection of all modules typically related to Security Incidents. You might work on the entire Incident lifecycle from within this module. This module underpins the operational side of your SOC. The standard flow starts within the Alerts module.
-
-- - **Alerts**: Stores alerts that are ingested from SIEMs, Emails, and other configured data sources. The default schema of alerts is based on ElasticSearch Common Schema. You can add more fields as required.
+  - **Alerts**: Stores alerts that are ingested from SIEMs, Emails, and other configured data sources. The default schema of alerts is based on ElasticSearch Common Schema. You can add more fields as required.
   - **Incidents**: Stores incidents, which represent a collection of information discovered during an Incident Response investigation. Incidents are triggered based on the suspicion or confirmation of a security breach. Incidents can be cyber or physical security-related.Multiple alerts, indicators, and other artifacts can be linked to an incident.
   - **Hunts**: Stores hunt information.
   - **Tasks**: Stores Tasks, which represent a discrete action taken by either an individual or an automated response. Tasks might link to outside systems, such as ticketing systems, to track specific actions beyond that of your SOC team.
   - **Emails**: Stores emails, which can contain potentially malicious emails, such as phishing emails. Once an email is added to this module, FortiSOAR™ extracts, and stores the Email Headers for further investigation. FortiSOAR™ also creates an alert with a link to the email. 
-
 - **Threat Intelligence**: The Threat Intelligence section is a collection of all modules typically related to intelligence that is collected from various threats. It contains the following modules:
-
 - - **Indicators**: Indicators contain details of all the data that is collected from system log entries or files, which identify potentially malicious activity on a system or network. It contains records of identifiable information regarding a threat, such as an IP or URL. 
   - **Campaigns**: Campaigns represent a collection of Incidents that can be tied to a single Threat Actor. Seemingly disparate Incidents might actually be related attempts from a malicious attacker attempting to probe and gain access to your network.
-
 - **Vulnerability Management**: The Vulnerability Management section is a collection of all modules typically related to vulnerabilities that exist in your system. It contains the following modules:
-
 - - **Assets**: Assets represent a unique piece of hardware and any information known about that hardware, such as MAC address, hostname, or IP address. Assets preferably have a unique identifier. Assets typically are only stored within FortiSOAR™ as records related to Incidents, Alerts, or Vulnerabilities. Asset information may be pulled from a CMDB or other resource available with knowledge of the asset characteristics, such as an ARP table or DHCP records.
   - **Scans**: Scans contain the details of all the scans that you run on your systems. It contains records of a bulk scan from scanners.
   - **Vulnerabilities**: Vulnerabilities represent a collection of weaknesses in your systems that can lead to security concerns. You can configure vulnerability scans to run periodically on your network, creating an inventory of the vulnerabilities for your specific assets.
   - **Users**:  Users represent a list of users who could potentially cause harm to your systems.  
-
 - **Automation**: The Automation section is a collection of all modules that you can use to automate your security operations. It contains the following modules:
-
 - - **Connectors**: Connectors provide you the ability to retrieve data from custom sources and perform automated operations.
   - **Playbooks**: Playbooks in FortiSOAR™ allows you to automate your security processes across external systems while respecting the business process required for your organization to function.
   - **Rule Engine**: Rule Engine in FortiSOAR™ allows you to automate processes and build rules based on logic. This makes it easier for you to maintain changes in your data in the future since all the logic is laid out in rules.
   - **Schedules**: Schedules in FortiSOAR™ allows you to schedule playbooks to run at regular intervals. 
   - **SLAs**: SLA Templates and Case Management Playbooks (PBs) in FortiSOAR™ can be used to create an in-built SLA management for incidents and alerts. For information on how to define SLAs and create SLA templates, see the FortiSOAR™ Product Documentation. FortiSOAR™ also provides you with an SLA Calculator connector, which is used to calculate SLAs that you have defined. For more information on the SLA Calculator connector and supporting PBs, see the [SLA Calculator Connector](https://docs.fortinet.com/document/fortisoar/1.0.0/sla-calculator/63/sla-calculator-v1-0-0) document.
-
 - **Resources**: The Resources section is a collection of all modules typically related to components stored in  FortiSOAR™ such as attachments and templates. It contains the following modules:
-
 - - **Attachments**: Attachments represent files that are uploaded and stored in FortiSOAR™. You submit files that are available in the FortiSOAR™ Attachments module to 3rd-party tools to scan and analyze suspicious files and retrieve reports for the submitted samples.
   - **Email Templates**: Email Templates represent templates that are stored in FortiSOAR™ that you can use when you want to send emails from FortiSOAR™. It contains a set of standard templates included with FortiSOAR™. Standard templates include emails that are sent by FortiSOAR™ when a new user is added in FortiSOAR™ or an email that is sent to users when they forget their passwords and send a request to reset the FortiSOAR™ password.
   - **Employee Watchlist**: Employee Watchlist represents a list of employees whose activities you want to monitor.
   - **Sensitive Files**: Sensitive Files represents a list of files that you want to monitor.  
-
 - **Reports**: Reports represent FortiSOAR™ Reports that you should use for your reporting purposes. You can easily create rich reports and dashboards in FortiSOAR™. You can also schedule reports, view historical reports and also search for text in the report PDF, which is in the text PDF format. 
-
 - **Widget Library**: The Widget Library allows users to edit out-of-the-box (OOB) widgets and build new widgets for custom use cases. Users can use the widgets library to customize existing widgets or build new widgets as per their requirements
-
 - **Help**: The Help module resources that help you effectively with FortiSOAR™. It contains Scenarios, which have been explained later in this document, the FortiSOAR™ product guides, knowledge center, and a FAQ section.
 
 ## Using IR Solution Pack
