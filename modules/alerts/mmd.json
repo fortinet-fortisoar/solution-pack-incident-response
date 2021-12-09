@@ -42,7 +42,9 @@
             "inversedField": null,
             "ownsRelationship": false,
             "validation": {
-                "required": false
+                "required": false,
+                "minlength": 0,
+                "maxlength": -1
             },
             "bulkAction": {
                 "allow": false
@@ -66,7 +68,7 @@
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/d5bf545f-e542-4fff-8598-79d1c4552a40",
+            "@id": "\/api\/3\/attribute_metadatas\/efdfdf66-717c-4305-afc0-2cbca15e97aa",
             "@type": "AttributeMetadata",
             "type": "integer",
             "name": "vulnerabilitySeverity",
@@ -105,14 +107,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/9a5f8c83-332a-4dee-9550-4bfb6bd0c212",
-            "uuid": "d5bf545f-e542-4fff-8598-79d1c4552a40",
+            "uuid": "efdfdf66-717c-4305-afc0-2cbca15e97aa",
             "displayName": "{{ vulnerabilitySeverity }}",
             "descriptions": {
                 "singular": "Vulnerability Severity"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/fd155776-1823-45d1-82e2-67882ba5b83b",
+            "@id": "\/api\/3\/attribute_metadatas\/d25891c3-148d-4aad-9f7b-3333ab7e1ee1",
             "@type": "AttributeMetadata",
             "type": "users",
             "name": "users",
@@ -148,14 +150,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/9a5f8c83-332a-4dee-9550-4bfb6bd0c212",
-            "uuid": "fd155776-1823-45d1-82e2-67882ba5b83b",
+            "uuid": "d25891c3-148d-4aad-9f7b-3333ab7e1ee1",
             "displayName": "{{ users }}",
             "descriptions": {
                 "singular": "Users"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/2e20b027-f385-4434-9a85-9080d87d1add",
+            "@id": "\/api\/3\/attribute_metadatas\/1a384573-312e-41f9-94c9-2a6669cf6f61",
             "@type": "AttributeMetadata",
             "type": "integer",
             "name": "ackSLApausedon",
@@ -195,14 +197,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/9a5f8c83-332a-4dee-9550-4bfb6bd0c212",
-            "uuid": "2e20b027-f385-4434-9a85-9080d87d1add",
+            "uuid": "1a384573-312e-41f9-94c9-2a6669cf6f61",
             "displayName": "{{ ackSLApausedon }}",
             "descriptions": {
                 "singular": "Ack SLA Paused Date"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/226342ce-48f3-4649-b6e8-dd66c615ac86",
+            "@id": "\/api\/3\/attribute_metadatas\/09290f29-b008-488a-aa6a-980f3e7d45b3",
             "@type": "AttributeMetadata",
             "type": "integer",
             "name": "alertRemainingRespSLA",
@@ -241,14 +243,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/9a5f8c83-332a-4dee-9550-4bfb6bd0c212",
-            "uuid": "226342ce-48f3-4649-b6e8-dd66c615ac86",
+            "uuid": "09290f29-b008-488a-aa6a-980f3e7d45b3",
             "displayName": "{{ alertRemainingRespSLA }}",
             "descriptions": {
                 "singular": "Remaining Response SLA on Pause"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/db805162-db06-4cc9-9bab-511fa9e85a47",
+            "@id": "\/api\/3\/attribute_metadatas\/da3ce81e-fc45-490b-b597-60a3cb6449dd",
             "@type": "AttributeMetadata",
             "type": "integer",
             "name": "alertRemainingAckSLA",
@@ -287,14 +289,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/9a5f8c83-332a-4dee-9550-4bfb6bd0c212",
-            "uuid": "db805162-db06-4cc9-9bab-511fa9e85a47",
+            "uuid": "da3ce81e-fc45-490b-b597-60a3cb6449dd",
             "displayName": "{{ alertRemainingAckSLA }}",
             "descriptions": {
                 "singular": "Remaining Ack SLA on Pause"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/eb8395f3-c882-4361-b516-b6daf6c1b168",
+            "@id": "\/api\/3\/attribute_metadatas\/5c666514-a9a2-4f12-b25e-df35782522b9",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "deviceSerialNo",
@@ -352,14 +354,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/9a5f8c83-332a-4dee-9550-4bfb6bd0c212",
-            "uuid": "eb8395f3-c882-4361-b516-b6daf6c1b168",
+            "uuid": "5c666514-a9a2-4f12-b25e-df35782522b9",
             "displayName": "{{ deviceSerialNo }}",
             "descriptions": {
                 "singular": "Device Serial No"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/327ebfbb-b94a-4aad-9326-165439bc6144",
+            "@id": "\/api\/3\/attribute_metadatas\/d73df178-45cc-4b6b-a420-f56c922f727d",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "deviceOwner",
@@ -417,14 +419,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/9a5f8c83-332a-4dee-9550-4bfb6bd0c212",
-            "uuid": "327ebfbb-b94a-4aad-9326-165439bc6144",
+            "uuid": "d73df178-45cc-4b6b-a420-f56c922f727d",
             "displayName": "{{ deviceOwner }}",
             "descriptions": {
                 "singular": "Device Owner"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/2b8d4816-6c2d-4e97-8026-99925fc7d6aa",
+            "@id": "\/api\/3\/attribute_metadatas\/346e6926-f3eb-4dd9-9d35-114055602e1c",
             "@type": "AttributeMetadata",
             "type": "picklists",
             "name": "deviceType",
@@ -550,14 +552,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/9a5f8c83-332a-4dee-9550-4bfb6bd0c212",
-            "uuid": "2b8d4816-6c2d-4e97-8026-99925fc7d6aa",
+            "uuid": "346e6926-f3eb-4dd9-9d35-114055602e1c",
             "displayName": "{{ deviceType }}",
             "descriptions": {
                 "singular": "Device Type"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/f721d773-1ed5-4ca9-b215-0405de92f7d0",
+            "@id": "\/api\/3\/attribute_metadatas\/d170e490-0942-42ac-bbc3-3d4aa5e609dc",
             "@type": "AttributeMetadata",
             "type": "integer",
             "name": "priorityWeight",
@@ -597,14 +599,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/9a5f8c83-332a-4dee-9550-4bfb6bd0c212",
-            "uuid": "f721d773-1ed5-4ca9-b215-0405de92f7d0",
+            "uuid": "d170e490-0942-42ac-bbc3-3d4aa5e609dc",
             "displayName": "{{ priorityWeight }}",
             "descriptions": {
                 "singular": "Priority Weight"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/e856c8d2-8b1a-4aa8-b371-9294f6115ae6",
+            "@id": "\/api\/3\/attribute_metadatas\/b047cf5a-8532-4342-93ac-fd4935afd1e9",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "bucketName",
@@ -662,14 +664,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/9a5f8c83-332a-4dee-9550-4bfb6bd0c212",
-            "uuid": "e856c8d2-8b1a-4aa8-b371-9294f6115ae6",
+            "uuid": "b047cf5a-8532-4342-93ac-fd4935afd1e9",
             "displayName": "{{ bucketName }}",
             "descriptions": {
                 "singular": "Bucket Name"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/53600b80-4ca7-4f46-aecc-fc524d98ed01",
+            "@id": "\/api\/3\/attribute_metadatas\/8155d1b5-b846-4c5e-b75c-0b4742cd84b3",
             "@type": "AttributeMetadata",
             "type": "integer",
             "name": "alertDetectionDate",
@@ -723,14 +725,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/9a5f8c83-332a-4dee-9550-4bfb6bd0c212",
-            "uuid": "53600b80-4ca7-4f46-aecc-fc524d98ed01",
+            "uuid": "8155d1b5-b846-4c5e-b75c-0b4742cd84b3",
             "displayName": "{{ alertDetectionDate }}",
             "descriptions": {
                 "singular": "Detection Date"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/88253f9e-8c2c-47d4-ba67-d61f9f7aad7c",
+            "@id": "\/api\/3\/attribute_metadatas\/953bd3cb-b1ed-4ac4-9f2d-8771f6e6a99c",
             "@type": "AttributeMetadata",
             "type": "campaigns",
             "name": "campaigns",
@@ -767,14 +769,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/9a5f8c83-332a-4dee-9550-4bfb6bd0c212",
-            "uuid": "88253f9e-8c2c-47d4-ba67-d61f9f7aad7c",
+            "uuid": "953bd3cb-b1ed-4ac4-9f2d-8771f6e6a99c",
             "displayName": "{{ campaigns }}",
             "descriptions": {
                 "singular": "Campaigns"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/7c960269-045d-4282-bc25-d274770c898b",
+            "@id": "\/api\/3\/attribute_metadatas\/4f501ea9-f6ff-439b-85c6-b48a1cbf037a",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "destinationID",
@@ -814,14 +816,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/9a5f8c83-332a-4dee-9550-4bfb6bd0c212",
-            "uuid": "7c960269-045d-4282-bc25-d274770c898b",
+            "uuid": "4f501ea9-f6ff-439b-85c6-b48a1cbf037a",
             "displayName": "{{ destinationID }}",
             "descriptions": {
                 "singular": "Destination ID"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/b81ce664-fba1-4771-9dff-b481b9d635ca",
+            "@id": "\/api\/3\/attribute_metadatas\/84b16c95-4ba7-48f8-98d3-f421289206b4",
             "@type": "AttributeMetadata",
             "type": "hunt",
             "name": "hunts",
@@ -858,14 +860,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/9a5f8c83-332a-4dee-9550-4bfb6bd0c212",
-            "uuid": "b81ce664-fba1-4771-9dff-b481b9d635ca",
+            "uuid": "84b16c95-4ba7-48f8-98d3-f421289206b4",
             "displayName": "{{ hunts }}",
             "descriptions": {
                 "singular": "Hunts"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/0fceb1d2-7d7b-4e00-9f34-6cc27d7747a2",
+            "@id": "\/api\/3\/attribute_metadatas\/20467d84-fc07-4de1-acf6-7b55a1401d32",
             "@type": "AttributeMetadata",
             "type": "communication",
             "name": "communications",
@@ -901,14 +903,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/9a5f8c83-332a-4dee-9550-4bfb6bd0c212",
-            "uuid": "0fceb1d2-7d7b-4e00-9f34-6cc27d7747a2",
+            "uuid": "20467d84-fc07-4de1-acf6-7b55a1401d32",
             "displayName": "{{ communications }}",
             "descriptions": {
                 "singular": "Communications"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/bc1a192d-347e-4722-8cbb-b346ece0ca9c",
+            "@id": "\/api\/3\/attribute_metadatas\/9be62c72-1bfa-4d00-9652-8121646c750a",
             "@type": "AttributeMetadata",
             "type": "integer",
             "name": "respSLApausedon",
@@ -948,14 +950,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/9a5f8c83-332a-4dee-9550-4bfb6bd0c212",
-            "uuid": "bc1a192d-347e-4722-8cbb-b346ece0ca9c",
+            "uuid": "9be62c72-1bfa-4d00-9652-8121646c750a",
             "displayName": "{{ respSLApausedon }}",
             "descriptions": {
                 "singular": "Response SLA Paused Date"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/5dd67f3d-2446-4f44-b3cf-bd4dd2261d40",
+            "@id": "\/api\/3\/attribute_metadatas\/8d38fc3c-0e13-4c87-9c08-cdfb0c154e35",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "mitreattackid",
@@ -1010,14 +1012,14 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/9a5f8c83-332a-4dee-9550-4bfb6bd0c212",
-            "uuid": "5dd67f3d-2446-4f44-b3cf-bd4dd2261d40",
+            "uuid": "8d38fc3c-0e13-4c87-9c08-cdfb0c154e35",
             "displayName": "{{ mitreattackid }}",
             "descriptions": {
                 "singular": "MITRE ATT&CK ID"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/ca848acd-d13c-40c6-9064-41c7c0de3727",
+            "@id": "\/api\/3\/attribute_metadatas\/ddf316eb-67cb-4ba9-ad1a-81ed08541c89",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "mitreTechnique",
@@ -1081,7 +1083,7 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/9a5f8c83-332a-4dee-9550-4bfb6bd0c212",
-            "uuid": "ca848acd-d13c-40c6-9064-41c7c0de3727",
+            "uuid": "ddf316eb-67cb-4ba9-ad1a-81ed08541c89",
             "displayName": "{{ mitreTechnique }}",
             "descriptions": {
                 "singular": "MITRE Technique"
