@@ -16,8 +16,6 @@ This article covers the following:
 
 **Important**: Before you deploy the solution pack, ensure that you have installed FortiSOAR™ and there are no records such as alerts, indicators, incidents, etc., in your FortiSOAR™ system.
 
-Use the following procedure as a *root* user to deploy the solution pack:
-
 1. Log onto the Solution Pack GIT repo (https://github.com/fortinet-fortisoar/solution-pack-incident-response) using your credentials.
 2. Click the **Code** button and select the **Download ZIP** option.  
    ![Fortinet-FortiSOAR GIT branch > Clone >Download the solution pack zip](media/SolutionPackZip.png)
@@ -44,7 +42,7 @@ To configure this connector, open the ElasticSearch Connector and in its "Config
 - **Username**: elastic
 - **Password**: Enter the Device UUID of your FortiSOAR™ instance 
 - **Port**: 9200 
-- Verify SSL: Ensure that this checkbox is cleared  
+- **Verify SSL**: Ensure that this checkbox is cleared  
   ![ElasticSearch Configuration](media/elasticSearchConfig.png)
 ### Configuring the SSH Connector
 
