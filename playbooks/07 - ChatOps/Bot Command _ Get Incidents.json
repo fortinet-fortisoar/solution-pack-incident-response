@@ -1,0 +1,203 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Bot Command > Get Incidents",
+    "aliasName": null,
+    "tag": null,
+    "description": "Retrieves details of a specific incident based on the provided incident ID.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "IncidentID",
+        "AlertURL",
+        "content",
+        "commentIRI"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1633531170,
+    "collection": "\/api\/3\/workflow_collections\/73f87b6d-26fe-4c47-80cb-bc671717c5eb",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/03881858-85c8-4cd2-9538-fceaaf06882a",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Display Incidents Details",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "alerts": "['{{vars.input.params.AlertURL}}']",
+                    "content": "<p>{{vars.input.params.content}}<\/p>\n<p>&nbsp;<\/p>\n<p><span style=\"color: #33cccc; background-color: #333333;\"><strong><em>Incidents Details :<\/em><\/strong><\/span><\/p>\n<p>&nbsp;<\/p>\n<table border=\"2\">\n<tbody>\n<tr>\n<td width=\"20%\">Name<\/td>\n<td>{{vars.steps.Get_Incident_Details[0].name}}<\/td>\n<\/tr>\n<tr>\n<td width=\"20%\">Description<\/td>\n<td>{{vars.steps.Get_Incident_Details[0].description}}<\/td>\n<\/tr>\n<\/tbody>\n<\/table>"
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "{{vars.input.params.commentIRI}}",
+                "tagsOperation": "OverwriteTags",
+                "collectionType": "\/api\/3\/comments",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "190",
+            "left": "1100",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "35154945-1918-43fc-b312-f12d2c22ce3c",
+            "id": 1627
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Incident Details",
+            "description": null,
+            "arguments": {
+                "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "type": "primitive",
+                            "field": "id",
+                            "value": "{{vars.input.params.IncidentID}}",
+                            "operator": "eq"
+                        }
+                    ]
+                },
+                "module": "incidents?$limit=30",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "110",
+            "left": "450",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
+            "uuid": "419565fe-1fba-4550-8820-c6f3d668578e",
+            "id": 1628
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Incident Not Found",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "alerts": "['{{vars.input.params.AlertURL}}']",
+                    "content": "<p>{{vars.input.params.content}}<\/p>\n<p><span style=\"color: #33cccc; background-color: #333333;\"><em><strong>Incident Not Found :<\/strong><\/em><\/span><\/p>"
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "{{vars.input.params.commentIRI}}",
+                "tagsOperation": "OverwriteTags",
+                "collectionType": "\/api\/3\/comments",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "30",
+            "left": "1100",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "65fc9aeb-290c-44b8-a719-04830619b824",
+            "id": 1629
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Check If Incident Found",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Yes",
+                        "step_iri": "\/api\/3\/workflow_steps\/35154945-1918-43fc-b312-f12d2c22ce3c",
+                        "condition": "{{ vars.steps.Get_Incident_Details | length > 0 }}"
+                    },
+                    {
+                        "option": "No",
+                        "step_iri": "\/api\/3\/workflow_steps\/65fc9aeb-290c-44b8-a719-04830619b824",
+                        "condition": "{{ vars.steps.Get_Incident_Details | length <= 0 }}"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "110",
+            "left": "775",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "2c3b675a-f4ba-4055-952a-2f36a0bd4efb",
+            "id": 1630
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": {
+                            "content": "{{ vars.content }}",
+                            "AlertURL": "{{ vars.AlertURL }}",
+                            "IncidentID": "{{ vars.IncidentID }}",
+                            "commentIRI": "{{ vars.commentIRI }}"
+                        }
+                    }
+                }
+            },
+            "status": null,
+            "top": "110",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "03881858-85c8-4cd2-9538-fceaaf06882a",
+            "id": 1631
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Check If Incident Found -> Copy  of Incident Not Found 2",
+            "targetStep": "\/api\/3\/workflow_steps\/35154945-1918-43fc-b312-f12d2c22ce3c",
+            "sourceStep": "\/api\/3\/workflow_steps\/2c3b675a-f4ba-4055-952a-2f36a0bd4efb",
+            "label": "Yes",
+            "isExecuted": false,
+            "uuid": "e768ebee-5c43-4fa4-992d-d12eecca9856"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Incident Details -> Check If Incident Found",
+            "targetStep": "\/api\/3\/workflow_steps\/2c3b675a-f4ba-4055-952a-2f36a0bd4efb",
+            "sourceStep": "\/api\/3\/workflow_steps\/419565fe-1fba-4550-8820-c6f3d668578e",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "bcb99030-219a-4a91-b2d0-633f6334ec70"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Check If Incident Found -> Incident Not Found 2",
+            "targetStep": "\/api\/3\/workflow_steps\/65fc9aeb-290c-44b8-a719-04830619b824",
+            "sourceStep": "\/api\/3\/workflow_steps\/2c3b675a-f4ba-4055-952a-2f36a0bd4efb",
+            "label": "No",
+            "isExecuted": false,
+            "uuid": "f2617100-8dca-4d24-a791-c656cd1ee2e0"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Get Incident Details",
+            "targetStep": "\/api\/3\/workflow_steps\/419565fe-1fba-4550-8820-c6f3d668578e",
+            "sourceStep": "\/api\/3\/workflow_steps\/03881858-85c8-4cd2-9538-fceaaf06882a",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "37adae8e-edf1-49be-9491-7221e5c9cbe1"
+        }
+    ],
+    "priority": null,
+    "uuid": "cabc5f48-6c89-4c9b-b55a-e4e9e9a7bc87",
+    "recordTags": [
+        "system"
+    ],
+    "id": 222,
+    "createUser": "\/api\/3\/people\/64560154-79cd-47ce-a488-5646d061631b",
+    "createDate": 1633531186,
+    "modifyUser": "\/api\/3\/people\/64560154-79cd-47ce-a488-5646d061631b",
+    "modifyDate": 1633531186,
+    "owners": [],
+    "isPrivate": false
+}

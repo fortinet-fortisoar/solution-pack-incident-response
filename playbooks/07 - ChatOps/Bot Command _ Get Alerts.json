@@ -1,0 +1,205 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Bot Command > Get Alerts",
+    "aliasName": null,
+    "tag": null,
+    "description": "Retrieves details of a specific alert based on the provided alert ID.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "alertURL",
+        "ID",
+        "content",
+        "commentIRI"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1633531170,
+    "collection": "\/api\/3\/workflow_collections\/73f87b6d-26fe-4c47-80cb-bc671717c5eb",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/4a63fb59-38d9-42e1-9159-3a0c5139a307",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": {
+                            "ID": "{{ vars.ID }}",
+                            "alertID": "{{ vars.alertID }}",
+                            "content": "{{ vars.content }}",
+                            "alertURL": "{{ vars.alertURL }}",
+                            "alertUUID": "{{ vars.alertUUID }}",
+                            "commentIRI": "{{ vars.commentIRI }}"
+                        }
+                    }
+                }
+            },
+            "status": null,
+            "top": "110",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "4a63fb59-38d9-42e1-9159-3a0c5139a307",
+            "id": 1622
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Display the Alerts Details",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "alerts": "['{{vars.input.params.alertURL}}']",
+                    "content": "<p><span style=\"color: #ffffff;\">{{vars.input.params.content}}<\/span><\/p>\n<p>&nbsp;<\/p>\n<p><span style=\"color: #33cccc; background-color: #333333;\"><em><strong>Alert Details:<\/strong><\/em><\/span><\/p>\n<p>&nbsp;<\/p>\n<table border=\"2\">\n<tbody>\n<tr>\n<td width=\"20%\">Name<\/td>\n<td>{{vars.steps.Get_Alerts_Details[0].name}}<\/td>\n<\/tr>\n<tr>\n<td width=\"20%\">Description<\/td>\n<td>{{vars.steps.Get_Alerts_Details[0].description}}<\/td>\n<\/tr>\n<\/tbody>\n<\/table>"
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "{{vars.input.params.commentIRI}}",
+                "tagsOperation": "OverwriteTags",
+                "collectionType": "\/api\/3\/comments",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "29",
+            "left": "1100",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "77ce2e14-b745-458f-bc42-e1e735360e60",
+            "id": 1623
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Check if Alert Found",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "No",
+                        "step_iri": "\/api\/3\/workflow_steps\/67912f2b-052e-4423-873d-e6e4478450cc",
+                        "condition": "{{ vars.steps.Get_Alerts_Details | length <= 0 }}"
+                    },
+                    {
+                        "option": "Yes",
+                        "default": true,
+                        "step_iri": "\/api\/3\/workflow_steps\/77ce2e14-b745-458f-bc42-e1e735360e60"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "110",
+            "left": "775",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "b5a90f35-bcd2-4936-8f5e-bf92e09768e1",
+            "id": 1624
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Not Found",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "alerts": "['{{vars.input.params.alertURL}}']",
+                    "content": "<p><span style=\"color: #ffffff;\">{{vars.input.params.content}}<\/span><\/p>\n<p>&nbsp;<\/p>\n<p><em><span style=\"color: #33cccc; background-color: #333333;\"><strong>Alert Not Found :&nbsp;&nbsp;<\/strong><\/span><\/em><\/p>\n<p><em><span style=\"color: #33cccc; background-color: #333333;\">&nbsp;<\/span><\/em><\/p>"
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "{{vars.input.params.commentIRI}}",
+                "tagsOperation": "OverwriteTags",
+                "collectionType": "\/api\/3\/comments",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "190",
+            "left": "1100",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "67912f2b-052e-4423-873d-e6e4478450cc",
+            "id": 1625
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Alerts Details",
+            "description": null,
+            "arguments": {
+                "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "type": "primitive",
+                            "field": "id",
+                            "value": "{{vars.input.params.ID}}",
+                            "operator": "eq"
+                        }
+                    ]
+                },
+                "module": "alerts?$limit=30",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "110",
+            "left": "450",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
+            "uuid": "22fdaa96-3148-4b6c-84cb-590a37bfd0d5",
+            "id": 1626
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Get Alerts Details",
+            "targetStep": "\/api\/3\/workflow_steps\/22fdaa96-3148-4b6c-84cb-590a37bfd0d5",
+            "sourceStep": "\/api\/3\/workflow_steps\/4a63fb59-38d9-42e1-9159-3a0c5139a307",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "e21193b7-b248-4849-a06f-aeec5f9f76f0"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Check if Alert Found -> Copy  of Display the Alerts Details",
+            "targetStep": "\/api\/3\/workflow_steps\/67912f2b-052e-4423-873d-e6e4478450cc",
+            "sourceStep": "\/api\/3\/workflow_steps\/b5a90f35-bcd2-4936-8f5e-bf92e09768e1",
+            "label": "No",
+            "isExecuted": false,
+            "uuid": "dd8810ab-f56b-44dd-b43a-e77fea173839"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Check if Alert Found -> Display the Alerts Details 2",
+            "targetStep": "\/api\/3\/workflow_steps\/77ce2e14-b745-458f-bc42-e1e735360e60",
+            "sourceStep": "\/api\/3\/workflow_steps\/b5a90f35-bcd2-4936-8f5e-bf92e09768e1",
+            "label": "Yes",
+            "isExecuted": false,
+            "uuid": "86c9b892-8883-4ebf-8079-6bfcf64a7704"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Alerts Details -> Check if Alert Found",
+            "targetStep": "\/api\/3\/workflow_steps\/b5a90f35-bcd2-4936-8f5e-bf92e09768e1",
+            "sourceStep": "\/api\/3\/workflow_steps\/22fdaa96-3148-4b6c-84cb-590a37bfd0d5",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "283f2dec-0dbf-4381-8b25-e8d466a819ee"
+        }
+    ],
+    "priority": null,
+    "uuid": "1016f64b-f3f8-4f72-a9c0-cf4d1b961a31",
+    "recordTags": [
+        "system"
+    ],
+    "id": 221,
+    "createUser": "\/api\/3\/people\/64560154-79cd-47ce-a488-5646d061631b",
+    "createDate": 1633531186,
+    "modifyUser": "\/api\/3\/people\/64560154-79cd-47ce-a488-5646d061631b",
+    "modifyDate": 1633531186,
+    "owners": [],
+    "isPrivate": false
+}
