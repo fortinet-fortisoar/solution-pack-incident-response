@@ -16,15 +16,7 @@ This article covers the following:
 
 **Important**: Before you deploy the solution pack, ensure that you have installed FortiSOAR™ and there are no records such as alerts, indicators, incidents, etc., in your FortiSOAR™ system.
 
-1. Log onto the Solution Pack GIT repo (https://github.com/fortinet-fortisoar/solution-pack-incident-response) using your credentials.
-2. Click the **Code** button and select the **Download ZIP** option.  
-   ![Fortinet-FortiSOAR GIT branch > Clone >Download the solution pack zip](media/SolutionPackZip.png)
-3. Log into your FortiSOAR instance, and on the left-navigation, click **Import Wizard**.  
-   ![Import Wizard](media/importWizard.png)
-4. On the `Import Wizard` page, click **Import From File** and selected the solution pack zip that you have downloaded, and navigate through the Import Wizard.  
-   ![Importing the IR Solution Pack zip file](media/importIRCP.png)  
-    **Note**: It is recommended not the change any configurations or options of the imported solution pack zip file.  
-   Once the import is successfully completed, you can use the IR solution pack.
+The steps for deploying a solution pack are mentioned in the [Deploying a Solution Pack](https://github.com/fortinet-fortisoar/how-tos/blob/main/DeployingASolutionPack.md) article.
 
 ## Configuring IR Solution Pack
 
