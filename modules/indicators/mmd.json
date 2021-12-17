@@ -26,33 +26,31 @@
     "writable": true,
     "attributes": [
         {
-            "@id": "\/api\/3\/attribute_metadatas\/ccf17fe6-3ed9-4564-b44c-a6bb2d2b984f",
+            "@id": "\/api\/3\/attribute_metadatas\/00e03e74-143e-4b98-a500-e111468f11f2",
             "@type": "AttributeMetadata",
-            "type": "integer",
-            "name": "lastSeen",
+            "type": "indicators",
+            "name": "indicators",
             "length": 0,
-            "orderIndex": 4,
-            "formType": "datetime",
-            "dataSource": [],
-            "searchable": true,
+            "orderIndex": 29,
+            "formType": "manyToMany",
+            "dataSource": {
+                "model": "indicators"
+            },
+            "searchable": false,
             "peerReplicable": true,
             "system": false,
             "encrypted": false,
-            "gridColumn": true,
-            "collection": false,
-            "inversedField": null,
-            "ownsRelationship": false,
+            "gridColumn": false,
+            "collection": true,
+            "inversedField": "indicators",
+            "ownsRelationship": true,
             "validation": {
+                "_enableRange": false,
                 "maxlength": 10485761,
                 "minlength": 0,
                 "required": false
             },
-            "bulkAction": {
-                "allow": false,
-                "buttonClass": "btn btn-default btn-sm",
-                "buttonIcon": "",
-                "buttonText": ""
-            },
+            "bulkAction": [],
             "dataSourceFilters": [],
             "defaultValue": null,
             "tooltip": "",
@@ -65,62 +63,19 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "ccf17fe6-3ed9-4564-b44c-a6bb2d2b984f",
-            "displayName": "{{ lastSeen }}",
+            "uuid": "00e03e74-143e-4b98-a500-e111468f11f2",
+            "displayName": "{{ indicators }}",
             "descriptions": {
-                "singular": "Last Seen"
+                "singular": "Indicators"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/91775b1b-91fa-468f-919f-1816a233f64b",
-            "@type": "AttributeMetadata",
-            "type": "string",
-            "name": "uuid",
-            "length": 36,
-            "orderIndex": 11,
-            "formType": null,
-            "dataSource": [],
-            "searchable": false,
-            "peerReplicable": true,
-            "system": true,
-            "encrypted": false,
-            "gridColumn": false,
-            "collection": false,
-            "inversedField": null,
-            "ownsRelationship": false,
-            "validation": {
-                "maxlength": 1024,
-                "minlength": 0,
-                "required": false
-            },
-            "bulkAction": {
-                "allow": false
-            },
-            "dataSourceFilters": [],
-            "defaultValue": "",
-            "tooltip": "",
-            "visibility": true,
-            "htmlEscape": false,
-            "orphanRemoval": null,
-            "readable": true,
-            "writeable": true,
-            "identifier": true,
-            "unique": false,
-            "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "91775b1b-91fa-468f-919f-1816a233f64b",
-            "displayName": "{{ uuid }}",
-            "descriptions": {
-                "singular": "UUID"
-            }
-        },
-        {
-            "@id": "\/api\/3\/attribute_metadatas\/af49177a-6abc-48d8-a454-4368809ccc45",
+            "@id": "\/api\/3\/attribute_metadatas\/3685f7b8-a9b1-441c-8bd8-2f414e19f8ef",
             "@type": "AttributeMetadata",
             "type": "integer",
             "name": "expiryDate",
             "length": null,
-            "orderIndex": 3,
+            "orderIndex": 5,
             "formType": "datetime",
             "dataSource": null,
             "searchable": true,
@@ -155,19 +110,19 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "af49177a-6abc-48d8-a454-4368809ccc45",
+            "uuid": "3685f7b8-a9b1-441c-8bd8-2f414e19f8ef",
             "displayName": "{{ expiryDate }}",
             "descriptions": {
                 "singular": "Expires On"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/6ea72fcc-e366-4f99-8e47-d9ed8b078e3e",
+            "@id": "\/api\/3\/attribute_metadatas\/30065f08-42cf-461c-a713-177513a88cf0",
             "@type": "AttributeMetadata",
             "type": "campaigns",
             "name": "campaigns",
             "length": 0,
-            "orderIndex": 7,
+            "orderIndex": 9,
             "formType": "manyToMany",
             "dataSource": {
                 "model": "campaigns"
@@ -199,19 +154,19 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "6ea72fcc-e366-4f99-8e47-d9ed8b078e3e",
+            "uuid": "30065f08-42cf-461c-a713-177513a88cf0",
             "displayName": "{{ campaigns }}",
             "descriptions": {
                 "singular": "Campaigns"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/9dadf4eb-53a9-4207-a18a-2717210dc447",
+            "@id": "\/api\/3\/attribute_metadatas\/fd1a3046-f665-4b35-a345-789fd3e05144",
             "@type": "AttributeMetadata",
             "type": "picklists",
             "name": "expiredStatus",
             "length": null,
-            "orderIndex": 2,
+            "orderIndex": 4,
             "formType": "picklist",
             "dataSource": {
                 "model": "picklists",
@@ -274,19 +229,19 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "9dadf4eb-53a9-4207-a18a-2717210dc447",
+            "uuid": "fd1a3046-f665-4b35-a345-789fd3e05144",
             "displayName": "{{ expiredStatus }}",
             "descriptions": {
                 "singular": "Expired"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/ddc1011f-cf8b-41c8-ac03-5c57c137f8be",
+            "@id": "\/api\/3\/attribute_metadatas\/ead60839-60bf-4c74-8652-e326cecadd10",
             "@type": "AttributeMetadata",
             "type": "hunt",
             "name": "hunts",
             "length": 0,
-            "orderIndex": 8,
+            "orderIndex": 10,
             "formType": "manyToMany",
             "dataSource": {
                 "model": "hunt"
@@ -318,42 +273,63 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "ddc1011f-cf8b-41c8-ac03-5c57c137f8be",
+            "uuid": "ead60839-60bf-4c74-8652-e326cecadd10",
             "displayName": "{{ hunts }}",
             "descriptions": {
                 "singular": "Hunts"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/86cc9386-22e3-48d4-bf78-4efe17af99d7",
+            "@id": "\/api\/3\/attribute_metadatas\/155c0763-ff08-4294-a139-9ed581320c0c",
             "@type": "AttributeMetadata",
-            "type": "indicators",
-            "name": "indicators",
+            "type": "string",
+            "name": "filehashMD5",
             "length": 0,
-            "orderIndex": 27,
-            "formType": "manyToMany",
-            "dataSource": {
-                "model": "indicators"
-            },
-            "searchable": false,
+            "orderIndex": 30,
+            "formType": "filehash",
+            "dataSource": [],
+            "searchable": true,
             "peerReplicable": true,
             "system": false,
             "encrypted": false,
             "gridColumn": false,
-            "collection": true,
-            "inversedField": "indicators",
-            "ownsRelationship": true,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
             "validation": {
                 "_enableRange": false,
                 "maxlength": 10485761,
                 "minlength": 0,
                 "required": false
             },
-            "bulkAction": [],
+            "bulkAction": {
+                "allow": false,
+                "buttonClass": "btn btn-default btn-sm",
+                "buttonIcon": "",
+                "buttonText": ""
+            },
             "dataSourceFilters": [],
             "defaultValue": null,
             "tooltip": "",
-            "visibility": true,
+            "visibility": [
+                {
+                    "filters": [
+                        {
+                            "_value": {
+                                "@id": "\/api\/3\/picklists\/0162241b-f5bf-4917-a150-00e920be47bd",
+                                "itemValue": "File"
+                            },
+                            "field": "typeofindicator",
+                            "operator": "eq",
+                            "type": "object",
+                            "value": "\/api\/3\/picklists\/0162241b-f5bf-4917-a150-00e920be47bd"
+                        }
+                    ],
+                    "limit": 30,
+                    "logic": "AND",
+                    "sort": []
+                }
+            ],
             "htmlEscape": false,
             "orphanRemoval": false,
             "readable": true,
@@ -362,19 +338,19 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "86cc9386-22e3-48d4-bf78-4efe17af99d7",
-            "displayName": "{{ indicators }}",
+            "uuid": "155c0763-ff08-4294-a139-9ed581320c0c",
+            "displayName": "{{ filehashMD5 }}",
             "descriptions": {
-                "singular": "Indicators"
+                "singular": "FileHash MD5"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/0f658b7d-51d7-4ebf-bb64-f634c0354cf2",
+            "@id": "\/api\/3\/attribute_metadatas\/925a3938-5de8-4703-99e6-c70b3d32b33a",
             "@type": "AttributeMetadata",
             "type": "picklists",
             "name": "tlp",
             "length": null,
-            "orderIndex": 1,
+            "orderIndex": 3,
             "formType": "picklist",
             "dataSource": {
                 "model": "picklists",
@@ -441,19 +417,19 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "0f658b7d-51d7-4ebf-bb64-f634c0354cf2",
+            "uuid": "925a3938-5de8-4703-99e6-c70b3d32b33a",
             "displayName": "{{ tlp }}",
             "descriptions": {
                 "singular": "TLP"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/f16bfedb-ed94-4f0d-a82e-0726c322d646",
+            "@id": "\/api\/3\/attribute_metadatas\/b38e5d14-e961-490c-baaf-120a131657e8",
             "@type": "AttributeMetadata",
             "type": "integer",
             "name": "firstSeen",
             "length": 0,
-            "orderIndex": 5,
+            "orderIndex": 7,
             "formType": "datetime",
             "dataSource": [],
             "searchable": true,
@@ -488,19 +464,19 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "f16bfedb-ed94-4f0d-a82e-0726c322d646",
+            "uuid": "b38e5d14-e961-490c-baaf-120a131657e8",
             "displayName": "{{ firstSeen }}",
             "descriptions": {
                 "singular": "First Seen"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/e4cab182-be68-4603-a008-d3ef2c0df64e",
+            "@id": "\/api\/3\/attribute_metadatas\/14a1c989-bf76-47ce-9972-1ddcf6a89705",
             "@type": "AttributeMetadata",
             "type": "picklists",
             "name": "indicatorStatus",
             "length": 0,
-            "orderIndex": 6,
+            "orderIndex": 8,
             "formType": "picklist",
             "dataSource": {
                 "model": "picklists",
@@ -547,19 +523,19 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "e4cab182-be68-4603-a008-d3ef2c0df64e",
+            "uuid": "14a1c989-bf76-47ce-9972-1ddcf6a89705",
             "displayName": "{{ indicatorStatus }}",
             "descriptions": {
                 "singular": "Status"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/3af18f1c-e0cd-4ed9-a851-e29416798d9a",
+            "@id": "\/api\/3\/attribute_metadatas\/15684fd2-665c-43f0-a817-3fdbcd754f40",
             "@type": "AttributeMetadata",
             "type": "picklists",
             "name": "typeofindicator",
             "length": null,
-            "orderIndex": 10,
+            "orderIndex": 12,
             "formType": "picklist",
             "dataSource": {
                 "model": "picklists",
@@ -611,19 +587,19 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "3af18f1c-e0cd-4ed9-a851-e29416798d9a",
+            "uuid": "15684fd2-665c-43f0-a817-3fdbcd754f40",
             "displayName": "{{ typeofindicator }}",
             "descriptions": {
                 "singular": "Type"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/3398dac9-e3a7-4610-b80b-603c1ac43264",
+            "@id": "\/api\/3\/attribute_metadatas\/89451737-e639-4223-b4c1-bc2d5b36da6d",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "value",
             "length": 255,
-            "orderIndex": 12,
+            "orderIndex": 15,
             "formType": "text",
             "dataSource": [],
             "searchable": true,
@@ -671,19 +647,19 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "3398dac9-e3a7-4610-b80b-603c1ac43264",
+            "uuid": "89451737-e639-4223-b4c1-bc2d5b36da6d",
             "displayName": "{{ value }}",
             "descriptions": {
                 "singular": "Value"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/79861107-53fa-4a19-b196-49dc530ec382",
+            "@id": "\/api\/3\/attribute_metadatas\/5f63ee94-7164-48c5-bfa9-1c701e232f0e",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "file",
             "length": null,
-            "orderIndex": 9,
+            "orderIndex": 11,
             "formType": "file",
             "dataSource": {
                 "model": "files"
@@ -735,19 +711,19 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "79861107-53fa-4a19-b196-49dc530ec382",
+            "uuid": "5f63ee94-7164-48c5-bfa9-1c701e232f0e",
             "displayName": "{{ file }}",
             "descriptions": {
                 "singular": "File"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/6c52d59e-6b0f-4c26-ab60-9a90890fbbe1",
+            "@id": "\/api\/3\/attribute_metadatas\/8c0a6ef8-e931-42c3-a6de-2d86e1b68aab",
             "@type": "AttributeMetadata",
             "type": "picklists",
             "name": "reputation",
             "length": null,
-            "orderIndex": 11,
+            "orderIndex": 13,
             "formType": "picklist",
             "dataSource": {
                 "model": "picklists",
@@ -799,19 +775,19 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "6c52d59e-6b0f-4c26-ab60-9a90890fbbe1",
+            "uuid": "8c0a6ef8-e931-42c3-a6de-2d86e1b68aab",
             "displayName": "{{ reputation }}",
             "descriptions": {
                 "singular": "Reputation"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/9930d588-acc1-43fd-a8a4-9d01b46a767c",
+            "@id": "\/api\/3\/attribute_metadatas\/d1911250-766b-4f6f-9994-eb713fb40144",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "description",
             "length": null,
-            "orderIndex": 13,
+            "orderIndex": 16,
             "formType": "richtext",
             "dataSource": [],
             "searchable": false,
@@ -842,62 +818,19 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "9930d588-acc1-43fd-a8a4-9d01b46a767c",
+            "uuid": "d1911250-766b-4f6f-9994-eb713fb40144",
             "displayName": "{{ description }}",
             "descriptions": {
                 "singular": "Description"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/4c8a52b9-edee-4193-b6d5-96fcab8e92f0",
-            "@type": "AttributeMetadata",
-            "type": "string",
-            "name": "sources",
-            "length": 1024,
-            "orderIndex": 14,
-            "formType": "text",
-            "dataSource": [],
-            "searchable": true,
-            "peerReplicable": true,
-            "system": false,
-            "encrypted": false,
-            "gridColumn": true,
-            "collection": false,
-            "inversedField": null,
-            "ownsRelationship": false,
-            "validation": {
-                "maxlength": 1024,
-                "minlength": 0,
-                "required": false
-            },
-            "bulkAction": {
-                "allow": false
-            },
-            "dataSourceFilters": [],
-            "defaultValue": "",
-            "tooltip": "",
-            "visibility": true,
-            "htmlEscape": false,
-            "orphanRemoval": false,
-            "readable": true,
-            "writeable": true,
-            "identifier": false,
-            "unique": false,
-            "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "4c8a52b9-edee-4193-b6d5-96fcab8e92f0",
-            "displayName": "{{ sources }}",
-            "descriptions": {
-                "singular": "Sources"
-            }
-        },
-        {
-            "@id": "\/api\/3\/attribute_metadatas\/3406cccc-2162-4453-900d-74c00f9312f5",
+            "@id": "\/api\/3\/attribute_metadatas\/f25851a1-2b91-4892-9434-5649358d0cba",
             "@type": "AttributeMetadata",
             "type": "emails",
             "name": "emails",
             "length": null,
-            "orderIndex": 15,
+            "orderIndex": 18,
             "formType": "manyToMany",
             "dataSource": {
                 "model": "emails"
@@ -929,19 +862,19 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "3406cccc-2162-4453-900d-74c00f9312f5",
+            "uuid": "f25851a1-2b91-4892-9434-5649358d0cba",
             "displayName": "{{ emails }}",
             "descriptions": {
                 "singular": "Emails"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/a09c3494-4390-4a51-b320-308aa909ce0e",
+            "@id": "\/api\/3\/attribute_metadatas\/dd671969-bf9e-4f89-b761-3b426c902fe8",
             "@type": "AttributeMetadata",
             "type": "events",
             "name": "events",
             "length": null,
-            "orderIndex": 17,
+            "orderIndex": 19,
             "formType": "manyToMany",
             "dataSource": {
                 "model": "events"
@@ -974,19 +907,19 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "a09c3494-4390-4a51-b320-308aa909ce0e",
+            "uuid": "dd671969-bf9e-4f89-b761-3b426c902fe8",
             "displayName": "{{ events }}",
             "descriptions": {
                 "singular": "Events"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/8d4e9dd1-b394-4825-b869-4ad2022eb3ff",
+            "@id": "\/api\/3\/attribute_metadatas\/3522e264-f81a-42ba-86dd-42c0895ab977",
             "@type": "AttributeMetadata",
             "type": "alerts",
             "name": "alerts",
             "length": null,
-            "orderIndex": 18,
+            "orderIndex": 20,
             "formType": "manyToMany",
             "dataSource": {
                 "model": "alerts"
@@ -1019,19 +952,19 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "8d4e9dd1-b394-4825-b869-4ad2022eb3ff",
+            "uuid": "3522e264-f81a-42ba-86dd-42c0895ab977",
             "displayName": "{{ alerts }}",
             "descriptions": {
                 "singular": "Alerts"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/c135fe14-5e8b-4837-b38a-b9f2bceb3919",
+            "@id": "\/api\/3\/attribute_metadatas\/c69aa4b7-975d-43e3-8bcc-a65f292a765f",
             "@type": "AttributeMetadata",
             "type": "assets",
             "name": "assets",
             "length": null,
-            "orderIndex": 19,
+            "orderIndex": 21,
             "formType": "manyToMany",
             "dataSource": {
                 "model": "assets"
@@ -1064,19 +997,19 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "c135fe14-5e8b-4837-b38a-b9f2bceb3919",
+            "uuid": "c69aa4b7-975d-43e3-8bcc-a65f292a765f",
             "displayName": "{{ assets }}",
             "descriptions": {
                 "singular": "Assets"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/9e388cd2-7610-43ad-8861-d3e3e0925559",
+            "@id": "\/api\/3\/attribute_metadatas\/dad65703-6241-4b06-932d-db765f0be257",
             "@type": "AttributeMetadata",
             "type": "companies",
             "name": "companies",
             "length": null,
-            "orderIndex": 20,
+            "orderIndex": 22,
             "formType": "manyToMany",
             "dataSource": {
                 "model": "companies"
@@ -1109,19 +1042,19 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "9e388cd2-7610-43ad-8861-d3e3e0925559",
+            "uuid": "dad65703-6241-4b06-932d-db765f0be257",
             "displayName": "{{ companies }}",
             "descriptions": {
                 "singular": "Companies"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/d15bd909-ba39-4a7c-8799-89af3521dcb5",
+            "@id": "\/api\/3\/attribute_metadatas\/73bca262-de7b-4d54-a156-6dc6c9bc2acb",
             "@type": "AttributeMetadata",
             "type": "incidents",
             "name": "incidents",
             "length": null,
-            "orderIndex": 21,
+            "orderIndex": 23,
             "formType": "manyToMany",
             "dataSource": {
                 "model": "incidents"
@@ -1154,19 +1087,19 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "d15bd909-ba39-4a7c-8799-89af3521dcb5",
+            "uuid": "73bca262-de7b-4d54-a156-6dc6c9bc2acb",
             "displayName": "{{ incidents }}",
             "descriptions": {
                 "singular": "Incidents"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/0b0a1d77-72dc-4905-baff-a0234489156d",
+            "@id": "\/api\/3\/attribute_metadatas\/b197da71-4074-4d5d-9f77-7266cda49077",
             "@type": "AttributeMetadata",
             "type": "attachments",
             "name": "attachments",
             "length": null,
-            "orderIndex": 22,
+            "orderIndex": 24,
             "formType": "manyToMany",
             "dataSource": {
                 "model": "attachments"
@@ -1199,19 +1132,19 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "0b0a1d77-72dc-4905-baff-a0234489156d",
+            "uuid": "b197da71-4074-4d5d-9f77-7266cda49077",
             "displayName": "{{ attachments }}",
             "descriptions": {
                 "singular": "Attachments"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/c30a075d-5038-43a1-910c-b7bc3703a107",
+            "@id": "\/api\/3\/attribute_metadatas\/31d761b7-51e3-4c69-9502-a70898d70d4c",
             "@type": "AttributeMetadata",
             "type": "notes",
             "name": "notes",
             "length": null,
-            "orderIndex": 23,
+            "orderIndex": 25,
             "formType": "manyToMany",
             "dataSource": {
                 "model": "notes"
@@ -1244,19 +1177,19 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "c30a075d-5038-43a1-910c-b7bc3703a107",
+            "uuid": "31d761b7-51e3-4c69-9502-a70898d70d4c",
             "displayName": "{{ notes }}",
             "descriptions": {
                 "singular": "Notes"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/c65a223a-cc36-4cdf-b318-ccece4e5905c",
+            "@id": "\/api\/3\/attribute_metadatas\/080f2da0-1fbd-4ad9-85b4-932a38b84742",
             "@type": "AttributeMetadata",
             "type": "comments",
             "name": "comments",
             "length": null,
-            "orderIndex": 24,
+            "orderIndex": 26,
             "formType": "manyToMany",
             "dataSource": {
                 "model": "comments"
@@ -1289,19 +1222,19 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "c65a223a-cc36-4cdf-b318-ccece4e5905c",
+            "uuid": "080f2da0-1fbd-4ad9-85b4-932a38b84742",
             "displayName": "{{ comments }}",
             "descriptions": {
                 "singular": "Comments"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/d1122016-d0ff-4162-89af-a7a60217573d",
+            "@id": "\/api\/3\/attribute_metadatas\/fef4e785-7c0d-4f96-ba79-958f7a1705cb",
             "@type": "AttributeMetadata",
             "type": "vulnerabilities",
             "name": "vulnerabilities",
             "length": null,
-            "orderIndex": 25,
+            "orderIndex": 27,
             "formType": "manyToMany",
             "dataSource": {
                 "model": "vulnerabilities"
@@ -1334,19 +1267,19 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "d1122016-d0ff-4162-89af-a7a60217573d",
+            "uuid": "fef4e785-7c0d-4f96-ba79-958f7a1705cb",
             "displayName": "{{ vulnerabilities }}",
             "descriptions": {
                 "singular": "Vulnerabilities"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/63a2a3b4-ba7c-4fd1-8c35-eb283d5ee55a",
+            "@id": "\/api\/3\/attribute_metadatas\/51c26249-8914-4752-929f-322d92a2aa69",
             "@type": "AttributeMetadata",
             "type": "people",
             "name": "persons",
             "length": null,
-            "orderIndex": 26,
+            "orderIndex": 28,
             "formType": "manyToMany",
             "dataSource": {
                 "model": "people"
@@ -1379,84 +1312,19 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "63a2a3b4-ba7c-4fd1-8c35-eb283d5ee55a",
+            "uuid": "51c26249-8914-4752-929f-322d92a2aa69",
             "displayName": "{{ persons }}",
             "descriptions": {
                 "singular": "People"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/90554238-79e7-4596-8996-bdf159c73648",
-            "@type": "AttributeMetadata",
-            "type": "string",
-            "name": "filehashMD5",
-            "length": 0,
-            "orderIndex": 28,
-            "formType": "filehash",
-            "dataSource": [],
-            "searchable": true,
-            "peerReplicable": true,
-            "system": false,
-            "encrypted": false,
-            "gridColumn": false,
-            "collection": false,
-            "inversedField": null,
-            "ownsRelationship": false,
-            "validation": {
-                "_enableRange": false,
-                "maxlength": 10485761,
-                "minlength": 0,
-                "required": false
-            },
-            "bulkAction": {
-                "allow": false,
-                "buttonClass": "btn btn-default btn-sm",
-                "buttonIcon": "",
-                "buttonText": ""
-            },
-            "dataSourceFilters": [],
-            "defaultValue": null,
-            "tooltip": "",
-            "visibility": [
-                {
-                    "filters": [
-                        {
-                            "_value": {
-                                "@id": "\/api\/3\/picklists\/0162241b-f5bf-4917-a150-00e920be47bd",
-                                "itemValue": "File"
-                            },
-                            "field": "typeofindicator",
-                            "operator": "eq",
-                            "type": "object",
-                            "value": "\/api\/3\/picklists\/0162241b-f5bf-4917-a150-00e920be47bd"
-                        }
-                    ],
-                    "limit": 30,
-                    "logic": "AND",
-                    "sort": []
-                }
-            ],
-            "htmlEscape": false,
-            "orphanRemoval": false,
-            "readable": true,
-            "writeable": true,
-            "identifier": false,
-            "unique": false,
-            "recommend": false,
-            "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "90554238-79e7-4596-8996-bdf159c73648",
-            "displayName": "{{ filehashMD5 }}",
-            "descriptions": {
-                "singular": "FileHash MD5"
-            }
-        },
-        {
-            "@id": "\/api\/3\/attribute_metadatas\/f7d9856b-3297-437b-a369-fbf912482658",
+            "@id": "\/api\/3\/attribute_metadatas\/2cd5da73-f970-466c-a2fd-a9f6bf2d98e9",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "filehashSHA1",
             "length": 0,
-            "orderIndex": 29,
+            "orderIndex": 31,
             "formType": "filehash",
             "dataSource": [],
             "searchable": true,
@@ -1509,19 +1377,19 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "f7d9856b-3297-437b-a369-fbf912482658",
+            "uuid": "2cd5da73-f970-466c-a2fd-a9f6bf2d98e9",
             "displayName": "{{ filehashSHA1 }}",
             "descriptions": {
                 "singular": "FileHash SHA1"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/5ae321d0-e26c-40fd-a68a-7d476e7a1fef",
+            "@id": "\/api\/3\/attribute_metadatas\/3d2ef372-ba96-4deb-8833-b737cdd5539a",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "filehashSHA256",
             "length": 0,
-            "orderIndex": 30,
+            "orderIndex": 32,
             "formType": "filehash",
             "dataSource": [],
             "searchable": true,
@@ -1575,19 +1443,19 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "5ae321d0-e26c-40fd-a68a-7d476e7a1fef",
+            "uuid": "3d2ef372-ba96-4deb-8833-b737cdd5539a",
             "displayName": "{{ filehashSHA256 }}",
             "descriptions": {
                 "singular": "FileHash SHA256"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/d40bf7f9-d1b7-4c81-bea8-7f4da819b485",
+            "@id": "\/api\/3\/attribute_metadatas\/c568ef46-269f-465c-aa8c-be5302d05c77",
             "@type": "AttributeMetadata",
             "type": "warrooms",
             "name": "warrooms",
             "length": 0,
-            "orderIndex": 31,
+            "orderIndex": 33,
             "formType": "manyToMany",
             "dataSource": {
                 "model": "warrooms"
@@ -1618,19 +1486,19 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "d40bf7f9-d1b7-4c81-bea8-7f4da819b485",
+            "uuid": "c568ef46-269f-465c-aa8c-be5302d05c77",
             "displayName": "{{ warrooms }}",
             "descriptions": {
                 "singular": "War Rooms"
             }
         },
         {
-            "@id": "\/api\/3\/attribute_metadatas\/bf811cf2-ab18-47e6-9808-013da10879fa",
+            "@id": "\/api\/3\/attribute_metadatas\/e4325735-3ee0-46fc-bb6c-879502ab7753",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "country",
             "length": 0,
-            "orderIndex": 32,
+            "orderIndex": 34,
             "formType": "richtext",
             "dataSource": [],
             "searchable": true,
@@ -1694,10 +1562,280 @@
             "unique": false,
             "recommend": false,
             "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
-            "uuid": "bf811cf2-ab18-47e6-9808-013da10879fa",
+            "uuid": "e4325735-3ee0-46fc-bb6c-879502ab7753",
             "displayName": "{{ country }}",
             "descriptions": {
                 "singular": "Country"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/0cd4f19a-21b1-4424-8d11-d0352c215762",
+            "@type": "AttributeMetadata",
+            "type": "string",
+            "name": "sourceID",
+            "length": null,
+            "orderIndex": 2,
+            "formType": "text",
+            "dataSource": null,
+            "searchable": false,
+            "peerReplicable": true,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "required": false,
+                "minlength": 0,
+                "maxlength": 10485761,
+                "_enableRange": false
+            },
+            "bulkAction": {
+                "allow": false,
+                "buttonText": "",
+                "buttonIcon": "",
+                "buttonClass": "btn btn-default btn-sm"
+            },
+            "dataSourceFilters": null,
+            "defaultValue": "",
+            "tooltip": null,
+            "visibility": [
+                {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "field": "sourceID",
+                            "operator": "isnull",
+                            "_operator": "isnull",
+                            "value": "false",
+                            "type": "primitive"
+                        }
+                    ]
+                }
+            ],
+            "htmlEscape": false,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": null,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
+            "uuid": "0cd4f19a-21b1-4424-8d11-d0352c215762",
+            "displayName": "{{ sourceID }}",
+            "descriptions": {
+                "singular": "Source ID"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/68566522-4608-4646-b4cb-6bc6c0c23090",
+            "@type": "AttributeMetadata",
+            "type": "string",
+            "name": "sources",
+            "length": 1024,
+            "orderIndex": 17,
+            "formType": "text",
+            "dataSource": [],
+            "searchable": true,
+            "peerReplicable": true,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": true,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "maxlength": 1024,
+                "minlength": 0,
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": [
+                {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "field": "sources",
+                            "operator": "isnull",
+                            "_operator": "isnull",
+                            "value": "false",
+                            "type": "primitive"
+                        }
+                    ]
+                }
+            ],
+            "htmlEscape": false,
+            "orphanRemoval": false,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
+            "uuid": "68566522-4608-4646-b4cb-6bc6c0c23090",
+            "displayName": "{{ sources }}",
+            "descriptions": {
+                "singular": "Sources"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/6458256e-83a5-416b-9e87-3bca5cb9cd0f",
+            "@type": "AttributeMetadata",
+            "type": "integer",
+            "name": "confidence",
+            "length": null,
+            "orderIndex": 1,
+            "formType": "integer",
+            "dataSource": null,
+            "searchable": true,
+            "peerReplicable": true,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "required": false,
+                "minlength": -2147483648,
+                "maxlength": 10485761
+            },
+            "bulkAction": {
+                "allow": false,
+                "buttonText": "",
+                "buttonIcon": "",
+                "buttonClass": "btn btn-default btn-sm"
+            },
+            "dataSourceFilters": null,
+            "defaultValue": null,
+            "tooltip": null,
+            "visibility": [
+                {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "field": "confidence",
+                            "operator": "neq",
+                            "_operator": "neq",
+                            "value": 0,
+                            "type": "primitive"
+                        }
+                    ]
+                }
+            ],
+            "htmlEscape": false,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": null,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
+            "uuid": "6458256e-83a5-416b-9e87-3bca5cb9cd0f",
+            "displayName": "{{ confidence }}",
+            "descriptions": {
+                "singular": "Confidence"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/7a549627-ca93-4724-b949-a84c607d3fc4",
+            "@type": "AttributeMetadata",
+            "type": "integer",
+            "name": "lastSeen",
+            "length": 0,
+            "orderIndex": 6,
+            "formType": "datetime",
+            "dataSource": [],
+            "searchable": true,
+            "peerReplicable": true,
+            "system": false,
+            "encrypted": false,
+            "gridColumn": true,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "maxlength": 10485761,
+                "minlength": 0,
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false,
+                "buttonClass": "btn btn-default btn-sm",
+                "buttonIcon": "",
+                "buttonText": ""
+            },
+            "dataSourceFilters": [],
+            "defaultValue": null,
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": false,
+            "orphanRemoval": false,
+            "readable": true,
+            "writeable": true,
+            "identifier": false,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
+            "uuid": "7a549627-ca93-4724-b949-a84c607d3fc4",
+            "displayName": "{{ lastSeen }}",
+            "descriptions": {
+                "singular": "Last Seen"
+            }
+        },
+        {
+            "@id": "\/api\/3\/attribute_metadatas\/56ea4029-6d1b-41d0-910b-f4d3949914c0",
+            "@type": "AttributeMetadata",
+            "type": "string",
+            "name": "uuid",
+            "length": 36,
+            "orderIndex": 14,
+            "formType": null,
+            "dataSource": [],
+            "searchable": false,
+            "peerReplicable": true,
+            "system": true,
+            "encrypted": false,
+            "gridColumn": false,
+            "collection": false,
+            "inversedField": null,
+            "ownsRelationship": false,
+            "validation": {
+                "maxlength": 1024,
+                "minlength": 0,
+                "required": false
+            },
+            "bulkAction": {
+                "allow": false
+            },
+            "dataSourceFilters": [],
+            "defaultValue": "",
+            "tooltip": "",
+            "visibility": true,
+            "htmlEscape": false,
+            "orphanRemoval": null,
+            "readable": true,
+            "writeable": true,
+            "identifier": true,
+            "unique": false,
+            "recommend": false,
+            "sattrib": "\/api\/3\/staging_model_metadatas\/67558c20-fe29-4789-b3f7-2e3c9e902c96",
+            "uuid": "56ea4029-6d1b-41d0-910b-f4d3949914c0",
+            "displayName": "{{ uuid }}",
+            "descriptions": {
+                "singular": "UUID"
             }
         }
     ],
