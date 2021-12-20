@@ -1,4 +1,4 @@
-# Incident Response Solution Pack 7.0.2
+# Incident Response Solution Pack v1.0.0
 
 This article describes the FortiSOAR™ Incident Response Solution Pack (solution-pack-incident-response) enables users to experience the power of FortiSOAR™ incident response. FortiSOAR™ is built using modular architecture and the solution pack is the implementation of best practices to configure and use FortiSOAR™ in an optimal manner. The solution pack also contains a lot of sample/simulation/training data that enables you to experience FortiSOAR™ without having all the devices.
 
