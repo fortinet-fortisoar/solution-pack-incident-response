@@ -5,6 +5,6 @@ The FortiSOAR™ Incident Response Solution Pack (solution-pack-incident-respons
 
 **Important**: Before you deploy the solution pack, ensure that you have installed FortiSOAR™ and there are no records such as alerts, indicators, incidents, etc., in your FortiSOAR™ system.
 
-The steps for deploying a solution pack are mentioned in the [Deploying a Solution Pack](https://github.com/fortinet-fortisoar/how-tos/blob/main/DeployingASolutionPack.md) article.
+The steps for deploying a solution pack are mentioned in the [Deploying a Solution Pack](https://github.com/fortinet-fortisoar/how-tos/blob/main/deploying/deployingASolutionPack.md) article.
 
 More information about the Incident Response Solution Pack can be found [here](https://github.com/fortinet-fortisoar/solution-pack-incident-response/blob/develop/docs/IRContentPackDoc.md).
