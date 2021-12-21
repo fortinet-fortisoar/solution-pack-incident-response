@@ -1,10 +1,8 @@
 # solution-pack-incident-response
+The FortiSOAR™ Incident Response Solution Pack (solution-pack-incident-response) enables users to experience the power of FortiSOAR™ incident response. FortiSOAR™ is built using modular architecture and the solution pack is the implementation of best practices to configure and use FortiSOAR™ in an optimal manner. The solution pack also contains a lot of sample/simulation/training data that enables you to experience FortiSOAR™ without having all the devices.
 
-Steps to Install solution-pack-incident-response
-1. Take the zip by downloading it from git itself
-![image](https://user-images.githubusercontent.com/46986647/141118994-303d391e-cc54-4eab-83d0-53fb75d80a78.png)
-2. Navigate to Import Wizard on FSR Instance
-![image](https://user-images.githubusercontent.com/46986647/141119387-2644051c-e962-4864-87a0-4ec9502007fa.png)
-3. Click on Import From File button
-![image](https://user-images.githubusercontent.com/46986647/141119524-69fdcc6f-6979-4f26-82f3-78e645ace12b.png)
-4. Once Import is completed solution-pack-incident-response is ready to use. 
+## Deploying IR Solution Pack
+
+**Important**: Before you deploy the solution pack, ensure that you have installed FortiSOAR™ and there are no records such as alerts, indicators, incidents, etc., in your FortiSOAR™ system.
+
+The steps for deploying a solution pack are mentioned in the [Deploying a Solution Pack](https://github.com/fortinet-fortisoar/how-tos/blob/main/DeployingASolutionPack.md) article.
