@@ -11,10 +11,10 @@
     "remoteExecutableFlag": false,
     "parameters": [],
     "synchronous": false,
-    "lastModifyDate": 1636537406,
+    "lastModifyDate": 1638352085,
     "collection": "\/api\/3\/workflow_collections\/2d150b7b-ee6b-4686-a249-3c2cfa99f657",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/d5997ed7-46af-467f-a153-5635adea77e8",
+    "triggerStep": "\/api\/3\/workflow_steps\/7db1c398-8e09-4ccd-abb9-6d6ca8dac4ed",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -34,8 +34,8 @@
             "top": "300",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
-            "uuid": "91e6b537-f6fc-490d-a583-a7249f29e6ce",
-            "id": 1417
+            "uuid": "5735ef65-3742-48f2-9116-2c200894b42c",
+            "id": 3614
         },
         {
             "@type": "WorkflowStep",
@@ -69,8 +69,8 @@
             "top": "165",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
-            "uuid": "9228d72f-32bd-4b3e-8617-d7cce9e62067",
-            "id": 1418
+            "uuid": "1c1dcc00-e700-43c3-b48e-60ee370fe69c",
+            "id": 3615
         },
         {
             "@type": "WorkflowStep",
@@ -147,8 +147,8 @@
             "top": "30",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-            "uuid": "d5997ed7-46af-467f-a153-5635adea77e8",
-            "id": 1419
+            "uuid": "7db1c398-8e09-4ccd-abb9-6d6ca8dac4ed",
+            "id": 3616
         },
         {
             "@type": "WorkflowStep",
@@ -169,37 +169,37 @@
             "top": "435",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
-            "uuid": "675beb1f-5531-483e-8c22-69c75e70de8b",
-            "id": 1420
+            "uuid": "946831c8-40d1-4eff-89bb-546e0d7595e8",
+            "id": 3617
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Create IP Indicator _ Deduplicated -> Unblock IP Address",
-            "targetStep": "\/api\/3\/workflow_steps\/91e6b537-f6fc-490d-a583-a7249f29e6ce",
-            "sourceStep": "\/api\/3\/workflow_steps\/9228d72f-32bd-4b3e-8617-d7cce9e62067",
+            "targetStep": "\/api\/3\/workflow_steps\/5735ef65-3742-48f2-9116-2c200894b42c",
+            "sourceStep": "\/api\/3\/workflow_steps\/1c1dcc00-e700-43c3-b48e-60ee370fe69c",
             "label": null,
             "isExecuted": false,
-            "uuid": "19c41f46-6961-477c-87f9-8dec02202256"
+            "uuid": "37d69da2-8c90-44ac-8225-18c6e85e6bef"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Create IP Indicator _ Deduplicated",
-            "targetStep": "\/api\/3\/workflow_steps\/9228d72f-32bd-4b3e-8617-d7cce9e62067",
-            "sourceStep": "\/api\/3\/workflow_steps\/d5997ed7-46af-467f-a153-5635adea77e8",
+            "targetStep": "\/api\/3\/workflow_steps\/1c1dcc00-e700-43c3-b48e-60ee370fe69c",
+            "sourceStep": "\/api\/3\/workflow_steps\/7db1c398-8e09-4ccd-abb9-6d6ca8dac4ed",
             "label": null,
             "isExecuted": false,
-            "uuid": "290ed4f9-d74c-4ced-991d-648847a55182"
+            "uuid": "10c4845b-95ef-48ae-882a-10f7862dfdd0"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Block IP Address -> Link Indicator On Triggered Record",
-            "targetStep": "\/api\/3\/workflow_steps\/675beb1f-5531-483e-8c22-69c75e70de8b",
-            "sourceStep": "\/api\/3\/workflow_steps\/91e6b537-f6fc-490d-a583-a7249f29e6ce",
+            "targetStep": "\/api\/3\/workflow_steps\/946831c8-40d1-4eff-89bb-546e0d7595e8",
+            "sourceStep": "\/api\/3\/workflow_steps\/5735ef65-3742-48f2-9116-2c200894b42c",
             "label": null,
             "isExecuted": false,
-            "uuid": "b94259a3-cd23-4af8-ad7c-94de423afd89"
+            "uuid": "db2e5eb5-cbba-48ff-ba78-d0e122b4a422"
         }
     ],
     "priority": null,
@@ -208,11 +208,11 @@
         "ManualAction",
         "Mitigation"
     ],
-    "id": 183,
-    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "createDate": 1636537423,
-    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "modifyDate": 1636537423,
+    "id": 1029,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1638352097,
+    "modifyUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "modifyDate": 1638352097,
     "owners": [],
     "isPrivate": false
 }

@@ -1,0 +1,616 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Process CarbonBlack Bit9 - Approval  Requests (Subroutine)",
+    "aliasName": null,
+    "tag": "#SubRoutine",
+    "description": "Subroutine of CarbonBlack Bit9 approval process.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "approval",
+        "incident_iri",
+        "tenant_iri"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1638437553,
+    "collection": "\/api\/3\/workflow_collections\/59667fcc-7feb-4ba4-a5a2-e03a9287f857",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/86c8ee54-35eb-4d72-9018-a29445d3bcff",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Notify user for the request Status",
+            "description": null,
+            "arguments": {
+                "config": "88c3d39c-2fa9-4731-b00d-29815008f17c",
+                "params": {
+                    "cc": "",
+                    "to": "{{vars.approvalDetails.requestorEmail}}",
+                    "bcc": "",
+                    "from": "no-reply@cybersponse.com",
+                    "content": "Hi User,  Your request with ID : {{vars.approvalDetails.id}}, has been {% if vars.steps.Approval_for_Unblocking_File_or_Application.approved == true %}approved{% else %}rejected{% endif %} with below comment: {{vars.steps.Approval_for_Unblocking_File_or_Application.message}}  Contact administrator for more information.  Thanks, Cybersponse",
+                    "subject": "Request#{{vars.approvalDetails.id}}: {{vars.approvalDetails.fileName}} Notification",
+                    "iri_list": "",
+                    "file_name": "",
+                    "file_path": "",
+                    "content_type": "text\/plain"
+                },
+                "version": "2.1.2",
+                "from_str": "soc@cybersponse.com",
+                "connector": "smtp",
+                "operation": "send_email",
+                "operationTitle": "Send Email",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "580",
+            "left": "1988",
+            "stepType": "\/api\/3\/workflow_step_types\/4c0019b2-055c-44d0-968c-678a0c2d762e",
+            "uuid": "6d72eed0-e053-4abf-b45a-6be0efea485e",
+            "id": 3083
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Find Task Already Created",
+            "description": null,
+            "arguments": {
+                "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "type": "object",
+                            "field": "status",
+                            "value": "\/api\/3\/picklists\/ab65eb0f-e7a7-4993-8474-da5c8b52f380",
+                            "_value": {
+                                "itemValue": "Assigned"
+                            },
+                            "operator": "eq"
+                        },
+                        {
+                            "type": "primitive",
+                            "field": "name",
+                            "value": "%Approval Request ID-{{vars.approvalDetails.id}}%",
+                            "operator": "like"
+                        }
+                    ]
+                },
+                "module": "tasks?$limit=30",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "220",
+            "left": "20",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
+            "uuid": "86fc029a-7854-424a-bbb6-065a7bf78b12",
+            "id": 3084
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Task Already Created",
+            "description": null,
+            "arguments": {
+                "params": [],
+                "version": "2.1.0",
+                "connector": "cyops_utilities",
+                "operation": "no_op",
+                "operationTitle": "Utils: No Operation",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "160",
+            "left": "660",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "63e6c35a-487e-4421-b97c-8ea324f89eb3",
+            "id": 3085
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Task for Unblocking File or Application",
+            "description": null,
+            "arguments": {
+                "message": {
+                    "tenant": "{{vars.input.params['tenant_iri']}}",
+                    "content": "<p>Approval request has been sent, please notification on UI<\/p>",
+                    "records": "['{{vars.input.params['incident_iri']}}']"
+                },
+                "resource": {
+                    "name": "UnBlock the File\/Application from CarbonBlack Protection",
+                    "type": {
+                        "id": 183,
+                        "@id": "\/api\/3\/picklists\/a6064def-fc9d-4d52-ac45-e0a55679c140",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Approval",
+                        "listName": "\/api\/3\/picklist_names\/b837e375-76af-4ba5-b6a1-bd1c3cd27292",
+                        "itemValue": "Approval",
+                        "orderIndex": 0
+                    },
+                    "status": {
+                        "id": 117,
+                        "@id": "\/api\/3\/picklists\/959021fc-c19d-4aee-8e51-5395c5029719",
+                        "icon": null,
+                        "uuid": "959021fc-c19d-4aee-8e51-5395c5029719",
+                        "@type": "Picklist",
+                        "color": "#ffce1f",
+                        "display": "In progress",
+                        "listName": "\/api\/3\/picklist_names\/21ddbcfd-b4a3-4273-adea-c674fe47d643",
+                        "itemValue": "In progress",
+                        "orderIndex": 0
+                    },
+                    "__replace": "",
+                    "incidents": "{{vars.input.params['incident_iri']}}",
+                    "description": "<p>Approval Request ID :&nbsp;{{vars.approvalDetails.id}}<\/p>\n<p>Requester Email :&nbsp;{{vars.approvalDetails.requestorEmail}}<\/p>\n<p>Computer Id :&nbsp;{{vars.approvalDetails.computerId}}<\/p>\n<p>File Name :&nbsp;{{vars.approvalDetails.fileName}}<\/p>\n<p>File Catalog Id :&nbsp;{{vars.approvalDetails.fileCatalogId}}<\/p>\n<p>Requestor Comments :&nbsp;{{vars.approvalDetails.requestorComments}}<\/p>\n<p>&nbsp;<\/p>",
+                    "assignedToPerson": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce"
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/tasks",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": {
+                    "taskId": "{{vars.result.id}}",
+                    "useMockOutput": "true"
+                }
+            },
+            "status": null,
+            "top": "291",
+            "left": "654",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "101db84b-5712-427b-94c5-4a89b86bfed2",
+            "id": 3086
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Update the approval request to Closed and Rejected",
+            "description": null,
+            "arguments": {
+                "name": "CarbonBlack Protection Bit9",
+                "config": "cb195cd1-44eb-4ef1-8037-d2e3a06379dd",
+                "params": {
+                    "id": "{{vars.approvalDetails.id}}",
+                    "status": "Closed",
+                    "resolution": "Rejected",
+                    "requestorEmail": "{{vars.approvalDetails.requestorEmail}}",
+                    "resolutionComments": "{{vars.steps.Approval_for_Unblocking_File_or_Application.message}}"
+                },
+                "message": {
+                    "tenant": "{{vars.input.params['tenant_iri']}}",
+                    "content": "<p>The approval has been <span style=\"color: #ff0000;\"><strong>rejected.<\/strong><\/span>&nbsp;<strong><span style=\"color: #339966;\">Closing<\/span><\/strong> the request with Approver's Comment:<\/p>\n<p><span style=\"color: #ff0000;\">{{vars.steps.Approval_for_Unblocking_File_or_Application.message}}<\/span><\/p>\n<p>&nbsp;<\/p>",
+                    "records": "['{{vars.steps.Create_Task_for_Unblocking_File_or_Application['@id']}}','{{vars.input.params['incident_iri']}}']"
+                },
+                "version": "1.0.2",
+                "connector": "carbonblack-protect-bit9",
+                "operation": "update_approval_request",
+                "mock_result": "{\n\"data\": {\n        \"id\": 1,\n        \"fileCatalogId\": 1,\n        \"processFileCatalogId\": 1,\n        \"installerFileCatalogId\": 1,\n        \"computerId\": 1,\n        \"computerName\": \"\",\n        \"dateCreated\": \"\",\n        \"dateModified\": \"\",\n        \"modifiedBy\": \"\",\n        \"enforcementLevel\": \"\",\n        \"resolution\": \"\",\n        \"requestType\": \"\",\n        \"createdBy\": \"\",\n        \"requestorComments\": \"\",\n        \"requestorEmail\": \"\",\n        \"priority\": \"\",\n        \"resolutionComments\": \"\",\n        \"status\": \"\",\n        \"policyId\": \"\",\n        \"multipleBlocks\": \"\",\n        \"fileName\": \"\",\n        \"pathName\": \"\",\n        \"process\": \"\",\n        \"createdByUserId\": \"\",\n        \"modifiedByUserId\": \"\",\n        \"customRuleId\": \"\",\n        \"duplicates\": \"\",\n        \"related\": \"\",\n        \"platform\": \"\",\n        \"publisherReputation\": \"\",\n        \"customRuleType\": \"\",\n        \"installer\": \"\",\n        \"processName\": \"\",\n        \"processPath\": \"\",\n        \"responseMailSent\": \"\",\n        \"file\": \"\"\n      }\n      }",
+                "operationTitle": "Update Approval Request",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "360",
+            "left": "1240",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "6a673adb-d1ba-4d54-af05-c8b03f178455",
+            "id": 3087
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "UnBlock File or Application From CB Protect bit9",
+            "description": null,
+            "arguments": {
+                "name": "CarbonBlack Protection Bit9",
+                "config": "cb195cd1-44eb-4ef1-8037-d2e3a06379dd",
+                "params": {
+                    "name": "",
+                    "value": "{{vars.approvalDetails.fileCatalogId}}",
+                    "policyIds": "",
+                    "input_type": "File Catalog ID",
+                    "description": ""
+                },
+                "message": {
+                    "tenant": "{{vars.input.params['tenant_iri']}}",
+                    "content": "<p>Unblocking the File\/Application from CarbonBlack Protection<\/p>",
+                    "records": "['{{vars.steps.Create_Task_for_Unblocking_File_or_Application['@id']}}','{{vars.input.params['incident_iri']}}']"
+                },
+                "version": "1.0.2",
+                "connector": "carbonblack-protect-bit9",
+                "operation": "unblock_file",
+                "mock_result": "{\n\"data\": \n\t\t{\n        \"id\": 1,\n        \"fileCatalogId\": 1,\n        \"name\": \"c22476d98fb143ddbc024c1aa983f900\",\n        \"policyIds\": 1,\n        \"description\": \"File Hash\",\n        \"fileState\": \"Blocked\",\n        \"reputationApprovalsEnabled\": \"\",\n        \"reportOnly\": \"\",\n        \"forceInstaller\": \"\",\n        \"forceNotInstaller\": \"\",\n        \"lazyApproval\": \"\",\n        \"fileName\": \"c22476d98fb143ddbc024c1aa983f900\",\n        \"sourceType\": \"\",\n        \"sourceId\": \"\",\n        \"hash\": \"e67f9aa8c71e0473e8e709bb93326e32\",\n        \"dateCreated\": \"\",\n        \"dateModified\": \"\",\n        \"createdBy\": \"\",\n        \"modifiedBy\": \"\",\n        \"clVersion\": \"\",\n        \"platformFlags\": \"\",\n        \"createdByUserId\": 1,\n        \"modifiedByUserId\": 1,\n        \"idUnique\": 1,\n        \"unifiedFlag\": \"\",\n        \"origIdUnique\": \"\",\n        \"unifiedSource\": \"\",\n        \"fileRuleType\": \"\",\n        \"version\": \"\",\n        \"visible\": \"\"\n      }\n      }",
+                "operationTitle": "Unblock File",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "666",
+            "left": "1232",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "c94fbec5-8f15-44a3-a612-0fdca387e916",
+            "id": 3088
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Approval Status",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Approved",
+                        "step_iri": "\/api\/3\/workflow_steps\/c94fbec5-8f15-44a3-a612-0fdca387e916",
+                        "condition": "{{ vars.steps.Approval_for_Unblocking_File_or_Application.approved== true }}"
+                    },
+                    {
+                        "option": "Rejected",
+                        "step_iri": "\/api\/3\/workflow_steps\/6a673adb-d1ba-4d54-af05-c8b03f178455",
+                        "condition": "{{ vars.steps.Approval_for_Unblocking_File_or_Application.approved!= true }}"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "520",
+            "left": "800",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "09ea847b-f171-451f-8b96-a737feca9cc9",
+            "id": 3089
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Update the approval request to Closed and Resolved Approved",
+            "description": null,
+            "arguments": {
+                "name": "CarbonBlack Protection Bit9",
+                "config": "cb195cd1-44eb-4ef1-8037-d2e3a06379dd",
+                "params": {
+                    "id": "{{vars.approvalDetails.id}}",
+                    "status": "Closed",
+                    "resolution": "Resolved - Approved",
+                    "requestorEmail": "{{vars.approvalDetails.requestorEmail}}",
+                    "resolutionComments": "{{vars.steps.Approval_for_Unblocking_File_or_Application.message}}"
+                },
+                "message": {
+                    "tenant": "{{vars.input.params['tenant_iri']}}",
+                    "content": "<p><strong><span style=\"color: #339966;\">Closing<\/span> <\/strong>the request with approver's comment :<\/p>\n<p><span style=\"color: #339966;\">{{vars.steps.Approval_for_Unblocking_File_or_Application.message}}<\/span><\/p>",
+                    "records": "['{{vars.steps.Create_Task_for_Unblocking_File_or_Application['@id']}}','{{vars.input.params['incident_iri']}}']"
+                },
+                "version": "1.0.2",
+                "connector": "carbonblack-protect-bit9",
+                "operation": "update_approval_request",
+                "mock_result": "{\n\"data\": {\n        \"id\": 1,\n        \"fileCatalogId\": 1,\n        \"processFileCatalogId\": 1,\n        \"installerFileCatalogId\": 1,\n        \"computerId\": 1,\n        \"computerName\": \"\",\n        \"dateCreated\": \"\",\n        \"dateModified\": \"\",\n        \"modifiedBy\": \"\",\n        \"enforcementLevel\": \"\",\n        \"resolution\": \"\",\n        \"requestType\": \"\",\n        \"createdBy\": \"\",\n        \"requestorComments\": \"\",\n        \"requestorEmail\": \"\",\n        \"priority\": \"\",\n        \"resolutionComments\": \"\",\n        \"status\": \"\",\n        \"policyId\": \"\",\n        \"multipleBlocks\": \"\",\n        \"fileName\": \"\",\n        \"pathName\": \"\",\n        \"process\": \"\",\n        \"createdByUserId\": \"\",\n        \"modifiedByUserId\": \"\",\n        \"customRuleId\": \"\",\n        \"duplicates\": \"\",\n        \"related\": \"\",\n        \"platform\": \"\",\n        \"publisherReputation\": \"\",\n        \"customRuleType\": \"\",\n        \"installer\": \"\",\n        \"processName\": \"\",\n        \"processPath\": \"\",\n        \"responseMailSent\": \"\",\n        \"file\": \"\"\n      }\n      }",
+                "operationTitle": "Update Approval Request",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "666",
+            "left": "1534",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "954e3507-c749-422c-8f95-1a3cb99cd5de",
+            "id": 3090
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Close The Task",
+            "description": null,
+            "arguments": {
+                "message": {
+                    "tenant": "{{vars.input.params['tenant_iri']}}",
+                    "content": "<p><span style=\"font-size: 15px; color: #DE7A13;\" class=\"fa fa-exclamation-triangle\"><\/span>&nbsp;Changing the Task status to <span style=\"color: #339966;\"><strong>Completed.<\/strong><\/span><\/p>",
+                    "records": "['{{vars.steps.Create_Task_for_Unblocking_File_or_Application['@id']}}','{{vars.input.params['incident_iri']}}']"
+                },
+                "resource": {
+                    "status": "{{(\"TaskStatus\" | picklist(\"Completed\"))[\"@id\"]}}"
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "{{vars.steps.Create_Task_for_Unblocking_File_or_Application['@id']}}",
+                "__recommend": [],
+                "collectionType": "\/api\/3\/tasks",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "500",
+            "left": "1840",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "9f994103-e55a-4f98-b3f1-3b5fcbc29cc3",
+            "id": 3091
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": {
+                            "approval": "{{ vars.approval }}",
+                            "tenant_iri": "{{ vars.tenant_iri }}",
+                            "incident_iri": "{{ vars.incident_iri }}"
+                        }
+                    }
+                }
+            },
+            "status": null,
+            "top": "20",
+            "left": "20",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "86c8ee54-35eb-4d72-9018-a29445d3bcff",
+            "id": 3092
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Add Note after notifying user",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "type": {
+                        "id": 247,
+                        "@id": "\/api\/3\/picklists\/ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "icon": null,
+                        "uuid": "ff599189-3eeb-4c86-acb0-a7915e85ac3b",
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Comment",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/0841c1eb-a0a3-4abd-b29c-9f68e4d9b14f",
+                        "itemValue": "Comment",
+                        "orderIndex": 1
+                    },
+                    "tasks": "['{{vars.steps.Create_Task_for_Unblocking_File_or_Application['@id']}}']",
+                    "people": [],
+                    "tenant": "{{vars.input.params['tenant_iri']}}",
+                    "content": "<p><span style=\"font-size: 15px; color: green;\" class=\"icon icon-successful\"><\/span>&nbsp;Sent notification mail to the user<\/p>",
+                    "__replace": "",
+                    "incidents": "{{vars.input.params['incident_iri']}}",
+                    "isImportant": false,
+                    "peopleUpdated": false
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/comments",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "680",
+            "left": "2140",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "83791a9a-eb37-49a3-b749-1c1fe446d907",
+            "id": 3093
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "is Task Already Created",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Yes",
+                        "step_iri": "\/api\/3\/workflow_steps\/63e6c35a-487e-4421-b97c-8ea324f89eb3",
+                        "condition": "{{ vars.result | length > 0 }}"
+                    },
+                    {
+                        "option": "No",
+                        "default": true,
+                        "step_iri": "\/api\/3\/workflow_steps\/101db84b-5712-427b-94c5-4a89b86bfed2"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "220",
+            "left": "334",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "7cf6dddf-59cf-4689-9f41-48271ebef4a3",
+            "id": 3094
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "approvalDetails": "{{vars.approval}}"
+            },
+            "status": null,
+            "top": "120",
+            "left": "20",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "58e7c3c8-1944-4678-ae4f-f8a07ae68989",
+            "id": 3095
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Approval for Unblocking File or Application",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "method": {
+                        "id": 164,
+                        "@id": "\/api\/3\/picklists\/7a04788b-5128-4288-a0fc-6e82d18c3b7b",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "System",
+                        "listName": "\/api\/3\/picklist_names\/d7bdd0ba-d721-4324-bec5-410e23f0f485",
+                        "itemValue": "System",
+                        "orderIndex": 1
+                    },
+                    "owners": [
+                        "\/api\/3\/teams\/6e569c09-3bd4-40f1-98b0-cc994464c3c5"
+                    ],
+                    "status": {
+                        "id": 162,
+                        "@id": "\/api\/3\/picklists\/d26464e0-1df4-46c2-a032-018911ba0c40",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#bf9937",
+                        "listName": "\/api\/3\/picklist_names\/ce294c1f-9318-425f-9a12-2957292f4cbf",
+                        "itemValue": "Pending",
+                        "orderIndex": 2
+                    },
+                    "playbookiri": "api\/3\/workflows\/4a3d752c-9c8c-4fab-8c51-c7c7c78011c2",
+                    "playbookname": ">Whitelisting The Files\/Application - Process Each Approval Request",
+                    "playbookuuid": "4a3d752c-9c8c-4fab-8c51-c7c7c78011c2",
+                    "approvaldescription": "Approval Request ID : {{vars.approvalDetails.id}}\nRequester Email : {{vars.approvalDetails.requestorEmail}}\nComputer Id : {{vars.approvalDetails.computerId}}\nFile Name : {{vars.approvalDetails.fileName}}\nFile Catalog Id : {{vars.approvalDetails.fileCatalogId}}\nRequestor Comments : {{vars.approvalDetails.requestorComments}}"
+                },
+                "collection": "approvals",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "420",
+            "left": "800",
+            "stepType": "\/api\/3\/workflow_step_types\/6832e556-b9c7-497a-babe-feda3bd27dcg",
+            "uuid": "726268b9-b016-4399-892b-6b16aba5a7c1",
+            "id": 3096
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "UnBlock File or Application From CB Protect bit9 -> Update the approval request to Resolved Approved",
+            "targetStep": "\/api\/3\/workflow_steps\/954e3507-c749-422c-8f95-1a3cb99cd5de",
+            "sourceStep": "\/api\/3\/workflow_steps\/c94fbec5-8f15-44a3-a612-0fdca387e916",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "9920a3ce-b31b-4491-9479-88430728baba"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "File or Application need to Blocked -> UnBlock File or Application From CB Protect bit9",
+            "targetStep": "\/api\/3\/workflow_steps\/c94fbec5-8f15-44a3-a612-0fdca387e916",
+            "sourceStep": "\/api\/3\/workflow_steps\/09ea847b-f171-451f-8b96-a737feca9cc9",
+            "label": "Approved",
+            "isExecuted": false,
+            "uuid": "d02e5abc-05ea-4447-9901-252e311c3751"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Update the approval request to Closed and Resolved Approved -> Close The Task",
+            "targetStep": "\/api\/3\/workflow_steps\/9f994103-e55a-4f98-b3f1-3b5fcbc29cc3",
+            "sourceStep": "\/api\/3\/workflow_steps\/954e3507-c749-422c-8f95-1a3cb99cd5de",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "7547f747-97f0-4150-9fa2-78b7f355a058"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "File or Application need to Blocked -> Update the approval request to Closed and Rejected",
+            "targetStep": "\/api\/3\/workflow_steps\/6a673adb-d1ba-4d54-af05-c8b03f178455",
+            "sourceStep": "\/api\/3\/workflow_steps\/09ea847b-f171-451f-8b96-a737feca9cc9",
+            "label": "Rejected",
+            "isExecuted": false,
+            "uuid": "8b5985d7-5c3d-4302-b140-c2f63be52e64"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Close The Task -> Notify user for the request Status",
+            "targetStep": "\/api\/3\/workflow_steps\/6d72eed0-e053-4abf-b45a-6be0efea485e",
+            "sourceStep": "\/api\/3\/workflow_steps\/9f994103-e55a-4f98-b3f1-3b5fcbc29cc3",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "8c0a1e74-7038-4abc-a1b5-682d65c1fd01"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "is Task Already Created -> Create Task for Unblocking File or Application",
+            "targetStep": "\/api\/3\/workflow_steps\/101db84b-5712-427b-94c5-4a89b86bfed2",
+            "sourceStep": "\/api\/3\/workflow_steps\/7cf6dddf-59cf-4689-9f41-48271ebef4a3",
+            "label": "No",
+            "isExecuted": false,
+            "uuid": "10ae0c48-b016-4429-9eb3-80a52101dbff"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Update the approval request to Closed and Rejected -> Close The Task",
+            "targetStep": "\/api\/3\/workflow_steps\/9f994103-e55a-4f98-b3f1-3b5fcbc29cc3",
+            "sourceStep": "\/api\/3\/workflow_steps\/6a673adb-d1ba-4d54-af05-c8b03f178455",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "17a6863c-36e5-4048-a4c0-1afd3a927842"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "is Task Already Created -> Task Already Created1",
+            "targetStep": "\/api\/3\/workflow_steps\/63e6c35a-487e-4421-b97c-8ea324f89eb3",
+            "sourceStep": "\/api\/3\/workflow_steps\/7cf6dddf-59cf-4689-9f41-48271ebef4a3",
+            "label": "Yes",
+            "isExecuted": false,
+            "uuid": "319e1803-4b80-4806-80d3-b0a37bcc692e"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/58e7c3c8-1944-4678-ae4f-f8a07ae68989",
+            "sourceStep": "\/api\/3\/workflow_steps\/86c8ee54-35eb-4d72-9018-a29445d3bcff",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "d73118bf-475d-4e29-adb2-8a41b8f3c7d3"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Find Task Already Created -> is Task Already Created",
+            "targetStep": "\/api\/3\/workflow_steps\/7cf6dddf-59cf-4689-9f41-48271ebef4a3",
+            "sourceStep": "\/api\/3\/workflow_steps\/86fc029a-7854-424a-bbb6-065a7bf78b12",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "5b7e00b0-28fb-4960-82b2-c4533bec51f4"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Task for Unblocking File or Application -> Approval for Unblocking File or Application",
+            "targetStep": "\/api\/3\/workflow_steps\/726268b9-b016-4399-892b-6b16aba5a7c1",
+            "sourceStep": "\/api\/3\/workflow_steps\/101db84b-5712-427b-94c5-4a89b86bfed2",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "de4ff74f-939b-4ced-aab9-eafa83d0f9a2"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Approval for Unblocking File or Application -> File or Application need to Blocked",
+            "targetStep": "\/api\/3\/workflow_steps\/09ea847b-f171-451f-8b96-a737feca9cc9",
+            "sourceStep": "\/api\/3\/workflow_steps\/726268b9-b016-4399-892b-6b16aba5a7c1",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "6ac3ea79-67ee-4fec-b932-88d711f894e8"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Notify user for the request Status -> Add Note after notifying user",
+            "targetStep": "\/api\/3\/workflow_steps\/83791a9a-eb37-49a3-b749-1c1fe446d907",
+            "sourceStep": "\/api\/3\/workflow_steps\/6d72eed0-e053-4abf-b45a-6be0efea485e",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "800f2d1b-0020-48ca-a6d8-938ccde17ebb"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> ss",
+            "targetStep": "\/api\/3\/workflow_steps\/86fc029a-7854-424a-bbb6-065a7bf78b12",
+            "sourceStep": "\/api\/3\/workflow_steps\/58e7c3c8-1944-4678-ae4f-f8a07ae68989",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "c73c39a9-3dae-46dc-917c-3f51d89fbc14"
+        }
+    ],
+    "priority": null,
+    "uuid": "26a804b4-023a-44d7-8b74-4a06a0ecdc81",
+    "recordTags": [
+        "Subroutine",
+        "Process CarbonBlack Bit9 Approval Requests"
+    ],
+    "id": 982,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1638352093,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1638437552,
+    "owners": [],
+    "isPrivate": false
+}

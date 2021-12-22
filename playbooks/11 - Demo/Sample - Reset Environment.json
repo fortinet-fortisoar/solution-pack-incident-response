@@ -1,0 +1,1007 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Sample - Reset Environment",
+    "aliasName": null,
+    "tag": null,
+    "description": "Clears all records from different modules using FortiSOAR APIs.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1638439641,
+    "collection": "\/api\/3\/workflow_collections\/a41c4bc4-5b29-4701-96e7-e62e21e8763e",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/bb8a7af0-e132-4b9b-b2a8-ba1e246afe6a",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Delete All Indicators",
+            "description": null,
+            "arguments": {
+                "when": "{{vars.steps.Find_All_Indicators | length != 0}}",
+                "params": {
+                    "iri": "{{vars.item['@id']}}",
+                    "body": "",
+                    "method": "DELETE"
+                },
+                "version": "3.0.4",
+                "for_each": {
+                    "item": "{{vars.steps.Find_All_Indicators}}",
+                    "__bulk": false,
+                    "parallel": true,
+                    "condition": ""
+                },
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "400",
+            "left": "828",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "983d89b7-83ce-45a3-88f7-817ed0a62300",
+            "id": 4308
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Delete All Emails",
+            "description": null,
+            "arguments": {
+                "when": "{{vars.steps.Find_All_Emails | length != 0}}",
+                "params": {
+                    "iri": "{{vars.item['@id']}}",
+                    "body": "",
+                    "method": "DELETE"
+                },
+                "version": "3.0.4",
+                "for_each": {
+                    "item": "{{vars.steps.Find_All_Emails}}",
+                    "__bulk": false,
+                    "parallel": true,
+                    "condition": ""
+                },
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "833",
+            "left": "1640",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "2e050611-a29a-4b07-a394-77e3a73567f1",
+            "id": 4309
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Find All Scans",
+            "description": null,
+            "arguments": {
+                "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                },
+                "module": "scans?$limit=30",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "800",
+            "left": "1253",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
+            "uuid": "65e88b29-a510-4336-b361-588383306187",
+            "id": 4310
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "response": "{{vars.input.params.response}}",
+                "num_of_rec": "100"
+            },
+            "status": null,
+            "top": "140",
+            "left": "407",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "7531268a-266b-4954-a208-250771453c5d",
+            "id": 4311
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Delete All Scans",
+            "description": null,
+            "arguments": {
+                "when": "{{vars.steps.Find_All_Scans | length != 0}}",
+                "params": {
+                    "iri": "{{vars.item['@id']}}",
+                    "body": "",
+                    "method": "DELETE"
+                },
+                "version": "3.0.4",
+                "for_each": {
+                    "item": "{{vars.steps.Find_All_Scans}}",
+                    "__bulk": false,
+                    "parallel": true,
+                    "condition": ""
+                },
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "932",
+            "left": "1253",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "3fc2ac79-54e9-4fc2-abe8-eaff6104fe26",
+            "id": 4312
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Find All Indicators",
+            "description": null,
+            "arguments": {
+                "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                },
+                "module": "indicators?$limit=100",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "272",
+            "left": "828",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
+            "uuid": "6e448fdc-2631-46ca-bd44-09b534b0cf7a",
+            "id": 4313
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Delete All Tasks",
+            "description": null,
+            "arguments": {
+                "when": "{{vars.steps.Find_Tasks | length != 0}}",
+                "params": {
+                    "iri": "{{vars.item['@id']}}",
+                    "body": "",
+                    "method": "DELETE"
+                },
+                "version": "3.0.4",
+                "for_each": {
+                    "item": "{{vars.steps.Find_Tasks}}",
+                    "__bulk": false,
+                    "parallel": true,
+                    "condition": ""
+                },
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "666",
+            "left": "828",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "88e0cb23-a070-47e0-a497-65f3f107ba31",
+            "id": 4314
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Delete All Assets",
+            "description": null,
+            "arguments": {
+                "when": "{{vars.steps.Find_All_Assets| length != 0}}",
+                "params": {
+                    "iri": "{{vars.item['@id']}}",
+                    "body": "",
+                    "method": "DELETE"
+                },
+                "version": "3.0.4",
+                "for_each": {
+                    "item": "{{vars.steps.Find_All_Assets}}",
+                    "__bulk": false,
+                    "parallel": true,
+                    "condition": ""
+                },
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "412",
+            "left": "1253",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "fcb953be-4663-44c1-953a-6c52720a67a6",
+            "id": 4315
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Delete All Alerts",
+            "description": null,
+            "arguments": {
+                "when": "{{vars.steps.Find_All_Alerts | length != 0}}",
+                "params": {
+                    "iri": "{{vars.item['@id']}}",
+                    "body": "",
+                    "method": "DELETE"
+                },
+                "version": "3.0.4",
+                "for_each": {
+                    "item": "{{vars.steps.Find_All_Alerts}}",
+                    "__bulk": false,
+                    "parallel": true,
+                    "condition": ""
+                },
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "670",
+            "left": "407",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "27c76cf3-b459-42d3-9bd6-0942fc3f7a91",
+            "id": 4316
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Delete All Hunts",
+            "description": null,
+            "arguments": {
+                "when": "{{vars.steps.Find_All_Hunts | length != 0}}",
+                "params": {
+                    "iri": "{{vars.item['@id']}}",
+                    "body": "",
+                    "method": "DELETE"
+                },
+                "version": "3.0.4",
+                "for_each": {
+                    "item": "{{vars.steps.Find_All_Hunts}}",
+                    "__bulk": false,
+                    "parallel": true,
+                    "condition": ""
+                },
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "393",
+            "left": "1640",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "d4c75198-94dd-4617-899d-c5abda433e56",
+            "id": 4317
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Find All Assets",
+            "description": null,
+            "arguments": {
+                "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                },
+                "module": "assets?$limit=100",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "272",
+            "left": "1253",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
+            "uuid": "883a35ac-31e8-4bbc-8187-13a58ad79e0c",
+            "id": 4318
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Find All Incidents",
+            "description": null,
+            "arguments": {
+                "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                },
+                "module": "incidents?$limit=100",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "800",
+            "left": "407",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
+            "uuid": "9e97e4e6-2564-4108-ad36-7bca07cefe5a",
+            "id": 4319
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Delete All Vulnerabilities",
+            "description": null,
+            "arguments": {
+                "when": "{{vars.steps.Find_All_Vulnerabilities | length != 0}}",
+                "params": {
+                    "iri": "{{vars.item['@id']}}",
+                    "body": "",
+                    "method": "DELETE"
+                },
+                "version": "3.0.4",
+                "for_each": {
+                    "item": "{{vars.steps.Find_All_Vulnerabilities}}",
+                    "__bulk": false,
+                    "parallel": true,
+                    "condition": ""
+                },
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "672",
+            "left": "1253",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "111c9fdb-a881-43aa-89fd-35e9a2200453",
+            "id": 4320
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Delete All Campaigns",
+            "description": null,
+            "arguments": {
+                "when": "{{vars.steps.Find_All_Campaigns | length != 0}}",
+                "params": {
+                    "iri": "{{vars.item['@id']}}",
+                    "body": "",
+                    "method": "DELETE"
+                },
+                "version": "3.0.1",
+                "for_each": {
+                    "item": "{{vars.steps.Find_All_Campaigns}}",
+                    "condition": ""
+                },
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "613",
+            "left": "1640",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "6ec27759-b73f-4bb3-b122-9c757de07ad7",
+            "id": 4321
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Find All Events",
+            "description": null,
+            "arguments": {
+                "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                },
+                "module": "events?$limit=100",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "800",
+            "left": "828",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
+            "uuid": "22ae3c4b-4de2-4aa1-8719-d236ff631153",
+            "id": 4322
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Find All Alerts",
+            "description": null,
+            "arguments": {
+                "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                },
+                "module": "alerts?$limit=100",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "540",
+            "left": "407",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
+            "uuid": "d9677caf-381b-44a7-8002-d7a10c0f22e6",
+            "id": 4323
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Decision",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Yes",
+                        "step_iri": "\/api\/3\/workflow_steps\/d9677caf-381b-44a7-8002-d7a10c0f22e6",
+                        "condition": "{{ ('y' or 'n') in vars.response | lower }}"
+                    },
+                    {
+                        "option": "No",
+                        "default": true,
+                        "step_iri": "\/api\/3\/workflow_steps\/9550c9e1-5819-4a44-987f-2cb48368c3d7"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "269",
+            "left": "407",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "8630f7cd-ec3f-4f52-a47d-cf397f39022e",
+            "id": 4324
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Find All Vulnerabilities",
+            "description": null,
+            "arguments": {
+                "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                },
+                "module": "vulnerabilities?$limit=30",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "540",
+            "left": "1253",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
+            "uuid": "f44dd24c-ac76-44e9-bd8c-09a92959dba6",
+            "id": 4325
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "d59e53fc-d7b3-4155-beab-5756e3199cf1",
+                "title": "Sample > Reset Environment",
+                "resources": [
+                    "alerts"
+                ],
+                "inputVariables": [
+                    {
+                        "name": "response",
+                        "type": "string",
+                        "label": "Response",
+                        "title": "Checkbox",
+                        "usable": true,
+                        "tooltip": "Type 'Y' or 'YES' to delete demo data else 'N' or 'NO' to abort",
+                        "dataType": "text",
+                        "formType": "text",
+                        "required": false,
+                        "_expanded": true,
+                        "mmdUpdate": true,
+                        "collection": false,
+                        "searchable": true,
+                        "templateUrl": "app\/components\/form\/fields\/checkbox.html",
+                        "defaultValue": "N",
+                        "lengthConstraint": false,
+                        "allowedEncryption": false,
+                        "allowedGridColumn": true,
+                        "useRecordFieldDefault": false
+                    }
+                ],
+                "step_variables": {
+                    "input": {
+                        "params": {
+                            "response": "{{vars.request.data[\"response\"]}}"
+                        },
+                        "records": "{{vars.input.records}}"
+                    }
+                },
+                "_promptexpanded": true,
+                "displayConditions": {
+                    "alerts": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    }
+                },
+                "executeButtonText": "Proceed",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+            },
+            "status": null,
+            "top": "20",
+            "left": "407",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "uuid": "bb8a7af0-e132-4b9b-b2a8-ba1e246afe6a",
+            "id": 4326
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "No Operation",
+            "description": null,
+            "arguments": {
+                "params": [],
+                "version": "2.7.0",
+                "connector": "cyops_utilities",
+                "operation": "no_op",
+                "operationTitle": "Utils: No Operation",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "269",
+            "left": "60",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "9550c9e1-5819-4a44-987f-2cb48368c3d7",
+            "id": 4327
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Find All Campaigns",
+            "description": null,
+            "arguments": {
+                "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                },
+                "module": "campaigns?$limit=100",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "493",
+            "left": "1640",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
+            "uuid": "5b3e8f16-5d9c-442e-a8ae-1188aaf42a55",
+            "id": 4328
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Delete All Incidents",
+            "description": null,
+            "arguments": {
+                "when": "{{vars.steps.Find_All_Incidents | length != 0}}",
+                "params": {
+                    "iri": "{{vars.item['@id']}}",
+                    "body": "",
+                    "method": "DELETE"
+                },
+                "version": "3.0.4",
+                "for_each": {
+                    "item": "{{vars.steps.Find_All_Incidents}}",
+                    "__bulk": false,
+                    "parallel": true,
+                    "condition": ""
+                },
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "932",
+            "left": "407",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "e2b834e5-e906-48f3-b087-756fc1822d6f",
+            "id": 4329
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Delete All Events",
+            "description": null,
+            "arguments": {
+                "when": "{{vars.steps.Find_All_Events | length != 0}}",
+                "params": {
+                    "iri": "{{vars.item['@id']}}",
+                    "body": "",
+                    "method": "DELETE"
+                },
+                "version": "3.0.4",
+                "for_each": {
+                    "item": "{{vars.steps.Find_All_Events}}",
+                    "__bulk": false,
+                    "parallel": true,
+                    "condition": ""
+                },
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "940",
+            "left": "828",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "e6fb84f1-ba4a-44d9-a201-ead0f4295ace",
+            "id": 4330
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Find All Hunts",
+            "description": null,
+            "arguments": {
+                "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                },
+                "module": "hunt?$limit=100",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "280",
+            "left": "1640",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
+            "uuid": "a947975f-0783-4e42-a1a1-60071f763af5",
+            "id": 4331
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Find Tasks",
+            "description": null,
+            "arguments": {
+                "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                },
+                "module": "tasks?$limit=100",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "532",
+            "left": "828",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
+            "uuid": "fc318898-953d-47db-a66f-2385e8b18764",
+            "id": 4332
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Find All Emails",
+            "description": null,
+            "arguments": {
+                "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                },
+                "module": "emails?$limit=100",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "720",
+            "left": "1640",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
+            "uuid": "65f86ba8-2d1b-46b3-b599-3fdc71a0f191",
+            "id": 4333
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Find All Communications",
+            "description": null,
+            "arguments": {
+                "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                },
+                "module": "communication?$limit=100",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "288",
+            "left": "1960",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
+            "uuid": "2b16daea-2396-4e25-abcd-c3af430f726f",
+            "id": 4334
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Delete All Communications",
+            "description": null,
+            "arguments": {
+                "when": "{{vars.steps.Find_All_Communications | length != 0}}",
+                "params": {
+                    "iri": "{{vars.item['@id']}}",
+                    "body": "",
+                    "method": "DELETE"
+                },
+                "version": "3.0.4",
+                "for_each": {
+                    "item": "{{vars.steps.Find_All_Communications}}",
+                    "__bulk": false,
+                    "parallel": true,
+                    "condition": ""
+                },
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "393",
+            "left": "1960",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "5e48c76a-f3ad-48b8-a80d-af36e4f6439a",
+            "id": 4335
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Find All Alerts -> Delete All Alerts",
+            "targetStep": "\/api\/3\/workflow_steps\/27c76cf3-b459-42d3-9bd6-0942fc3f7a91",
+            "sourceStep": "\/api\/3\/workflow_steps\/d9677caf-381b-44a7-8002-d7a10c0f22e6",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "27b0e03e-5b97-4f2b-81d3-9e4799bc31d7"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Delete All Alerts -> Find All Incidents",
+            "targetStep": "\/api\/3\/workflow_steps\/9e97e4e6-2564-4108-ad36-7bca07cefe5a",
+            "sourceStep": "\/api\/3\/workflow_steps\/27c76cf3-b459-42d3-9bd6-0942fc3f7a91",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "e870d83b-3a10-437c-a886-d5deb3771aef"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Find All Incidents -> Delete All Incidents",
+            "targetStep": "\/api\/3\/workflow_steps\/e2b834e5-e906-48f3-b087-756fc1822d6f",
+            "sourceStep": "\/api\/3\/workflow_steps\/9e97e4e6-2564-4108-ad36-7bca07cefe5a",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "8277d5c5-4838-4ae6-aa26-744f5f13b3d3"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Delete All Incidents -> Find All Indicators",
+            "targetStep": "\/api\/3\/workflow_steps\/6e448fdc-2631-46ca-bd44-09b534b0cf7a",
+            "sourceStep": "\/api\/3\/workflow_steps\/e2b834e5-e906-48f3-b087-756fc1822d6f",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "534c5582-2707-43db-92e9-500a04cc12fd"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Find All Indicators -> Delete All Indicators",
+            "targetStep": "\/api\/3\/workflow_steps\/983d89b7-83ce-45a3-88f7-817ed0a62300",
+            "sourceStep": "\/api\/3\/workflow_steps\/6e448fdc-2631-46ca-bd44-09b534b0cf7a",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "4ba76406-e986-4795-83c6-8a9533eb5bb7"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Delete All Indicators -> Find Tasks",
+            "targetStep": "\/api\/3\/workflow_steps\/fc318898-953d-47db-a66f-2385e8b18764",
+            "sourceStep": "\/api\/3\/workflow_steps\/983d89b7-83ce-45a3-88f7-817ed0a62300",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "a9f747c0-f49f-4df9-b55a-1334ed1d8d40"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Find Tasks -> Delete All Tasks",
+            "targetStep": "\/api\/3\/workflow_steps\/88e0cb23-a070-47e0-a497-65f3f107ba31",
+            "sourceStep": "\/api\/3\/workflow_steps\/fc318898-953d-47db-a66f-2385e8b18764",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "7b274ba3-0896-4045-8686-3cce3fa7626e"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Delete All Tasks -> Find All Events",
+            "targetStep": "\/api\/3\/workflow_steps\/22ae3c4b-4de2-4aa1-8719-d236ff631153",
+            "sourceStep": "\/api\/3\/workflow_steps\/88e0cb23-a070-47e0-a497-65f3f107ba31",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "e38dd301-fae9-421a-a3cf-17177f8ad47d"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Find All Events -> Delete All Events",
+            "targetStep": "\/api\/3\/workflow_steps\/e6fb84f1-ba4a-44d9-a201-ead0f4295ace",
+            "sourceStep": "\/api\/3\/workflow_steps\/22ae3c4b-4de2-4aa1-8719-d236ff631153",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "0101b730-c0d5-42df-83ed-04f12acb6fee"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Find All Assets -> Delete All Assets",
+            "targetStep": "\/api\/3\/workflow_steps\/fcb953be-4663-44c1-953a-6c52720a67a6",
+            "sourceStep": "\/api\/3\/workflow_steps\/883a35ac-31e8-4bbc-8187-13a58ad79e0c",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "ffa7107e-3895-467c-92e5-3837bb1a87cc"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Delete All Events -> Find All Assets",
+            "targetStep": "\/api\/3\/workflow_steps\/883a35ac-31e8-4bbc-8187-13a58ad79e0c",
+            "sourceStep": "\/api\/3\/workflow_steps\/e6fb84f1-ba4a-44d9-a201-ead0f4295ace",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "a1813638-0208-4f83-a20a-936f6cfc323f"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Delete All Assets -> Find All Vulnerabilities",
+            "targetStep": "\/api\/3\/workflow_steps\/f44dd24c-ac76-44e9-bd8c-09a92959dba6",
+            "sourceStep": "\/api\/3\/workflow_steps\/fcb953be-4663-44c1-953a-6c52720a67a6",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "ae576b91-ea01-4f1a-9bb2-4a3f14dfbe09"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Find All Vulnerabilities -> Copy  of Delete All Assets",
+            "targetStep": "\/api\/3\/workflow_steps\/111c9fdb-a881-43aa-89fd-35e9a2200453",
+            "sourceStep": "\/api\/3\/workflow_steps\/f44dd24c-ac76-44e9-bd8c-09a92959dba6",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "701888a0-43f5-4948-8f98-6ed505af4073"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/7531268a-266b-4954-a208-250771453c5d",
+            "sourceStep": "\/api\/3\/workflow_steps\/bb8a7af0-e132-4b9b-b2a8-ba1e246afe6a",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "6865bfe9-d9fd-431b-8883-7f277c8c0728"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Decision",
+            "targetStep": "\/api\/3\/workflow_steps\/8630f7cd-ec3f-4f52-a47d-cf397f39022e",
+            "sourceStep": "\/api\/3\/workflow_steps\/7531268a-266b-4954-a208-250771453c5d",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "fc17efc0-93eb-46bf-ad07-c990802b3e29"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Delete All Vulnerabilities -> Find All Scans",
+            "targetStep": "\/api\/3\/workflow_steps\/65e88b29-a510-4336-b361-588383306187",
+            "sourceStep": "\/api\/3\/workflow_steps\/111c9fdb-a881-43aa-89fd-35e9a2200453",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "1606310d-2fe6-4f35-875b-3ea01c82a3bd"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Find All Scans -> Delete All Scans",
+            "targetStep": "\/api\/3\/workflow_steps\/3fc2ac79-54e9-4fc2-abe8-eaff6104fe26",
+            "sourceStep": "\/api\/3\/workflow_steps\/65e88b29-a510-4336-b361-588383306187",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "8d6d7310-aba9-4183-ac68-73f67c91de5a"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Decision -> No Operation",
+            "targetStep": "\/api\/3\/workflow_steps\/9550c9e1-5819-4a44-987f-2cb48368c3d7",
+            "sourceStep": "\/api\/3\/workflow_steps\/8630f7cd-ec3f-4f52-a47d-cf397f39022e",
+            "label": "No",
+            "isExecuted": false,
+            "uuid": "7c5dcf7c-a75d-453d-bdf2-72eceab1f00a"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Decision -> Find All Alerts",
+            "targetStep": "\/api\/3\/workflow_steps\/d9677caf-381b-44a7-8002-d7a10c0f22e6",
+            "sourceStep": "\/api\/3\/workflow_steps\/8630f7cd-ec3f-4f52-a47d-cf397f39022e",
+            "label": "Yes",
+            "isExecuted": false,
+            "uuid": "03c2ea6c-5893-424f-89bd-069054c8baf3"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Copy  of Find All SLA -> Copy  of Delete All SLA",
+            "targetStep": "\/api\/3\/workflow_steps\/d4c75198-94dd-4617-899d-c5abda433e56",
+            "sourceStep": "\/api\/3\/workflow_steps\/a947975f-0783-4e42-a1a1-60071f763af5",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "eb899538-914a-4dfc-a08d-e45e96281902"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Delete All Hunts -> Copy 1 of Find All SLA",
+            "targetStep": "\/api\/3\/workflow_steps\/5b3e8f16-5d9c-442e-a8ae-1188aaf42a55",
+            "sourceStep": "\/api\/3\/workflow_steps\/d4c75198-94dd-4617-899d-c5abda433e56",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "fa79d400-8082-48aa-bbe9-9d7257d87326"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Copy 1 of Find All SLA -> Copy 1 of Delete All SLA",
+            "targetStep": "\/api\/3\/workflow_steps\/6ec27759-b73f-4bb3-b122-9c757de07ad7",
+            "sourceStep": "\/api\/3\/workflow_steps\/5b3e8f16-5d9c-442e-a8ae-1188aaf42a55",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "c420252a-7157-48c6-aa6b-5d900f4c21be"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Delete All Campaigns -> Copy  of Find All Campaigns",
+            "targetStep": "\/api\/3\/workflow_steps\/65f86ba8-2d1b-46b3-b599-3fdc71a0f191",
+            "sourceStep": "\/api\/3\/workflow_steps\/6ec27759-b73f-4bb3-b122-9c757de07ad7",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "ea40e864-3b68-40c2-817c-6d30c28881a6"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Copy  of Find All Campaigns -> Copy  of Delete All Campaigns",
+            "targetStep": "\/api\/3\/workflow_steps\/2e050611-a29a-4b07-a394-77e3a73567f1",
+            "sourceStep": "\/api\/3\/workflow_steps\/65f86ba8-2d1b-46b3-b599-3fdc71a0f191",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "249fa6ec-0e15-45db-91dd-0dad637b0428"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Delete All Scans -> Find All Hunts",
+            "targetStep": "\/api\/3\/workflow_steps\/a947975f-0783-4e42-a1a1-60071f763af5",
+            "sourceStep": "\/api\/3\/workflow_steps\/3fc2ac79-54e9-4fc2-abe8-eaff6104fe26",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "be82b6bf-5e93-44f1-b5a0-23928e0df7fa"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Delete All Emails -> Copy  of Find All Emails",
+            "targetStep": "\/api\/3\/workflow_steps\/2b16daea-2396-4e25-abcd-c3af430f726f",
+            "sourceStep": "\/api\/3\/workflow_steps\/2e050611-a29a-4b07-a394-77e3a73567f1",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "135b36fc-99d9-4c01-8195-c129773fcafa"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Copy  of Find All Emails -> Copy  of Delete All Emails",
+            "targetStep": "\/api\/3\/workflow_steps\/5e48c76a-f3ad-48b8-a80d-af36e4f6439a",
+            "sourceStep": "\/api\/3\/workflow_steps\/2b16daea-2396-4e25-abcd-c3af430f726f",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "b973a4e6-8efe-4fd2-8dbe-94d622ce80bb"
+        }
+    ],
+    "priority": null,
+    "uuid": "5e84c5f7-63b7-4da7-b057-40586f84f984",
+    "recordTags": [
+        "ManualAction"
+    ],
+    "id": 1135,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1638352103,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1638439640,
+    "owners": [],
+    "isPrivate": false
+}
