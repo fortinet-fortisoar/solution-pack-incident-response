@@ -1,0 +1,219 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Rapid7 - Patch (Subroutine)",
+    "aliasName": null,
+    "tag": null,
+    "description": "Deploys patches using MS SCCM.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "hostname",
+        "ipAddress",
+        "SccmCollectionName",
+        "RecordID",
+        "tenant_iri"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1638437624,
+    "collection": "\/api\/3\/workflow_collections\/59667fcc-7feb-4ba4-a5a2-e03a9287f857",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/e1841ea0-a0a9-4342-ac8a-ce8c9a53448d",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": {
+                            "RecordID": "{{ vars.RecordID }}",
+                            "hostname": "{{ vars.hostname }}",
+                            "ipAddress": "{{ vars.ipAddress }}",
+                            "tenant_iri": "{{ vars.tenant_iri }}",
+                            "SccmCollectionName": "{{ vars.SccmCollectionName }}"
+                        }
+                    }
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "e1841ea0-a0a9-4342-ac8a-ce8c9a53448d",
+            "id": 3097
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Notify About Pending Updates",
+            "description": null,
+            "arguments": {
+                "config": "88c3d39c-2fa9-4731-b00d-29815008f17c",
+                "params": {
+                    "cc": "",
+                    "to": "user@example.com",
+                    "bcc": "",
+                    "from": "no-reply@cybersponse.com",
+                    "type": "Manual Input",
+                    "content": "<p>Patches Are Being Deployed On&nbsp;<strong>{{vars.input.params.hostname}}<\/strong><br>Snapshot successfully was taken and UAT checked.&nbsp;<\/p>",
+                    "subject": "Patches Are Being Deployed On {{vars.input.params.ipAddress}}",
+                    "iri_list": "",
+                    "body_type": "Rich Text",
+                    "file_name": "",
+                    "file_path": ""
+                },
+                "message": {
+                    "tenant": "{{vars.input.params['tenant_iri']}}",
+                    "content": "<p>Virtual machine {{vars.input.params.hostname}} snapshot taken successfully.<\/p>\n<p>Acknowledge email has been sent&nbsp;<\/p>",
+                    "records": "{{vars.input.params.RecordID}}"
+                },
+                "version": "2.4.2",
+                "from_str": "soc@cybersponse.com",
+                "connector": "smtp",
+                "operation": "send_email_new",
+                "operationTitle": "Send Email",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/4c0019b2-055c-44d0-968c-678a0c2d762e",
+            "uuid": "3b81d384-0474-4788-a071-5f279641c100",
+            "id": 3098
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Deploy Package from SCCM",
+            "description": null,
+            "arguments": {
+                "name": "Microsoft SCCM",
+                "config": "8ab85092-bb62-4181-ba44-f90ea3c7755d",
+                "params": {
+                    "patch_name": "Rapid7_{{vars.input.params.ipAddress}}",
+                    "collection_name": "{{vars.input.params.SccmCollectionName}}",
+                    "additional_params": ""
+                },
+                "message": {
+                    "tenant": "{{vars.input.params['tenant_iri']}}",
+                    "content": "<p>Patches deployed successfully on machine&nbsp;<strong>{{vars.input.params.hostname}}<\/strong><\/p>",
+                    "records": "{{vars.input.params.RecordID}}"
+                },
+                "version": "1.0.0",
+                "connector": "microsoft-sccm",
+                "operation": "deploy_patch",
+                "mock_result": "{\n    \"op_status\": \"Success\",\n    \"result\": \"Pakages deployed successfully\"\n}",
+                "ignore_errors": true,
+                "operationTitle": "Deploy Patch",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "570",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "5c47b63e-ff91-44b3-8147-54336b7760c5",
+            "id": 3099
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Take Snapshot",
+            "description": null,
+            "arguments": {
+                "name": "VMware vSphere",
+                "config": "feb23a4c-641c-42d1-8224-c9dc28153e99",
+                "params": {
+                    "memory": false,
+                    "quiesce": false,
+                    "vm_name": "{{vars.input.params.hostname}}",
+                    "description": "Taking virtual machine snapshot before deploying SCCM package on host \"{{vars.input.params.hostname}}\" and IP address \"{{vars.input.params.ipAddress}}\"",
+                    "snapshot_name": "Rapid7_Deployment_Package_{{@Current_Date}}"
+                },
+                "message": {
+                    "tenant": "{{vars.input.params['tenant_iri']}}",
+                    "content": "<p>Taking Snapshot of machine&nbsp;<strong>{{vars.input.params.hostname}}<\/strong><\/p>",
+                    "records": "{{vars.input.params.RecordID}}"
+                },
+                "version": "1.0.1",
+                "connector": "vmware-vsphere",
+                "operation": "snapshot_vm",
+                "mock_result": "{\n  \"message\": \"\",\n  \"status\": \"Success\",\n  \"data\": {\n    \"status\": \"Success\",\n    \"result\": \"Virtual machine {{vars.input.params.hostname}} snapshot taken successfully\"\n  },\n  \"operation\": \"snapshot_vm\"\n}",
+                "ignore_errors": false,
+                "operationTitle": "Snapshot VM",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "a7b73c84-90b2-4a40-a0a2-814b6f60deda",
+            "id": 3100
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configurations",
+            "description": null,
+            "arguments": {
+                "useMockOutput": "true"
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "5f2fa604-3e0a-4b82-b30e-22b0272762ad",
+            "id": 3101
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configurations -> Take Snapshot",
+            "targetStep": "\/api\/3\/workflow_steps\/a7b73c84-90b2-4a40-a0a2-814b6f60deda",
+            "sourceStep": "\/api\/3\/workflow_steps\/5f2fa604-3e0a-4b82-b30e-22b0272762ad",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "92df6bbf-a0f0-442b-8e73-d9c8d3a9e550"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Configurations",
+            "targetStep": "\/api\/3\/workflow_steps\/5f2fa604-3e0a-4b82-b30e-22b0272762ad",
+            "sourceStep": "\/api\/3\/workflow_steps\/e1841ea0-a0a9-4342-ac8a-ce8c9a53448d",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "d7c88be6-909c-47e4-957c-7dc19de9579b"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Take Snapshot -> Notify About Pending Updates",
+            "targetStep": "\/api\/3\/workflow_steps\/3b81d384-0474-4788-a071-5f279641c100",
+            "sourceStep": "\/api\/3\/workflow_steps\/a7b73c84-90b2-4a40-a0a2-814b6f60deda",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "0718ed57-88c4-4089-b50f-f7aecc3c5def"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Notify About Pending Updates -> Deploy Package from SCCM",
+            "targetStep": "\/api\/3\/workflow_steps\/5c47b63e-ff91-44b3-8147-54336b7760c5",
+            "sourceStep": "\/api\/3\/workflow_steps\/3b81d384-0474-4788-a071-5f279641c100",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "e3002463-af4c-4d9d-b752-e5b2a134155b"
+        }
+    ],
+    "priority": null,
+    "uuid": "44abee8c-d680-42cf-b702-5618b26d5f0e",
+    "recordTags": [
+        "Subroutine",
+        "Rapid7 - Fetch Scan and Deploy Patch"
+    ],
+    "id": 983,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1638352093,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1638437624,
+    "owners": [],
+    "isPrivate": false
+}

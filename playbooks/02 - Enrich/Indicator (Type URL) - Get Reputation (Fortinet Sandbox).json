@@ -1,0 +1,482 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Indicator (Type URL) - Get Reputation (Fortinet Sandbox)",
+    "aliasName": null,
+    "tag": "#Fortinet FortiSandbox",
+    "description": "Submit URL to Fortinet FortiSandbox.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "IndicatorDetails"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1638431109,
+    "collection": "\/api\/3\/workflow_collections\/deaa4d19-7444-4f3a-a80e-9577436f25ef",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/deabaf48-b813-4bb4-b3cf-90fc31f292d0",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "e43c1a5d-b85d-42c7-84fb-4e1897cbff14",
+                "title": "Fortinet FortiSandbox: Submit URL",
+                "resources": [
+                    "indicators"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                    "input": {
+                        "params": [],
+                        "records": "{{vars.input.records}}"
+                    },
+                    "useMockOutput": "true"
+                },
+                "displayConditions": {
+                    "alerts": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    },
+                    "indicators": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    },
+                    "attachments": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": false,
+                "singleRecordExecution": false
+            },
+            "status": null,
+            "top": "110",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "uuid": "deabaf48-b813-4bb4-b3cf-90fc31f292d0",
+            "id": 2457
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Submit URL",
+            "description": null,
+            "arguments": {
+                "name": "Fortinet FortiSandbox",
+                "config": "test",
+                "params": {
+                    "url": "{{vars.input.params.IndicatorDetails.value}}",
+                    "depth": true,
+                    "timeout": 1200,
+                    "overwrite_vm_list": "WIN7X86VMO16E"
+                },
+                "version": "1.0.3",
+                "connector": "fortinet-fortisandbox",
+                "operation": "submit_urlfile",
+                "mock_result": "{\n  \"data\": {\n    \"id\": 12,\n    \"ver\": \"2.1\",\n    \"result\": {\n      \"url\": \"\/alert\/ondemand\/submit-file\",\n      \"data\": {\n        \"msg\": \"File was submitted successfully\",\n        \"sid\": 5529445094419732000,\n        \"error\": \"\"\n      },\n      \"status\": {\n        \"code\": 0,\n        \"message\": \"OK\"\n      }\n    }\n  },\n  \"status\": \"Success\",\n  \"_status\": true,\n  \"message\": \"\",\n  \"operation\": null,\n  \"request_id\": null\n}",
+                "operationTitle": "Submit URL File",
+                "step_variables": {
+                    "output_data": "{{vars.result}}"
+                }
+            },
+            "status": null,
+            "top": "200",
+            "left": "1420",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "1d027f35-b947-4f34-a337-28182a302a6e",
+            "id": 2458
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Scan Status of Submitted File",
+            "description": null,
+            "arguments": {
+                "name": "Fortinet FortiSandbox",
+                "config": "256e41f4-bdc4-4b5d-b425-1d338c684d28",
+                "params": {
+                    "sid": "{{vars.steps.Submit_URL.data.result.data.sid}}"
+                },
+                "version": "1.0.3",
+                "connector": "fortinet-fortisandbox",
+                "operation": "get_submission_job_list",
+                "mock_result": "{\n  \"data\": {\n    \"id\": 17,\n    \"ver\": \"2.1\",\n    \"result\": {\n      \"url\": \"\/scan\/result\/get-jobs-of-submission\",\n      \"data\": {\n        \"jids\": [\n          5529445146866798000\n        ],\n        \"total_jids\": 1\n      },\n      \"status\": {\n        \"code\": 0,\n        \"message\": \"OK\"\n      }\n    }\n  },\n  \"status\": \"Success\",\n  \"_status\": true,\n  \"message\": \"\",\n  \"operation\": null,\n  \"request_id\": null\n}",
+                "operationTitle": "Get Submission Job List",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "200",
+            "left": "1740",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "868d5be4-7bad-4610-97c2-e355c07c8cb5",
+            "id": 2459
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get the Highest Score",
+            "description": null,
+            "arguments": {
+                "URL": "{{vars.input.params.IndicatorDetails.value}}",
+                "Summary": "{{vars.NewDescription}}"
+            },
+            "status": null,
+            "top": "200",
+            "left": "3320",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "6c907620-6056-4300-8839-7a955aadde76",
+            "id": 2460
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Convert Summary to HTML",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "data": "{{vars.steps.Get_Details_of_Submitted_File.data.result.data}}",
+                    "display": "Vertical",
+                    "styling": false,
+                    "template": "Stylized with row selection",
+                    "row_fields": "['sha1','score','rating','sha256','category','untrusted','detail_url','infected_os','detection_os','malware_name','rating_source','false_positive_negative']"
+                },
+                "version": "3.1.1",
+                "connector": "cyops_utilities",
+                "operation": "json_to_html",
+                "operationTitle": "Utils: Convert JSON into a HTML Table",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "200",
+            "left": "2380",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "44ec7325-ff38-4a7c-84cc-c0b3fb5e9154",
+            "id": 2461
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Update Indicator record with scan details",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "description": "<div> {{vars.ExistingDesciption}} <\/div> <br>\n<div class=\"font-size-17 padding-left-sm\"><strong>Forti Sandbox<\/strong><\/div> \n<div> {{vars.NewDescription}} <\/div> "
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "{{vars.input.params.IndicatorDetails['@id']}}",
+                "__recommend": [],
+                "collectionType": "\/api\/3\/indicators",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "200",
+            "left": "3000",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "ed767cdd-e944-47f0-9d3e-df7e806e032e",
+            "id": 2462
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Collect Description",
+            "description": null,
+            "arguments": {
+                "NewDescription": "{{vars.steps.Convert_Summary_to_HTML.data}}",
+                "ExistingDesciption": "{{vars.input.params.IndicatorDetails.description}}"
+            },
+            "status": null,
+            "top": "200",
+            "left": "2700",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "ca95b48b-2883-4dd7-9961-84fc8fd911d8",
+            "id": 2463
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Details of Submitted File",
+            "description": null,
+            "arguments": {
+                "name": "Fortinet FortiSandbox",
+                "config": "9e32387e-87bc-42b3-9bb8-02831dbeef3e",
+                "params": {
+                    "jid": "{{vars.steps.Get_Scan_Status_of_Submitted_File.data.result.data.jids[0]}}"
+                },
+                "version": "1.0.3",
+                "do_until": {
+                    "delay": "{{vars.delay}}",
+                    "retries": "{{vars.retries}}",
+                    "condition": "{{(vars.result.data.result.data.finish_ts != 0)}}"
+                },
+                "connector": "fortinet-fortisandbox",
+                "operation": "get_scan_result_job",
+                "mock_result": "{\n  \"data\": {\n    \"id\": 10,\n    \"ver\": \"2.1\",\n    \"result\": {\n      \"url\": \"\/scan\/result\/job\",\n      \"data\": {\n        \"now\": 1621856164,\n        \"vid\": 0,\n        \"sha1\": \"7f6db5d2d536b506901f6c9554a429c4f67fa444\",\n        \"score\": 0,\n        \"rating\": \"Unknown\",\n        \"sha256\": \"b3580697031dce46925e59f4576d9187f97f156c9fce196cbc7c92a788738b5f\",\n        \"category\": \"NotApplicable\",\n        \"start_ts\": 1621856068,\n        \"finish_ts\": 0,\n        \"untrusted\": 1,\n        \"detail_url\": \"https:\/\/192.168.60.191\/job-detail\/?sid=5529445094419732379&jid=5529445146866797855&req_type=url-csearch\",\n        \"infected_os\": \"[]\",\n        \"detection_os\": \"[]\",\n        \"download_url\": \"aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL2ZpbGUvZC8wQjIyWjRJTUJFMGFTYzNSaGNuUmxjbDltYVd4bC92aWV3P3VzcD1zaGFyaW5nCg==\",\n        \"malware_name\": \"N\/A\",\n        \"rating_source\": \"AV Scanner\",\n        \"false_positive_negative\": 0\n      },\n      \"status\": {\n        \"code\": 0,\n        \"message\": \"OK\"\n      }\n    }\n  },\n  \"status\": \"Success\",\n  \"_status\": true,\n  \"message\": \"\",\n  \"operation\": null,\n  \"request_id\": null\n}",
+                "operationTitle": "Get Job Verdict Detail",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "200",
+            "left": "2060",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "b92dcf5c-3b3b-49fd-a8b4-e4cf3bec3fbf",
+            "id": 2464
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configurations",
+            "description": null,
+            "arguments": {
+                "delay": "20",
+                "retries": "5"
+            },
+            "status": null,
+            "top": "200",
+            "left": "1100",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "e1a6e29b-28d4-4db0-b69f-da7666d7671d",
+            "id": 2465
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Is Tenant Shared",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Yes",
+                        "step_iri": "\/api\/3\/workflow_steps\/e1a6e29b-28d4-4db0-b69f-da7666d7671d",
+                        "condition": "{{ (vars.input.records[0].tenant.isDedicated == true) and (vars.input.records[0].tenant.role == 'self') }}",
+                        "step_name": "Configurations"
+                    },
+                    {
+                        "option": "Yes",
+                        "step_iri": "\/api\/3\/workflow_steps\/e1a6e29b-28d4-4db0-b69f-da7666d7671d",
+                        "condition": "{{ vars.input.records[0].tenant.isDedicated == false }}",
+                        "step_name": "Configurations"
+                    },
+                    {
+                        "option": "No",
+                        "step_iri": "\/api\/3\/workflow_steps\/5a882068-e558-499b-9d39-10a60f6160fc",
+                        "condition": "{{ (vars.input.records[0].tenant.isDedicated == true) and (vars.input.records[0].tenant.role != 'self') }}",
+                        "step_name": "No Operation"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "20",
+            "left": "1100",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "6f615813-a783-4863-a0cd-633657a804b7",
+            "id": 2466
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "No Operation",
+            "description": null,
+            "arguments": {
+                "params": [],
+                "version": "3.0.4",
+                "connector": "cyops_utilities",
+                "operation": "no_op",
+                "operationTitle": "Utils: No Operation",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "20",
+            "left": "1420",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "5a882068-e558-499b-9d39-10a60f6160fc",
+            "id": 2467
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get License Details",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "\/api\/auth\/license\/?param=license_details",
+                    "body": "",
+                    "method": "GET"
+                },
+                "version": "3.1.2",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "FSR: Make FortiSOAR API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "110",
+            "left": "450",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "6f54cc67-13d0-40df-957c-42e68c778034",
+            "id": 2468
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Is MSSP Environment",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "No",
+                        "step_iri": "\/api\/3\/workflow_steps\/e1a6e29b-28d4-4db0-b69f-da7666d7671d",
+                        "condition": "{{ vars.steps.Get_License_Details.data.edition == 'Enterprise' }}",
+                        "step_name": "Configurations"
+                    },
+                    {
+                        "option": "Yes",
+                        "default": true,
+                        "step_iri": "\/api\/3\/workflow_steps\/6f615813-a783-4863-a0cd-633657a804b7",
+                        "step_name": "Is Tenant Shared"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "110",
+            "left": "775",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "88d4803a-e647-4304-94e2-659a55922605",
+            "id": 2469
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Submit URL -> Get scan status of submitted file",
+            "targetStep": "\/api\/3\/workflow_steps\/868d5be4-7bad-4610-97c2-e355c07c8cb5",
+            "sourceStep": "\/api\/3\/workflow_steps\/1d027f35-b947-4f34-a337-28182a302a6e",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "41baf302-e1da-475c-a427-44f4e1c4351e"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Update Indicator record with scan details -> Get the Highest Score",
+            "targetStep": "\/api\/3\/workflow_steps\/6c907620-6056-4300-8839-7a955aadde76",
+            "sourceStep": "\/api\/3\/workflow_steps\/ed767cdd-e944-47f0-9d3e-df7e806e032e",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "d16facab-2dbc-43ce-a792-8863e1f298c0"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "set variable -> Update Indicator record with scan details",
+            "targetStep": "\/api\/3\/workflow_steps\/ed767cdd-e944-47f0-9d3e-df7e806e032e",
+            "sourceStep": "\/api\/3\/workflow_steps\/ca95b48b-2883-4dd7-9961-84fc8fd911d8",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "defdc31c-77af-40d5-b47b-9ade0f6e81a2"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "json to html -> set variable",
+            "targetStep": "\/api\/3\/workflow_steps\/ca95b48b-2883-4dd7-9961-84fc8fd911d8",
+            "sourceStep": "\/api\/3\/workflow_steps\/44ec7325-ff38-4a7c-84cc-c0b3fb5e9154",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "1a7dad14-3e3e-4228-a7d9-e545806f5706"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Details of Submitted File -> Convert Summary to HTML",
+            "targetStep": "\/api\/3\/workflow_steps\/44ec7325-ff38-4a7c-84cc-c0b3fb5e9154",
+            "sourceStep": "\/api\/3\/workflow_steps\/b92dcf5c-3b3b-49fd-a8b4-e4cf3bec3fbf",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "0ac9c935-1011-4b88-a9ce-25da3433bb66"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Scan Status of Submitted File -> Get Details of Submitted File",
+            "targetStep": "\/api\/3\/workflow_steps\/b92dcf5c-3b3b-49fd-a8b4-e4cf3bec3fbf",
+            "sourceStep": "\/api\/3\/workflow_steps\/868d5be4-7bad-4610-97c2-e355c07c8cb5",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "2f061edf-40a9-42f9-ac09-d1de694ef8f6"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configurations -> Submit URL",
+            "targetStep": "\/api\/3\/workflow_steps\/1d027f35-b947-4f34-a337-28182a302a6e",
+            "sourceStep": "\/api\/3\/workflow_steps\/e1a6e29b-28d4-4db0-b69f-da7666d7671d",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "859f67d5-9ae9-4bb5-8818-5e8ba75e6fa0"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is Tenant Shared -> No Operation",
+            "targetStep": "\/api\/3\/workflow_steps\/5a882068-e558-499b-9d39-10a60f6160fc",
+            "sourceStep": "\/api\/3\/workflow_steps\/6f615813-a783-4863-a0cd-633657a804b7",
+            "label": "No",
+            "isExecuted": false,
+            "uuid": "435cdf5b-c6e7-4263-a7c8-ee894c54e19d"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is Tenant Shared -> Configurations",
+            "targetStep": "\/api\/3\/workflow_steps\/e1a6e29b-28d4-4db0-b69f-da7666d7671d",
+            "sourceStep": "\/api\/3\/workflow_steps\/6f615813-a783-4863-a0cd-633657a804b7",
+            "label": "Yes",
+            "isExecuted": false,
+            "uuid": "747f971e-25dd-4f1a-8658-e53dfe0f1fbc"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get License Details -> Is MSSP Environment",
+            "targetStep": "\/api\/3\/workflow_steps\/88d4803a-e647-4304-94e2-659a55922605",
+            "sourceStep": "\/api\/3\/workflow_steps\/6f54cc67-13d0-40df-957c-42e68c778034",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "0276b533-e06b-4f8b-81b9-964983643ead"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Get License Details",
+            "targetStep": "\/api\/3\/workflow_steps\/6f54cc67-13d0-40df-957c-42e68c778034",
+            "sourceStep": "\/api\/3\/workflow_steps\/deabaf48-b813-4bb4-b3cf-90fc31f292d0",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "dfe097a4-74a8-4267-919a-000c900ccd84"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is MSSP Environment -> Is Tenant Shared",
+            "targetStep": "\/api\/3\/workflow_steps\/6f615813-a783-4863-a0cd-633657a804b7",
+            "sourceStep": "\/api\/3\/workflow_steps\/88d4803a-e647-4304-94e2-659a55922605",
+            "label": "Yes",
+            "isExecuted": false,
+            "uuid": "7498d2e8-4a0e-46a5-8531-7e3399589ec1"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is MSSP Environment -> Configurations",
+            "targetStep": "\/api\/3\/workflow_steps\/e1a6e29b-28d4-4db0-b69f-da7666d7671d",
+            "sourceStep": "\/api\/3\/workflow_steps\/88d4803a-e647-4304-94e2-659a55922605",
+            "label": "No",
+            "isExecuted": false,
+            "uuid": "fc87ac4a-75bb-4bd9-b2e1-3d2b4ecc19d7"
+        }
+    ],
+    "priority": null,
+    "uuid": "498775eb-6e03-4dd3-bbe1-f48650599bfd",
+    "recordTags": [
+        "Fortinet",
+        "fortinet-fortisandbox"
+    ],
+    "id": 915,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1638352087,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1638431109,
+    "owners": [],
+    "isPrivate": false
+}

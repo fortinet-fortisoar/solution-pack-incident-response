@@ -1,0 +1,189 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Setup Connector Configurations - Setup Connector",
+    "aliasName": null,
+    "tag": null,
+    "description": "Configures the specified connectors. This is a reference playbook for Setup Connector Configurations.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "conData",
+        "name",
+        "config"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1638439585,
+    "collection": "\/api\/3\/workflow_collections\/a41c4bc4-5b29-4701-96e7-e62e21e8763e",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/2d0d88b1-5f06-42c5-ae05-c1db69b7d66c",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Connector ID",
+            "description": null,
+            "arguments": {
+                "id": "{{vars.conData | json_query(\"[?(name == '\"+vars.cname+\"')].id\")}}"
+            },
+            "status": null,
+            "top": "300",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "543af38c-ab87-4407-ac25-a03c4e8bb21c",
+            "id": 4147
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Append Default Payload",
+            "description": null,
+            "arguments": {
+                "check": "{{vars.default.update(vars.config)}}"
+            },
+            "status": null,
+            "top": "570",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "248f92e8-9280-4820-8f35-fe4ffa09a2f1",
+            "id": 4148
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": {
+                            "name": "{{ vars.name }}",
+                            "config": "{{ vars.config }}",
+                            "conData": "{{ vars.conData }}",
+                            "payload": "{{ vars.payload }}"
+                        }
+                    }
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "2d0d88b1-5f06-42c5-ae05-c1db69b7d66c",
+            "id": 4149
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Default Payload",
+            "description": null,
+            "arguments": {
+                "default": "{\"connector\":\"{{vars.id[0]}}\",\"name\":\"Demo\",\"config_id\":\"\",\"default\":true}"
+            },
+            "status": null,
+            "top": "435",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "3fb6d6aa-26c2-4191-9718-822bd444a106",
+            "id": 4150
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configure Connector",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "\/api\/integration\/configuration\/?format=json",
+                    "body": "{{vars.default}}",
+                    "method": "POST"
+                },
+                "version": "3.0.0",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "ignore_errors": true,
+                "operationTitle": "CyOPs: Make CyOPs API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "705",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "9beeabbf-c732-4daa-9834-9a350ae87a0d",
+            "id": 4151
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "cname": "{{vars.name}}",
+                "config": "{{vars.config}}",
+                "conData": "{{vars.conData}}"
+            },
+            "status": null,
+            "top": "165",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "d47d02ed-15c2-4d75-a955-97d21b02a8fd",
+            "id": 4152
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/d47d02ed-15c2-4d75-a955-97d21b02a8fd",
+            "sourceStep": "\/api\/3\/workflow_steps\/2d0d88b1-5f06-42c5-ae05-c1db69b7d66c",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "d03a0407-aa51-48f7-b438-d751c9874118"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Get ID 2",
+            "targetStep": "\/api\/3\/workflow_steps\/543af38c-ab87-4407-ac25-a03c4e8bb21c",
+            "sourceStep": "\/api\/3\/workflow_steps\/d47d02ed-15c2-4d75-a955-97d21b02a8fd",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "0c93d170-f673-4f1f-b155-e293b9b26321"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Append Default Payload -> Configure Connector",
+            "targetStep": "\/api\/3\/workflow_steps\/9beeabbf-c732-4daa-9834-9a350ae87a0d",
+            "sourceStep": "\/api\/3\/workflow_steps\/248f92e8-9280-4820-8f35-fe4ffa09a2f1",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "5a72c35d-0084-47ab-b360-79e2c0cc299b"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "create payload -> appending both",
+            "targetStep": "\/api\/3\/workflow_steps\/248f92e8-9280-4820-8f35-fe4ffa09a2f1",
+            "sourceStep": "\/api\/3\/workflow_steps\/3fb6d6aa-26c2-4191-9718-822bd444a106",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "ebbae1e4-af48-40bf-99f0-079b132f74c5"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get ID 2 -> Default Payload",
+            "targetStep": "\/api\/3\/workflow_steps\/3fb6d6aa-26c2-4191-9718-822bd444a106",
+            "sourceStep": "\/api\/3\/workflow_steps\/543af38c-ab87-4407-ac25-a03c4e8bb21c",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "5967592f-2f6d-4fc3-b38b-28428684f26e"
+        }
+    ],
+    "priority": null,
+    "uuid": "661c5b3a-616f-4081-abdc-27ad42ae510d",
+    "recordTags": [
+        "Subroutine",
+        "Setup Connector Configurations"
+    ],
+    "id": 1117,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1638352103,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1638439584,
+    "owners": [],
+    "isPrivate": false
+}

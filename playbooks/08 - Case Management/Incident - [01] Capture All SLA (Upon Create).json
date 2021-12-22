@@ -1,0 +1,122 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Incident - [01] Capture All SLA (Upon Create)",
+    "aliasName": null,
+    "tag": null,
+    "description": "Updates an alert's acknowledgement due date and response due date based on the severity of the incident.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1638438738,
+    "collection": "\/api\/3\/workflow_collections\/3c3b049e-5ecb-464a-83f6-5af6a230c0ed",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/74f92f69-aea9-4abb-88f0-0d251b3d3c7d",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "resource": "incidents",
+                "resources": [
+                    "incidents"
+                ],
+                "step_variables": {
+                    "input": {
+                        "records": [
+                            "{{vars.input.records[0]}}"
+                        ]
+                    },
+                    "day_today": "{{arrow.utcnow().format('dddd')}}"
+                },
+                "fieldbasedtrigger": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "type": "datetime",
+                            "field": "ackDueDate",
+                            "value": "true",
+                            "operator": "isnull"
+                        },
+                        {
+                            "type": "datetime",
+                            "field": "resDueBy",
+                            "value": "true",
+                            "operator": "isnull"
+                        },
+                        {
+                            "type": "object",
+                            "field": "status",
+                            "value": "\/api\/3\/picklists\/bb73fe9e-f699-11e7-8c3f-9a214cf093ae",
+                            "_value": {
+                                "@id": "\/api\/3\/picklists\/bb73fe9e-f699-11e7-8c3f-9a214cf093ae",
+                                "display": "Open",
+                                "itemValue": "Open"
+                            },
+                            "operator": "eq"
+                        }
+                    ]
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/ea155646-3821-4542-9702-b246da430a8d",
+            "uuid": "74f92f69-aea9-4abb-88f0-0d251b3d3c7d",
+            "id": 3937
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Update SLA",
+            "description": null,
+            "arguments": {
+                "arguments": {
+                    "severity": "{{vars.input.records[0].severity.itemValue}}",
+                    "inc_crt_dt": "{{vars.input.records[0].createDate}}",
+                    "tenant_iri": "{{vars.input.records[0].tenant['@id'] | ternary(vars.input.records[0].tenant['@id'], none)}}",
+                    "incident_id": "{{vars.input.records[0]['@id']}}"
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "workflowReference": "\/api\/3\/workflows\/50475684-0feb-4da0-889c-7046cc6f482b"
+            },
+            "status": null,
+            "top": "160",
+            "left": "127",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "a8dba593-6cbe-4976-ab3d-1b063f30e0c2",
+            "id": 3938
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Update SLA",
+            "targetStep": "\/api\/3\/workflow_steps\/a8dba593-6cbe-4976-ab3d-1b063f30e0c2",
+            "sourceStep": "\/api\/3\/workflow_steps\/74f92f69-aea9-4abb-88f0-0d251b3d3c7d",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "ba3052ed-0ead-4375-847f-294294abfa05"
+        }
+    ],
+    "priority": null,
+    "uuid": "61f02538-49c8-4af1-be30-5e9fa94e6b56",
+    "recordTags": [
+        "system",
+        "SLA",
+        "PostCreate"
+    ],
+    "id": 1085,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1638352100,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1638438738,
+    "owners": [],
+    "isPrivate": false
+}

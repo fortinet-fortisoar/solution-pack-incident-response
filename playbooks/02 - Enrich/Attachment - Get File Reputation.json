@@ -1,0 +1,270 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Attachment - Get File Reputation",
+    "aliasName": null,
+    "tag": "#ManualAction",
+    "description": "Retrieves the reputation of a file that is submitted from FortiSOAR to VirusTotal.",
+    "isActive": true,
+    "debug": true,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1639721688,
+    "collection": "\/api\/3\/workflow_collections\/deaa4d19-7444-4f3a-a80e-9577436f25ef",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/26a70adc-a268-46da-b296-65400e893f1c",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "fileIRI": "{{vars.input.records[0].file['@id']}}",
+                "attachmentID": "{{vars.input.records[0]['@id']}}"
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "bff56a23-8d46-44eb-aece-06833e25ee55",
+            "id": 259
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Save VirusTotal result",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "description": "<table class=\"table\" border=\"1\">\n<tbody>\n<tr>\n<td width=\"200\">Scan ID<\/td>\n<td>{{vars.result.data.data.id}}<\/td>\n<\/tr>\n<tr>\n<td>SHA1<\/td>\n<td>{{vars.result.data.meta.file_info.sha1}}<\/td>\n<\/tr>\n<tr>\n<td>SHA256<\/td>\n<td>{{vars.result.data.meta.file_info.sha256}}<\/td>\n<\/tr>\n<tr>\n<td>MD5<\/td>\n<td>{{vars.result.data.meta.file_info.md5}}<\/td>\n<\/tr>\n<tr>\n<td>VT Report Link<\/td>\n<td><a href=\"{{vars.result.data.data.links.self}}\">{{vars.result.data.data.links.self}}<\/a><\/td>\n<\/tr>\n<\/tbody>\n<\/table>"
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "{{vars.attachmentID}}",
+                "__recommend": [],
+                "collectionType": "\/api\/3\/attachments",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "705",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "b74046e0-d15b-4144-bfbd-5d773f76a3a6",
+            "id": 260
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Add Notes File Detonation Result",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "content": "<p><span class=\"fa fa-exclamation-triangle\"  style=\"font-size: 15px; color: yellow;\"><\/span>&nbsp;Report Link<\/p>\n<p><a href=\"{{vars.steps.Submit_File_to_Virus_Total.data.permalink}}\">{{vars.steps.Submit_File_to_Virus_Total.data.permalink}}<\/a><\/p>",
+                    "__replace": "",
+                    "attachments": "[\"{{vars.attachmentID}}\"]"
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/comments",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "840",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "a92784db-6025-488a-be5e-4a6525253ba6",
+            "id": 261
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Add Notes Detonate File",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "content": "<p><span class=\"fa fa-exclamation-triangle\"  style=\"font-size: 15px; color: yellow;\"><\/span>&nbsp;File Submitted to VirusTotal for analysis<\/p>",
+                    "__replace": "",
+                    "attachments": "[\"{{vars.attachmentID}}\"]"
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/comments",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "9077b4b1-6cb3-4a81-b858-0a867cc55899",
+            "id": 262
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Submit File to Virus Total",
+            "description": null,
+            "arguments": {
+                "name": "VirusTotal",
+                "config": "1ba6a7ef-304a-4f78-855d-70b09bcd0b0a",
+                "params": {
+                    "input": "File IRI",
+                    "value": "{{vars.fileIRI}}"
+                },
+                "version": "2.2.0",
+                "connector": "virustotal",
+                "operation": "upload_sample",
+                "operationTitle": "Submit File",
+                "step_variables": [],
+                "operationOutput": {
+                    "md5": "",
+                    "sha1": "",
+                    "sha256": "",
+                    "scan_id": "",
+                    "resource": "",
+                    "permalink": "",
+                    "verbose_msg": "",
+                    "response_code": ""
+                }
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "eea4a18b-f447-4255-b2e1-cb3c87b98e9d",
+            "id": 263
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "47be32cd-60bc-466a-8b1b-91216df4c37d",
+                "title": "Get File Reputation",
+                "resources": [
+                    "attachments"
+                ],
+                "inputVariables": [],
+                "step_variables": []
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "uuid": "26a70adc-a268-46da-b296-65400e893f1c",
+            "id": 264
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get File Analysis Details",
+            "description": null,
+            "arguments": {
+                "name": "VirusTotal",
+                "config": "1ba6a7ef-304a-4f78-855d-70b09bcd0b0a",
+                "params": {
+                    "analysis_id": "{{vars.steps.Submit_File_to_Virus_Total.data.id}}"
+                },
+                "version": "2.2.0",
+                "do_until": {
+                    "delay": "30",
+                    "retries": "5",
+                    "condition": "{{vars.result.data.data.attributes.status != 'queued'}}"
+                },
+                "connector": "virustotal",
+                "operation": "analysis_file",
+                "operationTitle": "Get Analysis Details",
+                "step_variables": [],
+                "operationOutput": {
+                    "md5": "",
+                    "sha1": "",
+                    "sha256": "",
+                    "scan_id": "",
+                    "resource": "",
+                    "permalink": "",
+                    "verbose_msg": "",
+                    "response_code": ""
+                }
+            },
+            "status": null,
+            "top": "570",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "234aa68b-c468-4586-8e04-0c2af99288d1",
+            "id": 4896
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Save Configuration -> Add Notes",
+            "targetStep": "\/api\/3\/workflow_steps\/9077b4b1-6cb3-4a81-b858-0a867cc55899",
+            "sourceStep": "\/api\/3\/workflow_steps\/bff56a23-8d46-44eb-aece-06833e25ee55",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "feb2b284-3ac4-4b7b-acda-5e1cf91c2f32"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Add Notes -> Submit File to Virus Total",
+            "targetStep": "\/api\/3\/workflow_steps\/eea4a18b-f447-4255-b2e1-cb3c87b98e9d",
+            "sourceStep": "\/api\/3\/workflow_steps\/9077b4b1-6cb3-4a81-b858-0a867cc55899",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "3f1efe29-0c28-4a1c-be7d-940f0b548476"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Save Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/bff56a23-8d46-44eb-aece-06833e25ee55",
+            "sourceStep": "\/api\/3\/workflow_steps\/26a70adc-a268-46da-b296-65400e893f1c",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "d57740c9-3035-44a0-af15-52b34d7d5436"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Update Attachment records with Virus Total Ouput -> Copy  of Add Notes",
+            "targetStep": "\/api\/3\/workflow_steps\/a92784db-6025-488a-be5e-4a6525253ba6",
+            "sourceStep": "\/api\/3\/workflow_steps\/b74046e0-d15b-4144-bfbd-5d773f76a3a6",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "061a5bef-cb3e-4941-b790-e05d0f736cd7"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Submit File to Virus Total -> Copy  of Submit File to Virus Total",
+            "targetStep": "\/api\/3\/workflow_steps\/234aa68b-c468-4586-8e04-0c2af99288d1",
+            "sourceStep": "\/api\/3\/workflow_steps\/eea4a18b-f447-4255-b2e1-cb3c87b98e9d",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "fc5007ea-bfa1-440b-a9a6-aef4bccc87a1"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Copy  of Submit File to Virus Total -> Save VirusTotal result",
+            "targetStep": "\/api\/3\/workflow_steps\/b74046e0-d15b-4144-bfbd-5d773f76a3a6",
+            "sourceStep": "\/api\/3\/workflow_steps\/234aa68b-c468-4586-8e04-0c2af99288d1",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "b0673ef1-737c-49c3-bbf6-4c4f896ec0c9"
+        }
+    ],
+    "priority": null,
+    "uuid": "46ba09e7-42c3-4137-a212-a9c1e1836d06",
+    "recordTags": [
+        "ManualAction"
+    ],
+    "id": 68,
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1639132700,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1639721688,
+    "owners": [],
+    "isPrivate": false
+}

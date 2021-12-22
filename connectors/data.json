@@ -5,7 +5,7 @@
         "category": "Directory Service",
         "description": "Active Directory (AD) is a directory service that Microsoft developed for Windows domain networks. You can directly query AD to retrieve information about users, groups, and computers, in an organization, by using the Lightweight Directory Access Protocol (LDAP) to directly query the AD.",
         "publisher": null,
-        "version": "2.1.1",
+        "version": "2.2.0",
         "operation_roles": {
             "add_object": [],
             "get_all_object_details": [],
@@ -18,21 +18,23 @@
             "global_search": [],
             "enable_user_account": [],
             "disable_user_account": [],
+            "enable_computer": [],
+            "disable_computer": [],
             "reset_password": []
         },
         "configurations": [],
         "dataImports": [],
-        "rpm_name": "cyops-connector-activedirectory-2.1.1",
+        "rpm_name": "cyops-connector-activedirectory-2.2.0",
         "install_mode": "rpm",
-        "installer_path": "cyops-connector-activedirectory-2.1.1"
+        "installer_path": "cyops-connector-activedirectory-2.2.0"
     },
     {
         "name": "alienvault-otx",
         "label": "AlienVault-OTX",
         "category": "Threat Intelligence",
-        "description": "AlienVault-OTX Connector",
+        "description": "AlienVault-OTX is an open source of Indicators of Compromise (IOCs) supported by the community.This connector provides actions Get IP Reputation, Create Pulse, Get Domain Reputation, etc",
         "publisher": null,
-        "version": "1.0.0",
+        "version": "1.0.1",
         "operation_roles": {
             "create_pulse": [],
             "get_ip_reputation": [],
@@ -53,9 +55,9 @@
         },
         "configurations": [],
         "dataImports": [],
-        "rpm_name": "cyops-connector-alienvault-otx-1.0.0",
+        "rpm_name": "cyops-connector-alienvault-otx-1.0.1",
         "install_mode": "rpm",
-        "installer_path": "cyops-connector-alienvault-otx-1.0.0"
+        "installer_path": "cyops-connector-alienvault-otx-1.0.1"
     },
     {
         "name": "alienvault-usm-anywhere",
@@ -153,22 +155,6 @@
         "installer_path": "cyops-connector-awss3-3.0.1"
     },
     {
-        "name": "bpmn-to-playbooks",
-        "label": "BPMN",
-        "category": null,
-        "description": "Convert BPMN XML to FortiSoar Playbooks",
-        "publisher": null,
-        "version": "1.0.2",
-        "operation_roles": {
-            "bpmntoplaybooks": []
-        },
-        "configurations": [],
-        "dataImports": [],
-        "rpm_name": "cyops-connector-bpmn-to-playbooks-1.0.2",
-        "install_mode": "rpm",
-        "installer_path": "cyops-connector-bpmn-to-playbooks-1.0.2"
-    },
-    {
         "name": "carbonblack-defense",
         "label": "CarbonBlack Defense",
         "category": "Endpoint Protection",
@@ -260,22 +246,6 @@
         "installer_path": "cyops-connector-carbonblack-response-2.0.1"
     },
     {
-        "name": "code-snippet",
-        "label": "Code Snippet",
-        "category": "utilities",
-        "description": "Execute code snippets as part of your Playbooks",
-        "publisher": null,
-        "version": "1.2.4",
-        "operation_roles": {
-            "python_inline": []
-        },
-        "configurations": [],
-        "dataImports": [],
-        "rpm_name": "cyops-connector-code-snippet-1.2.4",
-        "install_mode": "rpm",
-        "installer_path": "cyops-connector-code-snippet-1.2.4"
-    },
-    {
         "name": "cyberark",
         "label": "CyberArk",
         "category": "Vault",
@@ -316,22 +286,6 @@
         "rpm_name": "cyops-connector-cyberark-2.0.0",
         "install_mode": "rpm",
         "installer_path": "cyops-connector-cyberark-2.0.0"
-    },
-    {
-        "name": "database",
-        "label": "Database",
-        "category": "utilities",
-        "description": "Steps related to querying DB",
-        "publisher": null,
-        "version": "2.1.1",
-        "operation_roles": {
-            "db_query": []
-        },
-        "configurations": [],
-        "dataImports": [],
-        "rpm_name": "cyops-connector-database-2.1.1",
-        "install_mode": "rpm",
-        "installer_path": "cyops-connector-database-2.1.1"
     },
     {
         "name": "elasticsearch",
@@ -389,7 +343,7 @@
         "category": "Investigation",
         "description": "FortiAnalyzer is the NOC-SOC security analysis tool built with operations perspective. With action-oriented views and deep drill-down capabilities, FortiAnalyzer not only gives organizations critical insight into threats, but also accurately scopes risk across the attack surface, pinpointing where immediate response is required.",
         "publisher": null,
-        "version": "1.5.0",
+        "version": "2.0.0",
         "operation_roles": {
             "create_incident": [],
             "list_incidents": [],
@@ -424,9 +378,9 @@
         },
         "configurations": [],
         "dataImports": [],
-        "rpm_name": "cyops-connector-fortinet-fortianalyzer-1.5.0",
+        "rpm_name": "cyops-connector-fortinet-fortianalyzer-2.0.0",
         "install_mode": "rpm",
-        "installer_path": "cyops-connector-fortinet-fortianalyzer-1.5.0"
+        "installer_path": "cyops-connector-fortinet-fortianalyzer-2.0.0"
     },
     {
         "name": "fortinet-fortiedr",
@@ -434,13 +388,14 @@
         "category": "Endpoint Protection",
         "description": "FortiEDR protects endpoints pre and post infection, stopping data breaches in real-time and automatically orchestrating incident investigation and response. This connector facilitates the automated operations related to events, forensics and collectors.",
         "publisher": null,
-        "version": "1.2.0",
+        "version": "1.3.0",
         "operation_roles": {
             "get_event_by_id": [],
             "get_event_list": [],
             "update_event": [],
             "get_raw_data_items": [],
             "count_events": [],
+            "get_event_list_extended": [],
             "search": [],
             "get_file": [],
             "get_event_file": [],
@@ -448,13 +403,23 @@
             "get_collector_list": [],
             "isolate_collector": [],
             "unisolate_collector": [],
-            "create_exception": []
+            "create_exception": [],
+            "list_exception": [],
+            "update_exception": [],
+            "get_event_exceptions": [],
+            "get_raw_json_event_data": [],
+            "create_ipset": [],
+            "get_ipset_list": [],
+            "update_ipset": [],
+            "delete_ipset": [],
+            "get_agent_group": [],
+            "get_system_summary": []
         },
         "configurations": [],
         "dataImports": [],
-        "rpm_name": "cyops-connector-fortinet-fortiedr-1.2.0",
+        "rpm_name": "cyops-connector-fortinet-fortiedr-1.3.0",
         "install_mode": "rpm",
-        "installer_path": "cyops-connector-fortinet-fortiedr-1.2.0"
+        "installer_path": "cyops-connector-fortinet-fortiedr-1.3.0"
     },
     {
         "name": "fortigate-firewall",
@@ -582,7 +547,7 @@
         "category": "SIEM",
         "description": "FortiSIEM provides integrations that allow you to query and make changes to the CMDB, query events, and send incident notifications. Provide actions like get incidents, comment incident, cleared incident, get device details, get monitored organizations, report related actions and get all associated events for an incident from FortiSIEM.",
         "publisher": null,
-        "version": "4.1.1",
+        "version": "4.3.0",
         "operation_roles": {
             "get_incidents": [],
             "get_incident_details": [],
@@ -602,13 +567,21 @@
             "get_org_name_by_org_id": [],
             "run_report": [],
             "get_incident_attributes": [],
-            "get_events_by_query_id": []
+            "get_events_by_query_id": [],
+            "create_watchlist_group": [],
+            "get_watch_lists": [],
+            "get_watch_list_entries_count": [],
+            "get_watch_list_entry": [],
+            "add_watch_list_entries_to_watch_list_groups": [],
+            "update_watch_list_entry": [],
+            "delete_watch_list_entry": [],
+            "delete_watch_list": []
         },
         "configurations": [],
         "dataImports": [],
-        "rpm_name": "cyops-connector-fortinet-fortisiem-4.1.1",
+        "rpm_name": "cyops-connector-fortinet-fortisiem-4.3.0",
         "install_mode": "rpm",
-        "installer_path": "cyops-connector-fortinet-fortisiem-4.1.1"
+        "installer_path": "cyops-connector-fortinet-fortisiem-4.3.0"
     },
     {
         "name": "fortinet-web-filter-lookup",
@@ -647,26 +620,6 @@
         "rpm_name": "cyops-connector-fortisoar-ml-engine-1.1.0",
         "install_mode": "rpm",
         "installer_path": "cyops-connector-fortisoar-ml-engine-1.1.0"
-    },
-    {
-        "name": "fortisoar-soc-simulator",
-        "label": "FortiSOAR SOC Simulator",
-        "category": "information",
-        "description": "FortiSOAR SOC Simulator",
-        "publisher": null,
-        "version": "1.0.7",
-        "operation_roles": {
-            "bad_ip": [],
-            "bad_url": [],
-            "bad_filehash": [],
-            "bad_domain": [],
-            "replace_variables": []
-        },
-        "configurations": [],
-        "dataImports": [],
-        "rpm_name": "cyops-connector-fortisoar-soc-simulator-1.0.7",
-        "install_mode": "rpm",
-        "installer_path": "cyops-connector-fortisoar-soc-simulator-1.0.7"
     },
     {
         "name": "qradar",
@@ -726,23 +679,6 @@
         "installer_path": "cyops-connector-xforce-1.0.1"
     },
     {
-        "name": "imap",
-        "label": "IMAP",
-        "category": "utilities",
-        "description": "Steps related to fetching and parsing email",
-        "publisher": null,
-        "version": "3.5.6",
-        "operation_roles": {
-            "fetch_email": [],
-            "fetch_email_new": []
-        },
-        "configurations": [],
-        "dataImports": [],
-        "rpm_name": "cyops-connector-imap-3.5.6",
-        "install_mode": "rpm",
-        "installer_path": "cyops-connector-imap-3.5.6"
-    },
-    {
         "name": "ipstack",
         "label": "IPStack",
         "category": "Information",
@@ -758,30 +694,6 @@
         "rpm_name": "cyops-connector-ipstack-1.0.0",
         "install_mode": "rpm",
         "installer_path": "cyops-connector-ipstack-1.0.0"
-    },
-    {
-        "name": "jask-asoc",
-        "label": "JASK ASOC",
-        "category": "Information",
-        "description": "Pull data from Alerts, Signals, and Assets within JASK's ASOC platform",
-        "publisher": null,
-        "version": "1.0.0",
-        "operation_roles": {
-            "post_threat_intel": [],
-            "search": [],
-            "get_alert_details": [],
-            "get_signal_details": [],
-            "get_asset_details": [],
-            "get_asset_details_by_ip": [],
-            "get_intel_sources": [],
-            "get_sensors_list": [],
-            "get_sensor_details": []
-        },
-        "configurations": [],
-        "dataImports": [],
-        "rpm_name": "cyops-connector-jask-asoc-1.0.0",
-        "install_mode": "rpm",
-        "installer_path": "cyops-connector-jask-asoc-1.0.0"
     },
     {
         "name": "jira",
@@ -809,38 +721,6 @@
         "rpm_name": "cyops-connector-jira-1.1.0",
         "install_mode": "rpm",
         "installer_path": "cyops-connector-jira-1.1.0"
-    },
-    {
-        "name": "logrhythm",
-        "label": "LogRhythm",
-        "category": "SIEM",
-        "description": "LogRhythm delivers in-depth endpoint visibility, automated threat hunting and breach response across the entire enterprise. LogRhythm  enhances investigator productivity with extensive rules and user behavior analytics that brings the skills and best practices of the most experienced security analysts to any organization, resulting in significantly lower costs. This connector supports the investigation actions like Get Alarm, Update Alarm etc on LogRhythm SIEM.",
-        "publisher": null,
-        "version": "2.1.0",
-        "operation_roles": {
-            "get_hosts": [],
-            "get_host_by_entities": [],
-            "get_alarm_details": [],
-            "get_alarm_events": [],
-            "create_case": [],
-            "list_cases": [],
-            "get_case": [],
-            "update_case": [],
-            "get_case_collaborators": [],
-            "get_associated_cases_list": [],
-            "get_case_metrics": [],
-            "add_alarm_evidence": [],
-            "add_note_evidence": [],
-            "get_evidence_list": [],
-            "get_evidence": [],
-            "get_evidence_progress": [],
-            "list_user_events_evidence": []
-        },
-        "configurations": [],
-        "dataImports": [],
-        "rpm_name": "cyops-connector-logrhythm-2.1.0",
-        "install_mode": "rpm",
-        "installer_path": "cyops-connector-logrhythm-2.1.0"
     },
     {
         "name": "mcafee-epo",
@@ -874,7 +754,7 @@
         "category": "SIEM",
         "description": "McAfee ESM(Enterprise Security Manager) connector can be used to automate actions related to cases, alarms, watchlist and data sources.",
         "publisher": null,
-        "version": "2.5.0",
+        "version": "2.5.1",
         "operation_roles": {
             "parse_uri": [],
             "create_case": [],
@@ -899,9 +779,9 @@
         },
         "configurations": [],
         "dataImports": [],
-        "rpm_name": "cyops-connector-mcafee-esm-2.5.0",
+        "rpm_name": "cyops-connector-mcafee-esm-2.5.1",
         "install_mode": "rpm",
-        "installer_path": "cyops-connector-mcafee-esm-2.5.0"
+        "installer_path": "cyops-connector-mcafee-esm-2.5.1"
     },
     {
         "name": "mcafee-network-security-manager",
@@ -1015,23 +895,6 @@
         "installer_path": "cyops-connector-microsoft-sccm-1.0.0"
     },
     {
-        "name": "mitre-attack",
-        "label": "MITRE ATT&CK",
-        "category": "Information",
-        "description": "The MITRE ATT&CK knowledge base is used as a foundation for the development of specific threat models and methodologies. Connector helps to replicate knowledge base of adversary tactics and techniques based on real-world observations",
-        "publisher": null,
-        "version": "2.0.0",
-        "operation_roles": {
-            "get_mitre_data": [],
-            "get_mitre_data_sample": []
-        },
-        "configurations": [],
-        "dataImports": [],
-        "rpm_name": "cyops-connector-mitre-attack-2.0.0",
-        "install_mode": "rpm",
-        "installer_path": "cyops-connector-mitre-attack-2.0.0"
-    },
-    {
         "name": "mxtoolbox",
         "label": "MxToolbox",
         "category": "Information",
@@ -1140,23 +1003,6 @@
         "rpm_name": "cyops-connector-rapid7-insightvm-1.2.0",
         "install_mode": "rpm",
         "installer_path": "cyops-connector-rapid7-insightvm-1.2.0"
-    },
-    {
-        "name": "cyops-schedule-report",
-        "label": "Report Engine",
-        "category": "Information",
-        "description": "Provides operations to generate a report manually or through schedules.",
-        "publisher": null,
-        "version": "1.2.0",
-        "operation_roles": {
-            "schedule_report": [],
-            "schedule_report_manual": []
-        },
-        "configurations": [],
-        "dataImports": [],
-        "rpm_name": "cyops-connector-cyops-schedule-report-1.2.0",
-        "install_mode": "rpm",
-        "installer_path": "cyops-connector-cyops-schedule-report-1.2.0"
     },
     {
         "name": "servicenow",
@@ -1313,23 +1159,6 @@
         "installer_path": "cyops-connector-splunk-1.6.2"
     },
     {
-        "name": "ssh",
-        "label": "SSH",
-        "category": "utilities",
-        "description": "Steps that use an ssh connection. Including sftp and remote code execution",
-        "publisher": null,
-        "version": "2.1.1",
-        "operation_roles": {
-            "run_remote_command": [],
-            "run_remote_python": []
-        },
-        "configurations": [],
-        "dataImports": [],
-        "rpm_name": "cyops-connector-ssh-2.1.1",
-        "install_mode": "rpm",
-        "installer_path": "cyops-connector-ssh-2.1.1"
-    },
-    {
         "name": "symantec-atp",
         "label": "Symantec ATP",
         "category": "Threat Protection",
@@ -1365,7 +1194,7 @@
         "name": "symantec-cas",
         "label": "Symantec CAS",
         "category": "sandbox",
-        "description": "Symantec CAS(Content Analysis Service) provides protection against advanced threats through file reputation, multiple antimalware techniques and sophisticated sandbox detonation",
+        "description": "Symantec MAS(Malware Analysis Service) is a part of Symantec CAS(Content Analysis Service), provides protectsion against advanced threats through file reputation, multiple antimalware techniques, and sophisticated sandbox detonation. This connector facilitates automated operations like submit file\/URL, create task, get status, get report and detonate file",
         "publisher": null,
         "version": "1.0.0",
         "operation_roles": {
@@ -1413,30 +1242,6 @@
         "installer_path": "cyops-connector-symantec-ccsvm-1.0.0"
     },
     {
-        "name": "symantec-cloudsoc",
-        "label": "Symantec CloudSOC",
-        "category": "Cloud Security Log",
-        "description": "The Symantec CloudSOC platform enables companies to confidently leverage cloud applications and services while staying safe, secure, and compliant",
-        "publisher": null,
-        "version": "1.0.0",
-        "operation_roles": {
-            "get_logs": [],
-            "get_audit_data_source": [],
-            "get_audit_service": [],
-            "get_audit_user": [],
-            "get_audit_username": [],
-            "get_audit_summary": [],
-            "get_content_iqprofile": [],
-            "get_protect_policies": [],
-            "modify_user": []
-        },
-        "configurations": [],
-        "dataImports": [],
-        "rpm_name": "cyops-connector-symantec-cloudsoc-1.0.0",
-        "install_mode": "rpm",
-        "installer_path": "cyops-connector-symantec-cloudsoc-1.0.0"
-    },
-    {
         "name": "symantec-deepsight-intelligence",
         "label": "Symantec DeepSight Intelligence",
         "category": "CTI",
@@ -1461,7 +1266,7 @@
         "category": "Network Visibility",
         "description": "Symantec DLP provide actions like get incident attachments, get incident details, get incident status, update incident etc.",
         "publisher": null,
-        "version": "2.1.0",
+        "version": "2.2.0",
         "operation_roles": {
             "get_incident_status": [],
             "get_incident_attachment": [],
@@ -1470,13 +1275,15 @@
             "get_custom_attributes": [],
             "get_incident_violations": [],
             "update_incident": [],
-            "download_eml": []
+            "download_eml": [],
+            "get_sender_recipient_pattern": [],
+            "update_sender_recipient_pattern": []
         },
         "configurations": [],
         "dataImports": [],
-        "rpm_name": "cyops-connector-symantec-dlp-2.1.0",
+        "rpm_name": "cyops-connector-symantec-dlp-2.2.0",
         "install_mode": "rpm",
-        "installer_path": "cyops-connector-symantec-dlp-2.1.0"
+        "installer_path": "cyops-connector-symantec-dlp-2.2.0"
     },
     {
         "name": "symantec-edr",
@@ -1754,48 +1561,6 @@
         "installer_path": "cyops-connector-symantec-webpulse-site-review-1.0.0"
     },
     {
-        "name": "cyops-system-monitoring",
-        "label": "System Monitoring",
-        "category": "System Monitoring",
-        "description": "CPU, Memory and Disk Utilization Monitoring for FortiSOAR",
-        "publisher": null,
-        "version": "1.4.0",
-        "operation_roles": {
-            "disk_utilization": [],
-            "virtual_memory": [],
-            "cpu_percent": [],
-            "service_status": []
-        },
-        "configurations": [],
-        "dataImports": [],
-        "rpm_name": "cyops-connector-cyops-system-monitoring-1.4.0",
-        "install_mode": "rpm",
-        "installer_path": "cyops-connector-cyops-system-monitoring-1.4.0"
-    },
-    {
-        "name": "tenable-io",
-        "label": "Tenable.io",
-        "category": "Vulnerability Management",
-        "description": "Tenable.io provide actions like get all scans, trigger scan, scan specific assets, asset specific vulnerabilities, export assets and export vulnerabilities from Tenable.io",
-        "publisher": null,
-        "version": "1.2.0",
-        "operation_roles": {
-            "get_scans": [],
-            "trigger_scan": [],
-            "get_scan_assets": [],
-            "get_asset_vulnerabilities": [],
-            "get_vuln_details": [],
-            "get_plugin_details": [],
-            "export_vulns": [],
-            "export_assets": []
-        },
-        "configurations": [],
-        "dataImports": [],
-        "rpm_name": "cyops-connector-tenable-io-1.2.0",
-        "install_mode": "rpm",
-        "installer_path": "cyops-connector-tenable-io-1.2.0"
-    },
-    {
         "name": "threatq",
         "label": "ThreatQ",
         "category": "TIP",
@@ -1866,65 +1631,12 @@
         "installer_path": "cyops-connector-urlvoid-1.1.0"
     },
     {
-        "name": "cyops_utilities",
-        "label": "Utilities",
-        "category": "utilities",
-        "description": "Includes functions to Fetch, Create or Update records and multiple other utility functions for facilitating automation",
-        "publisher": null,
-        "version": "3.1.2",
-        "operation_roles": {
-            "map_json": [],
-            "xml_to_dictionary": [],
-            "convert_to_json": [],
-            "html_table_to_dictionary": [],
-            "json_to_html": [],
-            "api_call": [],
-            "ip_cidr_check": [],
-            "convert_periodic_time_to_minutes": [],
-            "arrow_timestamp_diff": [],
-            "no_op": [],
-            "raise_exception": [],
-            "format_richtext": [],
-            "format_richtext_html": [],
-            "markdown_to_html": [],
-            "create_file_from_string": [],
-            "upload_file_to_url": [],
-            "download_file_from_url": [],
-            "create_cyops_attachment": [],
-            "download_file_from_cyops": [],
-            "download_file_from_cyops_alias": [],
-            "upload_file_to_cyops": [],
-            "zip_and_protect_file": [],
-            "unzip_protected_file": [],
-            "xor_byte_file_decryption": [],
-            "read_pem_certificate": [],
-            "make_cyops_request": [],
-            "insert_cyops_resource": [],
-            "update_cyops_resource": [],
-            "query_cyops_resource": [],
-            "upsert_cyops_resource": [],
-            "extract_artifacts": [],
-            "attach_indicators": [],
-            "parse_cef": [],
-            "updatemacro": [],
-            "get_macro_list": [],
-            "extract_email_metadata": [],
-            "extract_email_metadata_new": [],
-            "get_attachment_types": []
-        },
-        "configurations": [],
-        "dataImports": [],
-        "rpm_name": "cyops-connector-cyops_utilities-3.1.2",
-        "install_mode": "rpm",
-        "installer_path": "cyops-connector-cyops_utilities-3.1.2"
-    },
-    {
         "name": "virustotal",
         "label": "VirusTotal",
         "category": "Sandbox",
         "description": "VirusTotal provides a service that analyzes suspicious files and URLs and facilitates the quick detection of viruses, worms, trojans, and all kinds of malware. This connector facilitates automated operations such as scanning and analyzing suspicious files and URLs and retrieving reports from VirusTotal for files, IP addresses, and domains.",
         "publisher": null,
-        "version": "2.0.0",
+        "version": "2.2.0",
         "operation_roles": {
             "upload_sample": [],
             "scan_url": [],
@@ -1932,13 +1644,18 @@
             "query_domain": [],
             "query_url": [],
             "file_reputation": [],
-            "analysis_file": []
+            "analysis_file": [],
+            "custom_endpoint": [],
+            "get_output_schema_ip": [],
+            "get_output_schema_domain": [],
+            "get_output_schema_url": [],
+            "get_output_schema_file": []
         },
         "configurations": [],
         "dataImports": [],
-        "rpm_name": "cyops-connector-virustotal-2.0.0",
+        "rpm_name": "cyops-connector-virustotal-2.2.0",
         "install_mode": "rpm",
-        "installer_path": "cyops-connector-virustotal-2.0.0"
+        "installer_path": "cyops-connector-virustotal-2.2.0"
     },
     {
         "name": "vmware-vsphere",

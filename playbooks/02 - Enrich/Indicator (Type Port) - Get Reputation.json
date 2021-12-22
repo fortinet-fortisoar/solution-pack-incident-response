@@ -1,0 +1,388 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Indicator (Type Port) - Get Reputation",
+    "aliasName": null,
+    "tag": "#Subroutine",
+    "description": "Retrieves the reputation of indicators of type \u2018Port\u2019 using configured threat intelligence tools.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "indicator_value"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1638431042,
+    "collection": "\/api\/3\/workflow_collections\/deaa4d19-7444-4f3a-a80e-9577436f25ef",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/423717f0-f039-4715-8f4f-e0836869b44c",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "indicator_value": "{{vars.input.params['indicator_value'] | ternary(vars.input.params['indicator_value'],vars.input.records[0].value) }}"
+            },
+            "status": null,
+            "top": "220",
+            "left": "1100",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "c38cbc48-74d7-4c4a-ae03-a9be12ca259a",
+            "id": 2689
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Is Referenced",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Referenced",
+                        "step_iri": "\/api\/3\/workflow_steps\/88c21116-0837-4ef3-bb12-a126dcb8daae",
+                        "condition": "{{ vars.input.params['indicator_value'] | length > 0 }}"
+                    },
+                    {
+                        "option": "Upon Create",
+                        "default": true,
+                        "step_iri": "\/api\/3\/workflow_steps\/0f8b5ed6-93dd-4997-9e39-17d8f1404b01"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "220",
+            "left": "1420",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "ed7e03d2-648e-4b0a-b9e9-a27ccbe02841",
+            "id": 2690
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": "Indicator reputation is set as 'TBD' by 'Create and Link Indicator' utility playbook. We can ignore those indicators when triggering this PB",
+            "arguments": {
+                "resource": "indicators",
+                "resources": [
+                    "indicators"
+                ],
+                "step_variables": {
+                    "input": {
+                        "params": {
+                            "indicator_value": "{{ vars.indicator_value }}"
+                        },
+                        "records": [
+                            "{{vars.input.records[0]}}"
+                        ]
+                    }
+                },
+                "fieldbasedtrigger": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "type": "object",
+                            "field": "typeofindicator",
+                            "value": "\/api\/3\/picklists\/1c4def41-b578-49a3-9063-8aa46f757c08",
+                            "_value": {
+                                "@id": "\/api\/3\/picklists\/1c4def41-b578-49a3-9063-8aa46f757c08",
+                                "itemValue": "Port"
+                            },
+                            "operator": "eq"
+                        },
+                        {
+                            "type": "object",
+                            "field": "indicatorStatus",
+                            "value": "\/api\/3\/picklists\/4218cb58-4de5-4eff-ad08-185d36ef9bab",
+                            "_value": {
+                                "@id": "\/api\/3\/picklists\/4218cb58-4de5-4eff-ad08-185d36ef9bab",
+                                "itemValue": "Whitelisted"
+                            },
+                            "operator": "neq"
+                        },
+                        {
+                            "logic": "OR",
+                            "filters": [
+                                {
+                                    "type": "object",
+                                    "field": "reputation",
+                                    "value": "true",
+                                    "_value": {
+                                        "@id": "true",
+                                        "display": "",
+                                        "itemValue": ""
+                                    },
+                                    "operator": "isnull"
+                                },
+                                {
+                                    "type": "object",
+                                    "field": "reputation",
+                                    "value": "\/api\/3\/picklists\/ae98ebc6-beef-4882-9980-1d88fc6d87cd",
+                                    "_value": {
+                                        "@id": "\/api\/3\/picklists\/ae98ebc6-beef-4882-9980-1d88fc6d87cd",
+                                        "itemValue": "TBD"
+                                    },
+                                    "operator": "eq"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            "status": null,
+            "top": "120",
+            "left": "120",
+            "stepType": "\/api\/3\/workflow_step_types\/ea155646-3821-4542-9702-b246da430a8d",
+            "uuid": "423717f0-f039-4715-8f4f-e0836869b44c",
+            "id": 2691
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Set Reputation",
+            "description": null,
+            "arguments": {
+                "reputation_iri": "{{(\"IndicatorReputation\" | picklist(\"No Reputation Available\"))[\"@id\"]}}"
+            },
+            "status": null,
+            "top": "60",
+            "left": "1780",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "88c21116-0837-4ef3-bb12-a126dcb8daae",
+            "id": 2692
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Update Record",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "reputation": {
+                        "id": 208,
+                        "@id": "\/api\/3\/picklists\/9a611980-1b5e-4ae9-8062-eb2c0c433cff",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#6a9169",
+                        "display": "No Reputation Available",
+                        "listName": "\/api\/3\/picklist_names\/e75ed3c3-9f23-4a43-832b-0daf236209ba",
+                        "itemValue": "No Reputation Available",
+                        "orderIndex": 4
+                    }
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "collectionType": "\/api\/3\/indicators",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "340",
+            "left": "1780",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "0f8b5ed6-93dd-4997-9e39-17d8f1404b01",
+            "id": 2693
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Is Tenant Shared",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Yes",
+                        "step_iri": "\/api\/3\/workflow_steps\/c38cbc48-74d7-4c4a-ae03-a9be12ca259a",
+                        "condition": "{{ (vars.input.records[0].tenant.isDedicated == true) and (vars.input.records[0].tenant.role == 'self') }}",
+                        "step_name": "Configuration"
+                    },
+                    {
+                        "option": "Yes",
+                        "step_iri": "\/api\/3\/workflow_steps\/c38cbc48-74d7-4c4a-ae03-a9be12ca259a",
+                        "condition": "{{ vars.input.records[0].tenant.isDedicated == false }}",
+                        "step_name": "Configuration"
+                    },
+                    {
+                        "option": "No",
+                        "step_iri": "\/api\/3\/workflow_steps\/298dcdf1-9213-4e08-a8ef-daf4fba9589b",
+                        "condition": "{{ (vars.input.records[0].tenant.isDedicated == true) and (vars.input.records[0].tenant.role != 'self') }}",
+                        "step_name": "No Operation"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "20",
+            "left": "1100",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "9150ddb5-632f-46d8-ab14-f0751a30a2a6",
+            "id": 2694
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "No Operation",
+            "description": null,
+            "arguments": {
+                "params": [],
+                "version": "3.0.4",
+                "connector": "cyops_utilities",
+                "operation": "no_op",
+                "operationTitle": "Utils: No Operation",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "20",
+            "left": "1420",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "298dcdf1-9213-4e08-a8ef-daf4fba9589b",
+            "id": 2695
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get License Details",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "\/api\/auth\/license\/?param=license_details",
+                    "body": "",
+                    "method": "GET"
+                },
+                "version": "3.1.2",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "FSR: Make FortiSOAR API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "120",
+            "left": "460",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "dd89bc7b-222c-4dd2-8b41-e6f32b2b02b3",
+            "id": 2696
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Is MSSP Environment",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "No",
+                        "step_iri": "\/api\/3\/workflow_steps\/c38cbc48-74d7-4c4a-ae03-a9be12ca259a",
+                        "condition": "{{ vars.steps.Get_License_Details.data.edition == 'Enterprise' }}",
+                        "step_name": "Configuration"
+                    },
+                    {
+                        "option": "Yes",
+                        "default": true,
+                        "step_iri": "\/api\/3\/workflow_steps\/9150ddb5-632f-46d8-ab14-f0751a30a2a6",
+                        "step_name": "Is Tenant Shared"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "120",
+            "left": "780",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "108bdda5-3217-4e83-8d83-f03ddd468768",
+            "id": 2697
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is Upon Create -> Asset IRI",
+            "targetStep": "\/api\/3\/workflow_steps\/88c21116-0837-4ef3-bb12-a126dcb8daae",
+            "sourceStep": "\/api\/3\/workflow_steps\/ed7e03d2-648e-4b0a-b9e9-a27ccbe02841",
+            "label": "Referenced",
+            "isExecuted": false,
+            "uuid": "4dac0161-0808-455f-8a3f-a192bbb9f76e"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Is Referenced",
+            "targetStep": "\/api\/3\/workflow_steps\/ed7e03d2-648e-4b0a-b9e9-a27ccbe02841",
+            "sourceStep": "\/api\/3\/workflow_steps\/c38cbc48-74d7-4c4a-ae03-a9be12ca259a",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "c9812ce0-57fb-4ef6-b662-fa04185d8540"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is Upon Create -> Update Record",
+            "targetStep": "\/api\/3\/workflow_steps\/0f8b5ed6-93dd-4997-9e39-17d8f1404b01",
+            "sourceStep": "\/api\/3\/workflow_steps\/ed7e03d2-648e-4b0a-b9e9-a27ccbe02841",
+            "label": "Upon Create",
+            "isExecuted": false,
+            "uuid": "3fadeffa-7c7d-4144-93f4-5d54903fdfce"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is Tenant Shared -> No Operation",
+            "targetStep": "\/api\/3\/workflow_steps\/298dcdf1-9213-4e08-a8ef-daf4fba9589b",
+            "sourceStep": "\/api\/3\/workflow_steps\/9150ddb5-632f-46d8-ab14-f0751a30a2a6",
+            "label": "No",
+            "isExecuted": false,
+            "uuid": "2e9b814d-501c-43f3-83e4-23a5cdd2d8fd"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is Tenant Shared -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/c38cbc48-74d7-4c4a-ae03-a9be12ca259a",
+            "sourceStep": "\/api\/3\/workflow_steps\/9150ddb5-632f-46d8-ab14-f0751a30a2a6",
+            "label": "Yes",
+            "isExecuted": false,
+            "uuid": "8cb6ebf3-411b-47bb-a035-3230d469f0a2"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get License Details -> Is MSSP Environment",
+            "targetStep": "\/api\/3\/workflow_steps\/108bdda5-3217-4e83-8d83-f03ddd468768",
+            "sourceStep": "\/api\/3\/workflow_steps\/dd89bc7b-222c-4dd2-8b41-e6f32b2b02b3",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "0079cf8d-2353-47a9-b231-0c528ac66b03"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is MSSP Environment -> Is Tenant Shared",
+            "targetStep": "\/api\/3\/workflow_steps\/9150ddb5-632f-46d8-ab14-f0751a30a2a6",
+            "sourceStep": "\/api\/3\/workflow_steps\/108bdda5-3217-4e83-8d83-f03ddd468768",
+            "label": "Yes",
+            "isExecuted": false,
+            "uuid": "dcf474fc-0815-4f4e-a1d7-8183fc22d9cf"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is MSSP Environment -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/c38cbc48-74d7-4c4a-ae03-a9be12ca259a",
+            "sourceStep": "\/api\/3\/workflow_steps\/108bdda5-3217-4e83-8d83-f03ddd468768",
+            "label": "No",
+            "isExecuted": false,
+            "uuid": "40ad5452-2b8b-4987-a49b-7c8f8633dc16"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Get License Details",
+            "targetStep": "\/api\/3\/workflow_steps\/dd89bc7b-222c-4dd2-8b41-e6f32b2b02b3",
+            "sourceStep": "\/api\/3\/workflow_steps\/423717f0-f039-4715-8f4f-e0836869b44c",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "ce6ab00f-7b3f-4f40-98de-444e17215f36"
+        }
+    ],
+    "priority": null,
+    "uuid": "7070bdf3-9fab-42f8-b136-8c7371b847b2",
+    "recordTags": [
+        "PostCreate",
+        "Subroutine",
+        "Indicator (Type All) - Get Latest Reputation"
+    ],
+    "id": 931,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1638352087,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1638431042,
+    "owners": [],
+    "isPrivate": false
+}

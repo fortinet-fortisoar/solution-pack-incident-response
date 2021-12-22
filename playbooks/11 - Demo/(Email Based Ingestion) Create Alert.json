@@ -1,0 +1,205 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "(Email Based Ingestion) Create Alert",
+    "aliasName": null,
+    "tag": null,
+    "description": "Generates alerts for email-based alert ingestion.",
+    "isActive": false,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "email_body"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1638439382,
+    "collection": "\/api\/3\/workflow_collections\/a41c4bc4-5b29-4701-96e7-e62e21e8763e",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/d8225b15-021a-4d69-9a36-c6386fe004e0",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Extract Alert Data",
+            "description": null,
+            "arguments": {
+                "source_ip": "{% if vars.source_ip %}{{ vars.source_ip  | regex_search('(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})')}}\n{%endif%}",
+                "destination_ip": "{%if vars.destination_ip %}{{ vars.destination_ip | regex_search('(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})')}}\n{%endif%}",
+                "incident_title": "{% if vars.incident_title %}{{  vars.incident_title |  regex_search('(?<=<span>)(.*?)(?=<\/span>)')  }}\n{%endif%}",
+                "incident_number": "{{vars.input.params['email_body'].html | regex_search('(?<=incidents)([^>]+)') | replace(\"\/\",\"\") | replace(\"\\\"\",\"\")  }}",
+                "destination_hostname": "{%if vars.destination_hostname %}\n{{ vars.destination_hostname | regex_search('(?<=<span>)(.*?)(?=<\/span>)')  }}\n{%endif%}"
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "594673ca-a449-4b34-af74-1d4be28c78ae",
+            "id": 4153
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Alert",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "name": "{{vars.incident_title}}",
+                    "state": {
+                        "id": 220,
+                        "@id": "\/api\/3\/picklists\/a1bac09b-1441-45aa-ad1b-c88744e48e72",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "New",
+                        "listName": "\/api\/3\/picklist_names\/2f9ed741-25fe-475a-9f12-64336288eebf",
+                        "itemValue": "New",
+                        "orderIndex": 0
+                    },
+                    "source": "Email Alert Notification",
+                    "status": {
+                        "id": 118,
+                        "@id": "\/api\/3\/picklists\/7de816ff-7140-4ee5-bd05-93ce22002146",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Open",
+                        "listName": "\/api\/3\/picklist_names\/33e964a9-d607-49f2-813c-7ce46141815a",
+                        "itemValue": "Open",
+                        "orderIndex": 1
+                    },
+                    "severity": {
+                        "id": 177,
+                        "@id": "\/api\/3\/picklists\/b3c20a3a-ecfd-4adc-a225-0205968e6793",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#D2AC1A",
+                        "display": "Medium",
+                        "listName": "\/api\/3\/picklist_names\/4e80cba3-032f-48b4-ac03-17e3ec247aac",
+                        "itemValue": "Medium",
+                        "orderIndex": 2
+                    },
+                    "sourceId": "{{vars.incident_number}}",
+                    "sourceIp": "{{vars.source_ip}}",
+                    "__replace": "",
+                    "emailBody": "{{vars.input.params['email_body'].html}}",
+                    "computerName": "{{vars.destination_hostname}}",
+                    "closureReason": {
+                        "id": 251,
+                        "@id": "\/api\/3\/picklists\/8590c81e-3307-4645-97f5-c3e1bec4e05a",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Tasks Completed",
+                        "listName": "\/api\/3\/picklist_names\/4ebacea1-88cd-4ea8-9dcc-385bea42cc59",
+                        "itemValue": "Tasks Completed",
+                        "orderIndex": 0
+                    },
+                    "destinationIp": "{{vars.destination_ip}}",
+                    "escalatedtoincident": {
+                        "id": 31,
+                        "@id": "\/api\/3\/picklists\/2128a09c-153d-4db3-985d-de6be33deae5",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#808080",
+                        "display": "No",
+                        "listName": "\/api\/3\/picklist_names\/e131cc54-9ae4-43c9-b830-af6e331fe024",
+                        "itemValue": "No",
+                        "orderIndex": 1
+                    }
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/alerts",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "568daf5b-cf82-4b6d-8775-892f39036dd0",
+            "id": 4154
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": {
+                            "email_body": "{{ vars.email_body }}"
+                        }
+                    }
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "d8225b15-021a-4d69-9a36-c6386fe004e0",
+            "id": 4155
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Check If Alert Data Exists",
+            "description": null,
+            "arguments": {
+                "source_ip": "{{vars.input.params['email_body'].html | regex_search('(?<=Source IP:)(.*)')}}",
+                "destination_ip": "{{vars.input.params['email_body'].html | regex_search('(?<=Destination IP:)(.*)')}}",
+                "incident_title": "{{vars.input.params['email_body'].html | regex_search('(?<=Incident Title:)(.*)')}}",
+                "destination_hostname": "{{vars.input.params['email_body'].html | regex_search('(?<=Destination Host Name:)(.*)')  }}"
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "4253571f-2f0f-40a4-abe8-b25769324849",
+            "id": 4156
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Copy  of Extract Alert Data -> Extract Alert Data",
+            "targetStep": "\/api\/3\/workflow_steps\/594673ca-a449-4b34-af74-1d4be28c78ae",
+            "sourceStep": "\/api\/3\/workflow_steps\/4253571f-2f0f-40a4-abe8-b25769324849",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "0e706f2d-82a0-4cce-8774-c679b1f27614"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Extract Alert Data -> Create Alert",
+            "targetStep": "\/api\/3\/workflow_steps\/568daf5b-cf82-4b6d-8775-892f39036dd0",
+            "sourceStep": "\/api\/3\/workflow_steps\/594673ca-a449-4b34-af74-1d4be28c78ae",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "87aabdd9-6e85-4b96-90a8-1fb6f9c2561d"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Copy  of Extract Alert Data",
+            "targetStep": "\/api\/3\/workflow_steps\/4253571f-2f0f-40a4-abe8-b25769324849",
+            "sourceStep": "\/api\/3\/workflow_steps\/d8225b15-021a-4d69-9a36-c6386fe004e0",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "317fb09c-ebde-48b9-b4c1-c263c703fb22"
+        }
+    ],
+    "priority": null,
+    "uuid": "782b0459-b9ff-4793-b73b-a62b62e2ca16",
+    "recordTags": [
+        "Subroutine",
+        "Demo",
+        "Email Based Alert Ingestion"
+    ],
+    "id": 1118,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1638352103,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1638439382,
+    "owners": [],
+    "isPrivate": false
+}

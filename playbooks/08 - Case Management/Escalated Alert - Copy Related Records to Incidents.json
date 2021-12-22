@@ -1,0 +1,241 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Escalated Alert - Copy Related Records to Incidents",
+    "aliasName": null,
+    "tag": "#system",
+    "description": "Links related data from the alert to the incident, when an alert is escalated.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1638438697,
+    "collection": "\/api\/3\/workflow_collections\/3c3b049e-5ecb-464a-83f6-5af6a230c0ed",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/83b8573b-3670-4ef5-be84-bec9b3ec2547",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Does Related Record Exist",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Doesn't Exist",
+                        "step_iri": "\/api\/3\/workflow_steps\/23bcd56d-7aa2-4bde-a3c3-5846b2287a76",
+                        "condition": "{{ vars.alertdata.incidents | length == 0 }}"
+                    },
+                    {
+                        "option": "Exists",
+                        "default": true,
+                        "step_iri": "\/api\/3\/workflow_steps\/f0afd0cd-56b0-4548-b3e9-72c578b9ae99"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "320",
+            "left": "1133",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "df5c330e-a41a-459c-b8fc-9ad2034f5c95",
+            "id": 3913
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "No Op",
+            "description": null,
+            "arguments": {
+                "params": [],
+                "version": "2.6.0",
+                "connector": "cyops_utilities",
+                "operation": "no_op",
+                "operationTitle": "Utils: No Operation",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "240",
+            "left": "1460",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "23bcd56d-7aa2-4bde-a3c3-5846b2287a76",
+            "id": 3914
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Related Records",
+            "description": null,
+            "arguments": {
+                "alertdata": "{{ (vars.input.records[0]['@id'] + \"?$relationships=true\") | fromIRI }}"
+            },
+            "status": null,
+            "top": "320",
+            "left": "480",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "01b330b0-cd39-4917-9018-1c00fa850d7a",
+            "id": 3915
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Link Records to Escalated Incident",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "phase": {
+                        "id": 82,
+                        "@id": "\/api\/3\/picklists\/bb740542-f699-11e7-8c3f-9a214cf093ae",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "Detection",
+                        "listName": "\/api\/3\/picklist_names\/b862eb1f-b385-40ca-baa7-5a1b1f91a651",
+                        "itemValue": "Detection",
+                        "orderIndex": 0
+                    },
+                    "__link": {
+                        "users": "{{ vars.alertdata | json_query( \"users[*].\\\"@id\\\"\" )}}",
+                        "alerts": "{{ vars.alertdata | json_query( \"alerts[*].\\\"@id\\\"\" )}}",
+                        "assets": "{{ vars.alertdata | json_query( \"assets[*].\\\"@id\\\"\" )}}",
+                        "campaigns": "{{ vars.alertdata | json_query( \"campaigns[*].\\\"@id\\\"\" )}}",
+                        "indicators": "{{ vars.alertdata | json_query( \"indicators[*].\\\"@id\\\"\" )}}",
+                        "vulnerabilities": "{{ vars.alertdata | json_query( \"vulnerabilities[*].\\\"@id\\\"\" )}}"
+                    }
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "{{vars.escalatedIncident['@id']}}",
+                "collectionType": "\/api\/3\/incidents",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "400",
+            "left": "1460",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "f0afd0cd-56b0-4548-b3e9-72c578b9ae99",
+            "id": 3916
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "escalatedIncident": "{{vars.alertdata.incidents[0]}}"
+            },
+            "status": null,
+            "top": "320",
+            "left": "813",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "54e240f3-39e3-4b50-97ba-dc69e381c656",
+            "id": 3917
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "resource": "alerts",
+                "resources": [
+                    "alerts"
+                ],
+                "step_variables": {
+                    "input": {
+                        "records": [
+                            "{{vars.input.records[0]}}"
+                        ]
+                    }
+                },
+                "fieldbasedtrigger": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "type": "object",
+                            "field": "escalatedtoincident",
+                            "value": null,
+                            "_value": {
+                                "display": "",
+                                "itemValue": ""
+                            },
+                            "operator": "changed"
+                        },
+                        {
+                            "type": "object",
+                            "field": "escalatedtoincident",
+                            "value": "\/api\/3\/picklists\/fa12313b-66af-4a2e-864e-a5f19241b734",
+                            "_value": {
+                                "display": "Yes",
+                                "itemValue": "Yes"
+                            },
+                            "operator": "eq"
+                        }
+                    ]
+                }
+            },
+            "status": null,
+            "top": "320",
+            "left": "153",
+            "stepType": "\/api\/3\/workflow_step_types\/9300bf69-5063-486d-b3a6-47eb9da24872",
+            "uuid": "83b8573b-3670-4ef5-be84-bec9b3ec2547",
+            "id": 3918
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Does Related Record Exist -> No Op",
+            "targetStep": "\/api\/3\/workflow_steps\/23bcd56d-7aa2-4bde-a3c3-5846b2287a76",
+            "sourceStep": "\/api\/3\/workflow_steps\/df5c330e-a41a-459c-b8fc-9ad2034f5c95",
+            "label": "Doesn't Exist",
+            "isExecuted": false,
+            "uuid": "82cd2f5b-38f5-44e5-b35f-ba177a29c9ab"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Get Related Records",
+            "targetStep": "\/api\/3\/workflow_steps\/01b330b0-cd39-4917-9018-1c00fa850d7a",
+            "sourceStep": "\/api\/3\/workflow_steps\/83b8573b-3670-4ef5-be84-bec9b3ec2547",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "61be2c7a-ba6b-4ad5-9d76-54c2299c969a"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Does Related Record Exist -> Link Assets to Escalated Incident",
+            "targetStep": "\/api\/3\/workflow_steps\/f0afd0cd-56b0-4548-b3e9-72c578b9ae99",
+            "sourceStep": "\/api\/3\/workflow_steps\/df5c330e-a41a-459c-b8fc-9ad2034f5c95",
+            "label": "Exists",
+            "isExecuted": false,
+            "uuid": "efb47216-caa3-4ebb-9d1e-728d388a02d5"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Does Related Record Exist",
+            "targetStep": "\/api\/3\/workflow_steps\/df5c330e-a41a-459c-b8fc-9ad2034f5c95",
+            "sourceStep": "\/api\/3\/workflow_steps\/54e240f3-39e3-4b50-97ba-dc69e381c656",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "7eb5b0a1-4b19-450a-b50d-f4c290e75fb8"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Related Records -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/54e240f3-39e3-4b50-97ba-dc69e381c656",
+            "sourceStep": "\/api\/3\/workflow_steps\/01b330b0-cd39-4917-9018-1c00fa850d7a",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "cf2087de-6fbb-4ff4-b68c-e1977793155e"
+        }
+    ],
+    "priority": null,
+    "uuid": "d883f723-d061-4853-a263-fb6f5f9e659d",
+    "recordTags": [
+        "system"
+    ],
+    "id": 1079,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1638352100,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1638438697,
+    "owners": [],
+    "isPrivate": false
+}

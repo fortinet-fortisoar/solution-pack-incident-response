@@ -1,0 +1,333 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Generate - Tenable Scan, Assets and Vulnerabilities",
+    "aliasName": null,
+    "tag": "#ManualAction#Alert",
+    "description": "Creates sample Scan, Assets, Vulnerabilities records from Tenable.io.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1638439466,
+    "collection": "\/api\/3\/workflow_collections\/a41c4bc4-5b29-4701-96e7-e62e21e8763e",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/37dd6684-db0b-49d8-b7b6-b1824f12403e",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "vuln_data": "{\n  \"data\": [\n    {\n      \"plugin_name\": \"MS17-002: Security Update for Microsoft Office (3214291)\",\n      \"recasted_count\": 0,\n      \"plugin_family\": \"Windows : Microsoft Bulletins\",\n      \"count\": 1,\n      \"counts_by_severity\": [\n        {\n          \"count\": 1,\n          \"value\": 3\n        }\n      ],\n      \"plugin_id\": 96391,\n      \"vulnerability_state\": \"Active\",\n      \"accepted_count\": 0,\n      \"severity\": 3\n    },\n    {\n      \"plugin_name\": \"Microsoft SQL Server Management Studio Detection\",\n      \"recasted_count\": 0,\n      \"plugin_family\": \"Windows\",\n      \"count\": 1,\n      \"counts_by_severity\": [\n        {\n          \"count\": 1,\n          \"value\": 0\n        }\n      ],\n      \"plugin_id\": 118095,\n      \"vulnerability_state\": \"Active\",\n      \"accepted_count\": 0,\n      \"severity\": 0\n    },\n    {\n      \"plugin_name\": \"Zoom Client for Meetings Installed (Windows)\",\n      \"recasted_count\": 0,\n      \"plugin_family\": \"Windows\",\n      \"count\": 1,\n      \"counts_by_severity\": [\n        {\n          \"count\": 1,\n          \"value\": 0\n        }\n      ],\n      \"plugin_id\": 118801,\n      \"vulnerability_state\": \"Active\",\n      \"accepted_count\": 0,\n      \"severity\": 0\n    },\n    {\n      \"plugin_name\": \"Security Updates for Outlook (November 2018)\",\n      \"recasted_count\": 0,\n      \"plugin_family\": \"Windows : Microsoft Bulletins\",\n      \"count\": 1,\n      \"counts_by_severity\": [\n        {\n          \"count\": 1,\n          \"value\": 3\n        }\n      ],\n      \"plugin_id\": 118928,\n      \"vulnerability_state\": \"Active\",\n      \"accepted_count\": 0,\n      \"severity\": 3\n    },\n    {\n      \"plugin_name\": \"Oracle VM VirtualBox 5.2.x < 5.2.24 \/ 6.0.x < 6.0.2 (Jan 2019 CPU)\",\n      \"recasted_count\": 0,\n      \"plugin_family\": \"Misc.\",\n      \"count\": 1,\n      \"counts_by_severity\": [\n        {\n          \"count\": 1,\n          \"value\": 3\n        }\n      ],\n      \"plugin_id\": 121247,\n      \"vulnerability_state\": \"Active\",\n      \"accepted_count\": 0,\n      \"severity\": 3\n    }\n  ],\n  \"operation\": \"get_asset_vulnerabilities\",\n  \"message\": \"\",\n  \"status\": \"Success\"\n}",
+                "asset_data": "{\n  \"data\": [\n    {\n      \"uuid\": \"b64f8d6e-841f-40c9-93bd-034c5673c0d7\",\n      \"time_end\": \"2019-01-15T12:38:48.039Z\",\n      \"os\": [\n        \"Microsoft Windows 10 Pro\"\n      ],\n      \"fqdn\": [\n        \"LinEp55\"\n      ],\n      \"ip\": [\n        \"192.168.1.1\"\n      ],\n      \"mac\": [],\n      \"time_start\": \"2019-01-15T11:56:35.415Z\"\n    },\n    {\n      \"uuid\": \"b64f8d6e-841f-40c9-93bd-034c5673c0d7\",\n      \"time_end\": \"2019-01-15T12:38:48.039Z\",\n      \"os\": [\n        \"Microsoft Windows 10 Pro\"\n      ],\n      \"fqdn\": [\n        \"LinEp67\"\n      ],\n      \"ip\": [\n        \"192.168.1.2\"\n      ],\n      \"mac\": [],\n      \"time_start\": \"2019-01-15T11:56:35.415Z\"\n    }\n  ]\n}",
+                "updateVuln_data": "{\n  \"data\": {\n    \"info\": {\n      \"synopsis\": \"An application installed on the remote host is affected by a remote code execution vulnerability.\",\n      \"description\": \"The version of Microsoft Word or Microsoft SharePoint Server installed on the remote Windows host is missing a security update. It is, therefore, affected by a memory corruption issue due to improper handling of objects in memory. An unauthenticated, remote attacker can exploit this, by convincing a user to visit a specially crafted website or open a specially crafted Office file, to execute arbitrary code in the context of the current user.\",\n      \"risk_information\": {\n        \"cvss_base_score\": \"9.3\",\n        \"cvss3_temporal_score\": \"7.7\",\n        \"cvss_vector\": \"AV:N\/AC:M\/Au:N\/C:C\/I:C\/A:C\",\n        \"risk_factor\": \"High\",\n        \"cvss_temporal_score\": \"6.9\",\n        \"stig_severity\": \"II\",\n        \"cvss3_temporal_vector\": \"E:U\/RL:O\/RC:C\",\n        \"cvss_temporal_vector\": \"E:U\/RL:OF\/RC:C\",\n        \"cvss3_base_score\": \"8.8\",\n        \"cvss3_vector\": \"AV:N\/AC:L\/PR:N\/UI:R\/S:U\/C:H\/I:H\/A:H\"\n      },\n      \"see_also\": [\n        \"https:\/\/docs.microsoft.com\/en-us\/security-updates\/SecurityBulletins\/2017\/ms17-002\"\n      ],\n      \"discovery\": {\n        \"seen_last\": \"2019-02-25T06:57:46.820Z\",\n        \"seen_first\": \"2019-01-15T07:05:15.420Z\"\n      },\n      \"plugin_details\": {\n        \"name\": \"MS17-002: Security Update for Microsoft Office (3214291)\",\n        \"modification_date\": \"2018-11-15T00:00:00Z\",\n        \"version\": \"1.8\",\n        \"publication_date\": \"2017-01-10T00:00:00Z\",\n        \"type\": \"local\",\n        \"family\": \"Windows : Microsoft Bulletins\",\n        \"severity\": 3\n      },\n      \"reference_information\": [\n        {\n          \"values\": [\n            \"CVE-2017-0003\"\n          ],\n          \"name\": \"cve\",\n          \"url\": \"http:\/\/web.nvd.nist.gov\/view\/vuln\/detail?vulnId=\"\n        },\n        {\n          \"values\": [\n            \"2017-A-0009\"\n          ],\n          \"name\": \"iava\"\n        },\n        {\n          \"values\": [\n            \"MS17-002\"\n          ],\n          \"name\": \"msft\",\n          \"url\": \"http:\/\/technet.microsoft.com\/en-us\/security\/bulletin\/\"\n        },\n        {\n          \"values\": [\n            \"3128057\",\n            \"3141486\"\n          ],\n          \"name\": \"mskb\"\n        }\n      ],\n      \"count\": 1,\n      \"solution\": \"Microsoft has released a set of patches for Microsoft Word 2016 and SharePoint Server 2016\",\n      \"severity\": 3,\n      \"vuln_count\": 2,\n      \"vulnerability_information\": {\n        \"exploit_available\": false,\n        \"exploited_by_malware\": null,\n        \"in_the_news\": null,\n        \"default_account\": null,\n        \"vulnerability_publication_date\": \"2017-01-10T00:00:00Z\",\n        \"exploited_by_nessus\": null,\n        \"patch_publication_date\": \"2017-01-10T00:00:00Z\",\n        \"cpe\": [\n          \"cpe:\/a:microsoft:office\",\n          \"cpe:\/a:microsoft:sharepoint_server\",\n          \"cpe:\/a:microsoft:word\"\n        ],\n        \"asset_inventory\": null,\n        \"exploitability_ease\": \"No known exploits are available\",\n        \"exploit_frameworks\": [],\n        \"unsupported_by_vendor\": null,\n        \"malware\": null\n      }\n    }\n  }\n}"
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "c98a063a-5b3a-48f8-bd4c-44b8155d70c7",
+            "id": 4294
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Update Vulnerabilities Details",
+            "description": null,
+            "arguments": {
+                "for_each": {
+                    "item": "{{vars.steps.Create_Vulnerabilities}}",
+                    "condition": ""
+                },
+                "resource": {
+                    "cvss": "{{vars.updateVuln_data.data.info.risk_information.cvss_base_score}}",
+                    "risk": "{{vars.updateVuln_data.data.info.risk_information.risk_factor}}",
+                    "description": "<table style=\"width: 788px; border-color: #ffffff;\" border=\"1px\" cellspacing=\"10\" cellpadding=\"10px\">\n<tbody>\n<tr style=\"height: 35px;\" valign=\"middle\">\n<td style=\"width: 105px; height: 35px;\" align=\"center\"><span style=\"font-size: 11pt; font-weight: bold;\">Description<\/span><\/td>\n<td style=\"width: 721px;\"><span style=\"font-size: 10pt;\">The Microsoft Outlook application installed on the remote host is missing security updates. It is, therefore, affected by multiple <\/span>vulnerabilities :<span style=\"font-size: 10pt;\"> - A remote code execution vulnerability exists in the way that Microsoft Outlook parses specially modified rule export files. An attacker who successfully exploited this vulnerability could take control of an affected system. An attacker could then install programs; view, change, or delete data; or create new accounts with full user rights. (CVE-2018-8582) - A remote code execution vulnerability exists in Microsoft Outlook software when it fails to properly handle objects in memory. An attacker who successfully exploited the vulnerability could use a specially crafted file to perform actions in the security context of the current user. For example, the file could then take actions on behalf of the logged-on user with the same permissions as the current user. (CVE-2018-8522, CVE-2018-8524, CVE-2018-8576)<\/span><\/td>\n<\/tr>\n<tr style=\"height: 35px;\" valign=\"middle\">\n<td style=\"width: 105px; height: 35px;\" align=\"center\"><span style=\"font-size: 11pt; font-weight: bold;\">Synopsis<\/span><\/td>\n<td style=\"width: 721px;\"><span style=\"font-size: 10pt;\">The Microsoft Outlook application installed on the remote host is affected by multiple vulnerabilities.<\/span><\/td>\n<\/tr>\n<tr style=\"height: 35px;\" valign=\"middle\">\n<td style=\"width: 105px; height: 35px;\" align=\"center\"><span style=\"font-size: 11pt; font-weight: bold;\">Solution<\/span><\/td>\n<td style=\"width: 721px;\"><span style=\"font-size: 10pt;\">Microsoft has released the following security updates to address this issue: -KB4461486 -KB4461529 -KB4461506<\/span><\/td>\n<\/tr>\n<\/tbody>\n<\/table>",
+                    "lastSeenDate": "{{ arrow.get(vars.updateVuln_data.data.info.discovery.seen_last).timestamp }}",
+                    "firstSeenDate": null
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "{{vars.item['@id']}}",
+                "tagsOperation": "OverwriteTags",
+                "collectionType": "\/api\/3\/vulnerabilities",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "705",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "a3665694-de86-4818-90cc-7074f3c61eda",
+            "id": 4295
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Assets",
+            "description": null,
+            "arguments": {
+                "for_each": {
+                    "item": "{{vars.asset_data.data}}",
+                    "condition": ""
+                },
+                "resource": {
+                    "ip": "{{vars.item.ip | replace(\"[\", \"\") | replace(\"]\",\"\") | replace(\"'\",\"\")}}",
+                    "tag": null,
+                    "name": null,
+                    "notes": null,
+                    "scans": "[\"{{vars.steps.Create_Scan['@id']}}\"]",
+                    "state": null,
+                    "tasks": null,
+                    "users": null,
+                    "alerts": null,
+                    "owners": null,
+                    "status": null,
+                    "emailId": null,
+                    "category": null,
+                    "comments": null,
+                    "hostname": "{{vars.item.fqdn | replace(\"[\", \"\") | replace(\"]\",\"\") | replace(\"'\",\"\")}}",
+                    "location": null,
+                    "__replace": "true",
+                    "companies": null,
+                    "deviceUid": "{{vars.item.uuid | replace(\"[\", \"\") | replace(\"]\",\"\") | replace(\"'\",\"\")}}",
+                    "incidents": null,
+                    "managedBy": null,
+                    "assetClass": null,
+                    "indicators": null,
+                    "macAddress": "{{vars.item.mac | replace(\"[\", \"\") | replace(\"]\",\"\") | replace(\"'\",\"\")}}",
+                    "propertyOf": null,
+                    "recordTags": null,
+                    "attachments": null,
+                    "criticality": null,
+                    "dateScanned": "{{ arrow.get(vars.item.time_end).timestamp }}",
+                    "description": null,
+                    "legalMatters": null,
+                    "serialNumber": null,
+                    "operatingSystem": null,
+                    "vulnerabilities": null,
+                    "registrationDate": "{{ arrow.get(vars.item.time_start).timestamp }}",
+                    "physicalIncidents": null
+                },
+                "_showJson": false,
+                "collection": "\/api\/3\/upsert\/assets",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "b735475f-0cfe-4142-8030-5d69c026e771",
+            "id": 4296
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "6abd2d41-bf78-4fb2-a788-84c78e48fd32",
+                "title": "Generate > Vulnerability data",
+                "resources": [
+                    "vulnerabilities"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                    "input": {
+                        "records": "{{vars.input.records}}"
+                    }
+                },
+                "displayConditions": {
+                    "alerts": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    },
+                    "vulnerabilities": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "uuid": "37dd6684-db0b-49d8-b7b6-b1824f12403e",
+            "id": 4297
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Scan",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "name": "AgentScan",
+                    "state": "pending",
+                    "assets": null,
+                    "owners": null,
+                    "scanId": "13",
+                    "userId": "demo@example.com",
+                    "comments": null,
+                    "duration": null,
+                    "processed": null,
+                    "launchDateTime": null,
+                    "vulnerabilities": null
+                },
+                "_showJson": false,
+                "collection": "\/api\/3\/scans",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "2ea1bca4-edef-4c52-9be3-2974a3d657ab",
+            "id": 4298
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Vulnerabilities",
+            "description": null,
+            "arguments": {
+                "for_each": {
+                    "item": "{{vars.vuln_data.data}}",
+                    "condition": ""
+                },
+                "resource": {
+                    "cvss": null,
+                    "name": "{{vars.item.plugin_name}}",
+                    "risk": null,
+                    "notes": null,
+                    "scans": null,
+                    "tasks": null,
+                    "alerts": null,
+                    "assets": "{{vars.steps.Create_Assets | json_query(\"[*][\\\"@id\\\"][]\")}}",
+                    "owners": null,
+                    "status": {
+                        "id": 240,
+                        "@id": "\/api\/3\/picklists\/e001be1d-d050-473c-a82d-003bf14c4b1b",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#A51516",
+                        "display": "Open",
+                        "listName": "\/api\/3\/picklist_names\/0b2b995f-0292-43ca-be81-03904250791c",
+                        "itemValue": "Open",
+                        "orderIndex": 0
+                    },
+                    "comments": null,
+                    "exploits": null,
+                    "severity": {
+                        "id": 78,
+                        "@id": "\/api\/3\/picklists\/0d609b08-45e0-469f-8910-41145c0b7c03",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#157DD9",
+                        "display": "Minimal",
+                        "listName": "\/api\/3\/picklist_names\/4e80cba3-032f-48b4-ac03-17e3ec247aac",
+                        "itemValue": "Minimal",
+                        "orderIndex": 0
+                    },
+                    "incidents": null,
+                    "cvssvector": null,
+                    "indicators": null,
+                    "pluginname": "",
+                    "plugintype": null,
+                    "sourcedata": null,
+                    "attachments": null,
+                    "cvss3vector": null,
+                    "description": null,
+                    "lastSeenDate": null,
+                    "lastSeenScan": null,
+                    "pluginfamily": null,
+                    "exploitSkills": null,
+                    "firstSeenDate": null,
+                    "pluginversion": null,
+                    "publishedDate": null,
+                    "cvss3basescore": null,
+                    "impactedAssets": null,
+                    "vulnerabilityId": "{{vars.item.plugin_id}}",
+                    "cvsstemporalscore": null,
+                    "cvss3temporalscore": null,
+                    "cvsstemporalvector": null,
+                    "cvss3temporalvector": null,
+                    "pluginpublicationdate": null,
+                    "pluginmodificationdate": null
+                },
+                "_showJson": false,
+                "collection": "\/api\/3\/vulnerabilities",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "570",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "afec65e1-e2c2-47e4-9b20-a989969675aa",
+            "id": 4299
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Assets -> Create Vulnerabilities",
+            "targetStep": "\/api\/3\/workflow_steps\/afec65e1-e2c2-47e4-9b20-a989969675aa",
+            "sourceStep": "\/api\/3\/workflow_steps\/b735475f-0cfe-4142-8030-5d69c026e771",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "b417e1c6-83e7-4483-a178-a16505fde48f"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/c98a063a-5b3a-48f8-bd4c-44b8155d70c7",
+            "sourceStep": "\/api\/3\/workflow_steps\/37dd6684-db0b-49d8-b7b6-b1824f12403e",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "f5ac7615-cd07-4f48-bd9e-059bcd9c6c00"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Vulnerabilities -> Update Vulnerabilities Details",
+            "targetStep": "\/api\/3\/workflow_steps\/a3665694-de86-4818-90cc-7074f3c61eda",
+            "sourceStep": "\/api\/3\/workflow_steps\/afec65e1-e2c2-47e4-9b20-a989969675aa",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "8a0218e3-e20d-41e6-9dc8-1629a270f38f"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Create Asset",
+            "targetStep": "\/api\/3\/workflow_steps\/2ea1bca4-edef-4c52-9be3-2974a3d657ab",
+            "sourceStep": "\/api\/3\/workflow_steps\/c98a063a-5b3a-48f8-bd4c-44b8155d70c7",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "29240ef9-edd5-472e-94bb-312aa3c8b969"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Scan -> Create Assets",
+            "targetStep": "\/api\/3\/workflow_steps\/b735475f-0cfe-4142-8030-5d69c026e771",
+            "sourceStep": "\/api\/3\/workflow_steps\/2ea1bca4-edef-4c52-9be3-2974a3d657ab",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "bf7f6990-074f-444e-b0f6-fb98896da389"
+        }
+    ],
+    "priority": null,
+    "uuid": "403fac04-4263-4934-9dd6-a51e0a2b8baf",
+    "recordTags": [
+        "ManualAction"
+    ],
+    "id": 1132,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1638352103,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1638439466,
+    "owners": [],
+    "isPrivate": false
+}

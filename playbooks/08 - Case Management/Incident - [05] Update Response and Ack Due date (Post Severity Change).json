@@ -1,0 +1,498 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Incident - [05] Update Response and Ack Due date (Post Severity Change)",
+    "aliasName": null,
+    "tag": null,
+    "description": "Update an incident's acknowledgement due date and response due date following a change in severity.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1638438919,
+    "collection": "\/api\/3\/workflow_collections\/3c3b049e-5ecb-464a-83f6-5af6a230c0ed",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/10a2a10b-2bb3-4aaf-b568-533423deabcf",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "resource": "incidents",
+                "resources": [
+                    "incidents"
+                ],
+                "step_variables": {
+                    "input": {
+                        "records": [
+                            "{{vars.input.records[0]}}"
+                        ]
+                    },
+                    "curr_severity": "{{vars.input.records[0].severity.itemValue}}"
+                },
+                "fieldbasedtrigger": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "type": "object",
+                            "field": "severity",
+                            "value": null,
+                            "_value": {
+                                "@id": null,
+                                "display": "",
+                                "itemValue": ""
+                            },
+                            "operator": "changed"
+                        }
+                    ]
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/9300bf69-5063-486d-b3a6-47eb9da24872",
+            "uuid": "10a2a10b-2bb3-4aaf-b568-533423deabcf",
+            "id": 3962
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "GET Current SLA",
+            "description": null,
+            "arguments": {
+                "arguments": {
+                    "tenant_iri": "{{vars.input.records[0].tenant['@id'] | ternary(vars.input.records[0].tenant['@id'], none)}}",
+                    "inc_severity": "{{vars.curr_severity}}"
+                },
+                "apply_async": false,
+                "step_variables": {
+                    "sla_time_list": "{{vars.result.sla_time_list}}"
+                },
+                "workflowReference": "\/api\/3\/workflows\/45096dd1-6f64-4f86-937f-711a1054d436"
+            },
+            "status": null,
+            "top": "165",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "afb44e99-935e-4959-9e50-4d3f496140f3",
+            "id": 3963
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Verify SLA Details",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Check SLA Reset Flag",
+                        "step_iri": "\/api\/3\/workflow_steps\/70ec6599-85b9-4061-af2d-565feb9ec512",
+                        "condition": "{{ vars.sla_time_list | length > 0 }}",
+                        "step_name": "Check SLA Reset Flag"
+                    },
+                    {
+                        "option": "Not Fetched",
+                        "default": true,
+                        "step_iri": "\/api\/3\/workflow_steps\/",
+                        "step_name": "No SLA Details Fetched"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "300",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "6a37f973-0992-4a28-9940-f801454ccc88",
+            "id": 3964
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Update Reset Ack SLA",
+            "description": null,
+            "arguments": {
+                "when": "{{vars.input.records[0].slaState.itemValue == (\"SLAState\" | picklist(\"Awaiting Action\", \"itemValue\"))or vars.input.records[0].slaState.itemValue == (\"SLAState\" | picklist(\"NA\", \"itemValue\")) and (vars.input.records[0].status.itemValue != vars.sla_time_list.incAckTrackedOn) and (vars.input.records[0].status.itemValue != vars.sla_time_list.incResTrackedOn)}}",
+                "resource": {
+                    "slaState": "{%if vars.sla_time_list.incAckTime | int ==0%}{{\"SLAState\" | picklist(\"NA\", \"@id\")}}{%else%}{{\"SLAState\" | picklist(\"Awaiting Action\", \"@id\")}}{%endif%}",
+                    "ackDueDate": "{%if vars.sla_time_list.incAckTime | int ==0%} null {% elif vars.steps.Reset_Ack_SLA.data['sla_due_date_timestamp'] %} {{vars.steps.Reset_Ack_SLA.data['sla_due_date_timestamp']}}{%else%}{{vars.input.records[0].ackDueDate}} {%endif%}"
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "tagsOperation": "OverwriteTags",
+                "collectionType": "\/api\/3\/incidents",
+                "fieldOperation": {
+                    "category": "Append",
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "705",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "c3489ec4-1ff5-4c5d-9e9e-fd1d3aa56834",
+            "id": 3965
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Reset Resp SLA",
+            "description": null,
+            "arguments": {
+                "name": "SLA Calculator",
+                "when": "{{(vars.input.records[0].resSla.itemValue == (\"SLAState\" | picklist(\"Awaiting Action\", \"itemValue\"))or vars.input.records[0].resSla.itemValue == (\"SLAState\" | picklist(\"NA\", \"itemValue\"))) and (vars.sla_time_list.incResTime | int > 0) and (vars.input.records[0].status.itemValue != vars.sla_time_list.incResTrackedOn)}}",
+                "config": "c5c41701-85bc-477e-a06d-8daf36efa14a",
+                "params": {
+                    "slaTime": "{{vars.sla_time_list.incResTime}}",
+                    "recordCreateTime": "{{vars.input.records[0].createDate}}"
+                },
+                "version": "1.0.0",
+                "connector": "slacalculator",
+                "operation": "calculateSLA",
+                "operationTitle": "Calculate SLA",
+                "pickFromTenant": false,
+                "step_variables": []
+            },
+            "status": null,
+            "top": "840",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "670d89e7-9f9c-42de-93bf-7a162ef17d90",
+            "id": 3966
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Check SLA Reset Flag",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "Reset SLA",
+                        "step_iri": "\/api\/3\/workflow_steps\/9836e32a-9ae9-492b-94fe-c397e55013ec",
+                        "condition": "{{ globalVars.Reset_SLA }}",
+                        "step_name": "Reset Ack SLA"
+                    },
+                    {
+                        "option": "Set SLA",
+                        "default": true,
+                        "step_iri": "\/api\/3\/workflow_steps\/f5697c6e-b1ef-4348-85ec-da9e5a426e53",
+                        "step_name": "Set Ack SLA"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "435",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "70ec6599-85b9-4061-af2d-565feb9ec512",
+            "id": 3967
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Reset Ack SLA",
+            "description": null,
+            "arguments": {
+                "name": "SLA Calculator",
+                "when": "{{(vars.input.records[0].slaState.itemValue == (\"SLAState\" | picklist(\"Awaiting Action\", \"itemValue\")) or vars.input.records[0].slaState.itemValue == (\"SLAState\" | picklist(\"NA\", \"itemValue\"))) and (vars.sla_time_list.incAckTime | int > 0) and (vars.input.records[0].status.itemValue != vars.sla_time_list.incAckTrackedOn) and (vars.input.records[0].status.itemValue != vars.sla_time_list.incResTrackedOn)}}",
+                "config": "c5c41701-85bc-477e-a06d-8daf36efa14a",
+                "params": {
+                    "slaTime": "{{vars.sla_time_list.incAckTime}}",
+                    "recordCreateTime": "{{vars.input.records[0].createDate}}"
+                },
+                "version": "1.0.0",
+                "connector": "slacalculator",
+                "operation": "calculateSLA",
+                "operationTitle": "Calculate SLA",
+                "pickFromTenant": false,
+                "step_variables": []
+            },
+            "status": null,
+            "top": "570",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "9836e32a-9ae9-492b-94fe-c397e55013ec",
+            "id": 3968
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Set Ack SLA",
+            "description": null,
+            "arguments": {
+                "name": "SLA Calculator",
+                "when": "{{(vars.input.records[0].slaState.itemValue == (\"SLAState\" | picklist(\"Awaiting Action\", \"itemValue\")) or vars.input.records[0].slaState.itemValue == (\"SLAState\" | picklist(\"NA\", \"itemValue\"))) and (vars.sla_time_list.incAckTime | int > 0) and (vars.input.records[0].status.itemValue != vars.sla_time_list.incAckTrackedOn) and (vars.input.records[0].status.itemValue != vars.sla_time_list.incResTrackedOn)}}",
+                "config": "c5c41701-85bc-477e-a06d-8daf36efa14a",
+                "params": {
+                    "slaTime": "{{vars.sla_time_list.incAckTime}}",
+                    "recordCreateTime": "{{vars.input.records[0].modifyDate}}"
+                },
+                "version": "1.0.0",
+                "connector": "slacalculator",
+                "operation": "calculateSLA",
+                "operationTitle": "Calculate SLA",
+                "pickFromTenant": false,
+                "step_variables": []
+            },
+            "status": null,
+            "top": "570",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "f5697c6e-b1ef-4348-85ec-da9e5a426e53",
+            "id": 3969
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Set Resp SLA",
+            "description": null,
+            "arguments": {
+                "name": "SLA Calculator",
+                "when": "{{(vars.input.records[0].resSla.itemValue == (\"SLAState\" | picklist(\"Awaiting Action\", \"itemValue\"))or vars.input.records[0].resSla.itemValue == (\"SLAState\" | picklist(\"NA\", \"itemValue\"))) and (vars.sla_time_list.incResTime | int > 0) and (vars.input.records[0].status.itemValue != vars.sla_time_list.incResTrackedOn)}}",
+                "config": "c5c41701-85bc-477e-a06d-8daf36efa14a",
+                "params": {
+                    "slaTime": "{{vars.sla_time_list.incResTime}}",
+                    "recordCreateTime": "{{vars.input.records[0].modifyDate}}"
+                },
+                "version": "1.0.0",
+                "connector": "slacalculator",
+                "operation": "calculateSLA",
+                "operationTitle": "Calculate SLA",
+                "pickFromTenant": false,
+                "step_variables": []
+            },
+            "status": null,
+            "top": "840",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "9102cf8a-ce64-404e-901f-405c1c13dae5",
+            "id": 3970
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Update Set Ack SLA",
+            "description": null,
+            "arguments": {
+                "when": "{{vars.input.records[0].slaState.itemValue == (\"SLAState\" | picklist(\"Awaiting Action\", \"itemValue\"))or vars.input.records[0].slaState.itemValue == (\"SLAState\" | picklist(\"NA\", \"itemValue\")) and (vars.input.records[0].status.itemValue != vars.sla_time_list.incAckTrackedOn) and (vars.input.records[0].status.itemValue != vars.sla_time_list.incResTrackedOn)}}",
+                "resource": {
+                    "slaState": "{%if vars.sla_time_list.incAckTime | int ==0%}{{\"SLAState\" | picklist(\"NA\", \"@id\")}}{%else%}{{\"SLAState\" | picklist(\"Awaiting Action\", \"@id\")}}{%endif%}",
+                    "ackDueDate": "{%if vars.steps.Set_Ack_SLA.data['sla_due_date_timestamp'] %} {{vars.steps.Set_Ack_SLA.data['sla_due_date_timestamp']}} {% else %} null {% endif%}"
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "tagsOperation": "OverwriteTags",
+                "collectionType": "\/api\/3\/incidents",
+                "fieldOperation": {
+                    "category": "Append",
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "705",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "bc2ad514-0ad8-47fa-8a22-00de58725a7b",
+            "id": 3971
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Update Set Resp SLA",
+            "description": null,
+            "arguments": {
+                "when": "{{vars.input.records[0].resSla.itemValue == (\"SLAState\" | picklist(\"Awaiting Action\", \"itemValue\"))or vars.input.records[0].resSla.itemValue == (\"SLAState\" | picklist(\"NA\", \"itemValue\")) and (vars.input.records[0].status.itemValue != vars.sla_time_list.incResTrackedOn)}}",
+                "resource": {
+                    "resSla": "{%if vars.sla_time_list.incResTime | int ==0%}{{\"SLAState\" | picklist(\"NA\", \"@id\")}}{%else%}{{\"SLAState\" | picklist(\"Awaiting Action\", \"@id\")}}{%endif%}",
+                    "resDueBy": "{%if vars.steps.Set_Resp_SLA.data['sla_due_date_timestamp'] %} {{vars.steps.Set_Resp_SLA.data['sla_due_date_timestamp']}} {% else %} null {% endif%}"
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "tagsOperation": "OverwriteTags",
+                "collectionType": "\/api\/3\/incidents",
+                "fieldOperation": {
+                    "category": "Append",
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "975",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "2495c15b-5367-4c96-93ad-161a7a7405d9",
+            "id": 3972
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Update Reset resp SLA",
+            "description": null,
+            "arguments": {
+                "when": "{{vars.input.records[0].resSla.itemValue == (\"SLAState\" | picklist(\"Awaiting Action\", \"itemValue\"))or vars.input.records[0].resSla.itemValue == (\"SLAState\" | picklist(\"NA\", \"itemValue\")) and (vars.input.records[0].status.itemValue != vars.sla_time_list.incResTrackedOn)}}",
+                "resource": {
+                    "resSla": "{%if vars.sla_time_list.incResTime | int ==0%}{{\"SLAState\" | picklist(\"NA\", \"@id\")}}{%else%}{{\"SLAState\" | picklist(\"Awaiting Action\", \"@id\")}}{%endif%}",
+                    "resDueBy": "{%if vars.sla_time_list.incResTime | int ==0%} null {% elif vars.steps.Reset_Resp_SLA.data['sla_due_date_timestamp'] %} {{vars.steps.Reset_Resp_SLA.data['sla_due_date_timestamp']}}{%else%}{{vars.input.records[0].resDueBy}} {%endif%}"
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "tagsOperation": "OverwriteTags",
+                "collectionType": "\/api\/3\/incidents",
+                "fieldOperation": {
+                    "category": "Append",
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "975",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "ac37adfd-142d-4c78-9544-234071b5b8d3",
+            "id": 3973
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "No SLA Details Fetched",
+            "description": null,
+            "arguments": {
+                "params": [],
+                "version": "3.0.4",
+                "connector": "cyops_utilities",
+                "operation": "no_op",
+                "operationTitle": "Utils: No Operation",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "435",
+            "left": "650",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "d6509658-c7ab-461d-894c-fb68254cf65b",
+            "id": 3974
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Reset Resp SLA -> Copy  of Update Reset Ack SLA",
+            "targetStep": "\/api\/3\/workflow_steps\/ac37adfd-142d-4c78-9544-234071b5b8d3",
+            "sourceStep": "\/api\/3\/workflow_steps\/670d89e7-9f9c-42de-93bf-7a162ef17d90",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "791ebeae-f8d8-472c-9a65-176a8e6da38b"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "GET Current SLA -> Verify SLA Details",
+            "targetStep": "\/api\/3\/workflow_steps\/6a37f973-0992-4a28-9940-f801454ccc88",
+            "sourceStep": "\/api\/3\/workflow_steps\/afb44e99-935e-4959-9e50-4d3f496140f3",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "9c2e8144-18e7-481e-9a12-811fb05c2158"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Update SLA -> Reset Resp SLA",
+            "targetStep": "\/api\/3\/workflow_steps\/670d89e7-9f9c-42de-93bf-7a162ef17d90",
+            "sourceStep": "\/api\/3\/workflow_steps\/c3489ec4-1ff5-4c5d-9e9e-fd1d3aa56834",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "125fadd7-9bcc-4d72-a1e8-8ba4d2e8c1f3"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Set SLA -> Set Resp SLA",
+            "targetStep": "\/api\/3\/workflow_steps\/9102cf8a-ce64-404e-901f-405c1c13dae5",
+            "sourceStep": "\/api\/3\/workflow_steps\/bc2ad514-0ad8-47fa-8a22-00de58725a7b",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "6adf4ea7-252f-4782-98c4-12619b4790d9"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Check SLA Reset Flag -> Set Ack SLA",
+            "targetStep": "\/api\/3\/workflow_steps\/f5697c6e-b1ef-4348-85ec-da9e5a426e53",
+            "sourceStep": "\/api\/3\/workflow_steps\/70ec6599-85b9-4061-af2d-565feb9ec512",
+            "label": "Set SLA",
+            "isExecuted": false,
+            "uuid": "e832269b-e1fc-44a0-be6d-f2c156d642f3"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Check SLA Reset Flag -> Reset Ack SLA",
+            "targetStep": "\/api\/3\/workflow_steps\/9836e32a-9ae9-492b-94fe-c397e55013ec",
+            "sourceStep": "\/api\/3\/workflow_steps\/70ec6599-85b9-4061-af2d-565feb9ec512",
+            "label": "Reset SLA",
+            "isExecuted": false,
+            "uuid": "e1729ac4-5af3-4732-a969-9b83008cf1eb"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Verify SLA Details -> No SLA Details Fetched",
+            "targetStep": "\/api\/3\/workflow_steps\/d6509658-c7ab-461d-894c-fb68254cf65b",
+            "sourceStep": "\/api\/3\/workflow_steps\/6a37f973-0992-4a28-9940-f801454ccc88",
+            "label": "Not Fetched",
+            "isExecuted": false,
+            "uuid": "b12daf3a-3cee-4229-aba7-05c35eee5eb9"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Set Ack SLA -> Set SLA",
+            "targetStep": "\/api\/3\/workflow_steps\/bc2ad514-0ad8-47fa-8a22-00de58725a7b",
+            "sourceStep": "\/api\/3\/workflow_steps\/f5697c6e-b1ef-4348-85ec-da9e5a426e53",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "f3f0478f-dccb-457a-802c-cc2e86d360c5"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Verify SLA Details -> Check SLA Reset Flag",
+            "targetStep": "\/api\/3\/workflow_steps\/70ec6599-85b9-4061-af2d-565feb9ec512",
+            "sourceStep": "\/api\/3\/workflow_steps\/6a37f973-0992-4a28-9940-f801454ccc88",
+            "label": "Check SLA Reset Flag",
+            "isExecuted": false,
+            "uuid": "7e8d99b8-d6cc-412e-8cf0-871b4b02ef7f"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> GET SLA",
+            "targetStep": "\/api\/3\/workflow_steps\/afb44e99-935e-4959-9e50-4d3f496140f3",
+            "sourceStep": "\/api\/3\/workflow_steps\/10a2a10b-2bb3-4aaf-b568-533423deabcf",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "128e9c55-6088-4a75-842a-3ee113ffa603"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Set Resp SLA -> Copy  of Update Set Ack SLA",
+            "targetStep": "\/api\/3\/workflow_steps\/2495c15b-5367-4c96-93ad-161a7a7405d9",
+            "sourceStep": "\/api\/3\/workflow_steps\/9102cf8a-ce64-404e-901f-405c1c13dae5",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "7a02c93b-e078-454d-a18d-b83e0d03b4e5"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Reset Ack SLA -> Update SLA",
+            "targetStep": "\/api\/3\/workflow_steps\/c3489ec4-1ff5-4c5d-9e9e-fd1d3aa56834",
+            "sourceStep": "\/api\/3\/workflow_steps\/9836e32a-9ae9-492b-94fe-c397e55013ec",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "de934021-8cdc-4c38-8d13-719872faa864"
+        }
+    ],
+    "priority": null,
+    "uuid": "be1940ec-a012-4dd0-9f9c-279da8787362",
+    "recordTags": [
+        "system",
+        "PostUpdate",
+        "SLA"
+    ],
+    "id": 1089,
+    "createUser": "\/api\/3\/appliances\/57545210-2adc-472b-a24f-2df6ee8dfe63",
+    "createDate": 1638352100,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1638438918,
+    "owners": [],
+    "isPrivate": false
+}

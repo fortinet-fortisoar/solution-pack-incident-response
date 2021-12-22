@@ -1,0 +1,445 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Bot Command - Get Reputation",
+    "aliasName": null,
+    "tag": null,
+    "description": "Retrieves the reputation for the specified indicator.",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "alertID",
+        "content",
+        "checkContent",
+        "commentID",
+        "commentIRI"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1639653815,
+    "collection": "\/api\/3\/workflow_collections\/73f87b6d-26fe-4c47-80cb-bc671717c5eb",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/ef9dbb24-c2b8-4922-8ad2-ae5a3d89e943",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Anomali Status",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "id": null,
+                    "scans": null,
+                    "tasks": null,
+                    "alerts": "['{{vars.alertID}}']",
+                    "assets": null,
+                    "emails": null,
+                    "events": null,
+                    "owners": null,
+                    "people": null,
+                    "content": "<div id=\"component4395253440471493274\">\n<div class=\"responsive-enabled\" data-reactroot=\"\">\n<div class=\"react-file-viewer no-background\">\n<div class=\"react-file-viewer__title-bar\">\n<div class=\"react-title-bar\">\n<div class=\"react-title-bar__title-wrap\"><img class=\"preview-image absolute-center preview-image-small disabled-context-menu\" style=\"float: left;\" src=\"https:\/\/previews.dropbox.com\/p\/thumb\/AAJNI48pgpSmCRlfF_18qkvwERE8d7cTUYkrUWPgV3FTnrquwLGkQy6rc9yGqCUs7h8VS61lXSWbnSkMB4bnCyppgbJRvPkq1Uz8wqdDQztKHC38KoQwv__kvF7tEy7pwrjDzosZ83A4mtSEn_5rTpGgIPLA9Jbu2veTfz1kPRiUUPFZ4SNmF80UyXEtNMa9-RZa4tedKKmeW8pHKUiTS8KheA76AoJmtCZzDFM9t0uk8g\/p.png?size=800x600&amp;size_mode=3\" sizes=\"90vw\" srcset=\"https:\/\/previews.dropbox.com\/p\/thumb\/AAJNI48pgpSmCRlfF_18qkvwERE8d7cTUYkrUWPgV3FTnrquwLGkQy6rc9yGqCUs7h8VS61lXSWbnSkMB4bnCyppgbJRvPkq1Uz8wqdDQztKHC38KoQwv__kvF7tEy7pwrjDzosZ83A4mtSEn_5rTpGgIPLA9Jbu2veTfz1kPRiUUPFZ4SNmF80UyXEtNMa9-RZa4tedKKmeW8pHKUiTS8KheA76AoJmtCZzDFM9t0uk8g\/p.png?size=480x320&amp;size_mode=3 480w, https:\/\/previews.dropbox.com\/p\/thumb\/AAJNI48pgpSmCRlfF_18qkvwERE8d7cTUYkrUWPgV3FTnrquwLGkQy6rc9yGqCUs7h8VS61lXSWbnSkMB4bnCyppgbJRvPkq1Uz8wqdDQztKHC38KoQwv__kvF7tEy7pwrjDzosZ83A4mtSEn_5rTpGgIPLA9Jbu2veTfz1kPRiUUPFZ4SNmF80UyXEtNMa9-RZa4tedKKmeW8pHKUiTS8KheA76AoJmtCZzDFM9t0uk8g\/p.png?size=640x480&amp;size_mode=3 640w, https:\/\/previews.dropbox.com\/p\/thumb\/AAJNI48pgpSmCRlfF_18qkvwERE8d7cTUYkrUWPgV3FTnrquwLGkQy6rc9yGqCUs7h8VS61lXSWbnSkMB4bnCyppgbJRvPkq1Uz8wqdDQztKHC38KoQwv__kvF7tEy7pwrjDzosZ83A4mtSEn_5rTpGgIPLA9Jbu2veTfz1kPRiUUPFZ4SNmF80UyXEtNMa9-RZa4tedKKmeW8pHKUiTS8KheA76AoJmtCZzDFM9t0uk8g\/p.png?size=800x600&amp;size_mode=3 800w, https:\/\/previews.dropbox.com\/p\/thumb\/AAJNI48pgpSmCRlfF_18qkvwERE8d7cTUYkrUWPgV3FTnrquwLGkQy6rc9yGqCUs7h8VS61lXSWbnSkMB4bnCyppgbJRvPkq1Uz8wqdDQztKHC38KoQwv__kvF7tEy7pwrjDzosZ83A4mtSEn_5rTpGgIPLA9Jbu2veTfz1kPRiUUPFZ4SNmF80UyXEtNMa9-RZa4tedKKmeW8pHKUiTS8KheA76AoJmtCZzDFM9t0uk8g\/p.png?size=1024x768&amp;size_mode=3 1024w, https:\/\/previews.dropbox.com\/p\/thumb\/AAJNI48pgpSmCRlfF_18qkvwERE8d7cTUYkrUWPgV3FTnrquwLGkQy6rc9yGqCUs7h8VS61lXSWbnSkMB4bnCyppgbJRvPkq1Uz8wqdDQztKHC38KoQwv__kvF7tEy7pwrjDzosZ83A4mtSEn_5rTpGgIPLA9Jbu2veTfz1kPRiUUPFZ4SNmF80UyXEtNMa9-RZa4tedKKmeW8pHKUiTS8KheA76AoJmtCZzDFM9t0uk8g\/p.png?size=1280x960&amp;size_mode=3 1280w, https:\/\/previews.dropbox.com\/p\/thumb\/AAJNI48pgpSmCRlfF_18qkvwERE8d7cTUYkrUWPgV3FTnrquwLGkQy6rc9yGqCUs7h8VS61lXSWbnSkMB4bnCyppgbJRvPkq1Uz8wqdDQztKHC38KoQwv__kvF7tEy7pwrjDzosZ83A4mtSEn_5rTpGgIPLA9Jbu2veTfz1kPRiUUPFZ4SNmF80UyXEtNMa9-RZa4tedKKmeW8pHKUiTS8KheA76AoJmtCZzDFM9t0uk8g\/p.png?size=1600x1200&amp;size_mode=3 1600w, https:\/\/previews.dropbox.com\/p\/thumb\/AAJNI48pgpSmCRlfF_18qkvwERE8d7cTUYkrUWPgV3FTnrquwLGkQy6rc9yGqCUs7h8VS61lXSWbnSkMB4bnCyppgbJRvPkq1Uz8wqdDQztKHC38KoQwv__kvF7tEy7pwrjDzosZ83A4mtSEn_5rTpGgIPLA9Jbu2veTfz1kPRiUUPFZ4SNmF80UyXEtNMa9-RZa4tedKKmeW8pHKUiTS8KheA76AoJmtCZzDFM9t0uk8g\/p.png?size=2048x1536&amp;size_mode=3 2048w\" alt=\"Screenshot 2018-09-09 17.20.42.png\" width=\"125\" height=\"28\" \/><\/div>\n<\/div>\n<\/div>\n<div class=\"react-file-viewer__content\">\n<div class=\"react-file-viewer__preview react-file-preview\">\n<div class=\"flex-preview-container\">\n<div class=\"flex-preview-container\">\n<div class=\"flex-preview-container\">\n<div class=\"flex-preview-container image-visible annotations-visible zoom-disabled has-toolbar zoom-fit preview-image-container\">\n<div class=\"preview-image-wrapper preview-content\">\n<div class=\"db-annotation-container\">&nbsp;<\/div>\n<div class=\"db-annotation-container\">&nbsp;<\/div>\n<div class=\"db-annotation-container\">Anomali<strong> Threatstream<\/strong> is not configured in your environment.<\/div>\n<\/div>\n<\/div>\n<\/div>\n<\/div>\n<\/div>\n<\/div>\n<\/div>\n<\/div>\n<\/div>\n<\/div>",
+                    "schedule": null,
+                    "approvals": null,
+                    "companies": null,
+                    "incidents": null,
+                    "createDate": null,
+                    "createUser": null,
+                    "indicators": null,
+                    "modifyDate": null,
+                    "modifyUser": null,
+                    "attachments": null,
+                    "vulnerabilities": null
+                },
+                "_showJson": false,
+                "collection": "\/api\/3\/comments",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "190",
+            "left": "1100",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "cc8bb8bf-20e3-4c5a-ab22-b3ddf9291972",
+            "id": 1494
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get URL Reputation",
+            "description": null,
+            "arguments": {
+                "arguments": {
+                    "indicator_value": "{{vars.steps.Extract_Artifacts.data.URL[0]}}"
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "workflowReference": "\/api\/3\/workflows\/c9fd0280-93cb-4dcb-903d-45e31e8966a7"
+            },
+            "status": null,
+            "top": "510",
+            "left": "1100",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "445e7cb7-d0d3-4914-bbfc-61d106bfbb6e",
+            "id": 1495
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get FileHash Reputation",
+            "description": null,
+            "arguments": {
+                "arguments": {
+                    "indicator_value": "{{vars.steps.Extract_Artifacts.data.results[0].value}}"
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "workflowReference": "\/api\/3\/workflows\/c0ce666f-ba81-4251-a9a3-70cbe2c8afeb"
+            },
+            "status": null,
+            "top": "660",
+            "left": "1100",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "83a81d8f-c30c-4433-aa36-a2ce23d20174",
+            "id": 1496
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Extract Artifacts",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "data": "{{vars.input.params.content}}",
+                    "whitelist": "",
+                    "case_sensitive": "",
+                    "override_regex": "",
+                    "private_whitelist": ""
+                },
+                "version": "2.6.0",
+                "connector": "cyops_utilities",
+                "operation": "extract_artifacts",
+                "operationTitle": "CyOPs: Extract Artifacts from String",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "430",
+            "left": "450",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "2397045b-1707-429c-8786-3cd9a745b15a",
+            "id": 1497
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": {
+                            "alertID": "{{ vars.alertID }}",
+                            "content": "{{ vars.content }}",
+                            "commentID": "{{ vars.commentID }}",
+                            "commentIRI": "{{ vars.commentIRI }}",
+                            "checkContent": "{{ vars.checkContent }}"
+                        }
+                    }
+                }
+            },
+            "status": null,
+            "top": "430",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "ef9dbb24-c2b8-4922-8ad2-ae5a3d89e943",
+            "id": 1498
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Update Record",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "alerts": "{{vars.input.params.alertID}}",
+                    "content": "<p>{{vars.input.params.content}}<\/p>\n<p>&nbsp;<\/p>\n<p><em><strong><span style=\"background-color: #333333; color: #3366ff;\"><span style=\"color: #33cccc;\">Reputation Details<\/span>:<\/span><\/strong><\/em><\/p>\n<p><span style=\"font-size: 12pt;\"><strong>Seems :<\/strong>{% if vars.result.reputation == 'Malicious' %}<strong><span style=\"color: #ff0000;\">{{vars.result.reputation}}<\/span><\/strong>{% elif vars.result.reputation == 'Good' %}<strong><span style=\"color: #99cc00;\">{{vars.result.reputation}}<\/span><\/strong>{% else %}<span style=\"color: #3366ff;\"><strong>{{vars.result.reputation}}<\/strong><\/span>{% endif %}<\/span><\/p>\n<p>{{vars.result.enrichment_summary}}<\/p>\n<p>&nbsp;<\/p>"
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "{{vars.input.params.commentIRI}}",
+                "tagsOperation": "OverwriteTags",
+                "collectionType": "\/api\/3\/comments",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "594",
+            "left": "1720",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "f8ce8581-3425-4d1b-b9bd-7b27d0e67303",
+            "id": 1499
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Ip or Domain",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "step_iri": "\/api\/3\/workflow_steps\/cc8bb8bf-20e3-4c5a-ab22-b3ddf9291972",
+                        "condition": "{{ vars.checkContent==true }}"
+                    },
+                    {
+                        "default": true,
+                        "step_iri": "\/api\/3\/workflow_steps\/22e80936-8649-47c2-bc10-d041932999f9"
+                    },
+                    {
+                        "option": "IP",
+                        "step_iri": "\/api\/3\/workflow_steps\/d8bf5892-b456-478e-9b84-0ccac90f4a1b",
+                        "condition": "{{ ((vars.steps.Extract_Artifacts.data.IP|length>0) and (vars.input.params.checkContent==false)) }}"
+                    },
+                    {
+                        "option": "File Hash",
+                        "step_iri": "\/api\/3\/workflow_steps\/83a81d8f-c30c-4433-aa36-a2ce23d20174",
+                        "condition": "{{ (((vars.steps.Extract_Artifacts.data.SHA1|length>0) or (vars.steps.Extract_Artifacts.data.SHA256|length>0) or (vars.steps.Extract_Artifacts.data.MD5|length>0)) and (vars.input.params.checkContent==false)) }}"
+                    },
+                    {
+                        "option": "URL",
+                        "step_iri": "\/api\/3\/workflow_steps\/445e7cb7-d0d3-4914-bbfc-61d106bfbb6e",
+                        "condition": "{{ ((vars.steps.Extract_Artifacts.data.URL|length>0) and (vars.input.params.checkContent==false)) }}"
+                    },
+                    {
+                        "option": "Domain",
+                        "step_iri": "\/api\/3\/workflow_steps\/4949c77b-f948-4ef2-ba36-12b8c622babf",
+                        "condition": "{{ ((vars.steps.Extract_Artifacts.data.Host|length>0) and (vars.input.params.checkContent==false)) }}"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "430",
+            "left": "775",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "uuid": "220cffb1-e759-4d4d-9551-20510a156003",
+            "id": 1500
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Domain Reputation",
+            "description": null,
+            "arguments": {
+                "arguments": {
+                    "indicator_value": "{{vars.steps.Extract_Artifacts.data.results[0].value}}"
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "workflowReference": "\/api\/3\/workflows\/2d3e4f47-b8bc-40f7-8ee0-2097e8d19794"
+            },
+            "status": null,
+            "top": "840",
+            "left": "1100",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "4949c77b-f948-4ef2-ba36-12b8c622babf",
+            "id": 1501
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Display Message For Not Found",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "scans": null,
+                    "tasks": null,
+                    "alerts": "{{vars.input.params.alertID}}",
+                    "assets": null,
+                    "emails": null,
+                    "events": null,
+                    "owners": null,
+                    "people": null,
+                    "content": "<p>Not Found<br \/>Please Refer the Bot Help Command for more details<\/p>",
+                    "approvals": null,
+                    "companies": null,
+                    "incidents": null,
+                    "isDeleted": null,
+                    "indicators": null,
+                    "attachments": null,
+                    "vulnerabilities": null
+                },
+                "_showJson": false,
+                "collection": "\/api\/3\/comments",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "30",
+            "left": "1425",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "790eb334-c765-49da-9835-49f78b7f7d7b",
+            "id": 1502
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get IP Reputation",
+            "description": null,
+            "arguments": {
+                "arguments": {
+                    "indicator_value": "{{vars.steps.Extract_Artifacts.data.IP[0]}}"
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "workflowReference": "\/api\/3\/workflows\/d809cafc-edbc-4903-9d58-fe906ba8aea5"
+            },
+            "status": null,
+            "top": "350",
+            "left": "1100",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "d8bf5892-b456-478e-9b84-0ccac90f4a1b",
+            "id": 1503
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Not Found",
+            "description": null,
+            "arguments": {
+                "params": [],
+                "version": "2.6.0",
+                "connector": "cyops_utilities",
+                "operation": "no_op",
+                "operationTitle": "Utils: No Operation",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "30",
+            "left": "1100",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "22e80936-8649-47c2-bc10-d041932999f9",
+            "id": 1504
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Ip or Domain -> Get Domain Reputation",
+            "targetStep": "\/api\/3\/workflow_steps\/4949c77b-f948-4ef2-ba36-12b8c622babf",
+            "sourceStep": "\/api\/3\/workflow_steps\/220cffb1-e759-4d4d-9551-20510a156003",
+            "label": "Domain",
+            "isExecuted": false,
+            "uuid": "33e29858-741b-421a-87f6-23e9f5de4ab8"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get URL Reputation -> Update Record",
+            "targetStep": "\/api\/3\/workflow_steps\/f8ce8581-3425-4d1b-b9bd-7b27d0e67303",
+            "sourceStep": "\/api\/3\/workflow_steps\/445e7cb7-d0d3-4914-bbfc-61d106bfbb6e",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "61dd7865-fe76-4426-a240-8311f947896f"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get FileHash Reputation -> Update Record",
+            "targetStep": "\/api\/3\/workflow_steps\/f8ce8581-3425-4d1b-b9bd-7b27d0e67303",
+            "sourceStep": "\/api\/3\/workflow_steps\/83a81d8f-c30c-4433-aa36-a2ce23d20174",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "7428ee25-e6b0-4af4-a5c9-49e64919fb4f"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Ip or Domain -> Get URL Reputation1",
+            "targetStep": "\/api\/3\/workflow_steps\/445e7cb7-d0d3-4914-bbfc-61d106bfbb6e",
+            "sourceStep": "\/api\/3\/workflow_steps\/220cffb1-e759-4d4d-9551-20510a156003",
+            "label": "URL",
+            "isExecuted": false,
+            "uuid": "4ece2c76-d867-47be-bc24-ac28c0873d45"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Ip or Domain -> Get FileHash Reputation",
+            "targetStep": "\/api\/3\/workflow_steps\/83a81d8f-c30c-4433-aa36-a2ce23d20174",
+            "sourceStep": "\/api\/3\/workflow_steps\/220cffb1-e759-4d4d-9551-20510a156003",
+            "label": "File Hash",
+            "isExecuted": false,
+            "uuid": "ba618c81-a12f-4e15-8a1a-dd73edaac149"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Extract Artifacts -> Ip or Domain",
+            "targetStep": "\/api\/3\/workflow_steps\/220cffb1-e759-4d4d-9551-20510a156003",
+            "sourceStep": "\/api\/3\/workflow_steps\/2397045b-1707-429c-8786-3cd9a745b15a",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "3828e299-c84b-4ecd-b6fc-aa4685101940"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Domain Reputation -> Update Record",
+            "targetStep": "\/api\/3\/workflow_steps\/f8ce8581-3425-4d1b-b9bd-7b27d0e67303",
+            "sourceStep": "\/api\/3\/workflow_steps\/4949c77b-f948-4ef2-ba36-12b8c622babf",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "f07d6ab4-c008-4f15-97e6-8bbe14c0e895"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Extract Artifacts",
+            "targetStep": "\/api\/3\/workflow_steps\/2397045b-1707-429c-8786-3cd9a745b15a",
+            "sourceStep": "\/api\/3\/workflow_steps\/ef9dbb24-c2b8-4922-8ad2-ae5a3d89e943",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "e1165b5b-04ae-4e87-b26e-3a89ddda92b3"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Ip or Domain -> Copy  of SayMalicious",
+            "targetStep": "\/api\/3\/workflow_steps\/cc8bb8bf-20e3-4c5a-ab22-b3ddf9291972",
+            "sourceStep": "\/api\/3\/workflow_steps\/220cffb1-e759-4d4d-9551-20510a156003",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "1899a1a7-6d3c-4185-a2d8-33d2e3f498ee"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get IP Reputation -> Update Record",
+            "targetStep": "\/api\/3\/workflow_steps\/f8ce8581-3425-4d1b-b9bd-7b27d0e67303",
+            "sourceStep": "\/api\/3\/workflow_steps\/d8bf5892-b456-478e-9b84-0ccac90f4a1b",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "e4388d81-21e2-4ffa-9393-4a4185b06b48"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Ip or Domain -> Get Reputation",
+            "targetStep": "\/api\/3\/workflow_steps\/d8bf5892-b456-478e-9b84-0ccac90f4a1b",
+            "sourceStep": "\/api\/3\/workflow_steps\/220cffb1-e759-4d4d-9551-20510a156003",
+            "label": "IP",
+            "isExecuted": false,
+            "uuid": "ce5cc16b-0a6c-48d8-b158-53980816ba7b"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Not Found -> Display Message For Not Found",
+            "targetStep": "\/api\/3\/workflow_steps\/790eb334-c765-49da-9835-49f78b7f7d7b",
+            "sourceStep": "\/api\/3\/workflow_steps\/22e80936-8649-47c2-bc10-d041932999f9",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "e566005f-d0cc-4f9f-8c3a-4fb9ac008412"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Ip or Domain -> Not Found",
+            "targetStep": "\/api\/3\/workflow_steps\/22e80936-8649-47c2-bc10-d041932999f9",
+            "sourceStep": "\/api\/3\/workflow_steps\/220cffb1-e759-4d4d-9551-20510a156003",
+            "label": "",
+            "isExecuted": false,
+            "uuid": "eb227e37-2be1-47e6-8dc0-c689d849b221"
+        }
+    ],
+    "priority": null,
+    "uuid": "cc0e8cf6-b481-4138-b548-e0b594b407c7",
+    "recordTags": [
+        "system",
+        "Subroutine",
+        "Bot - Execute commands"
+    ],
+    "id": 202,
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1639132714,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1639653814,
+    "owners": [],
+    "isPrivate": false
+}
