@@ -140,30 +140,19 @@ Now, you can see that a new task added which confirms that the alert on the SIEM
 
 ![Task created for the closed alert](media/taskForClosedAlert.png)
 
-### MITRE Attack Techniques 
-
-MITRE Attack Technique Module allows you to download MITRE techniques from [MITRE.org](https://www.mitre.org/). These techniques are stored with FortiSOAR™ for reference. A default playbook to download MITRE techniques is shipped with a solution pack.
-
-![Downloading MITRE Attack Techniques](media/MitreAttack.png)
-
-These techniques are auto-related to specific alerts based on MITRE techniques they match.   
-
-**Note**: For MITRE tech correlation to work, the ‘MITRE ATT&CK ID’ field in alerts requires to be populated by the ingestion playbooks. These IDs can then be added to the alert / event generation rules in SIEM or another log aggregator.    
-
 ## Upgrading IR Solution Pack
 
-If users have a solution pack installed, then the rpm will upgrade to a new version to be in sync with the base product. However, the contents of the solution pack will not be changed or upgraded. To update the contents, users can download the latest contents from the support portal, review the changes, and then manually update the contents. This is done to prevent overwriting changes that might be done by users.  
+Before you proceed to upgrade the contents of the solution pack manually, you must take a backup of your current configuration using the “Export Wizard”. You can export all the modules along with their MMDs, SVTs, and all the required playbooks.  
 
-Before you proceed to upgrade the contents of the solution pack manually, you must take a backup of your current configuration using the “Configuration Manager”. You can export all the modules along with their MMDs, SVTs, and all the required playbooks.  
+If users have a solution pack installed, then they can upgrade their solution pack by downloading the release zip files from the Solution Pack's page. Steps are included in the [Deploying a Solution Pack](https://github.com/fortinet-fortisoar/how-tos/blob/main/deploying/deployingASolutionPack.md) article.
 
-While importing MMDs/ SVTs using the configuration manager, you must take care that you do not delete any field that belongs to an existing module.    
-For example, in the following image, when you are importing the “Alerts” module using the configuration manager, you must ensure that "Custom Field 1" and retained and not deleted:  
-
-![Importing MMDs/SVTs](media/importAlertMMDs.png)
+While you are importing the release zip files, using the "Import Wizard", during the import of MMDs/ SVTs you must ensure that you select the **Merge with Existing** option, as shown in the following image  
+![Importing MMDs/SVTs](media/importAlertMMDs_new.png)
 
 **Note**: SVT changes might get lost during import and therefore, you can restore them using the configuration that you have backed up.  
 
-After you have imported the MMDs and SVTs, you can import the desired playbooks. 
+Similarly, while importing playbooks, you must select the **Merge Collection (Replace existing Playbooks)** option, if you want to update your existing playbooks and add new ones:  
+![Importing Playbooks](media/importPBs.png)
 
 **FortiSOAR IR Solution Pack: Out-of-the-box use cases & playbook collections list can be found [here](https://fusecommunity.fortinet.com/groups/community-home/digestviewer/viewthread?GroupId=1345&MessageKey=045e34e1-467a-4d91-a28c-152e1351f614&CommunityKey=9f1420e8-e3c6-4535-8cae-3fa714da66d8&tab=digestviewer&ReturnUrl=%2fgroups%2fcommunity-home%2fdigestviewer%3fcommunitykey%3d9f1420e8-e3c6-4535-8cae-3fa714da66d8%26tab%3ddigestviewer)**
 
