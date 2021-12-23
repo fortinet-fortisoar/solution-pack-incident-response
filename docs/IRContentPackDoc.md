@@ -6,12 +6,14 @@ This article describes the FortiSOAR™ Incident Response Solution Pack (solutio
 
 This article covers the following:
 
-- Deploying IR Solution Pack
 - Configuring IR Solution Pack
 - Contents of the IR Solution Pack
 - Using IR Solution Pack
 - Upgrading IR Solution Pack
 
+## Prerequisites
+
+- Before you can begin using the IR Solution, you require to deploy the IR Solution Pack. However, before you deploy the IR Solution Pack, ensure that there are no records such as alerts, indicators, incidents, etc., in your FortiSOAR™ system. The steps for deploying a solution pack are mentioned in the [Deploying a Solution Pack](https://github.com/fortinet-fortisoar/how-tos/blob/main/DeployingASolutionPack.md) article. 
 
 ## Configuring IR Solution Pack
 
@@ -65,7 +67,8 @@ A brief about each module collection follows:
   - **Incidents**: Stores incidents, which represent a collection of information discovered during an Incident Response investigation. Incidents are triggered based on the suspicion or confirmation of a security breach. Incidents can be cyber or physical security-related.Multiple alerts, indicators, and other artifacts can be linked to an incident.
   - **Hunts**: Stores hunt information.
   - **Tasks**: Stores Tasks, which represent a discrete action taken by either an individual or an automated response. Tasks might link to outside systems, such as ticketing systems, to track specific actions beyond that of your SOC team.
-  - **Emails**: Stores emails, which can contain potentially malicious emails, such as phishing emails. Once an email is added to this module, FortiSOAR™ extracts, and stores the Email Headers for further investigation. FortiSOAR™ also creates an alert with a link to the email. 
+  - **Communications**: Stores various types of communications, including emails, related to alerts or incidents.
+  - **War Rooms**:  Is a collaborative space that enable SOC teams to mitigate a critical cyber threat scenario or campaign. FortiSOAR makes it easy for analysts to quickly and easily provision a War Room that allows participation of all stakeholders to analyze and collaborate to quickly mitigate the threat and restore the services. 
 - **Threat Intelligence**: The Threat Intelligence section is a collection of all modules typically related to intelligence that is collected from various threats. It contains the following modules:
 - - **Indicators**: Indicators contain details of all the data that is collected from system log entries or files, which identify potentially malicious activity on a system or network. It contains records of identifiable information regarding a threat, such as an IP or URL. 
   - **Campaigns**: Campaigns represent a collection of Incidents that can be tied to a single Threat Actor. Seemingly disparate Incidents might actually be related attempts from a malicious attacker attempting to probe and gain access to your network.
@@ -98,7 +101,7 @@ When you log on to your FortiSOAR™ instance you will notice that the instance 
 
 Once you click the **Demo IR Records** button, the following actions are performed: 
 
-- Configuration of the Code Snippet connector. 
+- Configuration of the Code Snippet and SLA Calculator connectors. 
 - Creation of Demo records, i.e. sample alerts with associated indicators, vulnerabilities, assets, etc. 
   The indicators of the demo records also get enriched, since the connectors are configured and described in the following section.
 
@@ -140,18 +143,20 @@ Now, you can see that a new task added which confirms that the alert on the SIEM
 
 ![Task created for the closed alert](media/taskForClosedAlert.png)
 
-## Upgrading IR Solution Pack
+## Upgrading the IR Solution Pack
 
 Before you proceed to upgrade the contents of the solution pack manually, you must take a backup of your current configuration using the “Export Wizard”. You can export all the modules along with their MMDs, SVTs, and all the required playbooks.  
 
 If users have a solution pack installed, then they can upgrade their solution pack by downloading the release zip files from the Solution Pack's page. Steps are included in the [Deploying a Solution Pack](https://github.com/fortinet-fortisoar/how-tos/blob/main/deploying/deployingASolutionPack.md) article.
 
-While you are importing the release zip files, using the "Import Wizard", during the import of MMDs/ SVTs you must ensure that you select the **Merge with Existing** option, as shown in the following image  
+While you are importing the release zip files, using the "Import Wizard", during the import of MMDs/ SVTs you must ensure that you select the **Merge with Existing** option, as shown in the following image:
+
 ![Importing MMDs/SVTs](media/importAlertMMDs_new.png)
 
 **Note**: SVT changes might get lost during import and therefore, you can restore them using the configuration that you have backed up.  
 
-Similarly, while importing playbooks, you must select the **Merge Collection (Replace existing Playbooks)** option, if you want to update your existing playbooks and add new ones:  
+Similarly, while importing playbooks, you must select the **Merge Collection (Replace existing Playbooks)** option, if you want to update your existing playbooks and add new ones:
+
 ![Importing Playbooks](media/importPBs.png)
 
 **FortiSOAR IR Solution Pack: Out-of-the-box use cases & playbook collections list can be found [here](https://fusecommunity.fortinet.com/groups/community-home/digestviewer/viewthread?GroupId=1345&MessageKey=045e34e1-467a-4d91-a28c-152e1351f614&CommunityKey=9f1420e8-e3c6-4535-8cae-3fa714da66d8&tab=digestviewer&ReturnUrl=%2fgroups%2fcommunity-home%2fdigestviewer%3fcommunitykey%3d9f1420e8-e3c6-4535-8cae-3fa714da66d8%26tab%3ddigestviewer)**
