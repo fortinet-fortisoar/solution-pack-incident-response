@@ -1,0 +1,256 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Ingest and Create IOCs",
+    "aliasName": null,
+    "tag": null,
+    "description": "Will ingest and create indicators from IOC listed in CSV file. Incase CSV file has huge number of records , its recommended that celery soft timeout and tasks timeout values are updated. Refer product documentation",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1640630615,
+    "collection": "\/api\/3\/workflow_collections\/e89547bc-8668-47f4-8098-b16b05d2f8dd",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/1911649a-dca1-4999-aa6d-08b6c07741cf",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "61b7b2c9-3fd2-4c19-9710-dddc063670c6",
+                "title": "Ingest and Create IOCs",
+                "resources": [
+                    "attachments"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                    "input": {
+                        "params": [],
+                        "records": "{{vars.input.records}}"
+                    }
+                },
+                "displayConditions": {
+                    "attachments": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": false,
+                "singleRecordExecution": true
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "uuid": "1911649a-dca1-4999-aa6d-08b6c07741cf",
+            "id": 2229
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": [],
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "7bf83027-5c91-484f-9eb5-0ea761f7ba58",
+            "id": 2230
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Download File",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "{{vars.input.records[0].file['@id']}}"
+                },
+                "version": "3.1.2",
+                "connector": "cyops_utilities",
+                "operation": "download_file_from_cyops_alias",
+                "operationTitle": "File: Download File From FortiSOAR",
+                "step_variables": {
+                    "ioc_csv": "{{vars.result.data['cyops_file_path']}}"
+                }
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "286064eb-52df-461a-80fd-c73189728b6f",
+            "id": 2231
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Extract IOC Data",
+            "description": null,
+            "arguments": {
+                "config": "7417d4a1-5e80-4398-8bb8-4b0952bf4fa3",
+                "params": {
+                    "python_function": "import pandas as pd\nimport numpy as np\nimport re\nimport json\n\n# Read first column of CSV and change column header to IOC\ndf = pd.read_csv('\/tmp\/{{vars.ioc_csv}}',usecols=[0],names=['IOC'])\n\n# Drop duplicate entries \ndf.drop_duplicates()\n\n# Create empty data structure\n \nip_ioc = pd.DataFrame()\nurl_ioc = pd.DataFrame()\ndomain_ioc= pd.DataFrame()\n\n#Extract IP Address using regex \n#This regex ignores IP Address with ports . If you need ports as well,remove $ sign from regex, you will have to handle same in create record reference playbook\n\nip_ioc=df[df['IOC'].str.match('\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$')==True]\n#Drop empty rows\nip_ioc=ip_ioc.dropna()\n\n#Extract Domain using regex\ndomain_ioc=df[df['IOC'].str.match('^(?!-)[A-Za-z0-9-]+([\\\\-\\\\.]{1}[a-z0-9]+)*\\\\.[A-Za-z]{2,6}$')==True]\n\n#Drop empty rows\ndomain_ioc=domain_ioc.dropna()\n\n#Extract URL using regex\nurl_ioc=df[df['IOC'].str.match(\"http[s]?:\/\/(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+\")==True]\n\n#Drop empty rows\nurl_ioc=url_ioc.dropna()\n\n#Create Small subsets for ingestion by FortiSOAR\nsmaller_datasets = np.array_split(ip_ioc,20)\nall_ipaddress = []\nfor batch in smaller_datasets:\n    all_ipaddress.append(batch.to_dict(\"list\"))\n\n\nsmaller_datasets = np.array_split(domain_ioc,20)\nall_domain = []\nfor batch in smaller_datasets:\n    all_domain.append(batch.to_dict(\"list\"))\n\nsmaller_datasets = np.array_split(url_ioc,20)\nall_urls = []\nfor batch in smaller_datasets:\n    all_urls.append(batch.to_dict(\"list\"))\n\n\nfinal_result={\"ipAddress\": all_ipaddress,\"domain\":all_domain,\"urls\":all_urls}\nprint(json.dumps(final_result))"
+                },
+                "version": "1.2.4",
+                "connector": "code-snippet",
+                "operation": "python_inline",
+                "operationTitle": "Execute Python Code",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/1fdd14cc-d6b4-4335-a3af-ab49c8ed2fd8",
+            "uuid": "85fc9a1c-a351-42a1-88f6-03b948920d3c",
+            "id": 2232
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create IP Indicators",
+            "description": null,
+            "arguments": {
+                "for_each": {
+                    "item": "{{vars.steps.Extract_IOC_Data.data['code_output'].ipAddress}}",
+                    "parallel": false,
+                    "condition": ""
+                },
+                "arguments": {
+                    "ioc_type": "IP Address",
+                    "ioc_batch": "{{vars.item.IOC}}"
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "workflowReference": "\/api\/3\/workflows\/c740f4ed-2194-4b3e-9f86-b1bcd62f5469"
+            },
+            "status": null,
+            "top": "570",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "dcd52bf7-0618-426f-a45b-ed6ab4f19adf",
+            "id": 2233
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Domain Indicators",
+            "description": null,
+            "arguments": {
+                "for_each": {
+                    "item": "{{vars.steps.Extract_IOC_Data.data['code_output'].domain}}",
+                    "parallel": false,
+                    "condition": ""
+                },
+                "arguments": {
+                    "ioc_type": "Domain",
+                    "ioc_batch": "{{vars.item.IOC}}"
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "workflowReference": "\/api\/3\/workflows\/c740f4ed-2194-4b3e-9f86-b1bcd62f5469"
+            },
+            "status": null,
+            "top": "705",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "3ef3032a-7be6-44cb-8c0e-76c723025d1d",
+            "id": 2234
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create URL Indicators",
+            "description": null,
+            "arguments": {
+                "for_each": {
+                    "item": "{{vars.steps.Extract_IOC_Data.data['code_output'].urls}}",
+                    "parallel": false,
+                    "condition": ""
+                },
+                "arguments": {
+                    "ioc_type": "URL",
+                    "ioc_batch": "{{vars.item.IOC}}"
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "workflowReference": "\/api\/3\/workflows\/c740f4ed-2194-4b3e-9f86-b1bcd62f5469"
+            },
+            "status": null,
+            "top": "840",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "8a997a1f-5bb2-4a2f-bf11-6a8f8feaa2e8",
+            "id": 2235
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/7bf83027-5c91-484f-9eb5-0ea761f7ba58",
+            "sourceStep": "\/api\/3\/workflow_steps\/1911649a-dca1-4999-aa6d-08b6c07741cf",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "25a2fb74-e3e0-40ee-98fc-4ef651d143b1"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Download File",
+            "targetStep": "\/api\/3\/workflow_steps\/286064eb-52df-461a-80fd-c73189728b6f",
+            "sourceStep": "\/api\/3\/workflow_steps\/7bf83027-5c91-484f-9eb5-0ea761f7ba58",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "4ace6f62-de2b-453c-8c17-d6f8a923a011"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Download File -> Extract IOC Data",
+            "targetStep": "\/api\/3\/workflow_steps\/85fc9a1c-a351-42a1-88f6-03b948920d3c",
+            "sourceStep": "\/api\/3\/workflow_steps\/286064eb-52df-461a-80fd-c73189728b6f",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "94f2c1a3-3830-40ae-89c5-5988aa3c9773"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Extract IOC Data -> Create IP Indicators",
+            "targetStep": "\/api\/3\/workflow_steps\/dcd52bf7-0618-426f-a45b-ed6ab4f19adf",
+            "sourceStep": "\/api\/3\/workflow_steps\/85fc9a1c-a351-42a1-88f6-03b948920d3c",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "f62ea280-f467-4b09-8ef6-4bce63c57875"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create IP Indicators -> Create Domain Indicators",
+            "targetStep": "\/api\/3\/workflow_steps\/3ef3032a-7be6-44cb-8c0e-76c723025d1d",
+            "sourceStep": "\/api\/3\/workflow_steps\/dcd52bf7-0618-426f-a45b-ed6ab4f19adf",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "c2a1aa5a-7409-4195-ad9c-20f82662dd7e"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Domain Indicators -> Copy  of Create Domain Indicators",
+            "targetStep": "\/api\/3\/workflow_steps\/8a997a1f-5bb2-4a2f-bf11-6a8f8feaa2e8",
+            "sourceStep": "\/api\/3\/workflow_steps\/3ef3032a-7be6-44cb-8c0e-76c723025d1d",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "b649765d-e292-4752-8b1e-274ab501f9c3"
+        }
+    ],
+    "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+    "uuid": "b5fd1ea2-03a3-4974-98f0-34fac6ec49ed",
+    "recordTags": [
+        "ManualTrigger"
+    ],
+    "id": 310,
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1640630621,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1640630621,
+    "owners": [],
+    "isPrivate": false
+}

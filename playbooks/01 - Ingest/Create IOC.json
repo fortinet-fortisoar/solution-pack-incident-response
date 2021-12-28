@@ -1,0 +1,135 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Create IOC",
+    "aliasName": null,
+    "tag": null,
+    "description": "Creates indicators",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "ioc_type",
+        "ioc_batch"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1640631182,
+    "collection": "\/api\/3\/workflow_collections\/e89547bc-8668-47f4-8098-b16b05d2f8dd",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/fa39b428-7902-4c7c-ab77-a781162689f6",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": []
+                    }
+                }
+            },
+            "status": null,
+            "top": "40",
+            "left": "40",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "fa39b428-7902-4c7c-ab77-a781162689f6",
+            "id": 2236
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Indicator",
+            "description": null,
+            "arguments": {
+                "for_each": {
+                    "item": "{{vars.input.params['ioc_batch']}}",
+                    "__bulk": true,
+                    "parallel": false,
+                    "condition": "",
+                    "batch_size": 300
+                },
+                "resource": {
+                    "tlp": {
+                        "id": 297,
+                        "@id": "\/api\/3\/picklists\/7bff95b7-6438-4b01-b23a-0fe8cb5b33d3",
+                        "icon": null,
+                        "uuid": "7bff95b7-6438-4b01-b23a-0fe8cb5b33d3",
+                        "@type": "Picklist",
+                        "color": "#FFBF00",
+                        "display": "Amber",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/40f1345f-f679-43c0-9237-5b06edd8385f",
+                        "itemValue": "Amber",
+                        "orderIndex": 1
+                    },
+                    "value": "{{vars.item}}",
+                    "__replace": "false",
+                    "reputation": {
+                        "id": 171,
+                        "@id": "\/api\/3\/picklists\/ae98ebc6-beef-4882-9980-1d88fc6d87cd",
+                        "icon": null,
+                        "uuid": "ae98ebc6-beef-4882-9980-1d88fc6d87cd",
+                        "@type": "Picklist",
+                        "color": "#696969",
+                        "display": "TBD",
+                        "listName": "\/api\/3\/picklist_names\/e75ed3c3-9f23-4a43-832b-0daf236209ba",
+                        "itemValue": "TBD",
+                        "orderIndex": 3
+                    },
+                    "indicatorStatus": {
+                        "id": 369,
+                        "@id": "\/api\/3\/picklists\/2f5cff61-fbff-4bb3-96be-302b78a9fb47",
+                        "icon": null,
+                        "uuid": "2f5cff61-fbff-4bb3-96be-302b78a9fb47",
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "TBD",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/e6639d57-94a9-432f-a46f-b2b530402077",
+                        "itemValue": "TBD",
+                        "orderIndex": 3
+                    },
+                    "typeofindicator": "{{\"IndicatorType\" | picklist(vars.input.params['ioc_type'], \"@id\")}}"
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/upsert\/indicators",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "204",
+            "left": "238",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "3440466d-5c93-4d35-b89d-7ba443f0ffb3",
+            "id": 2237
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Create Indicator",
+            "targetStep": "\/api\/3\/workflow_steps\/3440466d-5c93-4d35-b89d-7ba443f0ffb3",
+            "sourceStep": "\/api\/3\/workflow_steps\/fa39b428-7902-4c7c-ab77-a781162689f6",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "7e58d428-e80f-4b6f-9089-bdef8d461ac7"
+        }
+    ],
+    "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+    "uuid": "c740f4ed-2194-4b3e-9f86-b1bcd62f5469",
+    "recordTags": [
+        "Subroutine"
+    ],
+    "id": 311,
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1640630621,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1640631183,
+    "owners": [],
+    "isPrivate": false
+}
