@@ -1,0 +1,128 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Email (Manual Attach) > File to Alert (Suspicious Email)",
+    "aliasName": null,
+    "tag": null,
+    "description": "This playbook allows to attach an email to alert of type suspicious email and investigates",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1640848131,
+    "collection": "\/api\/3\/workflow_collections\/817daef5-8d0e-4c2e-8cd7-7d5d8da9ceb4",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/859638d4-8b5e-4ee1-8d88-9c1393a7b138",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "27cc8538-9c85-46ce-9dd4-b4af0cc6d2ca",
+                "title": "Attach Email",
+                "resources": [
+                    "alerts"
+                ],
+                "inputVariables": [
+                    {
+                        "name": "emailFile",
+                        "type": "string",
+                        "label": "Email File",
+                        "tooltip": "Upload email file, either *.eml or *.msg extension",
+                        "dataType": "text",
+                        "formType": "text",
+                        "required": true,
+                        "_expanded": true,
+                        "moduleField": "fileEmail",
+                        "_previousName": "",
+                        "useRecordFieldDefault": true
+                    }
+                ],
+                "step_variables": {
+                    "input": {
+                        "params": {
+                            "emailFile": "{{vars.request.data[\"emailFile\"]}}"
+                        },
+                        "records": "{{vars.input.records}}"
+                    }
+                },
+                "_promptexpanded": true,
+                "displayConditions": {
+                    "alerts": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": [
+                            {
+                                "type": "object",
+                                "field": "type",
+                                "value": "\/api\/3\/picklists\/c145394b-069a-449b-a05e-67980d0f4b82",
+                                "_value": {
+                                    "@id": "\/api\/3\/picklists\/c145394b-069a-449b-a05e-67980d0f4b82",
+                                    "itemValue": "Suspicious Email"
+                                },
+                                "operator": "eq"
+                            }
+                        ]
+                    }
+                },
+                "executeButtonText": "Upload File",
+                "noRecordExecution": false,
+                "singleRecordExecution": true
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "uuid": "859638d4-8b5e-4ee1-8d88-9c1393a7b138",
+            "id": 4453
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Add email file to alert",
+            "description": null,
+            "arguments": {
+                "arguments": {
+                    "file_iri": "{{vars.input.params.emailFile}}",
+                    "alert_iri": "{{vars.input.records[0]['@id']}}"
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "workflowReference": "\/api\/3\/workflows\/c3446061-8177-4098-9b17-0a748713762f"
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "3d851afa-b3cd-4cea-8150-5730c23da73b",
+            "id": 4454
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Add email file to alert",
+            "targetStep": "\/api\/3\/workflow_steps\/3d851afa-b3cd-4cea-8150-5730c23da73b",
+            "sourceStep": "\/api\/3\/workflow_steps\/859638d4-8b5e-4ee1-8d88-9c1393a7b138",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "470fd2af-e375-4666-ad25-9a7ec410ae7a"
+        }
+    ],
+    "priority": null,
+    "uuid": "ae10e0e9-cc05-4835-b080-e7a4b2ee8bc8",
+    "recordTags": [
+        "ManualAction"
+    ],
+    "id": 1134,
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1640848131.416549,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1640848131.416549,
+    "owners": [],
+    "isPrivate": false,
+    "deletedAt": null
+}

@@ -1,0 +1,182 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Email (Manual Upload) > Extract Attachments",
+    "aliasName": null,
+    "tag": null,
+    "description": "This playbook will extract attachments, create indicators and link to parent alert",
+    "isActive": true,
+    "debug": true,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "attachments",
+        "fileIndicatorType",
+        "alertRecordIRI",
+        "emailRecordIRI",
+        "incidentRecordIRI",
+        "assetIRI"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1640848327,
+    "collection": "\/api\/3\/workflow_collections\/817daef5-8d0e-4c2e-8cd7-7d5d8da9ceb4",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/995f370f-2848-4266-bcac-a3176583f9c3",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Indicators",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "file": "{{vars.steps.Upload_File_IOCs.data['@id'] or None }}",
+                    "value": "{{vars.steps.Upload_File_IOCs.data.filename}}",
+                    "__link": {
+                        "alerts": "{{vars.input.params.alertRecordIRI}}"
+                    },
+                    "__replace": "false",
+                    "reputation": {
+                        "id": 198,
+                        "@id": "\/api\/3\/picklists\/ae98ebc6-beef-4882-9980-1d88fc6d87cd",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": "#696969",
+                        "display": "TBD",
+                        "listName": "\/api\/3\/picklist_names\/e75ed3c3-9f23-4a43-832b-0daf236209ba",
+                        "itemValue": "TBD",
+                        "orderIndex": 3
+                    },
+                    "typeofindicator": "{{vars.input.params.fileIndicatorType}}"
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "\/api\/3\/upsert\/indicators",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "uuid": "96249cee-383d-4e05-a9cc-b5be8c1d2a7d",
+            "id": 4449
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": {
+                            "assetIRI": "{{ vars.assetIRI }}",
+                            "attachments": "{{ vars.attachments }}",
+                            "alertRecordIRI": "{{ vars.alertRecordIRI }}",
+                            "emailRecordIRI": "{{ vars.emailRecordIRI }}",
+                            "fileIndicatorType": "{{ vars.fileIndicatorType }}",
+                            "incidentRecordIRI": "{{ vars.incidentRecordIRI }}"
+                        }
+                    }
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "995f370f-2848-4266-bcac-a3176583f9c3",
+            "id": 4450
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Link Indicator",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "alerts": "{{vars.input.params.alertRecordIRI}}"
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "{{vars.steps.Create_Indicators['@id']}}",
+                "collectionType": "\/api\/3\/indicators",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "uuid": "51c45afd-7248-4007-8abc-44bff6c9b743",
+            "id": 4451
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Upload File IOCs",
+            "description": null,
+            "arguments": {
+                "config": "2fa67174-36d0-4870-a84d-76f09043b548",
+                "params": {
+                    "filename": "{{vars.input.params.attachments.metadata.filename}}",
+                    "file_path": "{{vars.input.params.attachments.file}}",
+                    "create_attachment": false
+                },
+                "version": "3.0.0",
+                "connector": "cyops_utilities",
+                "operation": "upload_file_to_cyops",
+                "operationTitle": "File: Upload a file to CyOPs and Create an Attachment",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "835b4d3d-45b6-4f5c-92fe-64489cebdbda",
+            "id": 4452
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Indicators -> Link Indicator",
+            "targetStep": "\/api\/3\/workflow_steps\/51c45afd-7248-4007-8abc-44bff6c9b743",
+            "sourceStep": "\/api\/3\/workflow_steps\/96249cee-383d-4e05-a9cc-b5be8c1d2a7d",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "d64230f9-7b67-409d-9ceb-5aaa5624b31c"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Upload File IOCs",
+            "targetStep": "\/api\/3\/workflow_steps\/835b4d3d-45b6-4f5c-92fe-64489cebdbda",
+            "sourceStep": "\/api\/3\/workflow_steps\/995f370f-2848-4266-bcac-a3176583f9c3",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "3211682f-b8b8-476f-aacc-5915f2659b83"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Upload File IOCs -> Create Indicators",
+            "targetStep": "\/api\/3\/workflow_steps\/96249cee-383d-4e05-a9cc-b5be8c1d2a7d",
+            "sourceStep": "\/api\/3\/workflow_steps\/835b4d3d-45b6-4f5c-92fe-64489cebdbda",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "7b61cd28-0c59-432d-8279-35e4737f0373"
+        }
+    ],
+    "priority": null,
+    "uuid": "9cc4c22a-a72c-40bf-9336-23c3093734f9",
+    "recordTags": [
+        "Subroutine"
+    ],
+    "id": 1133,
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1640848131.413228,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1640848327.597962,
+    "owners": [],
+    "isPrivate": false,
+    "deletedAt": null
+}
